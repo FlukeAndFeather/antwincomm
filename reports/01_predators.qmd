@@ -1,0 +1,55 @@
+---
+title: "Predator summary"
+format:
+  html:
+    code-fold: true
+editor: visual
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(targets)
+library(tidyverse)
+
+tar_load("predators_agg", store = here::here("_targets"))
+```
+
+# South Georgia winter predators
+
+## Counts
+
+The six most abundant species.
+
+```{r}
+
+top_six <- predators_agg %>% 
+  group_by(species) %>% 
+  summarize(total_count = sum(count)) %>% 
+  arrange(desc(total_count)) %>%
+  slice(1:6)
+
+top_six
+```
+
+```{r}
+
+top_six_plot_data <- predators_agg %>% 
+  semi_join(top_six, by = "species") %>% 
+  group_by(year, species) %>% 
+  summarize(total = sum(count), .groups = "drop") %>% 
+  mutate(species = fct_reorder(species, total, .fun = sum),
+         year = factor(year, levels = 2016:2012))
+year_labels <- top_six_plot_data %>% 
+  filter(species == "SNPT") %>% 
+  arrange(desc(year)) %>%                   # Make the labels show up at
+  mutate(total = cumsum(total) - total / 2) # correct y-axis position
+
+ggplot(top_six_plot_data, aes(species, total, group = year)) +
+  geom_col(color = "black", fill = "grey80") +
+  geom_text(aes(label = year), year_labels) +
+  labs(y = "Total species count") +
+  theme_classic() +
+  theme(axis.title.x = element_blank())
+```

@@ -1,0 +1,7 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+.Random.seed|object|38825f1c9e18a6fc|||||||||||||||
+aggregate_predators|function|9a8cf9427e970ee6|||||||||||||||
+predator_summary|stem|1f68426d136bd7e4|0768f2196b103e4b|ba4784f076cb6d1c|-1516829153|reports/01_predators.html*reports/01_predators.qmd|t19381.9775171396s|c72b4faeedfbe9ca|16353|file|local|vector|||5.508||
+predators|stem|18bfc18d81b1c596|ae3a7713277e98c8|9d06f3db2c61cbaf|-164442843||t19381.953429502s|3731c1f15cdca704|972063|rds|local|vector|||0.302||
+predators_agg|stem|fb45bd0d91f8f219|1f53c6d2d5b8cbec|5941e8d6e93c4c51|-374844731||t19381.953430943s|f344b34150eff85c|86089|rds|local|vector|||0.1||
+predators_file|stem|fc2f43e02077adfa|b8d29036ada0a165|4e3739ef91745af0|1489732230|/Users/frank/Documents/GitHub/manuscripts/sgwincomm/data/WAMLR/WAMLR-2012-2016-Underway-Predator-Sightings.csv|t19361.8789351852s|675861551bea89bc|4474693|file|local|vector|||0.002||
