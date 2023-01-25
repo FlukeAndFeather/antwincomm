@@ -13,8 +13,22 @@ tar_option_set(
 tar_source()
 
 # Pipeline
-predators <- read_csv("data/WAMLR/WAMLR-2012-2016-Underway-Predator-Sightings.csv")
 list(
+  # Spatial data
+  tar_target(
+    ne_dir,
+    here("data", "geospatial", "ne"),
+    format = "file"
+  ),
+  tar_target(
+    ne_data,
+    download_ne(ne_dir)
+  ),
+  tar_target(
+    sg_sf,
+    create_sg_sf(ne_dir)
+  ),
+  # Predators
   tar_target(
     predators_file,
     here("data", "WAMLR", "WAMLR-2012-2016-Underway-Predator-Sightings.csv"),
