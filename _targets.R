@@ -36,5 +36,6 @@ list(
   ),
   tar_target(predators, readr::read_csv(predators_file)),
   tar_target(predators_agg, aggregate_predators(predators)),
-  tar_quarto(predator_summary, here("reports", "01_predators.qmd"))
+  # Reports
+  tar_quarto(reports, here("reports"))
 )
