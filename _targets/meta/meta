@@ -1,14 +1,17 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|0a584ad962764221|||||||||||||||
+.Random.seed|object|4c81fb7215a4a474|||||||||||||||
 aggregate_predators|function|9a8cf9427e970ee6|||||||||||||||
-create_sg_sf|function|2441290a72ade9bd|||||||||||||||
+create_sg_sf|function|fae9883616e11682|||||||||||||||
 download_ne|function|f843ed249d62004e|||||||||||||||
 expand_bbox|function|5af935961f84775a|||||||||||||||
 ne_data|stem|53ddbe531493da20|08f4b1ea773d5b36|f98a89bee10f0d84|-394386540||t19382.8237188539s|afe9b3efafe60fa9|3178639|rds|local|vector|||1.394||
 ne_dir|stem|8f72953e55934289|9ef4bcd80e137b54|4e3739ef91745af0|-1431853077|/Users/frank/Documents/GitHub/manuscripts/sgwincomm/data/geospatial/ne|t19382.8224529706s|73a5f5604ca1ab33|288|file|local|vector|||0.004||
-predator_summary|stem|abe461bef27023d5|9087845dc44d68c4|61ae06ffbe5cbb22|-1516829153|reports/01_predators.html*reports/01_predators.qmd|t19382.8294692261s|d44d09f3145cee31|22451|file|local|vector|||7.912||
+predator_summary|stem|6155e36b0235d009|9087845dc44d68c4|61ae06ffbe5cbb22|-1516829153|reports/01_predators.html*reports/01_predators.qmd|t19382.8785885732s|774178fba7bbad24|22773|file|local|vector|||17.994||
 predators|stem|18bfc18d81b1c596|ae3a7713277e98c8|9d06f3db2c61cbaf|-164442843||t19381.953429502s|3731c1f15cdca704|972063|rds|local|vector|||0.302||
 predators_agg|stem|fb45bd0d91f8f219|1f53c6d2d5b8cbec|5941e8d6e93c4c51|-374844731||t19381.953430943s|f344b34150eff85c|86089|rds|local|vector|||0.1||
 predators_file|stem|fc2f43e02077adfa|b8d29036ada0a165|4e3739ef91745af0|1489732230|/Users/frank/Documents/GitHub/manuscripts/sgwincomm/data/WAMLR/WAMLR-2012-2016-Underway-Predator-Sightings.csv|t19361.8789351852s|675861551bea89bc|4474693|file|local|vector|||0.002||
+rasterize_counts|function|ed45b4ad8c4ac6de|||||||||||||||
+sg_lims|function|4ab5c5ec83e1f997|||||||||||||||
 sg_proj|function|86384be927f049bc|||||||||||||||
-sg_sf|stem|93741fc1cf5bfddd|77b8d8a5ce25c5a0|ae72089500675b63|205047829||t19382.8237377707s|ca580f4baca49036|26053|rds|local|vector|||1.616|attribute variables are assumed to be spatially constant throughout all geometries|
+sg_raster_template|function|ec1519f94d8ba3e5|||||||||||||||
+sg_sf|stem|93741fc1cf5bfddd|77b8d8a5ce25c5a0|331fc429a45061bb|205047829||t19382.8783765247s|ca580f4baca49036|26053|rds|local|vector|||2.114|attribute variables are assumed to be spatially constant throughout all geometries|

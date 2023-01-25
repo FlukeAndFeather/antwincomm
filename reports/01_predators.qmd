@@ -58,29 +58,33 @@ ggplot(top_six_plot_data, aes(species, total, group = year)) +
 ### Maps
 
 ```{r}
-#| label: predator_map
+#| label: snpt_map
+#| warning: false
 
-predators_sf <- predators_agg %>% 
-  semi_join(top_six, by = "species") %>% 
-  filter(year == 2016) %>% 
+snpt_sf <- predators_agg %>% 
+  filter(species == "SNPT",
+         year == 2016) %>% 
   sf::st_as_sf(coords = c("lon_mean", "lat_mean"), 
                crs = sp::CRS("+proj=longlat +datum=WGS84"))
 
-map_lim <- sf::st_bbox(predators_sf) %>% 
+snpt_stars <- rasterize_counts(snpt_sf, res = 1e4, layer_name = "SNPT")
+
+map_lim <- sf::st_bbox(snpt_sf) %>% 
   sf::st_as_sfc(crs = "EPSG:4326") %>% 
   sf::st_transform(sg_proj()) %>% 
   sf::st_bbox()
 
 ggplot() +
   geom_sf(data = sg_sf) +
-  geom_sf(aes(color = count), data = predators_sf) +
-  scale_color_gradient(low = "lightblue", high = "darkred",
-                       limits = c(0, 1000)) +
-  facet_wrap(~species) +
-  coord_sf(xlim = map_lim[c("xmin", "xmax")] + c(-1e5, 1e5),
-           ylim = map_lim[c("ymin", "ymax")] + c(-1e5, 1e5),
+  stars::geom_stars(aes(fill = SNPT), data = snpt_stars) +
+  scale_fill_gradient(low = "lightblue", high = "darkred",
+                      na.value = NA) +
+  expand_limits(fill = 0) +
+  coord_sf(xlim = map_lim[c("xmin", "xmax")],
+           ylim = map_lim[c("ymin", "ymax")],
            expand = FALSE,
            crs = sg_proj()) +
-  theme_minimal()
+  theme_minimal() +
+  theme(axis.title = element_blank())
 
 ```
