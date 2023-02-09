@@ -70,21 +70,13 @@ snpt_sf <- predators_agg %>%
 snpt_stars <- rasterize_counts(snpt_sf, res = 1e4, layer_name = "SNPT")
 
 map_lim <- sf::st_bbox(snpt_sf) %>% 
-  sf::st_as_sfc(crs = "EPSG:4326") %>% 
-  sf::st_transform(ant_proj()) %>% 
-  sf::st_bbox()
+  project_bbox() %>% 
+  expand_bbox(factor = 1.2)
 
-ggplot() +
-  geom_sf(data = ant_sf) +
+ant_basemap(map_lim) +
   stars::geom_stars(aes(fill = SNPT), data = snpt_stars) +
   scale_fill_gradient(low = "lightblue", high = "darkred",
                       na.value = NA) +
-  expand_limits(fill = 0) +
-  coord_sf(xlim = map_lim[c("xmin", "xmax")],
-           ylim = map_lim[c("ymin", "ymax")],
-           expand = FALSE,
-           crs = ant_proj()) +
-  theme_minimal() +
-  theme(axis.title = element_blank())
+  expand_limits(fill = 0)
 
 ```
