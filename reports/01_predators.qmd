@@ -65,8 +65,7 @@ ggplot(top_six_plot_data, aes(species, total, group = year)) +
 snpt_sf <- predators_agg %>% 
   filter(species == "SNPT",
          year == 2016) %>% 
-  sf::st_as_sf(coords = c("lon_mean", "lat_mean"), 
-               crs = sp::CRS("+proj=longlat +datum=WGS84"))
+  latlon_to_sf(coords = c("lon_mean", "lat_mean"))
 
 snpt_stars <- rasterize_counts(snpt_sf, res = 1e4, layer_name = "SNPT")
 

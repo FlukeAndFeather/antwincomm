@@ -52,3 +52,24 @@ rasterize_counts <- function(counts_sf,
     setNames(layer_name)
 }
 
+latlon_to_sf <- function(df, coords = c("x", "y")) {
+  sf::st_as_sf(df,
+               coords = coords,
+               crs = sp::CRS("+proj=longlat +datum=WGS84"))
+}
+
+sg_basemap <- function() {
+  map_lim <- sf::st_bbox(sg_lims(), crs = "EPSG:4326") %>%
+    sf::st_as_sfc() %>%
+    sf::st_transform(sg_proj()) %>%
+    sf::st_bbox()
+
+  ggplot() +
+    geom_sf(data = tar_read("sg_sf", store = here::here("_targets"))) +
+    coord_sf(xlim = map_lim[c("xmin", "xmax")],
+             ylim = map_lim[c("ymin", "ymax")],
+             expand = FALSE,
+             crs = sg_proj()) +
+    theme_minimal() +
+    theme(axis.title = element_blank())
+}
