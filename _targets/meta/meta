@@ -1,7 +1,7 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|bd0b7216ac4b8e59|||||||||||||||
+.Random.seed|object|f4219f776df9842b|||||||||||||||
 aggregate_predators|function|9a8cf9427e970ee6|||||||||||||||
-ant_basemap|function|0ae4b47aff1b8725|||||||||||||||
+ant_basemap|function|7eec623184eeada4|||||||||||||||
 ant_lims|function|4ab5c5ec83e1f997|||||||||||||||
 ant_proj|function|62a0b1d92f42fea0|||||||||||||||
 ant_raster_template|function|5f35f35ae35311c6|||||||||||||||
@@ -9,7 +9,7 @@ ant_sf|stem|93741fc1cf5bfddd|52baa934608b319e|bd771f7caed03eb2|-329311475||t1939
 create_ant_sf|function|95af53f889a359db|||||||||||||||
 create_sg_sf|function|fae9883616e11682|||||||||||||||
 download_ne|function|f843ed249d62004e|||||||||||||||
-expand_bbox|function|5af935961f84775a|||||||||||||||
+expand_bbox|function|56087ff1f8b5d4b0|||||||||||||||
 latlon_to_sf|function|41433edcc24429d5|||||||||||||||
 ne_data|stem|53ddbe531493da20|08f4b1ea773d5b36|f98a89bee10f0d84|-394386540||t19397.7538941843s|afe9b3efafe60fa9|3178639|rds|local|vector|||1.361||
 ne_dir|stem|8f72953e55934289|9ef4bcd80e137b54|4e3739ef91745af0|-1431853077|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/geospatial/ne|t19382.8224529706s|73a5f5604ca1ab33|288|file|local|vector|||0.003||
@@ -18,9 +18,9 @@ predators|stem|18bfc18d81b1c596|ae3a7713277e98c8|9d06f3db2c61cbaf|-164442843||t1
 predators_agg|stem|fb45bd0d91f8f219|1f53c6d2d5b8cbec|5941e8d6e93c4c51|-374844731||t19397.754248658s|f344b34150eff85c|86089|rds|local|vector|||0.092||
 predators_file|stem|fc2f43e02077adfa|b8d29036ada0a165|4e3739ef91745af0|1489732230|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/WAMLR/WAMLR-2012-2016-Underway-Predator-Sightings.csv|t19361.8789351852s|675861551bea89bc|4474693|file|local|vector|||0.001||
 project_bbox|function|c81b1d38a6eb0043|||||||||||||||
-rasterize_counts|function|88b12d80ee582224|||||||||||||||
+rasterize_counts|function|84f314e8f96b00a5|||||||||||||||
 read_zoop|function|3bc840429d3a37a7|||||||||||||||
-reports|stem|292a6aacc9f2d20d|b0462537a2db20cf|d3f08e3a95befdd3|-653841556|docs*reports/01_predators.qmd*reports/02_stations.qmd*reports/_quarto.yml|t19397.7822630338s|7eb8aae5269cbfdd|1721746|file|local|vector|||14.433||
+reports|stem|89ef6616270701ed|b0462537a2db20cf|d3f08e3a95befdd3|-653841556|docs*reports/01_predators.qmd*reports/02_stations.qmd*reports/_quarto.yml|t19397.9173256039s|762b502931e5dbcd|1851748|file|local|vector|||35.73||
 sg_lims|function|4ab5c5ec83e1f997|||||||||||||||
 sg_proj|function|86384be927f049bc|||||||||||||||
 sg_raster_template|function|ec1519f94d8ba3e5|||||||||||||||

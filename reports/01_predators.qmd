@@ -22,33 +22,33 @@ source(here::here("R", "sp.R"))
 
 ### Counts
 
-The six most abundant species.
+The five most abundant species.
 
 ```{r}
 
-top_six <- predators_agg %>% 
+top_five <- predators_agg %>% 
   group_by(species) %>% 
   summarize(total_count = sum(count)) %>% 
   arrange(desc(total_count)) %>%
-  slice(1:6)
+  slice(1:5)
 
-top_six
+top_five
 ```
 
 ```{r}
 
-top_six_plot_data <- predators_agg %>% 
-  semi_join(top_six, by = "species") %>% 
+top_five_plot_data <- predators_agg %>% 
+  semi_join(top_five, by = "species") %>% 
   group_by(year, species) %>% 
   summarize(total = sum(count), .groups = "drop") %>% 
   mutate(species = fct_reorder(species, total, .fun = sum),
          year = factor(year, levels = 2016:2012))
-year_labels <- top_six_plot_data %>% 
+year_labels <- top_five_plot_data %>% 
   filter(species == "SNPT") %>% 
   arrange(desc(year)) %>%                   # Make the labels show up at
   mutate(total = cumsum(total) - total / 2) # correct y-axis position
 
-ggplot(top_six_plot_data, aes(species, total, group = year)) +
+ggplot(top_five_plot_data, aes(species, total, group = year)) +
   geom_col(color = "black", fill = "grey80") +
   geom_text(aes(label = year), year_labels) +
   labs(y = "Total species count") +
@@ -59,24 +59,32 @@ ggplot(top_six_plot_data, aes(species, total, group = year)) +
 ### Maps
 
 ```{r}
-#| label: snpt_map
+#| label: topfive_map
 #| warning: false
+#| column: screen
+#| out-width: 100%
+#| fig-width: 6
+#| fig-dpi: 600
 
-snpt_sf <- predators_agg %>% 
-  filter(species == "SNPT",
-         year == 2016) %>% 
+topfive_sf <- predators_agg %>% 
+  semi_join(top_five, by = "species") %>% 
   latlon_to_sf(coords = c("lon_mean", "lat_mean"))
 
-snpt_stars <- rasterize_counts(snpt_sf, res = 1e4, layer_name = "SNPT")
+topfive_stars <- rasterize_counts(topfive_sf, res = 5e4)
 
-map_lim <- sf::st_bbox(snpt_sf) %>% 
+map_lim <- sf::st_bbox(topfive_sf) %>% 
   project_bbox() %>% 
   expand_bbox(factor = 1.2)
 
 ant_basemap(map_lim) +
-  stars::geom_stars(aes(fill = SNPT), data = snpt_stars) +
+  stars::geom_stars(aes(fill = count), data = topfive_stars) +
   scale_fill_gradient(low = "lightblue", high = "darkred",
+                      trans = scales::pseudo_log_trans(),
+                      breaks = c(0, 25, 100, 400, 1000, 4000),
                       na.value = NA) +
-  expand_limits(fill = 0)
-
+  scale_x_continuous(breaks = c(-65, -60, -55)) +
+  scale_y_continuous(breaks = c(-64, -62, -60, -58)) +
+  facet_grid(species ~ year) +
+  expand_limits(fill = 0) +
+  theme(axis.text.x = element_text(size = 7))
 ```

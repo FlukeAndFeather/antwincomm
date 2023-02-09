@@ -40,19 +40,39 @@ ant_raster_template <- function(limits = ant_lims(), res = 5e4) {
                  resolution = res)
 }
 
+# By species and year
 rasterize_counts <- function(counts_sf,
+                             count_col = "count",
+                             species_col = "species",
+                             year_col = "year",
+                             layer_name = count_col,
                              limits = ant_lims(),
-                             res = 5e4,
-                             layer_name = "counts") {
-  raster::rasterize(
-    sf::as_Spatial(sf::st_transform(counts_sf, ant_proj())),
-    ant_raster_template(limits, res),
-    field = "count",
-    fun = "sum",
-    na.rm = TRUE
+                             res = 5e4) {
+
+  # Group counts, call rasterize on each group, convert back to df
+  rasterized_df <- counts_sf %>%
+    group_by(.data[[species_col]], .data[[year_col]]) %>%
+    group_modify(
+      function(rows, key) {
+        result <- raster::rasterize(
+          sf::as_Spatial(sf::st_transform(rows, ant_proj())),
+          ant_raster_template(limits, res),
+          field = count_col,
+          fun = "sum",
+          na.rm = TRUE
+        ) %>%
+          raster::as.data.frame(xy = TRUE) %>%
+          rename(!!layer_name := layer)
+      }
+    )
+
+  # Convert df to stars and set projection
+  stars::st_as_stars(
+    rasterized_df,
+    dims = 1:4,
+    xy = 3:4
   ) %>%
-    stars::st_as_stars() %>%
-    setNames(layer_name)
+    sf::st_set_crs(ant_proj())
 }
 
 latlon_to_sf <- function(df, coords = c("x", "y")) {
