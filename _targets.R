@@ -36,6 +36,13 @@ list(
   ),
   tar_target(predators, readr::read_csv(predators_file)),
   tar_target(predators_agg, aggregate_predators(predators)),
+  # Zooplankton
+  tar_target(
+    zoop_file,
+    here("data", "WAMLR", "WAMLR-2012-2016-Zooplnkton-Physics.xlsx"),
+    format = "file"
+  ),
+  tar_target(zoop, read_zoop(zoop_file)),
   # Reports
   tar_quarto(reports, here("reports"))
 )

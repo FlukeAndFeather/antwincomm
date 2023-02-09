@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|674f5dd2979d6184|||||||||||||||
+.Random.seed|object|ad10113637832a98|||||||||||||||
 aggregate_predators|function|9a8cf9427e970ee6|||||||||||||||
 create_sg_sf|function|fae9883616e11682|||||||||||||||
 download_ne|function|f843ed249d62004e|||||||||||||||
@@ -11,8 +11,11 @@ predators|stem|18bfc18d81b1c596|ae3a7713277e98c8|9d06f3db2c61cbaf|-164442843||t1
 predators_agg|stem|fb45bd0d91f8f219|1f53c6d2d5b8cbec|5941e8d6e93c4c51|-374844731||t19381.953430943s|f344b34150eff85c|86089|rds|local|vector|||0.1||
 predators_file|stem|fc2f43e02077adfa|b8d29036ada0a165|4e3739ef91745af0|1489732230|/Users/frank/Documents/GitHub/manuscripts/sgwincomm/data/WAMLR/WAMLR-2012-2016-Underway-Predator-Sightings.csv|t19361.8789351852s|675861551bea89bc|4474693|file|local|vector|||0.002||
 rasterize_counts|function|ed45b4ad8c4ac6de|||||||||||||||
-reports|stem|2127d39473a6c90a|2a9e7f306f9c841d|61ae06ffbe5cbb22|-653841556|docs*reports/01_predators.qmd*reports/_quarto.yml|t19382.8910071783s|bfced6e198342079|889103|file|local|vector|||12.458||
+read_zoop|function|3bc840429d3a37a7|||||||||||||||
+reports|stem|5655daf76fdcbcf7|528e2d7958df0aab|61ae06ffbe5cbb22|-653841556|docs*reports/01_predators.qmd*reports/02_stations.qmd*reports/_quarto.yml|t19390.7988022514s|acbc2ff6ad88b729|1778021|file|local|vector|||23.997||
 sg_lims|function|4ab5c5ec83e1f997|||||||||||||||
 sg_proj|function|86384be927f049bc|||||||||||||||
 sg_raster_template|function|ec1519f94d8ba3e5|||||||||||||||
 sg_sf|stem|93741fc1cf5bfddd|77b8d8a5ce25c5a0|331fc429a45061bb|205047829||t19382.8783765247s|ca580f4baca49036|26053|rds|local|vector|||2.114|attribute variables are assumed to be spatially constant throughout all geometries|
+zoop|stem|6ebb7c49aecf2554|8830561bff240ca2|2dcc62039f82eefb|365484979||t19390.7985247243s|3f63fc62ee327d34|143403|rds|local|vector|||0.162||
+zoop_file|stem|2432c7a9538515e5|5e00f228d804bd19|4e3739ef91745af0|441051823|/Users/frank/Documents/GitHub/manuscripts/sgwincomm/data/WAMLR/WAMLR-2012-2016-Zooplnkton-Physics.xlsx|t19361.9112268519s|0e772b6b71ca4b54|373054|file|local|vector|||0.002||
