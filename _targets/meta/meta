@@ -1,21 +1,28 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|ad10113637832a98|||||||||||||||
+.Random.seed|object|468e072bdf91f2d0|||||||||||||||
 aggregate_predators|function|9a8cf9427e970ee6|||||||||||||||
+ant_basemap|function|9a3f2cf430e7d68e|||||||||||||||
+ant_lims|function|4ab5c5ec83e1f997|||||||||||||||
+ant_proj|function|802e6b8d838b56d7|||||||||||||||
+ant_raster_template|function|2b0ed808670843d2|||||||||||||||
+ant_sf|stem|93741fc1cf5bfddd|52baa934608b319e|bd771f7caed03eb2|-329311475||t19397.7542379503s|ca580f4baca49036|26053|rds|local|vector|||1.761|attribute variables are assumed to be spatially constant throughout all geometries|
+create_ant_sf|function|95af53f889a359db|||||||||||||||
 create_sg_sf|function|fae9883616e11682|||||||||||||||
 download_ne|function|f843ed249d62004e|||||||||||||||
 expand_bbox|function|5af935961f84775a|||||||||||||||
-ne_data|stem|53ddbe531493da20|08f4b1ea773d5b36|f98a89bee10f0d84|-394386540||t19382.8237188539s|afe9b3efafe60fa9|3178639|rds|local|vector|||1.394||
-ne_dir|stem|8f72953e55934289|9ef4bcd80e137b54|4e3739ef91745af0|-1431853077|/Users/frank/Documents/GitHub/manuscripts/sgwincomm/data/geospatial/ne|t19382.8224529706s|73a5f5604ca1ab33|288|file|local|vector|||0.004||
+latlon_to_sf|function|41433edcc24429d5|||||||||||||||
+ne_data|stem|53ddbe531493da20|08f4b1ea773d5b36|f98a89bee10f0d84|-394386540||t19397.7538941843s|afe9b3efafe60fa9|3178639|rds|local|vector|||1.361||
+ne_dir|stem|8f72953e55934289|9ef4bcd80e137b54|4e3739ef91745af0|-1431853077|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/geospatial/ne|t19382.8224529706s|73a5f5604ca1ab33|288|file|local|vector|||0.003||
 predator_summary|stem|b97de30f73d20696|9087845dc44d68c4|61ae06ffbe5cbb22|-1516829153|reports/01_predators.html*reports/01_predators.qmd|t19382.886035175s||22792|file|local|vector|||||_paths_ 31mmissing files reports01_predators.html39m
-predators|stem|18bfc18d81b1c596|ae3a7713277e98c8|9d06f3db2c61cbaf|-164442843||t19381.953429502s|3731c1f15cdca704|972063|rds|local|vector|||0.302||
-predators_agg|stem|fb45bd0d91f8f219|1f53c6d2d5b8cbec|5941e8d6e93c4c51|-374844731||t19381.953430943s|f344b34150eff85c|86089|rds|local|vector|||0.1||
-predators_file|stem|fc2f43e02077adfa|b8d29036ada0a165|4e3739ef91745af0|1489732230|/Users/frank/Documents/GitHub/manuscripts/sgwincomm/data/WAMLR/WAMLR-2012-2016-Underway-Predator-Sightings.csv|t19361.8789351852s|675861551bea89bc|4474693|file|local|vector|||0.002||
-rasterize_counts|function|ed45b4ad8c4ac6de|||||||||||||||
+predators|stem|18bfc18d81b1c596|ae3a7713277e98c8|9d06f3db2c61cbaf|-164442843||t19397.7542456487s|3731c1f15cdca704|972063|rds|local|vector|||0.387||
+predators_agg|stem|fb45bd0d91f8f219|1f53c6d2d5b8cbec|5941e8d6e93c4c51|-374844731||t19397.754248658s|f344b34150eff85c|86089|rds|local|vector|||0.092||
+predators_file|stem|fc2f43e02077adfa|b8d29036ada0a165|4e3739ef91745af0|1489732230|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/WAMLR/WAMLR-2012-2016-Underway-Predator-Sightings.csv|t19361.8789351852s|675861551bea89bc|4474693|file|local|vector|||0.001||
+rasterize_counts|function|025d97927f931d4a|||||||||||||||
 read_zoop|function|3bc840429d3a37a7|||||||||||||||
-reports|stem|5655daf76fdcbcf7|528e2d7958df0aab|61ae06ffbe5cbb22|-653841556|docs*reports/01_predators.qmd*reports/02_stations.qmd*reports/_quarto.yml|t19390.7988022514s|acbc2ff6ad88b729|1778021|file|local|vector|||23.997||
+reports|stem|e60253ac70aadd98|b0462537a2db20cf|d3f08e3a95befdd3|-653841556|docs*reports/01_predators.qmd*reports/02_stations.qmd*reports/_quarto.yml|t19397.7583024869s|6e62418bd40aef75|1750169|file|local|vector|||13.027||
 sg_lims|function|4ab5c5ec83e1f997|||||||||||||||
 sg_proj|function|86384be927f049bc|||||||||||||||
 sg_raster_template|function|ec1519f94d8ba3e5|||||||||||||||
-sg_sf|stem|93741fc1cf5bfddd|77b8d8a5ce25c5a0|331fc429a45061bb|205047829||t19382.8783765247s|ca580f4baca49036|26053|rds|local|vector|||2.114|attribute variables are assumed to be spatially constant throughout all geometries|
-zoop|stem|6ebb7c49aecf2554|8830561bff240ca2|2dcc62039f82eefb|365484979||t19390.7985247243s|3f63fc62ee327d34|143403|rds|local|vector|||0.162||
-zoop_file|stem|2432c7a9538515e5|5e00f228d804bd19|4e3739ef91745af0|441051823|/Users/frank/Documents/GitHub/manuscripts/sgwincomm/data/WAMLR/WAMLR-2012-2016-Zooplnkton-Physics.xlsx|t19361.9112268519s|0e772b6b71ca4b54|373054|file|local|vector|||0.002||
+sg_sf|stem|93741fc1cf5bfddd|77b8d8a5ce25c5a0|a2b40cf39db365c3|205047829||t19382.8783765247s||26053|rds|local|vector|||0.006||could not find function create_sg_sf
+zoop|stem|6ebb7c49aecf2554|8830561bff240ca2|2dcc62039f82eefb|365484979||t19397.7542472629s|3f63fc62ee327d34|143403|rds|local|vector|||0.113||
+zoop_file|stem|2432c7a9538515e5|5e00f228d804bd19|4e3739ef91745af0|441051823|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/WAMLR/WAMLR-2012-2016-Zooplnkton-Physics.xlsx|t19361.9112268519s|0e772b6b71ca4b54|373054|file|local|vector|||0.002||

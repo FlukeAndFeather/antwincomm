@@ -25,8 +25,8 @@ list(
     download_ne(ne_dir)
   ),
   tar_target(
-    sg_sf,
-    create_sg_sf(ne_dir)
+    ant_sf,
+    create_ant_sf(ne_dir)
   ),
   # Predators
   tar_target(
