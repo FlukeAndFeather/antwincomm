@@ -18,11 +18,13 @@ tar_load(c("predators_agg", "ant_sf"), store = here::here("_targets"))
 source(here::here("R", "sp.R"))
 ```
 
+
 ## Antarctic Peninsula winter predators
 
 ### Counts
 
 The five most abundant species.
+
 
 ```{r}
 
@@ -56,9 +58,11 @@ ggplot(top_five_plot_data, aes(species, total, group = year)) +
   theme(axis.title.x = element_blank())
 ```
 
+
 ### Maps
 
 Distribution maps of the five most abundant species in each survey year, aggregated to 50km bins.
+
 
 ```{r}
 #| label: topfive_map
@@ -91,7 +95,9 @@ ant_basemap(map_lim) +
   theme(axis.text.x = element_text(size = 7))
 ```
 
+
 Distribution maps of five species of interest in each survey year, also aggregated to 50km bins.
+
 
 ```{r}
 #| label: soi_map
@@ -126,3 +132,4 @@ ant_basemap(map_lim) +
   coord_ant(map_lim) +
   theme(axis.text.x = element_text(size = 7))
 ```
+

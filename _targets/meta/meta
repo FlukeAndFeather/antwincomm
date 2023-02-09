@@ -1,11 +1,12 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|d938d10569d8758b|||||||||||||||
+.Random.seed|object|416cb7eba0944fcb|||||||||||||||
 aggregate_predators|function|9a8cf9427e970ee6|||||||||||||||
-ant_basemap|function|7eec623184eeada4|||||||||||||||
+ant_basemap|function|53ccb70018adf605|||||||||||||||
 ant_lims|function|4ab5c5ec83e1f997|||||||||||||||
 ant_proj|function|62a0b1d92f42fea0|||||||||||||||
 ant_raster_template|function|5f35f35ae35311c6|||||||||||||||
 ant_sf|stem|93741fc1cf5bfddd|52baa934608b319e|bd771f7caed03eb2|-329311475||t19397.7542379503s|ca580f4baca49036|26053|rds|local|vector|||1.761|attribute variables are assumed to be spatially constant throughout all geometries|
+coord_ant|function|a2bdd25e6416e9ea|||||||||||||||
 create_ant_sf|function|95af53f889a359db|||||||||||||||
 create_sg_sf|function|fae9883616e11682|||||||||||||||
 download_ne|function|f843ed249d62004e|||||||||||||||
@@ -19,11 +20,28 @@ predators_agg|stem|fb45bd0d91f8f219|1f53c6d2d5b8cbec|5941e8d6e93c4c51|-374844731
 predators_file|stem|fc2f43e02077adfa|b8d29036ada0a165|4e3739ef91745af0|1489732230|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/WAMLR/WAMLR-2012-2016-Underway-Predator-Sightings.csv|t19361.8789351852s|675861551bea89bc|4474693|file|local|vector|||0.001||
 project_bbox|function|c81b1d38a6eb0043|||||||||||||||
 rasterize_counts|function|84f314e8f96b00a5|||||||||||||||
-read_zoop|function|3bc840429d3a37a7|||||||||||||||
-reports|stem|d739a33ff3b7c706|b0462537a2db20cf|d3f08e3a95befdd3|-653841556|docs*reports/01_predators.qmd*reports/02_stations.qmd*reports/_quarto.yml|t19397.9201060886s|468bb9836a167134|2128274|file|local|vector|||33.759||
+read_zoop|function|e8f7c5b993ddf4d3|||||||||||||||
+reports|stem|1d768f002a3aa1ff|603fedd7ae275c4b|d257ac61d3a02c97|-653841556|docs*reports/01_predators.qmd*reports/02_stations.qmd*reports/_quarto.yml|t19397.944508308s||2131751|file|local|vector|||5.573||33m39m System command quarto failed
 sg_lims|function|4ab5c5ec83e1f997|||||||||||||||
 sg_proj|function|86384be927f049bc|||||||||||||||
 sg_raster_template|function|ec1519f94d8ba3e5|||||||||||||||
 sg_sf|stem|93741fc1cf5bfddd|77b8d8a5ce25c5a0|a2b40cf39db365c3|205047829||t19382.8783765247s||26053|rds|local|vector|||0.006||could not find function create_sg_sf
-zoop|stem|6ebb7c49aecf2554|8830561bff240ca2|2dcc62039f82eefb|365484979||t19397.7542472629s|3f63fc62ee327d34|143403|rds|local|vector|||0.113||
+tod_pal|function|fa77082689a3b904|||||||||||||||
+zoop|stem|b7d63c69f4feb9bd|8830561bff240ca2|cdd99646b67e2f8a|365484979||t19397.9441789082s|643f364543e82e90|143361|rds|local|vector|||0.236||
 zoop_file|stem|2432c7a9538515e5|5e00f228d804bd19|4e3739ef91745af0|441051823|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/WAMLR/WAMLR-2012-2016-Zooplnkton-Physics.xlsx|t19361.9112268519s|0e772b6b71ca4b54|373054|file|local|vector|||0.002||
+zoop_long|stem|8eeca9ac4fff320c|7ef4411801f32843|81c0f72a1fccae78|-943243651||t19397.9441839699s|f046b412c5542deb|211565|rds|local|vector|||0.034||
+tod_pal|function|fa77082689a3b904
+ant_lims|function|4ab5c5ec83e1f997
+download_ne|function|f843ed249d62004e
+expand_bbox|function|56087ff1f8b5d4b0
+aggregate_predators|function|9a8cf9427e970ee6
+.Random.seed|object|88cf3f92ef79f61b
+read_zoop|function|e8f7c5b993ddf4d3
+latlon_to_sf|function|41433edcc24429d5
+ant_basemap|function|53ccb70018adf605
+ant_proj|function|62a0b1d92f42fea0
+create_ant_sf|function|95af53f889a359db
+project_bbox|function|c81b1d38a6eb0043
+coord_ant|function|a2bdd25e6416e9ea
+ant_raster_template|function|5f35f35ae35311c6
+rasterize_counts|function|84f314e8f96b00a5

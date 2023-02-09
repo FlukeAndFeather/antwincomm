@@ -82,19 +82,21 @@ latlon_to_sf <- function(df, coords = c("x", "y")) {
 }
 
 ant_basemap <- function(map_lim = NULL) {
+  ggplot() +
+    geom_sf(data = tar_read("ant_sf", store = here::here("_targets"))) +
+    theme_minimal() +
+    theme(axis.title = element_blank())
+}
+
+coord_ant <- function(map_lim = NULL) {
   if (is.null(map_lim)) {
     map_lim <- sf::st_bbox(ant_lims(), crs = "EPSG:4326") %>%
       project_bbox()
   }
-
-  ggplot() +
-    geom_sf(data = tar_read("ant_sf", store = here::here("_targets"))) +
-    coord_sf(xlim = map_lim[c("xmin", "xmax")],
-             ylim = map_lim[c("ymin", "ymax")],
-             expand = FALSE,
-             crs = ant_proj()) +
-    theme_minimal() +
-    theme(axis.title = element_blank())
+  coord_sf(xlim = map_lim[c("xmin", "xmax")],
+           ylim = map_lim[c("ymin", "ymax")],
+           expand = FALSE,
+           crs = ant_proj())
 }
 
 project_bbox <- function(x) {

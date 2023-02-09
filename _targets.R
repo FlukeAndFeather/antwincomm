@@ -43,6 +43,10 @@ list(
     format = "file"
   ),
   tar_target(zoop, read_zoop(zoop_file)),
+  tar_target(
+    zoop_long,
+    pivot_longer(zoop, -(1:53), names_to = "taxa", values_to = "abundance")
+  ),
   # Reports
   tar_quarto(reports, here("reports"))
 )
