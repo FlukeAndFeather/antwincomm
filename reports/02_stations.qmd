@@ -47,6 +47,7 @@ ant_basemap(map_lim) +
   scale_x_continuous(breaks = c(-60, -55)) +
   scale_y_continuous(breaks = c(-63, -62, -61, -60)) +
   scale_color_manual(values = tod_pal()) +
+  guides(color = guide_legend(override.aes = list(size = 2))) +
   coord_ant(map_lim) +
   theme(legend.position = "bottom",
         legend.title = element_blank())
