@@ -125,6 +125,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="station-maps" class="level2">
 <h2 class="anchored" data-anchor-id="station-maps">Station maps</h2>
+<p>Sampling stations across survey years, color-coded by time-of-day. Grey circles indicate 10k, 15k, and 20k buffers.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -132,19 +133,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"dec.longitude"</span>, <span class="st">"dec.latitude"</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  sf<span class="sc">::</span><span class="fu">st_transform</span>(<span class="fu">ant_proj</span>())</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(zoop_sf) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.2</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>zoop_buffers_10k <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_buffer</span>(zoop_sf, <span class="fl">5e3</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>zoop_buffers_15k <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_buffer</span>(zoop_sf, <span class="fl">10e3</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>zoop_buffers_20k <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_buffer</span>(zoop_sf, <span class="fl">20e3</span>)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ant_basemap</span>(map_lim) <span class="sc">+</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> time.of.day), zoop_sf) <span class="sc">+</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Year) <span class="sc">+</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">55</span>)) <span class="sc">+</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">63</span>, <span class="sc">-</span><span class="dv">62</span>, <span class="sc">-</span><span class="dv">61</span>, <span class="sc">-</span><span class="dv">60</span>)) <span class="sc">+</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">tod_pal</span>()) <span class="sc">+</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_ant</span>(map_lim) <span class="sc">+</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(zoop_sf) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.2</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ant_basemap</span>(map_lim) <span class="sc">+</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> time.of.day), zoop_sf, <span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> zoop_buffers_10k, <span class="at">color =</span> <span class="st">"lightgrey"</span>, <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> zoop_buffers_15k, <span class="at">color =</span> <span class="st">"lightgrey"</span>, <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> zoop_buffers_20k, <span class="at">color =</span> <span class="st">"lightgrey"</span>, <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Year) <span class="sc">+</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">55</span>)) <span class="sc">+</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">63</span>, <span class="sc">-</span><span class="dv">62</span>, <span class="sc">-</span><span class="dv">61</span>, <span class="sc">-</span><span class="dv">60</span>)) <span class="sc">+</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">tod_pal</span>()) <span class="sc">+</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_ant</span>(map_lim) <span class="sc">+</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="02_stations_files/figure-html/station_maps-1.png" class="img-fluid" width="672"></p>

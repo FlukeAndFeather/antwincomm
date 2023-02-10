@@ -14,12 +14,14 @@ output-dir: "docs"
 library(targets)
 library(tidyverse)
 
-tar_load(c("zoop", "zoop_long", "ant_sf"), store = here::here("_targets"))
+tar_load(c("zoop", "ant_sf"), store = here::here("_targets"))
 source(here::here("R", "sp.R"))
 source(here::here("R", "zoop.R"))
 ```
 
 ## Station maps
+
+Sampling stations across survey years, color-coded by time-of-day. Grey circles indicate 10k, 15k, and 20k buffers.
 
 ```{r}
 #| label: station_maps
@@ -28,12 +30,19 @@ zoop_sf <- latlon_to_sf(zoop,
                         coords = c("dec.longitude", "dec.latitude")) %>% 
   sf::st_transform(ant_proj())
 
+zoop_buffers_10k <- sf::st_buffer(zoop_sf, 5e3)
+zoop_buffers_15k <- sf::st_buffer(zoop_sf, 10e3)
+zoop_buffers_20k <- sf::st_buffer(zoop_sf, 20e3)
+
 map_lim <- sf::st_bbox(zoop_sf) %>% 
   project_bbox() %>% 
   expand_bbox(factor = 1.2)
 
 ant_basemap(map_lim) +
-  geom_sf(aes(color = time.of.day), zoop_sf) +
+  geom_sf(aes(color = time.of.day), zoop_sf, size = 0.2) +
+  geom_sf(data = zoop_buffers_10k, color = "lightgrey", fill = NA) +
+  geom_sf(data = zoop_buffers_15k, color = "lightgrey", fill = NA) +
+  geom_sf(data = zoop_buffers_20k, color = "lightgrey", fill = NA) +
   facet_wrap(~ Year) +
   scale_x_continuous(breaks = c(-60, -55)) +
   scale_y_continuous(breaks = c(-63, -62, -61, -60)) +
