@@ -104,7 +104,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -123,7 +123,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>Following the methods of Dietrich et al.&nbsp;(2021), clustering analysis is restricted to species sighted near 5% or more of stations. This avoids granting undue leverage to rare species. 14 species retained.</p>
+<p>Following the methods of Dietrich et al.&nbsp;(2021), clustering analysis is restricted to species sighted near 5% or more of stations. This avoids granting undue leverage to rare species. 14 species retained (SNPT to MIWH).</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -135,42 +135,170 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">stations_present =</span> <span class="fu">n</span>(),</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">station_frac =</span> stations_present <span class="sc">/</span> total_stations,</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(station_frac))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(station_frac)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 26 × 3
-   species stations_present station_frac
-   &lt;chr&gt;              &lt;int&gt;        &lt;dbl&gt;
- 1 SNPT                 239        0.607
- 2 ANPT                 212        0.538
- 3 SGPT                 184        0.467
- 4 FUSE                 166        0.421
- 5 KEGU                 127        0.322
- 6 ANFU                 106        0.269
- 7 CAPT                  85        0.216
- 8 ADPN                  73        0.185
- 9 CRSE                  64        0.162
-10 LESE                  58        0.147
-# … with 16 more rows</code></pre>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">species</th>
+<th style="text-align: right;">stations_present</th>
+<th style="text-align: right;">station_frac</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SNPT</td>
+<td style="text-align: right;">239</td>
+<td style="text-align: right;">0.6065990</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ANPT</td>
+<td style="text-align: right;">212</td>
+<td style="text-align: right;">0.5380711</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SGPT</td>
+<td style="text-align: right;">184</td>
+<td style="text-align: right;">0.4670051</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FUSE</td>
+<td style="text-align: right;">166</td>
+<td style="text-align: right;">0.4213198</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">KEGU</td>
+<td style="text-align: right;">127</td>
+<td style="text-align: right;">0.3223350</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ANFU</td>
+<td style="text-align: right;">106</td>
+<td style="text-align: right;">0.2690355</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CAPT</td>
+<td style="text-align: right;">85</td>
+<td style="text-align: right;">0.2157360</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ADPN</td>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">0.1852792</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CRSE</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">0.1624365</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LESE</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">0.1472081</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BLPT</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">0.1370558</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ANTE</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">0.0964467</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PFSB</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">0.0710660</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MIWH</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">0.0507614</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GEPN</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0.0355330</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ELSE</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0.0329949</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">WESE</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0.0329949</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">KIWH</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.0152284</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">UNSE</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.0126904</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ANSH</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.0076142</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">EMPN</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0050761</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SBWH</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0050761</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">UNPR</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0050761</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ROSE</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0025381</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">UGPT</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0025381</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">UNPN</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0025381</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>Hierarchical clustering of stations by predator community.</p>
-<div class="cell page-columns page-full" data-fig.dpi="600">
+<div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>clus <span class="ot">&lt;-</span> <span class="fu">cutree</span>(sightings_clust, <span class="dv">4</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">split</span>(<span class="fu">names</span>(clus), clus)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(sightings_clust)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>station_clades <span class="ot">&lt;-</span> <span class="fu">sapply</span>(g, <span class="cf">function</span>(n) <span class="fu">MRCA</span>(p, n))</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">groupClade</span>(p, station_clades, <span class="at">group_name =</span> <span class="st">"subtree"</span>) <span class="sc">+</span> </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">color =</span> subtree)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout_dendrogram</span>() <span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dendrogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>clus <span class="ot">&lt;-</span> <span class="fu">cutree</span>(sightings_clust, <span class="dv">4</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">split</span>(<span class="fu">names</span>(clus), clus)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(sightings_clust)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>station_clades <span class="ot">&lt;-</span> <span class="fu">sapply</span>(g, <span class="cf">function</span>(n) <span class="fu">MRCA</span>(p, n))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">groupClade</span>(p, station_clades, <span class="at">group_name =</span> <span class="st">"subtree"</span>) <span class="sc">+</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">color =</span> subtree)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout_dendrogram</span>() <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dendrogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display column-screen">
-<p><img src="04_pred_clus_files/figure-html/predator_clusters-1.png" class="img-fluid" style="width:100.0%"></p>
+<div class="cell-output-display">
+<p><img src="04_pred_clus_files/figure-html/predator_clusters-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
