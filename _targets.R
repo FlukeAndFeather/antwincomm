@@ -36,6 +36,8 @@ list(
   ),
   tar_target(predators, readr::read_csv(predators_file)),
   tar_target(predators_agg, aggregate_predators(predators)),
+  tar_target(predators_sf,
+             latlon_to_sf(predators_agg, coords = c("lon_mean", "lat_mean"))),
   # Zooplankton
   tar_target(
     zoop_file,
@@ -43,10 +45,22 @@ list(
     format = "file"
   ),
   tar_target(zoop, read_zoop(zoop_file)),
+  tar_target(zoop_sf,
+             latlon_to_sf(zoop, coords = c("dec.longitude", "dec.latitude"))),
   tar_target(
     zoop_long,
     pivot_longer(zoop, -(1:53), names_to = "taxa", values_to = "abundance")
   ),
+  # Clustering
+  tar_target(predators_stations,
+             assign_sightings(predators_sf, zoop_sf, max_dist_km = 15)),
+  tar_target(
+    predators_abundant,
+    filter_sightings(predators_stations, zoop_sf, station_thr = 0.05)
+  ),
+  tar_target(sightings_mtx, sightings_to_matrix(predators_abundant)),
+  tar_target(sightings_dist, vegan::vegdist(sightings_mtx, method = "bray")),
+  tar_target(sightings_clust, hclust(sightings_dist, method = "ward.D2")),
   # Reports
   tar_quarto(reports, here("reports"))
 )

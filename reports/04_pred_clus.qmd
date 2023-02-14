@@ -1,0 +1,64 @@
+---
+title: "Predator clusters"
+format:
+  html:
+    code-fold: true
+editor: visual
+output-dir: "docs"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(ggtree)
+library(sf)
+library(targets)
+library(tidyverse)
+
+tar_load(c("predators_stations", "predators_abundant", "sightings_clust",
+           "zoop_sf"), 
+         store = here::here("_targets"))
+source(here::here("R", "sp.R"))
+source(here::here("R", "zoop.R"))
+```
+
+Following the methods of Dietrich et al. (2021), clustering analysis is restricted to species sighted near 5% or more of stations. This avoids granting undue leverage to rare species. `r n_distinct(predators_abundant$species)` species retained.
+
+```{r}
+#| label: abundant_predators
+
+total_stations <- n_distinct(zoop_sf$amlr.station)
+predators_stations %>%
+  group_by(amlr.station, species) %>% 
+  summarize(count = sum(count), .groups = "drop") %>%
+  group_by(species) %>%
+  summarize(stations_present = n(),
+            station_frac = stations_present / total_stations,
+            .groups = "drop") %>%
+  arrange(desc(station_frac))
+
+```
+
+Hierarchical clustering of stations by predator community.
+
+```{r}
+#| label: predator_clusters
+#| warning: false
+#| column: screen
+#| out-width: 100%
+#| fig-width: 6
+#| fig-dpi: 600
+
+clus <- cutree(sightings_clust, 4)
+g <- split(names(clus), clus)
+p <- ggtree(sightings_clust)
+station_clades <- sapply(g, function(n) MRCA(p, n))
+p <- groupClade(p, station_clades, group_name = "subtree") + 
+  aes(color = subtree)
+
+p +
+  layout_dendrogram() +
+  theme_dendrogram()
+
+```
