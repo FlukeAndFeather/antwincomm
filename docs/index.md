@@ -1,6 +1,6 @@
-# SGWINCOMM
+# ANTWINCOMM
 
-South Georgia winter community project
+Antarctic Peninsula winter community project
 
 ## Reports
 
