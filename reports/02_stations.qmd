@@ -3,6 +3,7 @@ title: "Station summary"
 format:
   html:
     code-fold: true
+    toc: true
 editor: visual
 output-dir: "docs"
 ---
@@ -49,23 +50,10 @@ ant_basemap(map_lim) +
         legend.title = element_blank())
 ```
 
-## Zooplankton community/physics maps
+## Zooplankton maps
 
 ```{r}
-#| label: zoop_physics_maps
-
-zoop_physics_vars <- c("Winter Cluster factor",
-                       "Net.ice.type",
-                       "Net.ice.percent",
-                       "zuml_m",
-                       "avg.Dens.Diff",
-                       "avg.salinity",
-                       "avg.temp",
-                       "Water.Zone",
-                       "Integ.chla.zuml",
-                       "Integ.phae.zuml",
-                       "Integ.chla.100m",
-                       "Integ.phae.100m")
+#| label: station_map_fn
 
 station_map <- function(var) {
   ant_basemap(map_lim) +
@@ -77,6 +65,68 @@ station_map <- function(var) {
     theme(legend.position = "bottom")
 }
 
-walk(zoop_physics_vars, compose(print, station_map))
+```
+
+```{r}
+#| label: zoop_maps
+
+zoop_vars <- c("Winter Cluster factor",
+               "NMDS_x",
+               "NMDS_y",
+               "NMDS_z",
+               "Amphipoda_Primno_N.A",
+               "Amphipoda_Themisto_N.A",
+               "Chaetognatha_N.A",
+               "Copepoda_Cacutus_N.A",
+               "Copepoda_Cprop_N.A",
+               "Copepoda_Heterorhabdus_N.A",
+               "Copepoda_Metridia_N.A",
+               "Copepoda_Paraeuchaeta_N.A",
+               "Copepoda_Pleuromama_N.A",
+               "Copepoda_Rhincalanus_N.A",
+               "Euphausiidae_Ecrystall_Adult",
+               "Euphausiidae_Efrigida_Adult",
+               "Euphausiidae_Efrigida_Larvae",
+               "Euphausiidae_Esuperba_Adult",
+               "Euphausiidae_Etricantha_Adult",
+               "Euphausiidae_Tmac_Adult",
+               "Euphausiidae_Tmac_Larvae",
+               "Gastropoda_Clione_N.A",
+               "Gastropoda_Limacina_N.A",
+               "Ostracoda_N.A",
+               "Radiolaria_N.A",
+               "Siphonophora_N.A",
+               "Tunicata_Salpa_N.A",
+               "Euphausiidae_Esuperba_F_Tot",
+               "Pisces_Paralepididae_NotolepisSpp_Larvae_Tot",
+               "Pisces_Myctophidae_Adult_Tot",
+               "Pisces_Myctophidae_Larvae_Tot",
+               "Pisces_Other_Larvae_Tot",
+               "Pisces_Chaenichthyidae_Larvae_Tot",
+               "Pisces_Nototheniidae_Larvae_Tot")
+
+walk(zoop_vars, compose(print, station_map))
 
 ```
+
+## Physics maps
+
+```{r}
+#| label: physics_maps
+
+physics_vars <- c("Net.ice.type",
+                  "Net.ice.percent",
+                  "zuml_m",
+                  "avg.Dens.Diff",
+                  "avg.salinity",
+                  "avg.temp",
+                  "Water.Zone",
+                  "Integ.chla.zuml",
+                  "Integ.phae.zuml",
+                  "Integ.chla.100m",
+                  "Integ.phae.100m")
+
+walk(physics_vars, compose(print, station_map))
+
+```
+
