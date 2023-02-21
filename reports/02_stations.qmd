@@ -55,12 +55,20 @@ ant_basemap(map_lim) +
 ```{r}
 #| label: station_map_fn
 
-station_map <- function(var) {
+station_map <- function(var, pseudolog = FALSE) {
+  zoop_trans <- zoop_sf
+  if (pseudolog) {
+    old_var <- var 
+    var <- str_glue("log({var}+1)")
+    zoop_trans[[var]] <- log(zoop_trans[[old_var]] + 1)
+  }
   ant_basemap(map_lim) +
-    geom_sf(aes(color = .data[[var]]), zoop_sf, size = 2, shape = 15) +
+    geom_sf(aes(color = .data[[var]]), zoop_trans, size = 2, shape = 15) +
     facet_wrap(~ Year) +
     scale_x_continuous(breaks = c(-60, -55)) +
     scale_y_continuous(breaks = c(-63, -62, -61, -60)) +
+    { if (is.numeric(zoop_trans[[var]])) 
+      scale_color_distiller(palette = "PuRd", direction = 1) } +
     coord_ant(map_lim) +
     theme(legend.position = "bottom")
 }
@@ -70,42 +78,44 @@ station_map <- function(var) {
 ```{r}
 #| label: zoop_maps
 
-zoop_vars <- c("Winter Cluster factor",
-               "NMDS_x",
-               "NMDS_y",
-               "NMDS_z",
-               "Amphipoda_Primno_N.A",
-               "Amphipoda_Themisto_N.A",
-               "Chaetognatha_N.A",
-               "Copepoda_Cacutus_N.A",
-               "Copepoda_Cprop_N.A",
-               "Copepoda_Heterorhabdus_N.A",
-               "Copepoda_Metridia_N.A",
-               "Copepoda_Paraeuchaeta_N.A",
-               "Copepoda_Pleuromama_N.A",
-               "Copepoda_Rhincalanus_N.A",
-               "Euphausiidae_Ecrystall_Adult",
-               "Euphausiidae_Efrigida_Adult",
-               "Euphausiidae_Efrigida_Larvae",
-               "Euphausiidae_Esuperba_Adult",
-               "Euphausiidae_Etricantha_Adult",
-               "Euphausiidae_Tmac_Adult",
-               "Euphausiidae_Tmac_Larvae",
-               "Gastropoda_Clione_N.A",
-               "Gastropoda_Limacina_N.A",
-               "Ostracoda_N.A",
-               "Radiolaria_N.A",
-               "Siphonophora_N.A",
-               "Tunicata_Salpa_N.A",
-               "Euphausiidae_Esuperba_F_Tot",
-               "Pisces_Paralepididae_NotolepisSpp_Larvae_Tot",
-               "Pisces_Myctophidae_Adult_Tot",
-               "Pisces_Myctophidae_Larvae_Tot",
-               "Pisces_Other_Larvae_Tot",
-               "Pisces_Chaenichthyidae_Larvae_Tot",
-               "Pisces_Nototheniidae_Larvae_Tot")
+zoop_vars_raw <- c("Winter Cluster factor",
+                   "NMDS_x",
+                   "NMDS_y",
+                   "NMDS_z")
+zoop_vars_pseudolog <- c("Amphipoda_Primno_N.A",
+                         "Amphipoda_Themisto_N.A",
+                         "Chaetognatha_N.A",
+                         "Copepoda_Cacutus_N.A",
+                         "Copepoda_Cprop_N.A",
+                         "Copepoda_Heterorhabdus_N.A",
+                         "Copepoda_Metridia_N.A",
+                         "Copepoda_Paraeuchaeta_N.A",
+                         "Copepoda_Pleuromama_N.A",
+                         "Copepoda_Rhincalanus_N.A",
+                         "Euphausiidae_Ecrystall_Adult",
+                         "Euphausiidae_Efrigida_Adult",
+                         "Euphausiidae_Efrigida_Larvae",
+                         "Euphausiidae_Esuperba_Adult",
+                         "Euphausiidae_Etricantha_Adult",
+                         "Euphausiidae_Tmac_Adult",
+                         "Euphausiidae_Tmac_Larvae",
+                         "Gastropoda_Clione_N.A",
+                         "Gastropoda_Limacina_N.A",
+                         "Ostracoda_N.A",
+                         "Radiolaria_N.A",
+                         "Siphonophora_N.A",
+                         "Tunicata_Salpa_N.A",
+                         "Euphausiidae_Esuperba_F_Tot",
+                         "Pisces_Paralepididae_NotolepisSpp_Larvae_Tot",
+                         "Pisces_Myctophidae_Adult_Tot",
+                         "Pisces_Myctophidae_Larvae_Tot",
+                         "Pisces_Other_Larvae_Tot",
+                         "Pisces_Chaenichthyidae_Larvae_Tot",
+                         "Pisces_Nototheniidae_Larvae_Tot")
 
-walk(zoop_vars, compose(print, station_map))
+walk(zoop_vars_raw, compose(print, station_map))
+walk(zoop_vars_pseudolog, 
+     compose(print, partial(station_map, pseudolog = TRUE)))
 
 ```
 
@@ -120,7 +130,6 @@ physics_vars <- c("Net.ice.type",
                   "avg.Dens.Diff",
                   "avg.salinity",
                   "avg.temp",
-                  "Water.Zone",
                   "Integ.chla.zuml",
                   "Integ.phae.zuml",
                   "Integ.chla.100m",
@@ -129,4 +138,3 @@ physics_vars <- c("Net.ice.type",
 walk(physics_vars, compose(print, station_map))
 
 ```
-
