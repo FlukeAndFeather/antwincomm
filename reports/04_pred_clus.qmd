@@ -23,21 +23,31 @@ source(here::here("R", "sp.R"))
 source(here::here("R", "zoop.R"))
 ```
 
-Following the methods of Dietrich et al. (2021), clustering analysis is restricted to species sighted near 5% or more of stations. This avoids granting undue leverage to rare species. `r n_distinct(predators_abundant$species)` species retained (SNPT to MIWH).
+Following the methods of Dietrich et al. (2021), clustering analysis is restricted to species sighted near 5% or more of stations. This avoids granting undue leverage to rare species. `r n_distinct(predators_abundant$species)` species retained (i.e., species above red line).
 
 ```{r}
 #| label: abundant_predators
 
 total_stations <- n_distinct(zoop_sf$amlr.station)
-predators_stations %>%
+pred_frac <- predators_stations %>%
   group_by(amlr.station, species) %>% 
   summarize(count = sum(count), .groups = "drop") %>%
   group_by(species) %>%
   summarize(stations_present = n(),
             station_frac = stations_present / total_stations,
             .groups = "drop") %>%
-  arrange(desc(station_frac)) %>% 
-  knitr::kable()
+  arrange(desc(station_frac))
+cutoff_row <- sum(pred_frac$station_frac >= 0.05)
+  
+frac_fn <- scales::label_percent(accuracy = 0.1)
+pred_frac %>% 
+  set_names(c("Species", "Stations", "Fraction")) %>% 
+  mutate(Fraction = frac_fn(Fraction)) %>% 
+  knitr::kable(align = "lrr") %>% 
+  kableExtra::kable_styling("striped",
+                            full_width = FALSE) %>% 
+  kableExtra::row_spec(cutoff_row, 
+                       extra_css = "border-bottom: 2px dashed red")
 
 ```
 
