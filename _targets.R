@@ -38,6 +38,15 @@ list(
   tar_target(predators_agg, aggregate_predators(predators)),
   tar_target(predators_sf,
              latlon_to_sf(predators_agg, coords = c("lon_mean", "lat_mean"))),
+  # Effort
+  tar_target(effort,
+             predators %>%
+               mutate(year = lubridate::year(lubridate::mdy_hm(UTC_start))) %>%
+               group_by(cruise, year, interval, lon_mean, lat_mean) %>%
+               summarize(nmi = sum(nmi), .groups = "drop") %>%
+               mutate(species = "survey", count = 1)),
+  tar_target(effort_sf,
+             latlon_to_sf(effort, coords = c("lon_mean", "lat_mean"))),
   # Zooplankton
   tar_target(
     zoop_file,
@@ -62,5 +71,5 @@ list(
   tar_target(sightings_dist, vegan::vegdist(sightings_mtx, method = "bray")),
   tar_target(sightings_clust, hclust(sightings_dist, method = "ward.D2")),
   # Reports
-  tar_quarto(reports, here("reports"))
+  tar_quarto(reports, here("reports"), cache = TRUE)
 )

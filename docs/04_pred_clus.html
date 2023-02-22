@@ -124,7 +124,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <p>Following the methods of Dietrich et al.&nbsp;(2021), clustering analysis is restricted to species sighted near 5% or more of stations. This avoids granting undue leverage to rare species. 14 species retained (SNPT to MIWH).</p>
-<div class="cell">
+<div class="cell" data-hash="04_pred_clus_cache/html/abundant_predators_c07629708e4fa8d244eb738ae6f7e1a0">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>total_stations <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(zoop_sf<span class="sc">$</span>amlr.station)</span>
@@ -283,7 +283,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>Hierarchical clustering of stations by predator community.</p>
-<div class="cell">
+<div class="cell" data-hash="04_pred_clus_cache/html/predator_clusters_bffeb1c927afbc240e4cb4e19fa2b6ce">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>clus <span class="ot">&lt;-</span> <span class="fu">cutree</span>(sightings_clust, <span class="dv">4</span>)</span>

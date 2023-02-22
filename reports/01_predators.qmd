@@ -11,10 +11,12 @@ output-dir: "docs"
 #| label: setup
 #| include: false
 
+library(sf)
 library(targets)
 library(tidyverse)
 
-tar_load(c("predators_agg", "ant_sf"), store = here::here("_targets"))
+tar_load(c("predators_agg", "ant_sf", "effort_sf"), 
+         store = here::here("_targets"))
 source(here::here("R", "sp.R"))
 ```
 
@@ -58,6 +60,33 @@ ggplot(top_five_plot_data, aes(species, total, group = year)) +
 
 ### Maps
 
+Survey effort. 21 out of the 19404 intervals were recorded as nmi \> 1000 (as opposed to \~1 nmi for the rest). Those intervals excluded from the survey effort.
+
+```{r}
+#| label: survey_effort
+#| warning: false
+
+effort_stars <- effort_sf %>% 
+  filter(nmi < 1000) %>% 
+  rasterize_counts(count_col = "nmi",
+                   res = 2.5e4)
+map_lim <- sf::st_bbox(c(xmin = -65, xmax = -55, ymin = -65, ymax = -58),
+                       crs = "EPSG:4326") %>% 
+  project_bbox() %>% 
+  expand_bbox(factor = 1.2)
+ant_basemap(map_lim) + 
+  stars::geom_stars(aes(fill = nmi), data = effort_stars) +
+  scale_fill_distiller(palette = "PuRd", 
+                       direction = 1, 
+                       na.value = NA) +
+  scale_x_continuous(breaks = seq(-65, -55, by = 5)) +
+  scale_y_continuous(breaks = seq(-65, -58, by = 2)) +
+  coord_ant(map_lim) +
+  facet_wrap(vars(year)) +
+  expand_limits(fill = 0)
+
+```
+
 Distribution maps of the five most abundant species in each survey year, aggregated to 25km bins.
 
 ```{r}
@@ -80,11 +109,10 @@ map_lim <- sf::st_bbox(c(xmin = -65, xmax = -55, ymin = -66, ymax = -60),
   expand_bbox(factor = 1.1)
 
 ant_basemap(map_lim) +
-  stars::geom_stars(aes(fill = count), data = topfive_stars) +
-  scale_fill_gradient(low = "lightblue", high = "darkred",
-                      trans = scales::pseudo_log_trans(),
-                      breaks = c(0, 25, 100, 400, 1000, 4000),
-                      na.value = NA) +
+  stars::geom_stars(aes(fill = log(count + 1)), data = topfive_stars) +
+  scale_fill_distiller(palette = "PuRd",
+                       direction = 1,
+                       na.value = NA) +
   scale_x_continuous(breaks = c(-65, -60, -55)) +
   scale_y_continuous(breaks = c(-66, -64, -62, -60)) +
   coord_ant(map_lim) +
@@ -116,11 +144,10 @@ map_lim <- sf::st_bbox(soi_sf) %>%
   expand_bbox(factor = 1.2)
 
 ant_basemap(map_lim) +
-  stars::geom_stars(aes(fill = count), data = soi_stars) +
-  scale_fill_gradient(low = "lightblue", high = "darkred",
-                      trans = scales::pseudo_log_trans(),
-                      breaks = c(0, 25, 100, 400, 1000, 4000),
-                      na.value = NA) +
+  stars::geom_stars(aes(fill = log(count + 1)), data = soi_stars) +
+  scale_fill_distiller(palette = "PuRd",
+                       direction = 1,
+                       na.value = NA) +
   scale_x_continuous(breaks = c(-65, -60, -55)) +
   scale_y_continuous(breaks = c(-64, -62, -60, -58)) +
   facet_grid(species ~ year) +

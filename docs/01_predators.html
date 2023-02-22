@@ -128,7 +128,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="counts" class="level3">
 <h3 class="anchored" data-anchor-id="counts">Counts</h3>
 <p>The five most abundant species.</p>
-<div class="cell">
+<div class="cell" data-hash="01_predators_cache/html/unnamed-chunk-2_71de505b9f7309a77dceeb6e0f242b16">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>top_five <span class="ot">&lt;-</span> predators_agg <span class="sc">%&gt;%</span> </span>
@@ -150,7 +150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 5 ANPT           3367</code></pre>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="01_predators_cache/html/unnamed-chunk-3_e0c2160e88038783c72bd666d0a13fab">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>top_five_plot_data <span class="ot">&lt;-</span> predators_agg <span class="sc">%&gt;%</span> </span>
@@ -178,66 +178,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="maps" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="maps">Maps</h3>
-<p>Distribution maps of the five most abundant species in each survey year, aggregated to 25km bins.</p>
-<div class="cell page-columns page-full" data-fig.dpi="600">
+<p>Survey effort. 21 out of the 19404 intervals were recorded as nmi &gt; 1000 (as opposed to ~1 nmi for the rest). Those intervals excluded from the survey effort.</p>
+<div class="cell" data-hash="01_predators_cache/html/survey_effort_2bf366c346bda8694e749fcaaaaa5693">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>topfive_sf <span class="ot">&lt;-</span> predators_agg <span class="sc">%&gt;%</span> </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(top_five, <span class="at">by =</span> <span class="st">"species"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">latlon_to_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lon_mean"</span>, <span class="st">"lat_mean"</span>))</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>topfive_stars <span class="ot">&lt;-</span> <span class="fu">rasterize_counts</span>(topfive_sf, <span class="at">res =</span> <span class="fl">2.5e4</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(<span class="fu">c</span>(<span class="at">xmin =</span> <span class="sc">-</span><span class="dv">65</span>, <span class="at">xmax =</span> <span class="sc">-</span><span class="dv">55</span>, <span class="at">ymin =</span> <span class="sc">-</span><span class="dv">66</span>, <span class="at">ymax =</span> <span class="sc">-</span><span class="dv">60</span>),</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">crs =</span> <span class="st">"EPSG:4326"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.1</span>)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ant_basemap</span>(map_lim) <span class="sc">+</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  stars<span class="sc">::</span><span class="fu">geom_stars</span>(<span class="fu">aes</span>(<span class="at">fill =</span> count), <span class="at">data =</span> topfive_stars) <span class="sc">+</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"lightblue"</span>, <span class="at">high =</span> <span class="st">"darkred"</span>,</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>                      <span class="at">trans =</span> scales<span class="sc">::</span><span class="fu">pseudo_log_trans</span>(),</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>                      <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">25</span>, <span class="dv">100</span>, <span class="dv">400</span>, <span class="dv">1000</span>, <span class="dv">4000</span>),</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                      <span class="at">na.value =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">65</span>, <span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">55</span>)) <span class="sc">+</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">66</span>, <span class="sc">-</span><span class="dv">64</span>, <span class="sc">-</span><span class="dv">62</span>, <span class="sc">-</span><span class="dv">60</span>)) <span class="sc">+</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_ant</span>(map_lim) <span class="sc">+</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(species <span class="sc">~</span> year) <span class="sc">+</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">fill =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>effort_stars <span class="ot">&lt;-</span> effort_sf <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(nmi <span class="sc">&lt;</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rasterize_counts</span>(<span class="at">count_col =</span> <span class="st">"nmi"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">res =</span> <span class="fl">2.5e4</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(<span class="fu">c</span>(<span class="at">xmin =</span> <span class="sc">-</span><span class="dv">65</span>, <span class="at">xmax =</span> <span class="sc">-</span><span class="dv">55</span>, <span class="at">ymin =</span> <span class="sc">-</span><span class="dv">65</span>, <span class="at">ymax =</span> <span class="sc">-</span><span class="dv">58</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">crs =</span> <span class="st">"EPSG:4326"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.2</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ant_basemap</span>(map_lim) <span class="sc">+</span> </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  stars<span class="sc">::</span><span class="fu">geom_stars</span>(<span class="fu">aes</span>(<span class="at">fill =</span> nmi), <span class="at">data =</span> effort_stars) <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"PuRd"</span>, </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                       <span class="at">direction =</span> <span class="dv">1</span>, </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                       <span class="at">na.value =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">65</span>, <span class="sc">-</span><span class="dv">55</span>, <span class="at">by =</span> <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">65</span>, <span class="sc">-</span><span class="dv">58</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_ant</span>(map_lim) <span class="sc">+</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(year)) <span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">fill =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="01_predators_files/figure-html/survey_effort-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Distribution maps of the five most abundant species in each survey year, aggregated to 25km bins.</p>
+<div class="cell page-columns page-full" data-fig.dpi="600" data-hash="01_predators_cache/html/topfive_map_b3d91605d2ffc7bedbff38f893f39245">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>topfive_sf <span class="ot">&lt;-</span> predators_agg <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(top_five, <span class="at">by =</span> <span class="st">"species"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">latlon_to_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lon_mean"</span>, <span class="st">"lat_mean"</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>topfive_stars <span class="ot">&lt;-</span> <span class="fu">rasterize_counts</span>(topfive_sf, <span class="at">res =</span> <span class="fl">2.5e4</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(<span class="fu">c</span>(<span class="at">xmin =</span> <span class="sc">-</span><span class="dv">65</span>, <span class="at">xmax =</span> <span class="sc">-</span><span class="dv">55</span>, <span class="at">ymin =</span> <span class="sc">-</span><span class="dv">66</span>, <span class="at">ymax =</span> <span class="sc">-</span><span class="dv">60</span>),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">crs =</span> <span class="st">"EPSG:4326"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.1</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ant_basemap</span>(map_lim) <span class="sc">+</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  stars<span class="sc">::</span><span class="fu">geom_stars</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">log</span>(count <span class="sc">+</span> <span class="dv">1</span>)), <span class="at">data =</span> topfive_stars) <span class="sc">+</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"PuRd"</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                       <span class="at">direction =</span> <span class="dv">1</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                       <span class="at">na.value =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">65</span>, <span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">55</span>)) <span class="sc">+</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">66</span>, <span class="sc">-</span><span class="dv">64</span>, <span class="sc">-</span><span class="dv">62</span>, <span class="sc">-</span><span class="dv">60</span>)) <span class="sc">+</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_ant</span>(map_lim) <span class="sc">+</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(species <span class="sc">~</span> year) <span class="sc">+</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">fill =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display column-screen">
 <p><img src="01_predators_files/figure-html/topfive_map-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 <p>Distribution maps of five species of interest in each survey year, also aggregated to 25km bins.</p>
-<div class="cell page-columns page-full" data-fig.dpi="600">
+<div class="cell page-columns page-full" data-fig.dpi="600" data-hash="01_predators_cache/html/soi_map_5981ab6dab6f0790d79d0672c587247c">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>soi <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"GEPN"</span>, <span class="st">"BLPT"</span>, <span class="st">"ANTE"</span>, <span class="st">"LESE"</span>, <span class="st">"KIWH"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>soi_sf <span class="ot">&lt;-</span> predators_agg <span class="sc">%&gt;%</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">%in%</span> soi) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">latlon_to_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lon_mean"</span>, <span class="st">"lat_mean"</span>))</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>soi_stars <span class="ot">&lt;-</span> <span class="fu">rasterize_counts</span>(soi_sf, <span class="at">res =</span> <span class="fl">2.5e4</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(soi_sf) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.2</span>)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ant_basemap</span>(map_lim) <span class="sc">+</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  stars<span class="sc">::</span><span class="fu">geom_stars</span>(<span class="fu">aes</span>(<span class="at">fill =</span> count), <span class="at">data =</span> soi_stars) <span class="sc">+</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"lightblue"</span>, <span class="at">high =</span> <span class="st">"darkred"</span>,</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                      <span class="at">trans =</span> scales<span class="sc">::</span><span class="fu">pseudo_log_trans</span>(),</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                      <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">25</span>, <span class="dv">100</span>, <span class="dv">400</span>, <span class="dv">1000</span>, <span class="dv">4000</span>),</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                      <span class="at">na.value =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">65</span>, <span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">55</span>)) <span class="sc">+</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">64</span>, <span class="sc">-</span><span class="dv">62</span>, <span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">58</span>)) <span class="sc">+</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(species <span class="sc">~</span> year) <span class="sc">+</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">fill =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_ant</span>(map_lim) <span class="sc">+</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>soi <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"GEPN"</span>, <span class="st">"BLPT"</span>, <span class="st">"ANTE"</span>, <span class="st">"LESE"</span>, <span class="st">"KIWH"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>soi_sf <span class="ot">&lt;-</span> predators_agg <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">%in%</span> soi) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">latlon_to_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lon_mean"</span>, <span class="st">"lat_mean"</span>))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>soi_stars <span class="ot">&lt;-</span> <span class="fu">rasterize_counts</span>(soi_sf, <span class="at">res =</span> <span class="fl">2.5e4</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(soi_sf) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.2</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ant_basemap</span>(map_lim) <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  stars<span class="sc">::</span><span class="fu">geom_stars</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">log</span>(count <span class="sc">+</span> <span class="dv">1</span>)), <span class="at">data =</span> soi_stars) <span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"PuRd"</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>                       <span class="at">direction =</span> <span class="dv">1</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>                       <span class="at">na.value =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">65</span>, <span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">55</span>)) <span class="sc">+</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">64</span>, <span class="sc">-</span><span class="dv">62</span>, <span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">58</span>)) <span class="sc">+</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(species <span class="sc">~</span> year) <span class="sc">+</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">fill =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_ant</span>(map_lim) <span class="sc">+</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display column-screen">
 <p><img src="01_predators_files/figure-html/soi_map-1.png" class="img-fluid" style="width:100.0%"></p>

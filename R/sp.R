@@ -48,7 +48,8 @@ rasterize_counts <- function(counts_sf,
                              layer_name = count_col,
                              limits = ant_lims(),
                              res = 5e4) {
-
+  stopifnot(inherits(counts_sf, "sf"),
+            all(c(count_col, species_col, year_col) %in% colnames(counts_sf)))
   # Group counts, call rasterize on each group, convert back to df
   rasterized_df <- counts_sf %>%
     group_by(.data[[species_col]], .data[[year_col]]) %>%
