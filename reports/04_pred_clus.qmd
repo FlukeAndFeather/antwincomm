@@ -11,13 +11,14 @@ output-dir: "docs"
 #| label: setup
 #| include: false
 
+library(ggmosaic)
 library(ggtree)
 library(sf)
 library(targets)
 library(tidyverse)
 
 tar_load(c("predators_stations", "predators_abundant", "sightings_clust",
-           "zoop_sf"), 
+           "zoop"), 
          store = here::here("_targets"))
 source(here::here("R", "sp.R"))
 source(here::here("R", "zoop.R"))
@@ -28,7 +29,7 @@ Following the methods of Dietrich et al. (2021), clustering analysis is restrict
 ```{r}
 #| label: abundant_predators
 
-total_stations <- n_distinct(zoop_sf$amlr.station)
+total_stations <- n_distinct(zoop$amlr.station)
 pred_frac <- predators_stations %>%
   group_by(amlr.station, species) %>% 
   summarize(count = sum(count), .groups = "drop") %>%
@@ -51,20 +52,83 @@ pred_frac %>%
 
 ```
 
-Hierarchical clustering of stations by predator community.
+Hierarchical clustering of stations by predator community. Chose 5 clusters a priori to match Dietrich et al. (2021). Note: `r nrow(zoop)` stations were included in the zooplankton clustering, but only `r length(sightings_clust$labels)` stations were used for predator clustering.
 
 ```{r}
-#| label: predator_clusters
+#| label: predator_dendro
 
-clus <- cutree(sightings_clust, 4)
-g <- split(names(clus), clus)
-p <- ggtree(sightings_clust)
-station_clades <- sapply(g, function(n) MRCA(p, n))
-p <- groupClade(p, station_clades, group_name = "subtree") + 
-  aes(color = subtree)
+# Cut predators into five clusters
+clust <- cutree(sightings_clust, 5)
+g <- split(names(clust), clust)
+p <- ggtree(sightings_clust, hang = -1)
+pred_clust_mrca <- sapply(g, function(n) MRCA(p, n))
 
-p +
+p %>% 
+  groupClade(pred_clust_mrca, group_name = "Predator cluster") + 
+  aes(color = `Predator cluster`) +
   layout_dendrogram() +
   theme_dendrogram()
+```
+
+How do the predator clusters compare to the zooplankton clusters?
+
+```{r}
+#| label: predator_mosaic
+#| warning: false
+
+# Join with zooplankton clusters
+both_clust <- zoop %>% 
+  transmute(amlr.station, 
+            zoop_clust = factor(`Winter Cluster factor`)) %>% 
+  right_join(tibble(amlr.station = names(clust),
+                    pred_clust = factor(clust)),
+             by = "amlr.station")
+
+# Mosaic plot
+cluster_pal = c(`1` = "#96B687",
+                `2a` = "#9CB2C8",
+                `2b` = "#CAB3CC",
+                `3a` = "#D29A97",
+                `3b` = "#E8AD5C")
+ggplot(both_clust) +
+  geom_mosaic(aes(x = product(zoop_clust, pred_clust), 
+                  fill = zoop_clust)) +
+  geom_mosaic_text(aes(x = product(zoop_clust, pred_clust),
+                       label = after_stat(.wt)),
+                   as.label = TRUE) +
+  scale_fill_manual(values = cluster_pal) +
+  labs(x = "Predator cluster",
+       y = "Zooplankton cluster",
+       fill = "Zooplankton cluster") +
+  theme_classic()
+```
+
+The above mosaic plot shows the distribution of stations by predator and zooplankton stations. For example, the bottom left rectangle indicates 9 stations were assigned to zooplankton cluster 1 and predator cluster 1. Rectangles color-coded by zooplankton cluster using the color palette from Dietrich et al. 2021 Fig 3a.
+
+Upon visual inspection of the mosaic plot, I don't perceive any clear correlations between the zooplankton and predator cluster assignments. I tested the strength of the relationship between the two cluster assignments through simulation of the Rand index (RI). RI is a measure of similarity between two clusterings ranging from 0 (no agreement) to 1 (total agreement). The histogram below shows the distribution of RI values when the cluster assignments were randomly shuffled 100,000 times. The vertical red line is the observed RI value.
+
+```{r}
+#| label: randindex
+
+set.seed(1311)
+
+expected_ri <- replicate(
+  100000,
+  aricode::RI(
+    sample(both_clust$zoop_clust, nrow(both_clust)),
+    sample(both_clust$pred_clust, nrow(both_clust))
+  )
+)
+
+observed_ri <- aricode::RI(both_clust$zoop_clust, both_clust$pred_clust)
+
+ri_pval <- sum(expected_ri > observed_ri) / 100000
+
+ggplot(tibble(`Rand index` = expected_ri), aes(`Rand index`)) +
+  geom_histogram(binwidth = 0.001) +
+  geom_vline(xintercept = observed_ri, color = "red") +
+  theme_classic()
 
 ```
+
+Based on this simulation, the correlation between the zooplankton and predator assignments *is* significant (p = `r as.character(ri_pval)`). But I haven't figured out how to assess effect size yet, which I imagine is small.
