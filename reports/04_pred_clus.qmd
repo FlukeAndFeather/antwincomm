@@ -3,6 +3,7 @@ title: "Predator clusters"
 format:
   html:
     code-fold: true
+    toc: true
 editor: visual
 output-dir: "docs"
 ---
@@ -18,18 +19,20 @@ library(targets)
 library(tidyverse)
 
 tar_load(c("predators_stations", "predators_abundant", "sightings_clust",
-           "zoop"), 
+           "zoop_sf"), 
          store = here::here("_targets"))
 source(here::here("R", "sp.R"))
 source(here::here("R", "zoop.R"))
 ```
+
+## Predator clusters
 
 Following the methods of Dietrich et al. (2021), clustering analysis is restricted to species sighted near 5% or more of stations. This avoids granting undue leverage to rare species. `r n_distinct(predators_abundant$species)` species retained (i.e., species above red line).
 
 ```{r}
 #| label: abundant_predators
 
-total_stations <- n_distinct(zoop$amlr.station)
+total_stations <- n_distinct(zoop_sf$amlr.station)
 pred_frac <- predators_stations %>%
   group_by(amlr.station, species) %>% 
   summarize(count = sum(count), .groups = "drop") %>%
@@ -52,7 +55,7 @@ pred_frac %>%
 
 ```
 
-Hierarchical clustering of stations by predator community. Chose 5 clusters a priori to match Dietrich et al. (2021). Note: `r nrow(zoop)` stations were included in the zooplankton clustering, but only `r length(sightings_clust$labels)` stations were used for predator clustering.
+Hierarchical clustering of stations by predator community. Chose 5 clusters a priori to match Dietrich et al. (2021). Note: `r nrow(zoop_sf)` stations were included in the zooplankton clustering, but only `r length(sightings_clust$labels)` stations were used for predator clustering.
 
 ```{r}
 #| label: predator_dendro
@@ -77,7 +80,7 @@ How do the predator clusters compare to the zooplankton clusters?
 #| warning: false
 
 # Join with zooplankton clusters
-both_clust <- zoop %>% 
+both_clust <- zoop_sf %>% 
   transmute(amlr.station, 
             zoop_clust = factor(`Winter Cluster factor`)) %>% 
   right_join(tibble(amlr.station = names(clust),
@@ -103,7 +106,7 @@ ggplot(both_clust) +
   theme_classic()
 ```
 
-The above mosaic plot shows the distribution of stations by predator and zooplankton stations. For example, the bottom left rectangle indicates 9 stations were assigned to zooplankton cluster 1 and predator cluster 1. Rectangles color-coded by zooplankton cluster using the color palette from Dietrich et al. 2021 Fig 3a.
+The above mosaic plot shows the distribution of stations by predator and zooplankton clusters. For example, the bottom left rectangle indicates 9 stations were assigned to zooplankton cluster 1 and predator cluster 1. Rectangles color-coded by zooplankton cluster using the color palette from Dietrich et al. 2021 Fig 3a.
 
 Upon visual inspection of the mosaic plot, I don't perceive any clear correlations between the zooplankton and predator cluster assignments. I tested the strength of the relationship between the two cluster assignments through simulation of the Rand index (RI). RI is a measure of similarity between two clusterings ranging from 0 (no agreement) to 1 (total agreement). The histogram below shows the distribution of RI values when the cluster assignments were randomly shuffled 100,000 times. The vertical red line is the observed RI value.
 
@@ -132,3 +135,67 @@ ggplot(tibble(`Rand index` = expected_ri), aes(`Rand index`)) +
 ```
 
 Based on this simulation, the correlation between the zooplankton and predator assignments *is* significant (p = `r as.character(ri_pval)`). But I haven't figured out how to assess effect size yet, which I imagine is small.
+
+## Indicator species
+
+Which species best represent each cluster? Using Dufrene-Legendre indicator species analysis. Apply indicator value cutoff at 25%.
+
+```{r}
+#| label: indicator_species
+
+species_wide <- pivot_wider(predators_abundant,
+                            names_from = species,
+                            values_from = count,
+                            values_fill = 0) %>% 
+  column_to_rownames("amlr.station")
+cluster_indval <- labdsv::indval(species_wide, clust)
+indval_mtx <- cluster_indval$indval
+indval_fmt <- apply(indval_mtx, 2, function(x) {
+  ord <- order(x, decreasing = TRUE)
+  result <- ifelse(x >= 0.25, 
+         str_glue("{rownames(indval_mtx)} ({round(x * 100)}%)"),
+         NA) %>% 
+    `[`(ord) %>% 
+    na.omit() %>% 
+    paste(collapse = "<br>")
+  ifelse(result == "", "None", result)
+})
+as_tibble(t(indval_fmt)) %>% 
+  knitr::kable(format = "html", escape = FALSE) %>% 
+  kableExtra::kable_styling()
+
+```
+
+According to the 25% cutoff, clusters 1 and 4 lack indicator species. In agreement, every species' highest indicator value falls in clusters 2, 3, or 5. This suggests to me 5 clusters is a poor choice for the predators and we should use fewer. I'll calculate the gap statistic for the hierarchical cluster analysis to quantitatively choose a data-informed number of clusters and repeat this entire analysis. For now, continuing with 5 clusters.
+
+I don't know enough about the Antarctic Peninsula megafauna to say whether the indicator species cluster together logically. The fulmarine/*Daption* petrels are split across Clusters 2 and 3. Cluster 2 lumps Cape Petrel and Antarctic Fulmar with the prion-like Blue Petrel. Cluster 3 combines the fulmarine Antarctic and Snow Petrels with the Kerguelen Petrel and fur seals. Cluster 5 seems to have the most ice-associated species (phocids and Adelie penguins).
+
+## Cluster maps
+
+What geospatial patterns do we see in the predator clusters? Cluster 5 is mostly found in the Bransfield Strait, which makes sense for the Adelie Penguin-crabeater seal-leopard seal complex. Cluster 2 (Antarctic Fulmar, Cape Petrel, and Blue Petrel) tends to show up oceanward of the South Shetland Islands. Cluster 3 (fur seal, snow petrel, Kerguelen petrel, and Antarctic Petrel) seems the most variable; found both inside and outside the Strait depending on the year.
+
+```{r}
+#| label: cluster_maps
+
+pred_clust_sf <- tibble(amlr.station = names(clust),
+                        pred_clust = factor(clust)) %>% 
+  left_join(select(zoop_sf,
+                   amlr.station,
+                   geometry,
+                   Year),
+            by = "amlr.station") %>% 
+  st_as_sf() %>% 
+  st_transform(ant_proj())
+
+map_lim <- sf::st_bbox(pred_clust_sf) %>% 
+  project_bbox() %>% 
+  expand_bbox(factor = 1.2)
+
+ant_basemap(map_lim) +
+  geom_sf(aes(color = pred_clust), pred_clust_sf, size = 2, shape = 15) +
+  facet_wrap(~ Year) +
+  scale_x_continuous(breaks = c(-60, -55)) +
+  scale_y_continuous(breaks = c(-63, -62, -61, -60)) +
+  coord_ant(map_lim) +
+  theme(legend.position = "bottom")
+```
