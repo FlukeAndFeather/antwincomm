@@ -17,16 +17,7 @@ list(
   # Download WAMLR data from OSF (if necessary)
   tar_target(
     wamlr_dir,
-    {
-      path <- here("data", "WAMLR")
-      if (!dir.exists(path)) dir.create(path, recursive = TRUE)
-      path
-    },
-    format = "file"
-  ),
-  tar_target(
-    wamlr_data,
-    download_wamlr(wamlr_dir)
+    check_wamlr(here("data", "WAMLR"))
   ),
   # Spatial data
   tar_target(
@@ -45,11 +36,7 @@ list(
   # Predators
   tar_target(
     predators_file,
-    {
-      # Create a dependency on wamlr_data so download_wamlr() happens first
-      wamlr_data
-      here(wamlr_dir, "WAMLR-2012-2016-Underway-Predator-Sightings.csv")
-    },
+    here(wamlr_dir, "WAMLR-2012-2016-Underway-Predator-Sightings.csv"),
     format = "file"
   ),
   tar_target(predators, readr::read_csv(predators_file)),
@@ -68,11 +55,7 @@ list(
   # Zooplankton
   tar_target(
     zoop_file,
-    {
-      # Create a dependency on wamlr_data so download_wamlr() happens first
-      wamlr_data
-      here(wamlr_dir, "WAMLR-2012-2016-Zooplnkton-Physics.xlsx")
-    },
+    here(wamlr_dir, "WAMLR-2012-2016-Zooplnkton-Physics.xlsx"),
     format = "file"
   ),
   tar_target(zoop, read_zoop(zoop_file)),
