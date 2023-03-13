@@ -13,6 +13,7 @@ ant_lims <- function() {
 }
 
 download_ne <- function(ne_dir) {
+  if (!dir.exists(ne_dir)) dir.create(ne_dir, recursive = TRUE)
   rnaturalearth::ne_download(scale = "large",
                              type = "land",
                              category = "physical",
