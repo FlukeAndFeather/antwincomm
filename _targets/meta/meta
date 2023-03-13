@@ -1,6 +1,6 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
 .ggOceanMapsenv|object|9be416b0fcb5a722|||||||||||||||
-.Random.seed|object|16a74255c94ad13d|||||||||||||||
+.Random.seed|object|3e930d1dbdb00188|||||||||||||||
 aggregate_predators|function|9a8cf9427e970ee6|||||||||||||||
 ant_basemap|function|53ccb70018adf605|||||||||||||||
 ant_lims|function|4ab5c5ec83e1f997|||||||||||||||
@@ -8,37 +8,38 @@ ant_proj|function|62a0b1d92f42fea0|||||||||||||||
 ant_raster_template|function|5f35f35ae35311c6|||||||||||||||
 ant_sf|stem|1893298e6d063962|52baa934608b319e|bd771f7caed03eb2|-329311475||t19429.7940375283s|d362c3211b6cd796|26055|rds|local|vector|||1.563|attribute variables are assumed to be spatially constant throughout all geometries|
 assign_sightings|function|2edaf623629b0da8|||||||||||||||
+check_wamlr|function|962a9e009fcc84ad|||||||||||||||
 coord_ant|function|a2bdd25e6416e9ea|||||||||||||||
 create_ant_sf|function|95af53f889a359db|||||||||||||||
 download_ne|function|ef600711a740583b|||||||||||||||
 download_wamlr|function|dfebcdedab8b6a0d|||||||||||||||
-effort|stem|f74d909c7c31adc2|1f5a2b793da1fad1|def866b34afb1431|-1343068639||t19409.9693033235s|5a0a3361d1c1a3df|255184|rds|local|vector|||0.159||
-effort_sf|stem|f953db1e4371af50|4232136cef60e63e|f7da28e3590a88c2|1168345245||t19409.9693149358s|31a03b3c2f85c376|292332|rds|local|vector|||0.9||
+effort|stem|1ca2a57bdd8b3ea7|1f5a2b793da1fad1|5678bff6184c93ce|-1343068639||t19429.9021191909s|708a94d15587d5dd|255186|rds|local|vector|||0.214||
+effort_sf|stem|523c042f8973db3f|4232136cef60e63e|00256487517d246a|1168345245||t19429.9021329037s|129e89bde802d221|292333|rds|local|vector|||0.008||
 effort_stars|stem|f780447623208431|daf1348e7ca516c5|04ec8f7f4426bc7f|-949701019||t19409.9621541303s|5b256a0478a301e5|3324|rds|local|vector|||4.435||
 expand_bbox|function|56087ff1f8b5d4b0|||||||||||||||
 filter_sightings|function|50bb018283152654|||||||||||||||
 latlon_to_sf|function|41433edcc24429d5|||||||||||||||
 ne_data|stem|a321285c9c5667c6|08f4b1ea773d5b36|358148deb8fc7a7b|-394386540||t19429.7940192288s|22f8ef7af814df30|3178638|rds|local|vector|||8.934||
 ne_dir|stem|8f72953e55934289|9ef4bcd80e137b54|4e3739ef91745af0|-1431853077|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/geospatial/ne|t19429.7879181002s|73a5f5604ca1ab33|288|file|local|vector|||0.002||
-predators|stem|18bfc18d81b1c596|ae3a7713277e98c8|84ff47a74d7eb19c|-164442843||t19402.7889638631s||972063|rds|local|vector|||0.354|raw  FALSE but UsersfrankDocumentsGitHubmanuscriptsantwincommdataWAMLR is not a regular file. cannot open file UsersfrankDocumentsGitHubmanuscriptsantwincommdataWAMLR it is a directory|cannot open the connection
-predators_abundant|stem|8188e63c9a91ead2|d0f86ca8867c9063|16929b651f683e11|560995570||t19403.7876543997s|68b426728d2a8c28|4363|rds|local|vector|||0.034||
-predators_agg|stem|fb45bd0d91f8f219|1f53c6d2d5b8cbec|5941e8d6e93c4c51|-374844731||t19402.7889697372s|f344b34150eff85c|86089|rds|local|vector|||0.175||
-predators_file|stem|da7e5646cbdfced7|4839ef996ec8e489|45cdfed032885001|1489732230|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/WAMLR//|t0s||0|file|local|vector|||||_paths_ 31mmissing files UsersfrankDocumentsGitHubmanuscriptsantwincommdataWAMLRWAMLR20122016UnderwayPredatorSightings.csv39m
-predators_sf|stem|ca890164a563f886|f97dc84afa040797|955ebd761df3a759|25197916||t19402.7889769239s|7c97cc269469e13c|91981|rds|local|vector|||0.013||
-predators_stations|stem|e08b1f9dc7020f1b|9ffa306b27f7406f|7158a44799585f8c|-713016168||t19403.7876538296s|f7260f44176cb495|100263|rds|local|vector|||0.833||
+predators|stem|55fddb8cb2c8c3b6|ae3a7713277e98c8|9d06f3db2c61cbaf|-164442843||t19429.9021121571s|3731c1f15cdca704|972063|rds|local|vector|||0.452||
+predators_abundant|stem|162ad9bddbf60f25|d0f86ca8867c9063|75e0cabcd47432bd|560995570||t19429.9021447479s|e5853880eb6a8640|4362|rds|local|vector|||0.03||
+predators_agg|stem|8e14f5d94a3504c1|1f53c6d2d5b8cbec|8a048e7a549d183b|-374844731||t19429.9021212598s|dc5cd87534f0ea30|86090|rds|local|vector|||0.132||
+predators_file|stem|fc2f43e02077adfa|c25ecba9e733d114|2adb22bdbd8253cb|1489732230|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/WAMLR/WAMLR-2012-2016-Underway-Predator-Sightings.csv|t19429.9001013099s|675861551bea89bc|4474693|file|local|vector|||0.002||
+predators_sf|stem|adc51a27ebcc56aa|f97dc84afa040797|ed6f382d1ab5eaed|25197916||t19429.9021335788s|7c97cc269469e13c|91981|rds|local|vector|||0.008||
+predators_stations|stem|1b0bb1ebdc64ac72|9ffa306b27f7406f|18da90b8b4431c80|-713016168||t19429.9021442096s|f7260f44176cb495|100263|rds|local|vector|||0.875||
 project_bbox|function|c81b1d38a6eb0043|||||||||||||||
 rasterize_counts|function|333566c14cbb24b4|||||||||||||||
 read_zoop|function|a429f63cd4d404f7|||||||||||||||
-reports|stem|62ac04ef9b0a64f6|10275919f74c2efe|cbcd0e4d43d3a047|-653841556|docs*reports/01_predators.qmd*reports/02_stations.qmd*reports/03_combined.qmd*reports/04_pred_clus.qmd*reports/_quarto.yml|t19411.1452515841s|aba2946efb8d3147|13057185|file|local|vector|||51.952||
-sightings_clust|stem|dd40a569f41a77e1|d0de88d951f4e268|f9d9c8c5932dcfb4|-827995520||t19402.8590403327s|3670ca4574f0da4d|4712|rds|local|vector|||0.003||
-sightings_dist|stem|8158cdec7f6c3dcd|cd796f886c92552a|32fcbc8865861ba2|-523125683||t19402.8590401401s|c02c99b3d8a3fc9a|234884|rds|local|vector|||1.163||
-sightings_mtx|stem|a811e7564138aafe|56c6b16beeb55b55|77205f8ab883263f|972446550||t19402.7889914207s|3b38a5790df63112|4887|rds|local|vector|||0.057||
+reports|stem|71b93e96d1447d6d|10275919f74c2efe|0453d4e7a0e04336|-653841556|docs*reports/01_predators.qmd*reports/02_stations.qmd*reports/03_combined.qmd*reports/04_pred_clus.qmd*reports/_quarto.yml|t19429.9130744687s|4445df398ced1a4a|12979542|file|local|vector|||62.296||
+sightings_clust|stem|894d7c8a37bc74d4|d0de88d951f4e268|7cda38b837a30560|-827995520||t19429.9021581936s|01d82bd3f2d69181|4713|rds|local|vector|||0.002||
+sightings_dist|stem|1a8aaf5adddfa18f|cd796f886c92552a|f23e449a86d506e6|-523125683||t19429.9021580849s|acbf5fa28a79e047|234885|rds|local|vector|||1.065||
+sightings_mtx|stem|12469b5a8b4caafa|56c6b16beeb55b55|392055d3e719e86d|972446550||t19429.9021454918s|f67a079894e94f75|4889|rds|local|vector|||0.053||
 sightings_to_matrix|function|e40ec207f39836f5|||||||||||||||
 tod_pal|function|fa77082689a3b904|||||||||||||||
 wamlr_data|stem|a9dd2522ad47cc2a|d7226650d0262ed2|c39d57054855e44f|-784986250||t19429.8122577687s|2ebe362f8f73044f|737|rds|local|vector|||168.594||
-wamlr_dir|stem|da7e5646cbdfced7|23c04c3a61886a3a|2aeaee160ee7df8a|780487281|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/WAMLR|t0s|f4066a65ff755f48|0|file|local|vector|||0.003||
+wamlr_dir|stem|a72c48a6943b38cd|6fc1f28582ff1e0e|df4ed6fb5b91dbae|780487281||t19429.9021031297s|e3871644244b3637|115|rds|local|vector|||0.002||
 wamlr_path|function|690cdef347a0b153|||||||||||||||
-zoop|stem|5f2c292e075b6acd|8830561bff240ca2|3f71553a431266a8|365484979||t19403.7876349223s|191d51a996b83e5e|145160|rds|local|vector|||0.269|50 parsing failures.row col expected actual209   a number   None212   a number   None213   a number   None214   a number   None215   a number   None... ... ........ ......See problems... for more details.|
-zoop_file|stem|da7e5646cbdfced7|34c23ff4d18fcf8c|19fd574b4a8a1b23|441051823|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/WAMLR//|t0s|f4066a65ff755f48|0|file|local|vector|||0.001||
-zoop_long|stem|647ddd74ec2ace59|7ef4411801f32843|a871652e4f4a210a|-943243651||t19403.7876374199s|13e690a8624f1be0|197562|rds|local|vector|||0.026||
-zoop_sf|stem|005f00c50f908547|87187d77214574d3|5ea19b4b5c53a720|-574734892||t19403.7876433751s|54b4cb13e01c72a8|146535|rds|local|vector|||0.487||
+zoop|stem|be3a92913029562b|8830561bff240ca2|3f71553a431266a8|365484979||t19429.9021153045s|c2cce8e766e5828f|145162|rds|local|vector|||0.246|1m22mThere was 1 warning in mutate.1m22m36mℹ39m In argument across....Caused by warning33m39m 50 parsing failures.row col expected actual209   a number   None212   a number   None213   a number   None214   a number   None215   a number   None... ... ........ ......See problems... for more details.|
+zoop_file|stem|2432c7a9538515e5|7beac0175fb2a426|2adb22bdbd8253cb|441051823|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/WAMLR/WAMLR-2012-2016-Zooplnkton-Physics.xlsx|t19429.9001011361s|0e772b6b71ca4b54|373054|file|local|vector|||0.002||
+zoop_long|stem|ea4e7a4b8fa305e4|7ef4411801f32843|ca30623783bf3ab5|-943243651||t19429.9021239085s|05a964ea00be8065|197564|rds|local|vector|||0.041||
+zoop_sf|stem|06b8256442cb7c60|87187d77214574d3|b80044f710218a07|-574734892||t19429.9021320277s|c18e66d916b9d668|146537|rds|local|vector|||0.673||

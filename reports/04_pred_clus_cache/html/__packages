@@ -1,8 +1,9 @@
+ggplot2
+ggmosaic
 ggtree
 sf
 targets
 tidyverse
-ggplot2
 tibble
 tidyr
 readr
@@ -10,4 +11,3 @@ purrr
 dplyr
 stringr
 forcats
-ggmosaic
