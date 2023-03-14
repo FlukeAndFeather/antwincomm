@@ -83,6 +83,25 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -100,6 +119,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="04_pred_clus_files/libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="04_pred_clus_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -114,6 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#predator-clusters" id="toc-predator-clusters" class="nav-link active" data-scroll-target="#predator-clusters">Predator clusters</a></li>
   <li><a href="#indicator-species" id="toc-indicator-species" class="nav-link" data-scroll-target="#indicator-species">Indicator species</a></li>
   <li><a href="#cluster-maps" id="toc-cluster-maps" class="nav-link" data-scroll-target="#cluster-maps">Cluster maps</a></li>
+  <li><a href="#optimal-number-of-clusters" id="toc-optimal-number-of-clusters" class="nav-link" data-scroll-target="#optimal-number-of-clusters">Optimal number of clusters</a></li>
   </ul>
 </nav>
 </div>
@@ -481,8 +502,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
+<section id="optimal-number-of-clusters" class="level2">
+<h2 class="anchored" data-anchor-id="optimal-number-of-clusters">Optimal number of clusters</h2>
+<p>We use the gap statistic <span class="citation" data-cites="tibshirani2001">(<a href="#ref-tibshirani2001" role="doc-biblioref">Tibshirani, Walther, and Hastie 2001</a>)</span> to choose the optimal number of clusters, <span class="math inline">\(k\)</span>. Using the “first SE max” rule, <span class="math inline">\(k\)</span> is defined as the smallest number of clusters where the gap statistic is greater than the first local maximum less its standard error. In the following figure, the first local maximum of the gap statistic occurs at four clusters. The threshold (local maximum less its standard error) is represented by the red dashed line. The smallest number of clusters with a gap statistic greater than that threshold is <span class="math inline">\(k=3\)</span>, indicated by the red point and standard error lines.</p>
+<div class="cell" data-hash="04_pred_clus_cache/html/unnamed-chunk-8_ae85c8538ea94c50f2db7fefbcf4610c">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cluster_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(x, k) {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  bray_dist <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    vegan<span class="sc">::</span><span class="fu">vegdist</span>(x, <span class="at">method =</span> <span class="st">"bray"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">cluster =</span> <span class="fu">cutree</span>(<span class="fu">hclust</span>(<span class="fu">bray_dist</span>(x), <span class="at">method =</span> <span class="st">"ward.D2"</span>), <span class="at">k =</span> k))</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>sightings_gap <span class="ot">&lt;-</span> <span class="fu">suppressWarnings</span>(</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  cluster<span class="sc">::</span><span class="fu">clusGap</span>(sightings_mtx, </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">FUN =</span> cluster_fn,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">K.max =</span> <span class="dv">10</span>, </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">B =</span> <span class="dv">100</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>sightings_gap_df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(sightings_gap<span class="sc">$</span>Tab) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">k =</span> <span class="fu">seq_along</span>(logW),</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_optimal =</span> k <span class="sc">==</span> cluster<span class="sc">::</span><span class="fu">maxSE</span>(gap, SE.sim, <span class="at">method =</span> <span class="st">"firstSEmax"</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>firstmaxk <span class="ot">&lt;-</span> <span class="fu">with</span>(sightings_gap_df,</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>                  cluster<span class="sc">::</span><span class="fu">maxSE</span>(gap, SE.sim, <span class="at">method =</span> <span class="st">"firstmax"</span>))</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>gap_thr <span class="ot">&lt;-</span> <span class="fu">with</span>(sightings_gap_df, gap[firstmaxk] <span class="sc">-</span> SE.sim[firstmaxk])</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sightings_gap_df, <span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> gap)) <span class="sc">+</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> gap <span class="sc">-</span> SE.sim, <span class="at">ymax =</span> gap <span class="sc">+</span> SE.sim,</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>                      <span class="at">color =</span> is_optimal)) <span class="sc">+</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> gap_thr, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"red"</span>,</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>                                <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"black"</span>)) <span class="sc">+</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="04_pred_clus_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
-</main>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-tibshirani2001" class="csl-entry" role="doc-biblioentry">
+Tibshirani, Robert, Guenther Walther, and Trevor Hastie. 2001. <span>“Estimating the Number of Clusters in a Data Set via the Gap Statistic.”</span> <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em> 63 (2): 411–23. <a href="https://doi.org/10.1111/1467-9868.00293">https://doi.org/10.1111/1467-9868.00293</a>.
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

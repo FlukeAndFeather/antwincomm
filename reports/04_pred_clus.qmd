@@ -6,6 +6,7 @@ format:
     toc: true
 editor: visual
 output-dir: "docs"
+bibliography: references.bib
 ---
 
 ```{r}
@@ -19,7 +20,7 @@ library(targets)
 library(tidyverse)
 
 tar_load(c("predators_stations", "predators_abundant", "sightings_clust",
-           "zoop_sf"), 
+           "sightings_mtx", "sightings_dist", "zoop_sf"), 
          store = here::here("_targets"))
 source(here::here("R", "sp.R"))
 source(here::here("R", "zoop.R"))
@@ -198,4 +199,41 @@ ant_basemap(map_lim) +
   scale_y_continuous(breaks = c(-63, -62, -61, -60)) +
   coord_ant(map_lim) +
   theme(legend.position = "bottom")
+```
+
+## Optimal number of clusters
+
+We use the gap statistic [@tibshirani2001] to choose the optimal number of clusters, $k$. Using the "first SE max" rule, $k$ is defined as the smallest number of clusters where the gap statistic is greater than the first local maximum less its standard error. In the following figure, the first local maximum of the gap statistic occurs at four clusters. The threshold (local maximum less its standard error) is represented by the red dashed line. The smallest number of clusters with a gap statistic greater than that threshold is $k=3$, indicated by the red point and standard error lines.
+
+```{r}
+cluster_fn <- function(x, k) {
+  bray_dist <- function(x) {
+    vegan::vegdist(x, method = "bray")
+  }
+  list(cluster = cutree(hclust(bray_dist(x), method = "ward.D2"), k = k))
+}
+sightings_gap <- suppressWarnings(
+  cluster::clusGap(sightings_mtx, 
+                   FUN = cluster_fn,
+                   K.max = 10, 
+                   B = 100,
+                   verbose = FALSE)
+)
+sightings_gap_df <- as_tibble(sightings_gap$Tab) %>% 
+  mutate(
+    k = seq_along(logW),
+    is_optimal = k == cluster::maxSE(gap, SE.sim, method = "firstSEmax")
+  )
+firstmaxk <- with(sightings_gap_df,
+                  cluster::maxSE(gap, SE.sim, method = "firstmax"))
+gap_thr <- with(sightings_gap_df, gap[firstmaxk] - SE.sim[firstmaxk])
+ggplot(sightings_gap_df, aes(x = k, y = gap)) +
+  geom_line() +
+  geom_pointrange(aes(ymin = gap - SE.sim, ymax = gap + SE.sim,
+                      color = is_optimal)) +
+  geom_hline(yintercept = gap_thr, color = "red", linetype = "dashed") +
+  scale_color_manual(values = c(`TRUE` = "red",
+                                `FALSE` = "black")) +
+  theme_classic() +
+  theme(legend.position = "none")
 ```

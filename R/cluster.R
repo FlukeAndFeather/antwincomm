@@ -39,7 +39,6 @@ assign_sightings <- function(sightings, stations, max_dist_km) {
                                                by_element = TRUE))
   }
 
-  # browser()
   # Assign sightings across years
   sightings %>%
     group_by(year) %>%
