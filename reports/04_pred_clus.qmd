@@ -237,3 +237,103 @@ ggplot(sightings_gap_df, aes(x = k, y = gap)) +
   theme_classic() +
   theme(legend.position = "none")
 ```
+
+## 3-cluster analysis
+
+```{r}
+#| label: predator_dendro2
+
+# Cut predators into 3 clusters
+clust <- cutree(sightings_clust, 3)
+g <- split(names(clust), clust)
+p <- ggtree(sightings_clust, hang = -1)
+pred_clust_mrca <- sapply(g, function(n) MRCA(p, n))
+
+p %>% 
+  groupClade(pred_clust_mrca, group_name = "Predator cluster") + 
+  aes(color = `Predator cluster`) +
+  layout_dendrogram() +
+  theme_dendrogram()
+```
+
+```{r}
+#| label: predator_mosaic2
+#| warning: false
+
+# Join with zooplankton clusters
+both_clust <- zoop_sf %>% 
+  transmute(amlr.station, 
+            zoop_clust = factor(`Winter Cluster factor`)) %>% 
+  right_join(tibble(amlr.station = names(clust),
+                    pred_clust = factor(clust)),
+             by = "amlr.station")
+
+# Mosaic plot
+cluster_pal = c(`1` = "#96B687",
+                `2a` = "#9CB2C8",
+                `2b` = "#CAB3CC",
+                `3a` = "#D29A97",
+                `3b` = "#E8AD5C")
+ggplot(both_clust) +
+  geom_mosaic(aes(x = product(zoop_clust, pred_clust), 
+                  fill = zoop_clust)) +
+  geom_mosaic_text(aes(x = product(zoop_clust, pred_clust),
+                       label = after_stat(.wt)),
+                   as.label = TRUE) +
+  scale_fill_manual(values = cluster_pal) +
+  labs(x = "Predator cluster",
+       y = "Zooplankton cluster",
+       fill = "Zooplankton cluster") +
+  theme_classic()
+```
+
+```{r}
+#| label: indicator_species2
+
+species_wide <- pivot_wider(predators_abundant,
+                            names_from = species,
+                            values_from = count,
+                            values_fill = 0) %>% 
+  column_to_rownames("amlr.station")
+cluster_indval <- labdsv::indval(species_wide, clust)
+indval_mtx <- cluster_indval$indval
+indval_fmt <- apply(indval_mtx, 2, function(x) {
+  ord <- order(x, decreasing = TRUE)
+  result <- ifelse(x >= 0.25, 
+         str_glue("{rownames(indval_mtx)} ({round(x * 100)}%)"),
+         NA) %>% 
+    `[`(ord) %>% 
+    na.omit() %>% 
+    paste(collapse = "<br>")
+  ifelse(result == "", "None", result)
+})
+as_tibble(t(indval_fmt)) %>% 
+  knitr::kable(format = "html", escape = FALSE) %>% 
+  kableExtra::kable_styling()
+```
+
+```{r}
+#| label: cluster_maps2
+
+pred_clust_sf <- tibble(amlr.station = names(clust),
+                        pred_clust = factor(clust)) %>% 
+  left_join(select(zoop_sf,
+                   amlr.station,
+                   geometry,
+                   Year),
+            by = "amlr.station") %>% 
+  st_as_sf() %>% 
+  st_transform(ant_proj())
+
+map_lim <- sf::st_bbox(pred_clust_sf) %>% 
+  project_bbox() %>% 
+  expand_bbox(factor = 1.2)
+
+ant_basemap(map_lim) +
+  geom_sf(aes(color = pred_clust), pred_clust_sf, size = 2, shape = 15) +
+  facet_wrap(~ Year) +
+  scale_x_continuous(breaks = c(-60, -55)) +
+  scale_y_continuous(breaks = c(-63, -62, -61, -60)) +
+  coord_ant(map_lim) +
+  theme(legend.position = "bottom")
+```
