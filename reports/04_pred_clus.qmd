@@ -18,6 +18,7 @@ library(ggtree)
 library(sf)
 library(targets)
 library(tidyverse)
+library(vegan)
 
 tar_load(c("predators_stations", "predators_abundant", "sightings_clust",
            "sightings_mtx", "sightings_dist", "zoop_sf"), 
@@ -203,12 +204,12 @@ ant_basemap(map_lim) +
 
 ## Optimal number of clusters
 
-We use the gap statistic [@tibshirani2001] to choose the optimal number of clusters, $k$. Using the "first SE max" rule, $k$ is defined as the smallest number of clusters where the gap statistic is greater than the first local maximum less its standard error. In the following figure, the first local maximum of the gap statistic occurs at four clusters. The threshold (local maximum less its standard error) is represented by the red dashed line. The smallest number of clusters with a gap statistic greater than that threshold is $k=3$, indicated by the red point and standard error lines.
+We use the gap statistic [@tibshirani2001] to choose the optimal number of clusters ($k$). The gap statistic ($f$) is a goodness of clustering measure. The authors recommended choosing the smallest $k$ such that $f(k) \geq f(k+1) - s_{k+1}$ where $s$ is the standard error of $f$. According to this rule, the predators are best described by two clusters.
 
 ```{r}
 cluster_fn <- function(x, k) {
   bray_dist <- function(x) {
-    vegan::vegdist(x, method = "bray")
+    vegdist(x, method = "bray")
   }
   list(cluster = cutree(hclust(bray_dist(x), method = "ward.D2"), k = k))
 }
@@ -216,13 +217,13 @@ sightings_gap <- suppressWarnings(
   cluster::clusGap(sightings_mtx, 
                    FUN = cluster_fn,
                    K.max = 10, 
-                   B = 100,
+                   B = 500,
                    verbose = FALSE)
 )
 sightings_gap_df <- as_tibble(sightings_gap$Tab) %>% 
   mutate(
     k = seq_along(logW),
-    is_optimal = k == cluster::maxSE(gap, SE.sim, method = "firstSEmax")
+    is_optimal = k == cluster::maxSE(gap, SE.sim, method = "Tibs2001SEmax")
   )
 firstmaxk <- with(sightings_gap_df,
                   cluster::maxSE(gap, SE.sim, method = "firstmax"))
@@ -238,13 +239,15 @@ ggplot(sightings_gap_df, aes(x = k, y = gap)) +
   theme(legend.position = "none")
 ```
 
-## 3-cluster analysis
+## 2-cluster analysis
+
+Repeat the indicator species analysis and maps with two clusters.
 
 ```{r}
 #| label: predator_dendro2
 
-# Cut predators into 3 clusters
-clust <- cutree(sightings_clust, 3)
+# Cut predators into 2 clusters
+clust <- cutree(sightings_clust, 2)
 g <- split(names(clust), clust)
 p <- ggtree(sightings_clust, hang = -1)
 pred_clust_mrca <- sapply(g, function(n) MRCA(p, n))
@@ -254,37 +257,6 @@ p %>%
   aes(color = `Predator cluster`) +
   layout_dendrogram() +
   theme_dendrogram()
-```
-
-```{r}
-#| label: predator_mosaic2
-#| warning: false
-
-# Join with zooplankton clusters
-both_clust <- zoop_sf %>% 
-  transmute(amlr.station, 
-            zoop_clust = factor(`Winter Cluster factor`)) %>% 
-  right_join(tibble(amlr.station = names(clust),
-                    pred_clust = factor(clust)),
-             by = "amlr.station")
-
-# Mosaic plot
-cluster_pal = c(`1` = "#96B687",
-                `2a` = "#9CB2C8",
-                `2b` = "#CAB3CC",
-                `3a` = "#D29A97",
-                `3b` = "#E8AD5C")
-ggplot(both_clust) +
-  geom_mosaic(aes(x = product(zoop_clust, pred_clust), 
-                  fill = zoop_clust)) +
-  geom_mosaic_text(aes(x = product(zoop_clust, pred_clust),
-                       label = after_stat(.wt)),
-                   as.label = TRUE) +
-  scale_fill_manual(values = cluster_pal) +
-  labs(x = "Predator cluster",
-       y = "Zooplankton cluster",
-       fill = "Zooplankton cluster") +
-  theme_classic()
 ```
 
 ```{r}
@@ -336,4 +308,43 @@ ant_basemap(map_lim) +
   scale_y_continuous(breaks = c(-63, -62, -61, -60)) +
   coord_ant(map_lim) +
   theme(legend.position = "bottom")
+```
+
+## NMDS
+
+```{r}
+#| label: nmds
+
+sightings_nmds <- metaMDS(
+  sightings_mtx, 
+  distance = "bray",
+  k = 3,
+  trymax = 100
+)
+
+stressplot(sightings_nmds)
+
+```
+
+```{r}
+#| label: loading
+
+nmds_df <- sightings_nmds$points %>% 
+  as_tibble(rownames = "amlr.station") %>% 
+  rename_with(~ paste0("N", .x), starts_with("MDS")) %>% 
+  right_join(tibble(amlr.station = names(clust),
+                    pred_clust = factor(clust)),
+             by = "amlr.station")
+
+ggplot(nmds_df, aes(NMDS1, NMDS2)) +
+  geom_point(aes(color = pred_clust)) +
+  theme_classic()
+
+ggplot(nmds_df, aes(NMDS1, NMDS3)) +
+  geom_point(aes(color = pred_clust)) +
+  theme_classic()
+
+ggplot(nmds_df, aes(NMDS2, NMDS3)) +
+  geom_point(aes(color = pred_clust)) +
+  theme_classic()
 ```

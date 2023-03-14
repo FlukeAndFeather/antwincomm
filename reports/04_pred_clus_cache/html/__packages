@@ -11,3 +11,6 @@ purrr
 dplyr
 stringr
 forcats
+permute
+lattice
+vegan
