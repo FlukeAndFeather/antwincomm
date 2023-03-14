@@ -162,7 +162,7 @@ div.csl-indent {
 <section id="predator-clusters" class="level2">
 <h2 class="anchored" data-anchor-id="predator-clusters">Predator clusters</h2>
 <p>Following the methods of Dietrich et al.&nbsp;(2021), clustering analysis is restricted to species sighted near 5% or more of stations. This avoids granting undue leverage to rare species. 14 species retained (i.e., species above red line).</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/abundant_predators_749ccc979454be3e9f5344a318ba7a08">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>total_stations <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(zoop_sf<span class="sc">$</span>amlr.station)</span>
@@ -333,7 +333,7 @@ div.csl-indent {
 </div>
 </div>
 <p>Hierarchical clustering of stations by predator community. Chose 5 clusters a priori to match Dietrich et al.&nbsp;(2021). Note: 394 stations were included in the zooplankton clustering, but only 252 stations were used for predator clustering.</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/predator_dendro_744a177b51f4b08501d3a5546672dbf1">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut predators into five clusters</span></span>
@@ -353,7 +353,7 @@ div.csl-indent {
 </div>
 </div>
 <p>How do the predator clusters compare to the zooplankton clusters?</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/predator_mosaic_90ffa35b0d7f985b6a935aad6bbf312e">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join with zooplankton clusters</span></span>
@@ -388,7 +388,7 @@ div.csl-indent {
 </div>
 <p>The above mosaic plot shows the distribution of stations by predator and zooplankton clusters. For example, the bottom left rectangle indicates 9 stations were assigned to zooplankton cluster 1 and predator cluster 1. Rectangles color-coded by zooplankton cluster using the color palette from Dietrich et al.&nbsp;2021 Fig 3a.</p>
 <p>Upon visual inspection of the mosaic plot, I don’t perceive any clear correlations between the zooplankton and predator cluster assignments. I tested the strength of the relationship between the two cluster assignments through simulation of the Rand index (RI). RI is a measure of similarity between two clusterings ranging from 0 (no agreement) to 1 (total agreement). The histogram below shows the distribution of RI values when the cluster assignments were randomly shuffled 100,000 times. The vertical red line is the observed RI value.</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/randindex_a12bb81f454a099dc5a5f5c66adc13fe">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1311</span>)</span>
@@ -419,7 +419,7 @@ div.csl-indent {
 <section id="indicator-species" class="level2">
 <h2 class="anchored" data-anchor-id="indicator-species">Indicator species</h2>
 <p>Which species best represent each cluster? Using Dufrene-Legendre indicator species analysis. Apply indicator value cutoff at 25%.</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/indicator_species_3818b48554c2243d4f44e7d7fce4a332">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>species_wide <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(predators_abundant,</span>
@@ -474,7 +474,7 @@ div.csl-indent {
 <section id="cluster-maps" class="level2">
 <h2 class="anchored" data-anchor-id="cluster-maps">Cluster maps</h2>
 <p>What geospatial patterns do we see in the predator clusters? Cluster 5 is mostly found in the Bransfield Strait, which makes sense for the Adelie Penguin-crabeater seal-leopard seal complex. Cluster 2 (Antarctic Fulmar, Cape Petrel, and Blue Petrel) tends to show up oceanward of the South Shetland Islands. Cluster 3 (fur seal, snow petrel, Kerguelen petrel, and Antarctic Petrel) seems the most variable; found both inside and outside the Strait depending on the year.</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/cluster_maps_40dbcea88cd30740f276cd59210eb4ee">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pred_clust_sf <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">amlr.station =</span> <span class="fu">names</span>(clust),</span>
@@ -506,8 +506,8 @@ div.csl-indent {
 </section>
 <section id="optimal-number-of-clusters" class="level2">
 <h2 class="anchored" data-anchor-id="optimal-number-of-clusters">Optimal number of clusters</h2>
-<p>We use the gap statistic <span class="citation" data-cites="tibshirani2001">(<a href="#ref-tibshirani2001" role="doc-biblioref">Tibshirani, Walther, and Hastie 2001</a>)</span> to choose the optimal number of clusters (<span class="math inline">\(k\)</span>). The gap statistic (<span class="math inline">\(f\)</span>) is a goodness of clustering measure. The authors recommended choosing the smallest <span class="math inline">\(k\)</span> such that <span class="math inline">\(f(k) \geq f(k+1) - s_{k+1}\)</span> where <span class="math inline">\(s\)</span> is the standard error of <span class="math inline">\(f\)</span>. According to this rule, the predators are best described by two clusters.</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/unnamed-chunk-8_3426eb8ca7f59819846706aca395b6b3">
+<p>We use the gap statistic <span class="citation" data-cites="tibshirani2001">(<a href="#ref-tibshirani2001" role="doc-biblioref">Tibshirani, Walther, and Hastie 2001</a>)</span> to choose the optimal number of clusters (<span class="math inline">\(k\)</span>). The gap statistic (<span class="math inline">\(f\)</span>) is a goodness of clustering measure. The authors recommended choosing the smallest <span class="math inline">\(k\)</span> such that <span class="math inline">\(f(k) \geq f(k+1) - s(k+1)\)</span> where <span class="math inline">\(s\)</span> is the standard error of <span class="math inline">\(f\)</span>. According to this rule, the predators are best described by two clusters. However, <span class="math inline">\(f(2)\)</span> is only slightly greater than <span class="math inline">\(f(3)-s(3)\)</span> and, because <span class="math inline">\(s\)</span> is estimated by bootstrapping, <span class="math inline">\(k=3\)</span> may be selected sometimes depending on stochasticity.</p>
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cluster_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(x, k) {</span>
@@ -516,30 +516,27 @@ div.csl-indent {
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">cluster =</span> <span class="fu">cutree</span>(<span class="fu">hclust</span>(<span class="fu">bray_dist</span>(x), <span class="at">method =</span> <span class="st">"ward.D2"</span>), <span class="at">k =</span> k))</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>sightings_gap <span class="ot">&lt;-</span> <span class="fu">suppressWarnings</span>(</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  cluster<span class="sc">::</span><span class="fu">clusGap</span>(sightings_mtx, </span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">FUN =</span> cluster_fn,</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">K.max =</span> <span class="dv">10</span>, </span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">B =</span> <span class="dv">500</span>,</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>sightings_gap_df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(sightings_gap<span class="sc">$</span>Tab) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">k =</span> <span class="fu">seq_along</span>(logW),</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_optimal =</span> k <span class="sc">==</span> cluster<span class="sc">::</span><span class="fu">maxSE</span>(gap, SE.sim, <span class="at">method =</span> <span class="st">"Tibs2001SEmax"</span>)</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>firstmaxk <span class="ot">&lt;-</span> <span class="fu">with</span>(sightings_gap_df,</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>                  cluster<span class="sc">::</span><span class="fu">maxSE</span>(gap, SE.sim, <span class="at">method =</span> <span class="st">"firstmax"</span>))</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>gap_thr <span class="ot">&lt;-</span> <span class="fu">with</span>(sightings_gap_df, gap[firstmaxk] <span class="sc">-</span> SE.sim[firstmaxk])</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sightings_gap_df, <span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> gap)) <span class="sc">+</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> gap <span class="sc">-</span> SE.sim, <span class="at">ymax =</span> gap <span class="sc">+</span> SE.sim,</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>                      <span class="at">color =</span> is_optimal)) <span class="sc">+</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> gap_thr, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"red"</span>,</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>                                <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"black"</span>)) <span class="sc">+</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">931</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>sightings_gap <span class="ot">&lt;-</span> <span class="fu">suppressWarnings</span>(</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  cluster<span class="sc">::</span><span class="fu">clusGap</span>(sightings_mtx, </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">FUN =</span> cluster_fn,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">K.max =</span> <span class="dv">10</span>, </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">B =</span> <span class="dv">500</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>sightings_gap_df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(sightings_gap<span class="sc">$</span>Tab) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">k =</span> <span class="fu">seq_along</span>(logW),</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_optimal =</span> k <span class="sc">==</span> cluster<span class="sc">::</span><span class="fu">maxSE</span>(gap, SE.sim, <span class="at">method =</span> <span class="st">"Tibs2001SEmax"</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sightings_gap_df, <span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> gap)) <span class="sc">+</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> gap <span class="sc">-</span> SE.sim, <span class="at">ymax =</span> gap <span class="sc">+</span> SE.sim,</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>                      <span class="at">color =</span> is_optimal)) <span class="sc">+</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"red"</span>,</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>                                <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"black"</span>)) <span class="sc">+</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="04_pred_clus_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
@@ -549,7 +546,7 @@ div.csl-indent {
 <section id="cluster-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="cluster-analysis">2-cluster analysis</h2>
 <p>Repeat the indicator species analysis and maps with two clusters.</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/predator_dendro2_8f5968d1efa77a8a0c3b48bb9624fce8">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut predators into 2 clusters</span></span>
@@ -568,7 +565,7 @@ div.csl-indent {
 <p><img src="04_pred_clus_files/figure-html/predator_dendro2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="04_pred_clus_cache/html/indicator_species2_38219e98a688bf6263e6e47bef3311f3">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>species_wide <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(predators_abundant,</span>
@@ -611,7 +608,7 @@ div.csl-indent {
 
 </div>
 </div>
-<div class="cell" data-hash="04_pred_clus_cache/html/cluster_maps2_efa1d3f4e517d61d56b18787eb00547f">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pred_clust_sf <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">amlr.station =</span> <span class="fu">names</span>(clust),</span>
@@ -643,7 +640,7 @@ div.csl-indent {
 </section>
 <section id="nmds" class="level2">
 <h2 class="anchored" data-anchor-id="nmds">NMDS</h2>
-<div class="cell" data-hash="04_pred_clus_cache/html/nmds_ab914434582790011131138cfa4c3c6d">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sightings_nmds <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(</span>
@@ -655,49 +652,101 @@ div.csl-indent {
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Run 0 stress 0.1469804 
-Run 1 stress 0.1519585 
-Run 2 stress 0.1471357 
-... Procrustes: rmse 0.02085306  max resid 0.2821131 
-Run 3 stress 0.1464671 
+Run 1 stress 0.1471361 
+... Procrustes: rmse 0.02061084  max resid 0.2811117 
+Run 2 stress 0.1471834 
+... Procrustes: rmse 0.01884718  max resid 0.2740247 
+Run 3 stress 0.1471885 
+... Procrustes: rmse 0.008735855  max resid 0.1135516 
+Run 4 stress 0.1469745 
 ... New best solution
-... Procrustes: rmse 0.007722248  max resid 0.106905 
-Run 4 stress 0.1484385 
-Run 5 stress 0.1469505 
-... Procrustes: rmse 0.0208962  max resid 0.2809336 
-Run 6 stress 0.14668 
-... Procrustes: rmse 0.003853729  max resid 0.04045259 
-Run 7 stress 0.1469721 
-Run 8 stress 0.1479627 
-Run 9 stress 0.1464365 
+... Procrustes: rmse 0.0197483  max resid 0.2746994 
+Run 5 stress 0.1469184 
 ... New best solution
-... Procrustes: rmse 0.002834067  max resid 0.03376289 
-Run 10 stress 0.1512181 
-Run 11 stress 0.1510998 
-Run 12 stress 0.146972 
-Run 13 stress 0.1471355 
-Run 14 stress 0.1500619 
-Run 15 stress 0.1491555 
-Run 16 stress 0.1509233 
-Run 17 stress 0.147133 
-Run 18 stress 0.1469833 
-Run 19 stress 0.1464161 
+... Procrustes: rmse 0.00634349  max resid 0.09279046 
+Run 6 stress 0.1471334 
+... Procrustes: rmse 0.007662494  max resid 0.1070399 
+Run 7 stress 0.1503742 
+Run 8 stress 0.1480708 
+Run 9 stress 0.1469182 
 ... New best solution
-... Procrustes: rmse 0.001444821  max resid 0.01636878 
-Run 20 stress 0.1500601 
-Run 21 stress 0.1471744 
-Run 22 stress 0.1480487 
-Run 23 stress 0.1471344 
-Run 24 stress 0.1464659 
-... Procrustes: rmse 0.00251766  max resid 0.03407274 
-Run 25 stress 0.146468 
-... Procrustes: rmse 0.00285926  max resid 0.03426019 
-Run 26 stress 0.1469365 
-Run 27 stress 0.1471358 
-Run 28 stress 0.1471332 
-Run 29 stress 0.1466798 
-... Procrustes: rmse 0.003097335  max resid 0.04146286 
-Run 30 stress 0.1464179 
-... Procrustes: rmse 0.0003647399  max resid 0.004522507 
+... Procrustes: rmse 0.001878138  max resid 0.02313362 
+Run 10 stress 0.1469187 
+... Procrustes: rmse 0.001915785  max resid 0.02367223 
+Run 11 stress 0.1504081 
+Run 12 stress 0.148028 
+Run 13 stress 0.1469178 
+... New best solution
+... Procrustes: rmse 0.001791758  max resid 0.02220081 
+Run 14 stress 0.1464668 
+... New best solution
+... Procrustes: rmse 0.02050411  max resid 0.2764184 
+Run 15 stress 0.1488034 
+Run 16 stress 0.1469749 
+Run 17 stress 0.1469508 
+... Procrustes: rmse 0.02022269  max resid 0.2735189 
+Run 18 stress 0.1471363 
+Run 19 stress 0.1503686 
+Run 20 stress 0.1464711 
+... Procrustes: rmse 0.002469234  max resid 0.0342091 
+Run 21 stress 0.1583457 
+Run 22 stress 0.1479365 
+Run 23 stress 0.1471861 
+Run 24 stress 0.1517906 
+Run 25 stress 0.15037 
+Run 26 stress 0.1464164 
+... New best solution
+... Procrustes: rmse 0.002328539  max resid 0.03398242 
+Run 27 stress 0.1479689 
+Run 28 stress 0.1479725 
+Run 29 stress 0.151958 
+Run 30 stress 0.1464226 
+... Procrustes: rmse 0.001678278  max resid 0.02100505 
+Run 31 stress 0.1504757 
+Run 32 stress 0.1504092 
+Run 33 stress 0.1464222 
+... Procrustes: rmse 0.001454998  max resid 0.01591701 
+Run 34 stress 0.1479709 
+Run 35 stress 0.1464674 
+... Procrustes: rmse 0.002353808  max resid 0.03405538 
+Run 36 stress 0.1471337 
+Run 37 stress 0.1504077 
+Run 38 stress 0.1464234 
+... Procrustes: rmse 0.0009834107  max resid 0.01488786 
+Run 39 stress 0.1469667 
+Run 40 stress 0.146917 
+Run 41 stress 0.1548852 
+Run 42 stress 0.1504437 
+Run 43 stress 0.1469765 
+Run 44 stress 0.1478875 
+Run 45 stress 0.1464219 
+... Procrustes: rmse 0.001500435  max resid 0.01782857 
+Run 46 stress 0.1471324 
+Run 47 stress 0.1470094 
+Run 48 stress 0.1471337 
+Run 49 stress 0.1478888 
+Run 50 stress 0.1471328 
+Run 51 stress 0.146974 
+Run 52 stress 0.1469816 
+Run 53 stress 0.1488042 
+Run 54 stress 0.1503704 
+Run 55 stress 0.1471238 
+Run 56 stress 0.1504109 
+Run 57 stress 0.1470109 
+Run 58 stress 0.1493602 
+Run 59 stress 0.1464437 
+... Procrustes: rmse 0.001964944  max resid 0.02549801 
+Run 60 stress 0.1471357 
+Run 61 stress 0.1490182 
+Run 62 stress 0.1471245 
+Run 63 stress 0.1469721 
+Run 64 stress 0.1469514 
+Run 65 stress 0.1518329 
+Run 66 stress 0.146979 
+Run 67 stress 0.1469731 
+Run 68 stress 0.147171 
+Run 69 stress 0.1464173 
+... Procrustes: rmse 0.0005222493  max resid 0.007807389 
 ... Similar to previous best
 *** Best solution repeated 1 times</code></pre>
 </div>
@@ -709,7 +758,7 @@ Run 30 stress 0.1464179
 <p><img src="04_pred_clus_files/figure-html/nmds-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="04_pred_clus_cache/html/loading_351c59ed284ef07b27ce093bbf115098">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>nmds_df <span class="ot">&lt;-</span> sightings_nmds<span class="sc">$</span>points <span class="sc">%&gt;%</span> </span>

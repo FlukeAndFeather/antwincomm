@@ -204,7 +204,7 @@ ant_basemap(map_lim) +
 
 ## Optimal number of clusters
 
-We use the gap statistic [@tibshirani2001] to choose the optimal number of clusters ($k$). The gap statistic ($f$) is a goodness of clustering measure. The authors recommended choosing the smallest $k$ such that $f(k) \geq f(k+1) - s_{k+1}$ where $s$ is the standard error of $f$. According to this rule, the predators are best described by two clusters.
+We use the gap statistic [@tibshirani2001] to choose the optimal number of clusters ($k$). The gap statistic ($f$) is a goodness of clustering measure. The authors recommended choosing the smallest $k$ such that $f(k) \geq f(k+1) - s(k+1)$ where $s$ is the standard error of $f$. According to this rule, the predators are best described by two clusters. However, $f(2)$ is only slightly greater than $f(3)-s(3)$ and, because $s$ is estimated by bootstrapping, $k=3$ may be selected sometimes depending on stochasticity.
 
 ```{r}
 cluster_fn <- function(x, k) {
@@ -213,6 +213,7 @@ cluster_fn <- function(x, k) {
   }
   list(cluster = cutree(hclust(bray_dist(x), method = "ward.D2"), k = k))
 }
+set.seed(931)
 sightings_gap <- suppressWarnings(
   cluster::clusGap(sightings_mtx, 
                    FUN = cluster_fn,
@@ -225,14 +226,10 @@ sightings_gap_df <- as_tibble(sightings_gap$Tab) %>%
     k = seq_along(logW),
     is_optimal = k == cluster::maxSE(gap, SE.sim, method = "Tibs2001SEmax")
   )
-firstmaxk <- with(sightings_gap_df,
-                  cluster::maxSE(gap, SE.sim, method = "firstmax"))
-gap_thr <- with(sightings_gap_df, gap[firstmaxk] - SE.sim[firstmaxk])
 ggplot(sightings_gap_df, aes(x = k, y = gap)) +
   geom_line() +
   geom_pointrange(aes(ymin = gap - SE.sim, ymax = gap + SE.sim,
                       color = is_optimal)) +
-  geom_hline(yintercept = gap_thr, color = "red", linetype = "dashed") +
   scale_color_manual(values = c(`TRUE` = "red",
                                 `FALSE` = "black")) +
   theme_classic() +
