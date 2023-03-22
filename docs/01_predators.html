@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -128,7 +128,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="counts" class="level3">
 <h3 class="anchored" data-anchor-id="counts">Counts</h3>
 <p>The five most abundant species.</p>
-<div class="cell" data-hash="01_predators_cache/html/unnamed-chunk-2_71de505b9f7309a77dceeb6e0f242b16">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>top_five <span class="ot">&lt;-</span> predators_agg <span class="sc">%&gt;%</span> </span>
@@ -150,7 +150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 5 ANPT           3367</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="01_predators_cache/html/unnamed-chunk-3_e0c2160e88038783c72bd666d0a13fab">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>top_five_plot_data <span class="ot">&lt;-</span> predators_agg <span class="sc">%&gt;%</span> </span>
@@ -179,7 +179,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="maps" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="maps">Maps</h3>
 <p>Survey effort. 21 out of the 19404 intervals were recorded as nmi &gt; 1000 (as opposed to ~1 nmi for the rest). Those intervals excluded from the survey effort.</p>
-<div class="cell" data-hash="01_predators_cache/html/survey_effort_2bf366c346bda8694e749fcaaaaa5693">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>effort_stars <span class="ot">&lt;-</span> effort_sf <span class="sc">%&gt;%</span> </span>
@@ -206,7 +206,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>Distribution maps of the five most abundant species in each survey year, aggregated to 25km bins.</p>
-<div class="cell page-columns page-full" data-fig.dpi="600" data-hash="01_predators_cache/html/topfive_map_b3d91605d2ffc7bedbff38f893f39245">
+<div class="cell page-columns page-full" data-fig.dpi="600">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>topfive_sf <span class="ot">&lt;-</span> predators_agg <span class="sc">%&gt;%</span> </span>
@@ -237,7 +237,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>Distribution maps of five species of interest in each survey year, also aggregated to 25km bins.</p>
-<div class="cell page-columns page-full" data-fig.dpi="600" data-hash="01_predators_cache/html/soi_map_5981ab6dab6f0790d79d0672c587247c">
+<div class="cell page-columns page-full" data-fig.dpi="600">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>soi <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"GEPN"</span>, <span class="st">"BLPT"</span>, <span class="st">"ANTE"</span>, <span class="st">"LESE"</span>, <span class="st">"KIWH"</span>)</span>
