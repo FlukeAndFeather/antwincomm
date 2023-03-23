@@ -123,8 +123,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<section id="sightings-and-stations" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="sightings-and-stations">Sightings and stations</h2>
 <p>Station locations on predator (five most abundant) count maps. Spatially restricted to station transects.</p>
-<div class="cell page-columns page-full" data-fig.dpi="600">
+<div class="cell page-columns page-full" data-fig.dpi="600" data-hash="03_combined_cache/html/combined_map_47d584a69724c5814b9b2ed726c3cd53">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>top_five <span class="ot">&lt;-</span> predators_agg <span class="sc">%&gt;%</span> </span>
@@ -172,7 +174,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>As above, but for species of interest (Gentoo Penguins, Blue Petrels, Antarctic Terns, Leopard Seals, and Killer Whales).</p>
-<div class="cell page-columns page-full" data-fig.dpi="600">
+<div class="cell page-columns page-full" data-fig.dpi="600" data-hash="03_combined_cache/html/combined_map_soi_fbe708d9fa74ce4072ef2859634a8376">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>soi <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"GEPN"</span>, <span class="st">"BLPT"</span>, <span class="st">"ANTE"</span>, <span class="st">"LESE"</span>, <span class="st">"KIWH"</span>)</span>
@@ -205,6 +207,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="03_combined_files/figure-html/combined_map_soi-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
+</section>
+<section id="aggregated-ice-observations" class="level2">
+<h2 class="anchored" data-anchor-id="aggregated-ice-observations">Aggregated ice observations</h2>
+<p>Each station was associated with the modal ice type (multi-year, first-year, thin, or open) from the underway observations, which were only associated with predator sightings. <strong>Seems weird that no stations shook out as multi-year ice, right?</strong> This figure shows how frequent the modal ice type was at each station. The two grey lines represent 1:1 and 2:1. Stations falling on the upper line had <em>uniform</em> ice category observations i.e., every interval within 15 km had the same ice category. Stations falling below the lower line had <em>highly mixed</em> ice category observations i.e., the most frequent ice category was observed at less than half the intervals within 15 km of the station. Most points on the figure include multiple stations, indicated by the color. For example, in the THIN ice category (bottom), 8 stations (red point) had 4 intervals with ice category observations where all 4 were THIN (x,y = 4,4).</p>
+<div class="cell" data-hash="03_combined_cache/html/underway-ice_dda1aa7d43ab79d5266aaaf2d94373c3">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>predators_stations <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_obs =</span> ice_intervals,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">n_mode =</span> <span class="fu">round</span>(ice_cat_freq <span class="sc">*</span> n_obs, <span class="at">digits =</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(n_obs, n_mode, ice_cat) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Stations =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(n_obs, n_mode, <span class="at">color =</span> Stations)) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>), <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"grey50"</span>) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Count of intervals with ice category observation"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count of intervals with most frequent ice category"</span>) <span class="sc">+</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_fermenter</span>(<span class="at">palette =</span> <span class="st">"RdYlBu"</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>)) <span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> ice_cat, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="03_combined_files/figure-html/underway-ice-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
 
 </main>
 <!-- /main column -->

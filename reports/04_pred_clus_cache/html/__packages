@@ -1,0 +1,17 @@
+cluster
+ggplot2
+ggmosaic
+ggtree
+sf
+targets
+tidyverse
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+permute
+lattice
+vegan

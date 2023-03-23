@@ -21,9 +21,9 @@ library(targets)
 library(tidyverse)
 library(vegan)
 
-tar_load(c("predators", "predators_stations", 
-           "predators_abundant", "sightings_clust", "sightings_mtx", 
-           "sightings_dist", "zoop_sf"), 
+tar_load(c("predators_stations", "predators_abundant", 
+           "sightings_clust", "sightings_mtx", "sightings_dist", 
+           "zoop_sf"), 
          store = here::here("_targets"))
 source(here::here("R", "sp.R"))
 source(here::here("R", "zoop.R"))
@@ -428,54 +428,4 @@ ggplot(nmds_df, aes(NMDS2, NMDS3)) +
   geom_point(aes(color = pred_clust)) +
   scale_color_brewer(palette = "Dark2") +
   theme_classic()
-```
-
-## \[Insert Frozen or Vanilla Ice pun here\]
-
-Get the modal ice type (multi-year, first-year, thin, or open) for each station from the along-track observations. Seems weird that no stations shook out as multi-year ice, right? This figure shows how frequent the modal ice type was at each station. The two grey lines represent 1:1 and 2:1. Stations falling on the upper line had *uniform* ice category observations i.e., every interval within 15 km had the same ice category. Stations falling below the lower line had *highly mixed* ice category observations i.e., the most frequent ice category was observed at less than half the intervals within 15 km of the station. Most points on the figure include multiple stations, indicated by the color. For example, in the THIN ice category (bottom), 8 stations (red point) had 4 intervals with ice category observations where all 4 were THIN (x,y = 4,4).
-
-```{r}
-#| label: ice
-
-# Most frequent value i.e., mode
-# Note: returns a character
-mfv <- function(x) {
-  x_tbl <- table(x)
-  names(x_tbl)[which.max(x_tbl)]
-}
-underway_ice <- predators_stations %>% 
-  left_join(transmute(predators,
-                      year = as.numeric(substr(cruise, 5, 8)),
-                      interval,
-                      ice_type_desc),
-            by = c("year", "interval"),
-            multiple = "all") %>% 
-  filter(ice_type_desc != "NULL") %>% 
-  left_join(read_csv(here::here("data", "ICECAT.csv"),
-                     show_col_types = FALSE),
-            by = "ice_type_desc") %>% 
-  # Ice observations were unique to intervals, but intervals are
-  # repeated if there were multiple predator sightings
-  group_by(amlr.station,
-           interval) %>% 
-  summarize(interval_ice_cat = first(ice_cat),
-            .groups = "drop_last") %>% 
-  summarize(station_ice_cat = mfv(interval_ice_cat),
-            n_obs = n(),
-            n_mode = sum(interval_ice_cat == station_ice_cat))
-  
-underway_ice %>% 
-  group_by(n_obs, n_mode, station_ice_cat) %>% 
-  summarize(Stations = n(), .groups = "drop") %>% 
-  ggplot(aes(n_obs, n_mode, color = Stations)) +
-  geom_abline(slope = c(1, 0.5), intercept = 0, color = "grey50") +
-  geom_point() +
-  labs(x = "Count of intervals with ice category observation",
-       y = "Count of intervals with most frequent ice category") +
-  scale_color_fermenter(palette = "RdYlBu",
-                        breaks = c(1, 2, 3, 5, 8)) +
-  coord_fixed() +
-  facet_wrap(~ station_ice_cat, ncol = 2) +
-  theme_classic()
-
 ```
