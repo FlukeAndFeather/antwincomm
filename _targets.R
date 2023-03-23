@@ -5,7 +5,7 @@ library(tidyverse)
 
 # Set target options:
 tar_option_set(
-  packages = "tidyverse",
+  packages = c("sf", "tidyverse"),
   format = "rds"
 )
 
@@ -65,13 +65,21 @@ list(
     zoop_long,
     pivot_longer(zoop, -(1:53), names_to = "taxa", values_to = "abundance")
   ),
-  # Clustering
-  tar_target(predators_stations,
-             assign_sightings(predators_sf, zoop_sf, max_dist_km = 15)),
+  # Aggregate predators and ice observations
+  tar_target(ice_cat_file,
+             here("data", "ICECAT.csv"),
+             format = "file"),
+  tar_target(ice_cat, read_csv(ice_cat_file)),
+  tar_target(
+    predators_stations,
+    assign_sightings(predators_sf, zoop_sf, max_dist_km = 15) %>%
+      aggregate_ice(predators, ice_cat)
+  ),
   tar_target(
     predators_abundant,
     filter_sightings(predators_stations, zoop_sf, station_thr = 0.05)
   ),
+  # Clustering
   tar_target(sightings_mtx, sightings_to_matrix(predators_abundant)),
   tar_target(sightings_dist, vegan::vegdist(sightings_mtx, method = "bray")),
   tar_target(sightings_clust, hclust(sightings_dist, method = "ward.D2")),

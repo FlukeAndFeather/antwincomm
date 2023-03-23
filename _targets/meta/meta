@@ -1,6 +1,6 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|1887a863c40f9565|||||||||||||||
-aggregate_ice|function|69de807bdc4d534f|||||||||||||||
+.Random.seed|object|0c0b2399f8a43327|||||||||||||||
+aggregate_ice|function|2ff29b0d027a0a6a|||||||||||||||
 aggregate_predators|function|9a8cf9427e970ee6|||||||||||||||
 ant_basemap|function|53ccb70018adf605|||||||||||||||
 ant_lims|function|4ab5c5ec83e1f997|||||||||||||||
@@ -16,7 +16,10 @@ effort|stem|1ca2a57bdd8b3ea7|1f5a2b793da1fad1|5678bff6184c93ce|-1343068639||t194
 effort_sf|stem|523c042f8973db3f|4232136cef60e63e|00256487517d246a|1168345245||t19438.8066070021s|129e89bde802d221|292333|rds|local|vector|||0.013||
 expand_bbox|function|56087ff1f8b5d4b0|||||||||||||||
 filter_sightings|function|50bb018283152654|||||||||||||||
+ice_cat|stem|a42472b7ef6376fe|2b87af81f4721ec5|6b0a8b997b54197c|-1797808767||t19439.760207481s|ba984c08f1495aa7|768|rds|local|vector|||0.238||
+ice_cat_file|stem|da98fbfa06e46cdc|00fe0bb327751e7f|4e3739ef91745af0|-144000084|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/ICECAT.csv|t19431.7528986189s|23c0ab19d8f50ae1|1182|file|local|vector|||0.002||
 latlon_to_sf|function|41433edcc24429d5|||||||||||||||
+mfv|function|f21000b8ece515c2|||||||||||||||
 ne_data|stem|a321285c9c5667c6|08f4b1ea773d5b36|358148deb8fc7a7b|-394386540||t19438.806562982s|22f8ef7af814df30|3178638|rds|local|vector|||2.293||
 ne_dir|stem|8f72953e55934289|9ef4bcd80e137b54|4e3739ef91745af0|-1431853077|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/geospatial/ne|t19429.7940124309s|adafa3628d79be13|7204615|file|local|vector|||0.004||
 predators|stem|55fddb8cb2c8c3b6|ae3a7713277e98c8|9d06f3db2c61cbaf|-164442843||t19438.8065936583s|3731c1f15cdca704|972063|rds|local|vector|||0.537||
@@ -24,7 +27,7 @@ predators_abundant|stem|162ad9bddbf60f25|d0f86ca8867c9063|75e0cabcd47432bd|56099
 predators_agg|stem|8e14f5d94a3504c1|1f53c6d2d5b8cbec|8a048e7a549d183b|-374844731||t19438.806599342s|dc5cd87534f0ea30|86090|rds|local|vector|||0.062||
 predators_file|stem|fc2f43e02077adfa|c25ecba9e733d114|2adb22bdbd8253cb|1489732230|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/WAMLR/WAMLR-2012-2016-Underway-Predator-Sightings.csv|t19429.9001013099s|675861551bea89bc|4474693|file|local|vector|||0.001||
 predators_sf|stem|adc51a27ebcc56aa|f97dc84afa040797|ed6f382d1ab5eaed|25197916||t19438.8066078173s|7c97cc269469e13c|91981|rds|local|vector|||0.022||
-predators_stations|stem|1b0bb1ebdc64ac72|9ffa306b27f7406f|18da90b8b4431c80|-713016168||t19438.806618232s|f7260f44176cb495|100263|rds|local|vector|||0.863||
+predators_stations|stem|91918683d5bf2e6b|452a0e0f93d3baa8|d21b2b1c068fce4b|-713016168||t19439.7644602004s|2c1a85d97694b41f|110635|rds|local|vector|||1.56||
 project_bbox|function|c81b1d38a6eb0043|||||||||||||||
 rasterize_counts|function|333566c14cbb24b4|||||||||||||||
 read_zoop|function|a429f63cd4d404f7|||||||||||||||
