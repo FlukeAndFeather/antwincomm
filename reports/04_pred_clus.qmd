@@ -38,6 +38,7 @@ Following the methods of Dietrich et al. (2021), clustering analysis is restrict
 
 total_stations <- n_distinct(zoop_sf$amlr.station)
 pred_frac <- predators_stations %>%
+  as_tibble() %>% 
   group_by(amlr.station, species) %>% 
   summarize(count = sum(count), .groups = "drop") %>%
   group_by(species) %>%
@@ -147,10 +148,10 @@ Which species best represent each cluster? Using Dufrene-Legendre indicator spec
 ```{r}
 #| label: indicator_species
 
-species_wide <- pivot_wider(predators_abundant,
-                            names_from = species,
-                            values_from = count,
-                            values_fill = 0) %>% 
+species_wide <- predators_abundant %>% 
+  pivot_wider(names_from = species,
+              values_from = count,
+              values_fill = 0) %>% 
   column_to_rownames("amlr.station")
 cluster_indval <- labdsv::indval(species_wide, clust)
 indval_mtx <- cluster_indval$indval
@@ -191,7 +192,7 @@ pred_clust_sf <- tibble(amlr.station = names(clust),
   st_as_sf() %>% 
   st_transform(ant_proj())
 
-map_lim <- sf::st_bbox(pred_clust_sf) %>% 
+map_lim <- st_bbox(pred_clust_sf) %>% 
   project_bbox() %>% 
   expand_bbox(factor = 1.2)
 
@@ -209,6 +210,8 @@ ant_basemap(map_lim) +
 We use the gap statistic [@tibshirani2001] to choose the optimal number of clusters ($k$). The gap statistic ($f$) is a goodness of clustering measure. The authors recommended choosing the smallest $k$ such that $f(k) \geq f(k+1) - s(k+1)$ where $s$ is the standard error of $f$. According to this rule, the predators are best described by two clusters (indicated in blue). However, $f(2)$ is only slightly greater than $f(3)-s(3)$ and, because $s$ is estimated by bootstrapping, sometimes re-running the gap statistic estimate yields an optimum at $k=3$ instead. An alternative rule suggests choosing the smallest $k$ such $f(k) \geq f_{max} - s_{max}$, where $f_{max}$ and $s_{max}$ are $f$ and $s$ at the first local maximum, respectively. In the figure below, $f_{max} - s_{max}$ is represented by the dashed red line, and the smallest $k$ greater than that threshold is $k=3$ (red).
 
 ```{r}
+#| label: optimal-clusters
+
 cluster_fn <- function(x, k) {
   bray_dist <- function(x) {
     vegdist(x, method = "bray")
@@ -315,7 +318,7 @@ pred_clust_sf <- tibble(amlr.station = names(clust),
   st_as_sf() %>% 
   st_transform(ant_proj())
 
-map_lim <- sf::st_bbox(pred_clust_sf) %>% 
+map_lim <- st_bbox(pred_clust_sf) %>% 
   project_bbox() %>% 
   expand_bbox(factor = 1.2)
 

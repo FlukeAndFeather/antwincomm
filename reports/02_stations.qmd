@@ -12,6 +12,7 @@ output-dir: "docs"
 #| label: setup
 #| include: false
 
+library(sf)
 library(targets)
 library(tidyverse)
 
@@ -27,11 +28,11 @@ Sampling stations across survey years, color-coded by time-of-day. Grey circles 
 ```{r}
 #| label: station_maps
 
-zoop_buffers_10k <- sf::st_buffer(zoop_sf, 5e3)
-zoop_buffers_15k <- sf::st_buffer(zoop_sf, 10e3)
-zoop_buffers_20k <- sf::st_buffer(zoop_sf, 20e3)
+zoop_buffers_10k <- st_buffer(zoop_sf, 5e3)
+zoop_buffers_15k <- st_buffer(zoop_sf, 10e3)
+zoop_buffers_20k <- st_buffer(zoop_sf, 20e3)
 
-map_lim <- sf::st_bbox(zoop_sf) %>% 
+map_lim <- st_bbox(zoop_sf) %>% 
   project_bbox() %>% 
   expand_bbox(factor = 1.2)
 

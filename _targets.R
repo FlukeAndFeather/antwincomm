@@ -84,5 +84,5 @@ list(
   tar_target(sightings_dist, vegan::vegdist(sightings_mtx, method = "bray")),
   tar_target(sightings_clust, hclust(sightings_dist, method = "ward.D2")),
   # Reports
-  tar_quarto(reports, here("reports"), cache = TRUE)
+  tar_quarto(reports, here("reports"))
 )

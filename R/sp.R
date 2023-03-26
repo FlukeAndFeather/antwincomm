@@ -5,7 +5,7 @@ ant_proj <- function() {
   glue::glue(
     "+proj=stere +lat_0=-90 +lat_ts={lat_ts} +lon_0={lon_0} +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs"
   ) %>%
-  sf::st_crs()
+  st_crs()
 }
 
 ant_lims <- function() {
@@ -27,11 +27,11 @@ create_ant_sf <- function(ne_dir, limits = ant_lims()) {
                                  category = "physical",
                                  destdir = ne_dir,
                                  returnclass = "sf")
-  sf::st_crop(land, sf::st_bbox(limits))
+  st_crop(land, st_bbox(limits))
 }
 
 ant_raster_template <- function(limits = ant_lims(), res = 5e4) {
-  lims_prj <- sf::st_bbox(limits, crs = "EPSG:4326") %>%
+  lims_prj <- st_bbox(limits, crs = "EPSG:4326") %>%
     project_bbox()
   raster::raster(xmn = lims_prj["xmin"],
                  xmx = lims_prj["xmax"],
@@ -57,7 +57,7 @@ rasterize_counts <- function(counts_sf,
     group_modify(
       function(rows, key) {
         result <- raster::rasterize(
-          sf::as_Spatial(sf::st_transform(rows, ant_proj())),
+          as_Spatial(st_transform(rows, ant_proj())),
           ant_raster_template(limits, res),
           field = count_col,
           fun = "sum",
@@ -74,11 +74,11 @@ rasterize_counts <- function(counts_sf,
     dims = 1:4,
     xy = 3:4
   ) %>%
-    sf::st_set_crs(ant_proj())
+    st_set_crs(ant_proj())
 }
 
 latlon_to_sf <- function(df, coords = c("x", "y")) {
-  sf::st_as_sf(df,
+  st_as_sf(df,
                coords = coords,
                crs = sp::CRS("+proj=longlat +datum=WGS84"))
 }
@@ -92,7 +92,7 @@ ant_basemap <- function(map_lim = NULL) {
 
 coord_ant <- function(map_lim = NULL) {
   if (is.null(map_lim)) {
-    map_lim <- sf::st_bbox(ant_lims(), crs = "EPSG:4326") %>%
+    map_lim <- st_bbox(ant_lims(), crs = "EPSG:4326") %>%
       project_bbox()
   }
   coord_sf(xlim = map_lim[c("xmin", "xmax")],
@@ -103,9 +103,9 @@ coord_ant <- function(map_lim = NULL) {
 
 project_bbox <- function(x) {
   x %>%
-    sf::st_as_sfc(crs = "EPSG:4326") %>%
-    sf::st_transform(ant_proj()) %>%
-    sf::st_bbox()
+    st_as_sfc(crs = "EPSG:4326") %>%
+    st_transform(ant_proj()) %>%
+    st_bbox()
 }
 
 expand_bbox <- function(x, factor) {

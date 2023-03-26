@@ -136,14 +136,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="station-maps" class="level2">
 <h2 class="anchored" data-anchor-id="station-maps">Station maps</h2>
 <p>Sampling stations across survey years, color-coded by time-of-day. Grey circles indicate 10k, 15k, and 20k buffers.</p>
-<div class="cell" data-hash="02_stations_cache/html/station_maps_cd7873701f929da000938176d48308d5">
+<div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>zoop_buffers_10k <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_buffer</span>(zoop_sf, <span class="fl">5e3</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>zoop_buffers_15k <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_buffer</span>(zoop_sf, <span class="fl">10e3</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>zoop_buffers_20k <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_buffer</span>(zoop_sf, <span class="fl">20e3</span>)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>zoop_buffers_10k <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(zoop_sf, <span class="fl">5e3</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>zoop_buffers_15k <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(zoop_sf, <span class="fl">10e3</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>zoop_buffers_20k <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(zoop_sf, <span class="fl">20e3</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(zoop_sf) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(zoop_sf) <span class="sc">%&gt;%</span> </span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.2</span>)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
@@ -168,7 +168,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="zooplankton-maps" class="level2">
 <h2 class="anchored" data-anchor-id="zooplankton-maps">Zooplankton maps</h2>
-<div class="cell" data-hash="02_stations_cache/html/station_map_fn_2c3dfc7e35e30322b2090a220af958c9">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>station_map <span class="ot">&lt;-</span> <span class="cf">function</span>(var, <span class="at">pseudolog =</span> <span class="cn">FALSE</span>) {</span>
@@ -190,7 +190,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-hash="02_stations_cache/html/zoop_maps_a808e484528f77bf5b86f78b039fd9cf">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>zoop_vars_raw <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Winter Cluster factor"</span>,</span>
@@ -341,7 +341,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="physics-maps" class="level2">
 <h2 class="anchored" data-anchor-id="physics-maps">Physics maps</h2>
-<div class="cell" data-hash="02_stations_cache/html/physics_maps_2e957cf61c9fe38c2f824b8440bba931">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>physics_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Net.ice.type"</span>,</span>

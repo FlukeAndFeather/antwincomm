@@ -162,29 +162,30 @@ div.csl-indent {
 <section id="predator-clusters" class="level2">
 <h2 class="anchored" data-anchor-id="predator-clusters">Predator clusters</h2>
 <p>Following the methods of Dietrich et al.&nbsp;(2021), clustering analysis is restricted to species sighted near 5% or more of stations. This avoids granting undue leverage to rare species. 14 species retained (i.e., species above red line).</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/abundant_predators_749ccc979454be3e9f5344a318ba7a08">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>total_stations <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(zoop_sf<span class="sc">$</span>amlr.station)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pred_frac <span class="ot">&lt;-</span> predators_stations <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(amlr.station, species) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">sum</span>(count), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">stations_present =</span> <span class="fu">n</span>(),</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">station_frac =</span> stations_present <span class="sc">/</span> total_stations,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(station_frac))</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>cutoff_row <span class="ot">&lt;-</span> <span class="fu">sum</span>(pred_frac<span class="sc">$</span>station_frac <span class="sc">&gt;=</span> <span class="fl">0.05</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>frac_fn <span class="ot">&lt;-</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">accuracy =</span> <span class="fl">0.1</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>pred_frac <span class="sc">%&gt;%</span> </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">"Species"</span>, <span class="st">"Stations"</span>, <span class="st">"Fraction"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Fraction =</span> <span class="fu">frac_fn</span>(Fraction)) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">align =</span> <span class="st">"lrr"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="st">"striped"</span>,</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                            <span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">row_spec</span>(cutoff_row, </span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                       <span class="at">extra_css =</span> <span class="st">"border-bottom: 2px dashed red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(amlr.station, species) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">sum</span>(count), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">stations_present =</span> <span class="fu">n</span>(),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">station_frac =</span> stations_present <span class="sc">/</span> total_stations,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(station_frac))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>cutoff_row <span class="ot">&lt;-</span> <span class="fu">sum</span>(pred_frac<span class="sc">$</span>station_frac <span class="sc">&gt;=</span> <span class="fl">0.05</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>frac_fn <span class="ot">&lt;-</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">accuracy =</span> <span class="fl">0.1</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>pred_frac <span class="sc">%&gt;%</span> </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">"Species"</span>, <span class="st">"Stations"</span>, <span class="st">"Fraction"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Fraction =</span> <span class="fu">frac_fn</span>(Fraction)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">align =</span> <span class="st">"lrr"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="st">"striped"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                            <span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">row_spec</span>(cutoff_row, </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                       <span class="at">extra_css =</span> <span class="st">"border-bottom: 2px dashed red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 
@@ -333,7 +334,7 @@ div.csl-indent {
 </div>
 </div>
 <p>Hierarchical clustering of stations by predator community. Chose 5 clusters a priori to match Dietrich et al.&nbsp;(2021). Note: 394 stations were included in the zooplankton clustering, but only 252 stations were used for predator clustering.</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/predator_dendro_744a177b51f4b08501d3a5546672dbf1">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut predators into five clusters</span></span>
@@ -353,7 +354,7 @@ div.csl-indent {
 </div>
 </div>
 <p>How do the predator clusters compare to the zooplankton clusters?</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/predator_mosaic_90ffa35b0d7f985b6a935aad6bbf312e">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join with zooplankton clusters</span></span>
@@ -388,7 +389,7 @@ div.csl-indent {
 </div>
 <p>The above mosaic plot shows the distribution of stations by predator and zooplankton clusters. For example, the bottom left rectangle indicates 9 stations were assigned to zooplankton cluster 1 and predator cluster 1. Rectangles color-coded by zooplankton cluster using the color palette from Dietrich et al.&nbsp;2021 Fig 3a.</p>
 <p>Upon visual inspection of the mosaic plot, I don’t perceive any clear correlations between the zooplankton and predator cluster assignments. I tested the strength of the relationship between the two cluster assignments through simulation of the Rand index (RI). RI is a measure of similarity between two clusterings ranging from 0 (no agreement) to 1 (total agreement). The histogram below shows the distribution of RI values when the cluster assignments were randomly shuffled 100,000 times. The vertical red line is the observed RI value.</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/randindex_a12bb81f454a099dc5a5f5c66adc13fe">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1311</span>)</span>
@@ -419,13 +420,13 @@ div.csl-indent {
 <section id="indicator-species" class="level2">
 <h2 class="anchored" data-anchor-id="indicator-species">Indicator species</h2>
 <p>Which species best represent each cluster? Using Dufrene-Legendre indicator species analysis. Apply indicator value cutoff at 25%.</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/indicator_species_3818b48554c2243d4f44e7d7fce4a332">
+<div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>species_wide <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(predators_abundant,</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">names_from =</span> species,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">values_from =</span> count,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>species_wide <span class="ot">&lt;-</span> predators_abundant <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> species,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> count,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">"amlr.station"</span>)</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>cluster_indval <span class="ot">&lt;-</span> labdsv<span class="sc">::</span><span class="fu">indval</span>(species_wide, clust)</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>indval_mtx <span class="ot">&lt;-</span> cluster_indval<span class="sc">$</span>indval</span>
@@ -474,7 +475,7 @@ div.csl-indent {
 <section id="cluster-maps" class="level2">
 <h2 class="anchored" data-anchor-id="cluster-maps">Cluster maps</h2>
 <p>What geospatial patterns do we see in the predator clusters? Cluster 5 is mostly found in the Bransfield Strait, which makes sense for the Adelie Penguin-crabeater seal-leopard seal complex. Cluster 2 (Antarctic Fulmar, Cape Petrel, and Blue Petrel) tends to show up oceanward of the South Shetland Islands. Cluster 3 (fur seal, snow petrel, Kerguelen petrel, and Antarctic Petrel) seems the most variable; found both inside and outside the Strait depending on the year.</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/cluster_maps_40dbcea88cd30740f276cd59210eb4ee">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pred_clust_sf <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">amlr.station =</span> <span class="fu">names</span>(clust),</span>
@@ -487,7 +488,7 @@ div.csl-indent {
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">ant_proj</span>())</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(pred_clust_sf) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(pred_clust_sf) <span class="sc">%&gt;%</span> </span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.2</span>)</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
@@ -507,7 +508,7 @@ div.csl-indent {
 <section id="optimal-number-of-clusters" class="level2">
 <h2 class="anchored" data-anchor-id="optimal-number-of-clusters">Optimal number of clusters</h2>
 <p>We use the gap statistic <span class="citation" data-cites="tibshirani2001">(<a href="#ref-tibshirani2001" role="doc-biblioref">Tibshirani, Walther, and Hastie 2001</a>)</span> to choose the optimal number of clusters (<span class="math inline">\(k\)</span>). The gap statistic (<span class="math inline">\(f\)</span>) is a goodness of clustering measure. The authors recommended choosing the smallest <span class="math inline">\(k\)</span> such that <span class="math inline">\(f(k) \geq f(k+1) - s(k+1)\)</span> where <span class="math inline">\(s\)</span> is the standard error of <span class="math inline">\(f\)</span>. According to this rule, the predators are best described by two clusters (indicated in blue). However, <span class="math inline">\(f(2)\)</span> is only slightly greater than <span class="math inline">\(f(3)-s(3)\)</span> and, because <span class="math inline">\(s\)</span> is estimated by bootstrapping, sometimes re-running the gap statistic estimate yields an optimum at <span class="math inline">\(k=3\)</span> instead. An alternative rule suggests choosing the smallest <span class="math inline">\(k\)</span> such <span class="math inline">\(f(k) \geq f_{max} - s_{max}\)</span>, where <span class="math inline">\(f_{max}\)</span> and <span class="math inline">\(s_{max}\)</span> are <span class="math inline">\(f\)</span> and <span class="math inline">\(s\)</span> at the first local maximum, respectively. In the figure below, <span class="math inline">\(f_{max} - s_{max}\)</span> is represented by the dashed red line, and the smallest <span class="math inline">\(k\)</span> greater than that threshold is <span class="math inline">\(k=3\)</span> (red).</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/unnamed-chunk-8_195e7eedb4863c0fddd2514295e6585e">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cluster_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(x, k) {</span>
@@ -558,14 +559,14 @@ div.csl-indent {
 <span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="04_pred_clus_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<p><img src="04_pred_clus_files/figure-html/optimal-clusters-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 <section id="cluster-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="cluster-analysis">3-cluster analysis</h2>
 <p>Repeat the indicator species analysis and maps with three clusters.</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/predator_dendro2_338c5911c22ef83fb6857c328a3c9c15">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut predators into 3 clusters</span></span>
@@ -584,7 +585,7 @@ div.csl-indent {
 <p><img src="04_pred_clus_files/figure-html/predator_dendro2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="04_pred_clus_cache/html/indicator_species2_38219e98a688bf6263e6e47bef3311f3">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>species_wide <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(predators_abundant,</span>
@@ -629,7 +630,7 @@ div.csl-indent {
 
 </div>
 </div>
-<div class="cell" data-hash="04_pred_clus_cache/html/cluster_maps2_f8677f8e960ecaa4c92b19a7b4848eeb">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pred_clust_sf <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">amlr.station =</span> <span class="fu">names</span>(clust),</span>
@@ -642,7 +643,7 @@ div.csl-indent {
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">ant_proj</span>())</span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(pred_clust_sf) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(pred_clust_sf) <span class="sc">%&gt;%</span> </span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.2</span>)</span>
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
@@ -663,7 +664,7 @@ div.csl-indent {
 <section id="nmds" class="level2">
 <h2 class="anchored" data-anchor-id="nmds">NMDS</h2>
 <p>How many NMDS axes should we use? Scree plot</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/nmds-scree_8cdfd1248ba4da5aaae4fa71e8983443">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>nmds_stress <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
@@ -692,7 +693,7 @@ div.csl-indent {
 </div>
 </div>
 <p>3 axes for NMDS looks acceptable. How does ordination distance compare to dissimilarity (Shepard diagram)?</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/nmds-shepard_09b2f6ddcf5df98e1093a52ac6fd861a">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sightings_nmds <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(</span>
@@ -736,7 +737,7 @@ div.csl-indent {
 </div>
 </div>
 <p>NMDS plots, color-coded by predator cluster.</p>
-<div class="cell" data-hash="04_pred_clus_cache/html/loading_180b2d2779229c5854f5af054848b09b">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nmds_df <span class="ot">&lt;-</span> sightings_nmds<span class="sc">$</span>points <span class="sc">%&gt;%</span> </span>

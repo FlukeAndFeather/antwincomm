@@ -11,6 +11,7 @@ output-dir: "docs"
 #| label: setup
 #| include: false
 
+library(sf)
 library(targets)
 library(tidyverse)
 
@@ -46,11 +47,11 @@ topfive_stars <- rasterize_counts(topfive_sf, res = 2.5e4)
 
 zoop_sf <- latlon_to_sf(zoop, 
                         coords = c("dec.longitude", "dec.latitude")) %>% 
-  sf::st_transform(ant_proj()) %>% 
+  st_transform(ant_proj()) %>% 
   rename(year = Year)
-zoop_buffers_20k <- sf::st_buffer(zoop_sf, 20e3)
+zoop_buffers_20k <- st_buffer(zoop_sf, 20e3)
 
-map_lim <- sf::st_bbox(zoop_sf) %>% 
+map_lim <- st_bbox(zoop_sf) %>% 
   project_bbox() %>% 
   expand_bbox(factor = 1.2)
 
@@ -132,4 +133,18 @@ predators_stations %>%
   coord_fixed() +
   facet_wrap(~ ice_cat, ncol = 2) +
   theme_classic()
+```
+
+```{r}
+#| label: ice-map
+#| column: screen
+#| out-width: 100% 
+
+ant_basemap(map_lim) +
+  geom_sf(aes(color = ice_cat), 
+          predators_stations,
+          size = 0.5) +
+  facet_wrap(~ year) +
+  theme(legend.position = "bottom")
+
 ```

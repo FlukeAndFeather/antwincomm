@@ -12,7 +12,7 @@ mfv <- function(x) {
 aggregate_ice <- function(stations, underway, ice_cat) {
   # Aggregates underway ice observations by nearest AMLR station
   # Uses mode as aggregation function i.e. mfv()
-  underway_ice <- stations %>%
+  underway_ice <- as_tibble(stations) %>%
     left_join(transmute(underway,
                         year = as.numeric(substr(cruise, 5, 8)),
                         interval,
@@ -20,9 +20,7 @@ aggregate_ice <- function(stations, underway, ice_cat) {
               by = c("year", "interval"),
               multiple = "all") %>%
     filter(ice_type_desc != "NULL") %>%
-    left_join(read_csv(here::here("data", "ICECAT.csv"),
-                       show_col_types = FALSE),
-              by = "ice_type_desc") %>%
+    left_join(ice_cat, by = "ice_type_desc") %>%
     # Ice observations were unique to intervals, but intervals are
     # repeated if there were multiple predator sightings
     group_by(amlr.station,

@@ -126,7 +126,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="sightings-and-stations" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="sightings-and-stations">Sightings and stations</h2>
 <p>Station locations on predator (five most abundant) count maps. Spatially restricted to station transects.</p>
-<div class="cell page-columns page-full" data-fig.dpi="600" data-hash="03_combined_cache/html/combined_map_47d584a69724c5814b9b2ed726c3cd53">
+<div class="cell page-columns page-full" data-fig.dpi="600">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>top_five <span class="ot">&lt;-</span> predators_agg <span class="sc">%&gt;%</span> </span>
@@ -143,11 +143,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>zoop_sf <span class="ot">&lt;-</span> <span class="fu">latlon_to_sf</span>(zoop, </span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                        <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"dec.longitude"</span>, <span class="st">"dec.latitude"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  sf<span class="sc">::</span><span class="fu">st_transform</span>(<span class="fu">ant_proj</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">ant_proj</span>()) <span class="sc">%&gt;%</span> </span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">year =</span> Year)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>zoop_buffers_20k <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_buffer</span>(zoop_sf, <span class="fl">20e3</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>zoop_buffers_20k <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(zoop_sf, <span class="fl">20e3</span>)</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_bbox</span>(zoop_sf) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(zoop_sf) <span class="sc">%&gt;%</span> </span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.2</span>)</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
@@ -174,7 +174,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>As above, but for species of interest (Gentoo Penguins, Blue Petrels, Antarctic Terns, Leopard Seals, and Killer Whales).</p>
-<div class="cell page-columns page-full" data-fig.dpi="600" data-hash="03_combined_cache/html/combined_map_soi_fbe708d9fa74ce4072ef2859634a8376">
+<div class="cell page-columns page-full" data-fig.dpi="600">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>soi <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"GEPN"</span>, <span class="st">"BLPT"</span>, <span class="st">"ANTE"</span>, <span class="st">"LESE"</span>, <span class="st">"KIWH"</span>)</span>
@@ -208,10 +208,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="aggregated-ice-observations" class="level2">
+<section id="aggregated-ice-observations" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="aggregated-ice-observations">Aggregated ice observations</h2>
 <p>Each station was associated with the modal ice type (multi-year, first-year, thin, or open) from the underway observations, which were only associated with predator sightings. <strong>Seems weird that no stations shook out as multi-year ice, right?</strong> This figure shows how frequent the modal ice type was at each station. The two grey lines represent 1:1 and 2:1. Stations falling on the upper line had <em>uniform</em> ice category observations i.e., every interval within 15 km had the same ice category. Stations falling below the lower line had <em>highly mixed</em> ice category observations i.e., the most frequent ice category was observed at less than half the intervals within 15 km of the station. Most points on the figure include multiple stations, indicated by the color. For example, in the THIN ice category (bottom), 8 stations (red point) had 4 intervals with ice category observations where all 4 were THIN (x,y = 4,4).</p>
-<div class="cell" data-hash="03_combined_cache/html/underway-ice_dda1aa7d43ab79d5266aaaf2d94373c3">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>predators_stations <span class="sc">%&gt;%</span> </span>
@@ -232,6 +232,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </details>
 <div class="cell-output-display">
 <p><img src="03_combined_files/figure-html/underway-ice-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell page-columns page-full">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ant_basemap</span>(map_lim) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> ice_cat), </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>          predators_stations,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> year) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display column-screen">
+<p><img src="03_combined_files/figure-html/ice-map-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 </section>

@@ -70,7 +70,7 @@ effort_stars <- effort_sf %>%
   filter(nmi < 1000) %>% 
   rasterize_counts(count_col = "nmi",
                    res = 2.5e4)
-map_lim <- sf::st_bbox(c(xmin = -65, xmax = -55, ymin = -65, ymax = -58),
+map_lim <- st_bbox(c(xmin = -65, xmax = -55, ymin = -65, ymax = -58),
                        crs = "EPSG:4326") %>% 
   project_bbox() %>% 
   expand_bbox(factor = 1.2)
@@ -103,7 +103,7 @@ topfive_sf <- predators_agg %>%
 
 topfive_stars <- rasterize_counts(topfive_sf, res = 2.5e4)
 
-map_lim <- sf::st_bbox(c(xmin = -65, xmax = -55, ymin = -66, ymax = -60),
+map_lim <- st_bbox(c(xmin = -65, xmax = -55, ymin = -66, ymax = -60),
                        crs = "EPSG:4326") %>% 
   project_bbox() %>% 
   expand_bbox(factor = 1.1)
@@ -139,7 +139,7 @@ soi_sf <- predators_agg %>%
 
 soi_stars <- rasterize_counts(soi_sf, res = 2.5e4)
 
-map_lim <- sf::st_bbox(soi_sf) %>% 
+map_lim <- st_bbox(soi_sf) %>% 
   project_bbox() %>% 
   expand_bbox(factor = 1.2)
 
