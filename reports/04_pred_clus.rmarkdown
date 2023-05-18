@@ -29,9 +29,11 @@ source(here::here("R", "sp.R"))
 source(here::here("R", "zoop.R"))
 ```
 
+
 ## Predator clusters
 
 Following the methods of Dietrich et al. (2021), clustering analysis is restricted to species sighted near 5% or more of stations. This avoids granting undue leverage to rare species. `r n_distinct(predators_abundant$species)` species retained (i.e., species above red line).
+
 
 ```{r}
 #| label: abundant_predators
@@ -60,9 +62,11 @@ pred_frac %>%
 
 ```
 
+
 ## Optimal number of clusters
 
 We use the gap statistic [@tibshirani2001] to choose the optimal number of clusters ($k$). The gap statistic ($f$) is a goodness of clustering measure. The authors recommended choosing the smallest $k$ such that $f(k) \geq f(k+1) - s(k+1)$ where $s$ is the standard error of $f$. According to this rule, the predators are best described by two clusters (indicated in blue). However, $f(2)$ is only *slightly* greater than the threshold $f(3) - s(3)$, and $f$ is determined stochastically, so depending on the iteration the rule may choose $k=3$. Based on our prior knowledge of three predator guilds (pagophilic, open water, and intermediate), we'll present the results for $k=3$ here and re-run the analysis for $k=2$ in the supplemental.
+
 
 ```{r}
 #| label: optimal-clusters
@@ -102,7 +106,9 @@ ggplot(sightings_gap_df, aes(x = k, y = gap)) +
   theme(legend.position = "none")
 ```
 
+
 Hierarchical clustering of stations by predator community. Note: `r nrow(zoop_sf)` stations were included in the zooplankton clustering, but only `r length(sightings_clust$labels)` stations were used for predator clustering.
+
 
 ```{r}
 #| label: predator_dendro
@@ -120,7 +126,9 @@ p %>%
   theme_dendrogram()
 ```
 
+
 How do the predator clusters compare to the zooplankton clusters?
+
 
 ```{r}
 #| label: predator_mosaic
@@ -153,6 +161,7 @@ ggplot(both_clust) +
   theme_classic()
 ```
 
+
 The above mosaic plot shows the distribution of stations by predator and zooplankton clusters. For example, the bottom left rectangle indicates 9 stations were assigned to zooplankton cluster 1 and predator cluster 1. Rectangles color-coded by zooplankton cluster using the color palette from Dietrich et al. 2021 Fig 3a.
 
 Upon visual inspection of the mosaic plot, I don't perceive any clear correlations between the zooplankton and predator cluster assignments. We're interpreting this as evidence predator communities are structured by the physical environment, specifically sea ice, rather than the prey communities.
@@ -160,6 +169,7 @@ Upon visual inspection of the mosaic plot, I don't perceive any clear correlatio
 ## Indicator species
 
 Which species best represent each cluster? Using Dufrene-Legendre indicator species analysis. Apply indicator value cutoff at 25%.
+
 
 ```{r}
 #| label: indicator_species
@@ -187,6 +197,7 @@ as_tibble(t(indval_fmt)) %>%
 
 ```
 
+
 ### Cluster descriptions
 
 * Cluster 1 = marginal ice zone (SNPT)
@@ -196,6 +207,7 @@ as_tibble(t(indval_fmt)) %>%
 ## Cluster maps
 
 What geospatial patterns do we see in the predator communities? The marginal ice zone community was mostly observed just north of the South Shetland islands, occasionally farther north beyond Elephant Island. The open ocean community occupied the northeastern portion of the study area in 2012, 2014, and 2015. In 2013 it contracted westward and in 2016 it was entirely absent. The pagophilic predator community dominated the Bransfield Strait itself, expanding north towards Elephant Island in 2013 and 2016.
+
 
 ```{r}
 #| label: cluster_maps
@@ -223,9 +235,11 @@ ant_basemap(map_lim) +
   theme(legend.position = "bottom")
 ```
 
+
 ## NMDS
 
 How many NMDS axes should we use? Scree plot
+
 
 ```{r}
 #| label: nmds-scree
@@ -253,7 +267,9 @@ ggplot(nmds_stress, aes(k, stress)) +
 
 ```
 
+
 3 axes for NMDS looks acceptable. How does ordination distance compare to dissimilarity (Shepard diagram)?
+
 
 ```{r}
 #| label: nmds-shepard
@@ -296,7 +312,9 @@ ggplot(nmds_shepard, aes(diss, dist)) +
 
 ```
 
+
 NMDS plots, color-coded by predator cluster.
+
 
 ```{r}
 #| label: loading
@@ -324,6 +342,7 @@ ggplot(nmds_df, aes(NMDS2, NMDS3)) +
   theme_classic()
 ```
 
+
 ## Environmental loadings
 
 I compared the drivers of community structure two ways: physics (hydrology and ice coverage) and zooplankton (community assignments). The result is kind of a mess! Here's what makes jumps out at me:
@@ -332,6 +351,7 @@ I compared the drivers of community structure two ways: physics (hydrology and i
 * Predator cluster 2 (open ocean) is associated with higher temperatures and chl a. Associated with macrozooplankton communities 2a and 2b (small euphausiids, amphipods, etc).
 * Predator cluster 3 (pagophilic) is associated with higher salinity and deeper mixed layer. Associated with macrozooplankton communities 3a and 3b (big euphausiids, Metridia, etc).
 * No clear relationship between predator community and ice categories.
+
 
 ```{r}
 #| label: env-loadings
@@ -416,3 +436,4 @@ ggplot(nmds_df, aes(NMDS1, NMDS2)) +
   scale_color_brewer(palette = "Dark2") +
   theme_classic()
 ```
+
