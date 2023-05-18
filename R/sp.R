@@ -43,7 +43,7 @@ ant_raster_template <- function(limits = ant_lims(), res = 5e4) {
 
 # By species and year
 rasterize_counts <- function(counts_sf,
-                             count_col = "count",
+                             count_col = "count_norm",
                              species_col = "species",
                              year_col = "year",
                              layer_name = count_col,

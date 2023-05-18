@@ -35,7 +35,7 @@ Station locations on predator (five most abundant) count maps. Spatially restric
 
 top_five <- predators_agg %>% 
   group_by(species) %>% 
-  summarize(total_count = sum(count)) %>% 
+  summarize(total_count = sum(count_norm)) %>% 
   arrange(desc(total_count)) %>%
   slice(1:5)
 
@@ -56,7 +56,7 @@ map_lim <- st_bbox(zoop_sf) %>%
   expand_bbox(factor = 1.2)
 
 ant_basemap(map_lim) +
-  stars::geom_stars(aes(fill = count), data = topfive_stars) +
+  stars::geom_stars(aes(fill = count_norm), data = topfive_stars) +
   geom_sf(aes(color = time.of.day), zoop_sf, size = 0.2) +
   scale_x_continuous(breaks = c(-65, -60, -55)) +
   scale_y_continuous(breaks = c(-66, -64, -62, -60)) +
@@ -93,7 +93,7 @@ soi_sf <- predators_agg %>%
 soi_stars <- rasterize_counts(soi_sf, res = 2.5e4)
 
 ant_basemap(map_lim) +
-  stars::geom_stars(aes(fill = count), data = soi_stars) +
+  stars::geom_stars(aes(fill = count_norm), data = soi_stars) +
   geom_sf(aes(color = time.of.day), zoop_sf, size = 0.2) +
   scale_x_continuous(breaks = c(-65, -60, -55)) +
   scale_y_continuous(breaks = c(-66, -64, -62, -60)) +
@@ -129,7 +129,7 @@ predators_stations %>%
   labs(x = "Count of intervals with ice category observation",
        y = "Count of intervals with most frequent ice category") +
   scale_color_fermenter(palette = "RdYlBu",
-                        breaks = c(1, 2, 3, 5, 8)) +
+                        breaks = c(10, 20, 100, 200)) +
   coord_fixed() +
   facet_wrap(~ ice_cat, ncol = 2) +
   theme_classic()
@@ -144,7 +144,9 @@ ant_basemap(map_lim) +
   geom_sf(aes(color = ice_cat), 
           predators_stations,
           size = 0.5) +
+  scale_color_brewer("Ice category", palette = "YlGnBu") +
+  guides(color = guide_legend(override.aes = list(size = 5))) +
   facet_wrap(~ year) +
-  theme(legend.position = "bottom")
+  theme(legend.position = "left")
 
 ```

@@ -24,13 +24,13 @@ source(here::here("R", "sp.R"))
 
 ### Counts
 
-The five most abundant species.
+The five most abundant species (in ind nmi^-1).
 
 ```{r}
 
 top_five <- predators_agg %>% 
   group_by(species) %>% 
-  summarize(total_count = sum(count)) %>% 
+  summarize(total_count = sum(count_norm)) %>% 
   arrange(desc(total_count)) %>%
   slice(1:5)
 
@@ -42,7 +42,7 @@ top_five
 top_five_plot_data <- predators_agg %>% 
   semi_join(top_five, by = "species") %>% 
   group_by(year, species) %>% 
-  summarize(total = sum(count), .groups = "drop") %>% 
+  summarize(total = sum(count_norm), .groups = "drop") %>% 
   mutate(species = fct_reorder(species, total, .fun = sum),
          year = factor(year, levels = 2016:2012))
 year_labels <- top_five_plot_data %>% 
@@ -109,7 +109,8 @@ map_lim <- st_bbox(c(xmin = -65, xmax = -55, ymin = -66, ymax = -60),
   expand_bbox(factor = 1.1)
 
 ant_basemap(map_lim) +
-  stars::geom_stars(aes(fill = log(count + 1)), data = topfive_stars) +
+  stars::geom_stars(aes(fill = log(count_norm + 1)), 
+                    data = topfive_stars) +
   scale_fill_distiller(palette = "PuRd",
                        direction = 1,
                        na.value = NA) +
@@ -144,7 +145,7 @@ map_lim <- st_bbox(soi_sf) %>%
   expand_bbox(factor = 1.2)
 
 ant_basemap(map_lim) +
-  stars::geom_stars(aes(fill = log(count + 1)), data = soi_stars) +
+  stars::geom_stars(aes(fill = log(count_norm + 1)), data = soi_stars) +
   scale_fill_distiller(palette = "PuRd",
                        direction = 1,
                        na.value = NA) +

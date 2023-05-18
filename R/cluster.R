@@ -53,7 +53,7 @@ filter_sightings <- function(sightings, stations, station_thr) {
   sightings_agg <- sightings %>%
     as_tibble() %>%
     group_by(amlr.station, species) %>%
-    summarize(count = sum(count), .groups = "drop")
+    summarize(count_norm = sum(count_norm), .groups = "drop")
   retain <- sightings_agg %>%
     group_by(species) %>%
     summarize(stations_present = n(),
@@ -68,7 +68,7 @@ sightings_to_matrix <- function(sightings) {
     as_tibble() %>%
     pivot_wider(id_cols = amlr.station,
                 names_from = species,
-                values_from = count,
+                values_from = count_norm,
                 values_fill = 0) %>%
     mutate(across(-amlr.station, ~ log(.x + 1)))
   sightings_mtx <- as.matrix(select(sightings_wide, -amlr.station))

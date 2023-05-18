@@ -49,7 +49,7 @@ list(
                mutate(year = lubridate::year(lubridate::mdy_hm(UTC_start))) %>%
                group_by(cruise, year, interval, lon_mean, lat_mean) %>%
                summarize(nmi = sum(nmi), .groups = "drop") %>%
-               mutate(species = "survey", count = 1)),
+               mutate(species = "survey", count_norm = 1)),
   tar_target(effort_sf,
              latlon_to_sf(effort, coords = c("lon_mean", "lat_mean"))),
   # Zooplankton
