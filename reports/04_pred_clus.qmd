@@ -219,6 +219,7 @@ ant_basemap(map_lim) +
   facet_wrap(~ Year) +
   scale_x_continuous(breaks = c(-60, -55)) +
   scale_y_continuous(breaks = c(-63, -62, -61, -60)) +
+  scale_color_brewer(palette = "Dark2") +
   coord_ant(map_lim) +
   theme(legend.position = "bottom")
 ```
