@@ -172,23 +172,24 @@ div.csl-indent {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pred_frac <span class="ot">&lt;-</span> predators_stations <span class="sc">%&gt;%</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(amlr.station, species) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count_norm =</span> <span class="fu">sum</span>(count_norm), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">stations_present =</span> <span class="fu">n</span>(),</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">station_frac =</span> stations_present <span class="sc">/</span> total_stations,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(station_frac))</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>cutoff_row <span class="ot">&lt;-</span> <span class="fu">sum</span>(pred_frac<span class="sc">$</span>station_frac <span class="sc">&gt;=</span> <span class="fl">0.05</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>frac_fn <span class="ot">&lt;-</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">accuracy =</span> <span class="fl">0.1</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>pred_frac <span class="sc">%&gt;%</span> </span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">"Species"</span>, <span class="st">"Stations"</span>, <span class="st">"Fraction"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Fraction =</span> <span class="fu">frac_fn</span>(Fraction)) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">align =</span> <span class="st">"lrr"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="st">"striped"</span>,</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                            <span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">row_spec</span>(cutoff_row, </span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                       <span class="at">extra_css =</span> <span class="st">"border-bottom: 2px dashed red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count_station =</span> <span class="fu">sum</span>(count),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_count =</span> <span class="fu">sum</span>(count_station),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">stations_present =</span> <span class="fu">n</span>(),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">station_frac =</span> stations_present <span class="sc">/</span> total_stations) <span class="sc">%&gt;%</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(station_frac))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>cutoff_row <span class="ot">&lt;-</span> <span class="fu">sum</span>(pred_frac<span class="sc">$</span>station_frac <span class="sc">&gt;=</span> <span class="fl">0.05</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>frac_fn <span class="ot">&lt;-</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">accuracy =</span> <span class="fl">0.1</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>pred_frac <span class="sc">%&gt;%</span> </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">"Species"</span>, <span class="st">"Ind"</span>, <span class="st">"Stations"</span>, <span class="st">"Fraction"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Fraction =</span> <span class="fu">frac_fn</span>(Fraction)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">align =</span> <span class="st">"lrr"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="st">"striped"</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                            <span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">row_spec</span>(cutoff_row, </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                       <span class="at">extra_css =</span> <span class="st">"border-bottom: 2px dashed red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 
@@ -196,140 +197,167 @@ div.csl-indent {
  <thead>
   <tr>
    <th style="text-align:left;"> Species </th>
+   <th style="text-align:right;"> Ind </th>
    <th style="text-align:right;"> Stations </th>
-   <th style="text-align:right;"> Fraction </th>
+   <th style="text-align:left;"> Fraction </th>
   </tr>
  </thead>
 <tbody>
   <tr>
    <td style="text-align:left;"> SNPT </td>
+   <td style="text-align:right;"> 12649 </td>
    <td style="text-align:right;"> 239 </td>
-   <td style="text-align:right;"> 60.7% </td>
+   <td style="text-align:left;"> 60.7% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> ANPT </td>
+   <td style="text-align:right;"> 2430 </td>
    <td style="text-align:right;"> 212 </td>
-   <td style="text-align:right;"> 53.8% </td>
+   <td style="text-align:left;"> 53.8% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SGPT </td>
+   <td style="text-align:right;"> 636 </td>
    <td style="text-align:right;"> 184 </td>
-   <td style="text-align:right;"> 46.7% </td>
+   <td style="text-align:left;"> 46.7% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> FUSE </td>
+   <td style="text-align:right;"> 7754 </td>
    <td style="text-align:right;"> 166 </td>
-   <td style="text-align:right;"> 42.1% </td>
+   <td style="text-align:left;"> 42.1% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> KEGU </td>
+   <td style="text-align:right;"> 723 </td>
    <td style="text-align:right;"> 127 </td>
-   <td style="text-align:right;"> 32.2% </td>
+   <td style="text-align:left;"> 32.2% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> ANFU </td>
+   <td style="text-align:right;"> 1046 </td>
    <td style="text-align:right;"> 106 </td>
-   <td style="text-align:right;"> 26.9% </td>
+   <td style="text-align:left;"> 26.9% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> CAPT </td>
+   <td style="text-align:right;"> 535 </td>
    <td style="text-align:right;"> 85 </td>
-   <td style="text-align:right;"> 21.6% </td>
+   <td style="text-align:left;"> 21.6% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> ADPN </td>
+   <td style="text-align:right;"> 8594 </td>
    <td style="text-align:right;"> 73 </td>
-   <td style="text-align:right;"> 18.5% </td>
+   <td style="text-align:left;"> 18.5% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> CRSE </td>
+   <td style="text-align:right;"> 3111 </td>
    <td style="text-align:right;"> 64 </td>
-   <td style="text-align:right;"> 16.2% </td>
+   <td style="text-align:left;"> 16.2% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> LESE </td>
+   <td style="text-align:right;"> 189 </td>
    <td style="text-align:right;"> 58 </td>
-   <td style="text-align:right;"> 14.7% </td>
+   <td style="text-align:left;"> 14.7% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> BLPT </td>
+   <td style="text-align:right;"> 648 </td>
    <td style="text-align:right;"> 54 </td>
-   <td style="text-align:right;"> 13.7% </td>
+   <td style="text-align:left;"> 13.7% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> ANTE </td>
+   <td style="text-align:right;"> 179 </td>
    <td style="text-align:right;"> 38 </td>
-   <td style="text-align:right;"> 9.6% </td>
+   <td style="text-align:left;"> 9.6% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> PFSB </td>
+   <td style="text-align:right;"> 38 </td>
    <td style="text-align:right;"> 28 </td>
-   <td style="text-align:right;"> 7.1% </td>
+   <td style="text-align:left;"> 7.1% </td>
   </tr>
   <tr>
    <td style="text-align:left;border-bottom: 2px dashed red"> MIWH </td>
+   <td style="text-align:right;border-bottom: 2px dashed red"> 52 </td>
    <td style="text-align:right;border-bottom: 2px dashed red"> 20 </td>
-   <td style="text-align:right;border-bottom: 2px dashed red"> 5.1% </td>
+   <td style="text-align:left;border-bottom: 2px dashed red"> 5.1% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> GEPN </td>
+   <td style="text-align:right;"> 232 </td>
    <td style="text-align:right;"> 14 </td>
-   <td style="text-align:right;"> 3.6% </td>
+   <td style="text-align:left;"> 3.6% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> ELSE </td>
+   <td style="text-align:right;"> 19 </td>
    <td style="text-align:right;"> 13 </td>
-   <td style="text-align:right;"> 3.3% </td>
+   <td style="text-align:left;"> 3.3% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> WESE </td>
+   <td style="text-align:right;"> 16 </td>
    <td style="text-align:right;"> 13 </td>
-   <td style="text-align:right;"> 3.3% </td>
+   <td style="text-align:left;"> 3.3% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> KIWH </td>
+   <td style="text-align:right;"> 63 </td>
    <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 1.5% </td>
+   <td style="text-align:left;"> 1.5% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> UNSE </td>
+   <td style="text-align:right;"> 14 </td>
    <td style="text-align:right;"> 5 </td>
-   <td style="text-align:right;"> 1.3% </td>
+   <td style="text-align:left;"> 1.3% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> ANSH </td>
+   <td style="text-align:right;"> 103 </td>
    <td style="text-align:right;"> 3 </td>
-   <td style="text-align:right;"> 0.8% </td>
+   <td style="text-align:left;"> 0.8% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> EMPN </td>
+   <td style="text-align:right;"> 4 </td>
    <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 0.5% </td>
+   <td style="text-align:left;"> 0.5% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SBWH </td>
+   <td style="text-align:right;"> 5 </td>
    <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 0.5% </td>
+   <td style="text-align:left;"> 0.5% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> UNPR </td>
+   <td style="text-align:right;"> 4 </td>
    <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 0.5% </td>
+   <td style="text-align:left;"> 0.5% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> ROSE </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.3% </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> 0.3% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> UGPT </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.3% </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> 0.3% </td>
   </tr>
   <tr>
    <td style="text-align:left;"> UNPN </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.3% </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> 0.3% </td>
   </tr>
 </tbody>
 </table>
@@ -477,9 +505,9 @@ div.csl-indent {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> SNPT (28%) </td>
-   <td style="text-align:left;"> ANFU (83%)<br>CAPT (70%)<br>BLPT (59%)<br>ANPT (45%)<br>SGPT (31%)<br>SNPT (27%) </td>
-   <td style="text-align:left;"> FUSE (74%)<br>ADPN (59%)<br>CRSE (51%)<br>KEGU (41%)<br>SNPT (40%)<br>LESE (37%)<br>SGPT (32%) </td>
+   <td style="text-align:left;"> ANFU (30%) </td>
+   <td style="text-align:left;"> SNPT (64%)<br>ANPT (46%)<br>FUSE (39%)<br>SGPT (34%) </td>
+   <td style="text-align:left;"> ADPN (92%)<br>CRSE (66%)<br>LESE (37%)<br>FUSE (33%)<br>KEGU (25%) </td>
   </tr>
 </tbody>
 </table>
@@ -489,9 +517,9 @@ div.csl-indent {
 <section id="cluster-descriptions" class="level3">
 <h3 class="anchored" data-anchor-id="cluster-descriptions">Cluster descriptions</h3>
 <ul>
-<li>Cluster 1 = marginal ice zone (SNPT)</li>
-<li>Cluster 2 = open ocean (ANFU, CAPT, BLPT)</li>
-<li>Cluster 3 = pagophilic (FUSE, ADPN, CRSE)</li>
+<li>Cluster 1 = open ocean? (ANFU)</li>
+<li>Cluster 2 = marginal ice zone (SNPT, ANPT, FUSE)</li>
+<li>Cluster 3 = pagophilic (ADPN, CRSE, LESE)</li>
 </ul>
 </section>
 </section>
@@ -501,28 +529,31 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pred_clust_sf <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">amlr.station =</span> <span class="fu">names</span>(clust),</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">pred_clust =</span> <span class="fu">factor</span>(clust)) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">select</span>(zoop_sf,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                   amlr.station,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                   geometry,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                   Year),</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"amlr.station"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">ant_proj</span>())</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(pred_clust_sf) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.2</span>)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ant_basemap</span>(map_lim) <span class="sc">+</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust), pred_clust_sf, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">shape =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Year) <span class="sc">+</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">55</span>)) <span class="sc">+</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">63</span>, <span class="sc">-</span><span class="dv">62</span>, <span class="sc">-</span><span class="dv">61</span>, <span class="sc">-</span><span class="dv">60</span>)) <span class="sc">+</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_ant</span>(map_lim) <span class="sc">+</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pred_clust_sf <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">amlr.station =</span> <span class="fu">names</span>(clust),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">pred_clust =</span> <span class="fu">factor</span>(clust,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Open"</span>, <span class="st">"Marginal"</span>, <span class="st">"Pagophilic"</span>))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">select</span>(zoop_sf,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                   amlr.station,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                   geometry,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                   Year),</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"amlr.station"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">ant_proj</span>())</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(pred_clust_sf) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.2</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ant_basemap</span>(map_lim) <span class="sc">+</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust), pred_clust_sf, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">shape =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Year) <span class="sc">+</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">55</span>)) <span class="sc">+</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">63</span>, <span class="sc">-</span><span class="dv">62</span>, <span class="sc">-</span><span class="dv">61</span>, <span class="sc">-</span><span class="dv">60</span>)) <span class="sc">+</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_ant</span>(map_lim) <span class="sc">+</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="04_pred_clus_files/figure-html/cluster_maps-1.png" class="img-fluid" width="672"></p>
@@ -611,14 +642,15 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>nmds_df <span class="ot">&lt;-</span> sightings_nmds<span class="sc">$</span>points <span class="sc">%&gt;%</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"amlr.station"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">paste0</span>(<span class="st">"N"</span>, .x), <span class="fu">starts_with</span>(<span class="st">"MDS"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">right_join</span>(<span class="fu">tibble</span>(<span class="at">amlr.station =</span> <span class="fu">names</span>(clust),</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">pred_clust =</span> <span class="fu">factor</span>(clust)),</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">by =</span> <span class="st">"amlr.station"</span>)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS1, NMDS2)) <span class="sc">+</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust)) <span class="sc">+</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">right_join</span>(pred_clust_sf <span class="sc">%&gt;%</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>               <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>               <span class="fu">select</span>(amlr.station, pred_clust),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">by =</span> <span class="st">"amlr.station"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS1, NMDS2)) <span class="sc">+</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust)) <span class="sc">+</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="04_pred_clus_files/figure-html/loading-1.png" class="img-fluid" width="672"></p>
@@ -649,10 +681,10 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="environmental-loadings">Environmental loadings</h2>
 <p>I compared the drivers of community structure two ways: physics (hydrology and ice coverage) and zooplankton (community assignments). The result is kind of a mess! Here’s what makes jumps out at me:</p>
 <ul>
-<li>Predator cluster 1 (marginal ice) is associated with higher phaeopigment. An ice-edge effect?</li>
-<li>Predator cluster 2 (open ocean) is associated with higher temperatures and chl a. Associated with macrozooplankton communities 2a and 2b (small euphausiids, amphipods, etc).</li>
-<li>Predator cluster 3 (pagophilic) is associated with higher salinity and deeper mixed layer. Associated with macrozooplankton communities 3a and 3b (big euphausiids, Metridia, etc).</li>
-<li>No clear relationship between predator community and ice categories.</li>
+<li>Predator cluster associations with ice are unclear. May change after digging into Christian’s ice data?</li>
+<li>Both predator cluster 1 (open-ish) and 2 (marginal ice zone) are associated with higher temperatures and macrozooplankton cluster 2 (small euphausiids, amphipods, etc)</li>
+<li>Predator cluster 3 (pagophilic) is associated with higher salinity, deeper mixed layer, and macrozooplankton cluster 3 (big euphausiids, Metridia, etc)</li>
+<li>Macrozooplankton cluster 1 (salps etc) evenly distributed across predator clusters</li>
 </ul>
 <div class="cell">
 <details>
@@ -700,55 +732,51 @@ div.csl-indent {
 <span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>                <span class="sc">~</span> .x <span class="sc">*</span> <span class="fu">ordiArrowMul</span>(pred_envfit)))</span>
 <span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Hydrology plot</span></span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS1, NMDS2)) <span class="sc">+</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>hydro_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS1, NMDS2)) <span class="sc">+</span></span>
 <span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust), <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
 <span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> NMDS1, <span class="at">yend =</span> NMDS2),</span>
 <span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> envfit_vecs,</span>
 <span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
 <span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"grey50"</span>,</span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
 <span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> NMDS1, <span class="at">y =</span> NMDS2, <span class="at">label =</span> envvar),</span>
 <span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> envfit_vecs) <span class="sc">+</span></span>
 <span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Ice plot</span></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>ice_facs <span class="ot">&lt;-</span> <span class="fu">filter</span>(envfit_facs, <span class="fu">str_detect</span>(envvar, <span class="st">"ice_cat"</span>))</span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>ice_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS1, NMDS2)) <span class="sc">+</span></span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust), <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> NMDS1, <span class="at">y =</span> NMDS2),</span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> ice_facs,</span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">x =</span> NMDS1, <span class="at">y =</span> NMDS2, <span class="at">label =</span> envvar),</span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>                           <span class="at">data =</span> ice_facs) <span class="sc">+</span></span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Macrozooplankton plot</span></span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a>zoop_facs <span class="ot">&lt;-</span> <span class="fu">filter</span>(envfit_facs, <span class="fu">str_detect</span>(envvar, <span class="st">"zoop"</span>))</span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a>zoop_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS1, NMDS2)) <span class="sc">+</span></span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust), <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> NMDS1, <span class="at">y =</span> NMDS2),</span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> zoop_facs,</span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">x =</span> NMDS1, <span class="at">y =</span> NMDS2, <span class="at">label =</span> envvar),</span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>                           <span class="at">data =</span> zoop_facs) <span class="sc">+</span></span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a>layout <span class="ot">&lt;-</span> <span class="st">"</span></span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a><span class="st">AAAA</span></span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a><span class="st">BBCC</span></span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a><span class="st">"</span></span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a>hydro_plot <span class="sc">+</span> ice_plot <span class="sc">+</span> zoop_plot <span class="sc">+</span> </span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">design =</span> layout, <span class="at">guides =</span> <span class="st">"collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="04_pred_clus_files/figure-html/env-loadings-1.png" class="img-fluid" width="672"></p>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ice plot</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ice_facs <span class="ot">&lt;-</span> <span class="fu">filter</span>(envfit_facs, <span class="fu">str_detect</span>(envvar, <span class="st">"ice_cat"</span>))</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS1, NMDS2)) <span class="sc">+</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust), <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> NMDS1, <span class="at">y =</span> NMDS2),</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> ice_facs,</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">x =</span> NMDS1, <span class="at">y =</span> NMDS2, <span class="at">label =</span> envvar),</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                           <span class="at">data =</span> ice_facs) <span class="sc">+</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="04_pred_clus_files/figure-html/env-loadings-2.png" class="img-fluid" width="672"></p>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Macrozooplankton plot</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>zoop_facs <span class="ot">&lt;-</span> <span class="fu">filter</span>(envfit_facs, <span class="fu">str_detect</span>(envvar, <span class="st">"zoop"</span>))</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS1, NMDS2)) <span class="sc">+</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust), <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> NMDS1, <span class="at">y =</span> NMDS2),</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> zoop_facs,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">x =</span> NMDS1, <span class="at">y =</span> NMDS2, <span class="at">label =</span> envvar),</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>                           <span class="at">data =</span> zoop_facs) <span class="sc">+</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="04_pred_clus_files/figure-html/env-loadings-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
