@@ -71,9 +71,19 @@ list(
              format = "file"),
   tar_target(ice_cat, read_csv(ice_cat_file)),
   tar_target(
+    station_effort,
+    assign_sightings(effort_sf, zoop_sf, max_dist_km = 15) %>%
+      group_by(year, amlr.station) %>%
+      summarize(survey_nmi = sum(nmi), .groups = "drop")
+  ),
+  tar_target(
     predators_stations,
     assign_sightings(predators_sf, zoop_sf, max_dist_km = 15) %>%
-      aggregate_ice(predators, ice_cat)
+      aggregate_ice(predators, ice_cat) %>%
+      left_join(station_effort %>%
+                  as_tibble() %>%
+                  select(amlr.station, survey_nmi),
+                by = "amlr.station")
   ),
   tar_target(
     predators_abundant,
