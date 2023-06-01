@@ -120,8 +120,8 @@ Each station was associated with the modal ice type (multi-year, first-year, thi
 
 predators_stations %>% 
   mutate(n_obs = ice_intervals,
-         n_mode = round(ice_cat_freq * n_obs, digits = 0)) %>% 
-  group_by(n_obs, n_mode, ice_cat) %>% 
+         n_mode = round(ice_type_freq * n_obs, digits = 0)) %>% 
+  group_by(n_obs, n_mode, ice_type) %>% 
   summarize(Stations = n(), .groups = "drop") %>% 
   ggplot(aes(n_obs, n_mode, color = Stations)) +
   geom_abline(slope = c(1, 0.5), intercept = 0, color = "grey50") +
@@ -131,7 +131,7 @@ predators_stations %>%
   scale_color_fermenter(palette = "RdYlBu",
                         breaks = c(10, 20, 100, 200)) +
   coord_fixed() +
-  facet_wrap(~ ice_cat, ncol = 2) +
+  facet_wrap(~ ice_type, ncol = 2) +
   theme_classic()
 ```
 
@@ -141,8 +141,8 @@ predators_stations %>%
 #| out-width: 100% 
 
 ant_basemap(map_lim) +
-  geom_sf(aes(color = ice_cat), 
-          predators_stations,
+  geom_sf(aes(color = ice_type), 
+          filter(predators_stations, year != 2014),
           size = 0.5) +
   scale_color_brewer("Ice category", palette = "YlGnBu") +
   guides(color = guide_legend(override.aes = list(size = 5))) +

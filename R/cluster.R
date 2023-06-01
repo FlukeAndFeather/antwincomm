@@ -26,8 +26,8 @@ assign_sightings <- function(sightings, stations, max_dist_km) {
     stations_group <- stations[stations$Year == sightings_key$year, ]
     # Find nearest station within year
     nearest_station <- st_join(sightings_group,
-                                   select(stations_group, amlr.station),
-                                   join = st_nearest_feature)
+                               select(stations_group, amlr.station, date.tow),
+                               join = st_nearest_feature)
     # Get station coordinates
     station_coords <- stations_group %>%
       slice(map_int(nearest_station$amlr.station,
@@ -35,8 +35,8 @@ assign_sightings <- function(sightings, stations, max_dist_km) {
     # Calculate distance from predator sighting to nearest station
     nearest_station %>%
       mutate(dist_to_station = st_distance(nearest_station,
-                                               station_coords,
-                                               by_element = TRUE))
+                                           station_coords,
+                                           by_element = TRUE))
   }
 
   # Assign sightings across years
@@ -53,7 +53,7 @@ filter_sightings <- function(sightings, stations, station_thr) {
   sightings_agg <- sightings %>%
     as_tibble() %>%
     group_by(amlr.station, species) %>%
-    summarize(count_norm = sum(count_norm), .groups = "drop")
+    summarize(count_norm = sum(count) / survey_nmi[1], .groups = "drop")
   retain <- sightings_agg %>%
     group_by(species) %>%
     summarize(stations_present = n(),

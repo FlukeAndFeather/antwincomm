@@ -5,7 +5,7 @@ library(tidyverse)
 
 # Set target options:
 tar_option_set(
-  packages = c("sf", "tidyverse"),
+  packages = c("readxl", "sf", "tidyverse"),
   format = "rds"
 )
 
@@ -39,7 +39,7 @@ list(
     here(wamlr_dir, "WAMLR-2012-2016-Underway-Predator-Sightings.csv"),
     format = "file"
   ),
-  tar_target(predators, readr::read_csv(predators_file)),
+  tar_target(predators, read_csv(predators_file)),
   tar_target(predators_agg, aggregate_predators(predators)),
   tar_target(predators_sf,
              latlon_to_sf(predators_agg, coords = c("lon_mean", "lat_mean"))),
@@ -65,11 +65,25 @@ list(
     zoop_long,
     pivot_longer(zoop, -(1:53), names_to = "taxa", values_to = "abundance")
   ),
+  # Ice observations
+  tar_target(
+    ice_file,
+    here("data", "ALl_raw_bird_pred_obs_12_16_winter.xlsx"),
+    format = "file"
+  ),
+  tar_target(
+    ice_raw,
+    read_excel(ice_file) %>%
+      transmute(year_ice = Year,
+                lat = Latitude,
+                lon = Longitude,
+                ice_code = as.numeric(IceCode),
+                ice_type = clean_ice(IceType),
+                date_ice = as.Date(paste(Year, Month, Day, sep = "-"))) %>%
+      filter(ice_type != "NULL") %>%
+      latlon_to_sf(coords = c("lon", "lat"))
+  ),
   # Aggregate predators and ice observations
-  tar_target(ice_cat_file,
-             here("data", "ICECAT.csv"),
-             format = "file"),
-  tar_target(ice_cat, read_csv(ice_cat_file)),
   tar_target(
     station_effort,
     assign_sightings(effort_sf, zoop_sf, max_dist_km = 15) %>%
@@ -79,7 +93,7 @@ list(
   tar_target(
     predators_stations,
     assign_sightings(predators_sf, zoop_sf, max_dist_km = 15) %>%
-      aggregate_ice(predators, ice_cat) %>%
+      aggregate_ice(ice_raw) %>%
       left_join(station_effort %>%
                   as_tibble() %>%
                   select(amlr.station, survey_nmi),

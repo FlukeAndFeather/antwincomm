@@ -155,9 +155,11 @@ ggplot(both_clust) +
   theme_classic()
 ```
 
-The above mosaic plot shows the distribution of stations by predator and zooplankton clusters. For example, the bottom left rectangle indicates 9 stations were assigned to zooplankton cluster 1 and predator cluster 1. Rectangles color-coded by zooplankton cluster using the color palette from Dietrich et al. 2021 Fig 3a.
+The above mosaic plot shows the distribution of stations by predator and zooplankton clusters. For example, the bottom left rectangle indicates 34 stations were assigned to zooplankton cluster 1 and predator cluster 1. Rectangles color-coded by zooplankton cluster using the color palette from Dietrich et al. 2021 Fig 3a.
 
-Upon visual inspection of the mosaic plot, I don't perceive any clear correlations between the zooplankton and predator cluster assignments. We're interpreting this as evidence predator communities are structured by the physical environment, specifically sea ice, rather than the prey communities.
+Upon visual inspection of the mosaic plot, there appears to be some general correlation. Predator cluster 1 associates somewhat indiscriminately with zooplankton clusters 2a-3b. Predator cluster 2 associates strongly with zooplankton cluster 2a, as well as with 2b to a lesser extent. Predator cluster 3 associates with zooplankton clusters 3a and 3b. Zooplankton cluster 1 seems to be the "background". 
+
+For context, zooplankton cluster 1 was mostly salps, clusters 2a and 2b were small krill and amphipods (mostly offshore), and clusters 3a and 3b were large krill and *Metridia* (mostly in the Bransfield Strait).
 
 ## Indicator species
 
@@ -333,10 +335,10 @@ ggplot(nmds_df, aes(NMDS2, NMDS3)) +
 
 ## Environmental loadings
 
-I compared the drivers of community structure two ways: physics (hydrology and ice coverage) and zooplankton (community assignments). The result is kind of a mess! Here's what makes jumps out at me:
+I compared the drivers of community structure two ways: physics (hydrology and ice coverage) and zooplankton (community assignments). Here's what makes jumps out at me:
 
-* Predator cluster associations with ice are unclear. May change after digging into Christian's ice data?
-* Both predator cluster 1 (open-ish) and 2 (marginal ice zone) are associated with higher temperatures and macrozooplankton cluster 2 (small euphausiids, amphipods, etc)
+* Predator cluster associations with ice kind of track with what we expected. The pagophilic predator cluster correlates with first-year ice, open ocean predators with open ice, marginal ice predators with thin ice. Weirdly, multi-year ice falls among the open ocean predators, but only two stations were classified as multi-year ice so it's probably a small sample size thing.
+* Predator cluster 1 (open water) and 2 (marginal ice zone) are associated with higher temperatures and zooplankton cluster 2 (small euphausiids, amphipods, etc). They differ in the open water predator cluster was found in areas with greater phaeopigment and the marginal ice cluster in areas with greater chlorophyll-a.
 * Predator cluster 3 (pagophilic) is associated with higher salinity, deeper mixed layer, and macrozooplankton cluster 3 (big euphausiids, Metridia, etc)
 * Macrozooplankton cluster 1 (salps etc) evenly distributed across predator clusters
 
@@ -345,7 +347,8 @@ I compared the drivers of community structure two ways: physics (hydrology and i
 
 station_ice <- predators_stations %>% 
   group_by(amlr.station) %>% 
-  summarize(ice_cat = ice_cat[1]) %>% 
+  
+  summarize(ice_type = ice_type[1]) %>% 
   as_tibble() %>% 
   select(-geometry)
 
@@ -399,7 +402,7 @@ hydro_plot <- ggplot(nmds_df, aes(NMDS1, NMDS2)) +
   theme_classic()
 
 # Ice plot
-ice_facs <- filter(envfit_facs, str_detect(envvar, "ice_cat"))
+ice_facs <- filter(envfit_facs, str_detect(envvar, "ice_type"))
 ice_plot <- ggplot(nmds_df, aes(NMDS1, NMDS2)) +
   geom_point(aes(color = pred_clust), alpha = 0.6) +
   geom_point(aes(x = NMDS1, y = NMDS2),
