@@ -427,6 +427,7 @@ zoop_plot <- ggplot(nmds_df, aes(NMDS1, NMDS2)) +
 
 layout <- "
 AAAA
+AAAA
 BBCC
 "
 hydro_plot + ice_plot + zoop_plot + 

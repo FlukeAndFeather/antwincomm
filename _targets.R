@@ -68,19 +68,21 @@ list(
   # Ice observations
   tar_target(
     ice_file,
-    here("data", "ALl_raw_bird_pred_obs_12_16_winter.xlsx"),
+    here("data", "ice", "ice.csv"),
     format = "file"
   ),
   tar_target(
     ice_raw,
-    read_excel(ice_file) %>%
+    read_csv(ice_file, na = c("", "NULL")) %>%
       transmute(year_ice = Year,
                 lat = Latitude,
                 lon = Longitude,
                 ice_code = as.numeric(IceCode),
                 ice_type = clean_ice(IceType),
                 date_ice = as.Date(paste(Year, Month, Day, sep = "-"))) %>%
-      filter(ice_type != "NULL") %>%
+      filter(ice_type != "NULL",
+             # 1 ice_code is "85"
+             ice_code <= 10) %>%
       latlon_to_sf(coords = c("lon", "lat"))
   ),
   # Aggregate predators and ice observations
