@@ -346,11 +346,8 @@ I compared the drivers of community structure two ways: physics (hydrology and i
 #| label: env-loadings
 
 station_ice <- predators_stations %>% 
-  group_by(amlr.station) %>% 
-  
-  summarize(ice_type = ice_type[1]) %>% 
-  as_tibble() %>% 
-  select(-geometry)
+  distinct(amlr.station, ice_type, ice_coverage) %>% 
+  as_tibble()
 
 # Evironmental variables
 station_env <- zoop_sf %>% 
