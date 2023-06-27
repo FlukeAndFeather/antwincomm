@@ -46,6 +46,7 @@ list(
   # Effort
   tar_target(effort,
              predators %>%
+               filter(nmi < 1000) %>%
                mutate(year = lubridate::year(lubridate::mdy_hm(UTC_start))) %>%
                group_by(cruise, year, interval, lon_mean, lat_mean) %>%
                summarize(nmi = sum(nmi), .groups = "drop") %>%

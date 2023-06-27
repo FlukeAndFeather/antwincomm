@@ -20,11 +20,9 @@ tar_load(c("predators_agg", "ant_sf", "effort_sf"),
 source(here::here("R", "sp.R"))
 ```
 
-## Antarctic Peninsula winter predators
+## Counts
 
-### Counts
-
-The five most abundant species (in ind nmi^-1).
+The five most abundant species (in ind nmi\^-1).
 
 ```{r}
 
@@ -58,36 +56,115 @@ ggplot(top_five_plot_data, aes(species, total, group = year)) +
   theme(axis.title.x = element_blank())
 ```
 
-### Maps
+## Maps
 
 Survey effort. 21 out of the 19404 intervals were recorded as nmi \> 1000 (as opposed to \~1 nmi for the rest). Those intervals excluded from the survey effort.
+
+### Climatologies
+
+```{r}
+#| label: species_climatologies
+
+library(terra)
+# Mkae "top five" predator sightings spatially aware
+topfive_sf <- predators_agg %>% 
+  semi_join(top_five, by = "species") %>% 
+  latlon_to_sf(coords = c("lon_mean", "lat_mean"))
+# Create a template raster of the study area
+effort_ext <- effort_sf %>% 
+  st_transform(ant_proj()) %>% 
+  ext()
+rast_template <- rast(crs = as.character(ant_proj())[[1]],
+                      extent = effort_ext,
+                      resolution = 30e3)
+# Rasterize effort by year
+effort_rast <- effort_sf %>% 
+  st_transform(ant_proj()) %>% 
+  rasterize(rast_template,
+            field = "nmi",
+            by = "year",
+            fun = sum)
+# Rasterize the predator sightings by year and species
+topfive_rast <- topfive_sf %>% 
+  st_transform(ant_proj()) %>% 
+  mutate(year_species = interaction(year, species)) %>% 
+  rasterize(rast_template, 
+            field = "count",
+            by = "year_species",
+            fun = sum)
+# Normalize counts by effort
+topfive_norm <- topfive_rast
+for (i in seq(nlyr(topfive_rast))) {
+  lyr_name <- names(topfive_rast)[i]
+  lyr_year <- substr(lyr_name, 1, 4)
+  effort_year <- effort_rast[lyr_year] %>% 
+    subst(0, NA)
+  topfive_norm[[i]] <- topfive_norm[[i]] / effort_year
+}
+# Average across years
+topfive_climatology <- unique(top_five$species) %>% 
+  map(function(sp) {
+    sp_rast <- subset(topfive_norm, 
+                      which(str_detect(names(topfive_norm), sp)))
+    mean(sp_rast, na.rm = TRUE)
+  }) %>% 
+  set_names(unique(top_five$species)) %>% 
+  rast()
+# Classify raster (otherwise CRSE throw it all off)
+topfive_clim_class <- topfive_climatology %>% 
+  classify(rcl = c(0, 1, 5, 10, 50))
+
+# Project bounding box
+map_bbox <- ext(-63, -54, -64, -59) %>% 
+  project(from = "+proj=longlat +datum=WGS84",
+          to = as.character(ant_proj())[[1]])
+ 
+# Make the map! 
+ant_basemap() +
+  tidyterra::geom_spatraster(data = topfive_clim_class) +
+  geom_sf(data = tar_read("ant_sf", store = here::here("_targets"))) +
+  scale_fill_brewer(palette = "RdPu", 
+                    na.value = NA, 
+                    direction = 1,
+                    na.translate = FALSE) +
+  scale_x_continuous(breaks = seq(-64, -54, by = 4)) +
+  scale_y_continuous(breaks = seq(-64, -59, by = 2)) +
+  labs(fill = "Ind nmi^-1") +
+  facet_wrap(~lyr) +
+  coord_sf(xlim = map_bbox[1:2],
+           ylim = map_bbox[3:4],
+           crs = ant_proj()) +
+  theme(legend.position = "top")
+
+```
+
+### Survey effort
 
 ```{r}
 #| label: survey_effort
 #| warning: false
 
-effort_stars <- effort_sf %>% 
-  filter(nmi < 1000) %>% 
-  rasterize_counts(count_col = "nmi",
-                   res = 2.5e4)
-map_lim <- st_bbox(c(xmin = -65, xmax = -55, ymin = -65, ymax = -58),
-                       crs = "EPSG:4326") %>% 
-  project_bbox() %>% 
-  expand_bbox(factor = 1.2)
-ant_basemap(map_lim) + 
-  stars::geom_stars(aes(fill = nmi), data = effort_stars) +
+map_bbox <- ext(effort_rast)
+
+ant_basemap(map_bbox) +
+  tidyterra::geom_spatraster(data = effort_rast) +
   scale_fill_distiller(palette = "PuRd", 
                        direction = 1, 
                        na.value = NA) +
-  scale_x_continuous(breaks = seq(-65, -55, by = 5)) +
-  scale_y_continuous(breaks = seq(-65, -58, by = 2)) +
-  coord_ant(map_lim) +
-  facet_wrap(vars(year)) +
+  scale_x_continuous(breaks = seq(-64, -54, by = 4)) +
+  scale_y_continuous(breaks = seq(-64, -57, by = 2)) +
+  coord_sf(xlim = map_bbox[1:2],
+           ylim = map_bbox[3:4],
+           crs = ant_proj()) +
+  labs(fill = "nmi") +
+  facet_wrap(~lyr) +
   expand_limits(fill = 0)
 
 ```
 
-Distribution maps of the five most abundant species in each survey year, aggregated to 25km bins.
+### Yearly distributions
+
+Distribution maps of the five most abundant species in each survey year, aggregated to 30km bins.
 
 ```{r}
 #| label: topfive_map
@@ -97,29 +174,38 @@ Distribution maps of the five most abundant species in each survey year, aggrega
 #| fig-width: 6
 #| fig-dpi: 600
 
-topfive_sf <- predators_agg %>% 
-  semi_join(top_five, by = "species") %>% 
-  latlon_to_sf(coords = c("lon_mean", "lat_mean"))
+map_bbox <- ext(-63, -54, -64, -59) %>% 
+  project(from = "+proj=longlat +datum=WGS84",
+          to = as.character(ant_proj())[[1]])
 
-topfive_stars <- rasterize_counts(topfive_sf, res = 2.5e4)
+topfive_class <- topfive_rast %>% 
+  classify(rcl = c(0, 1, 5, 10, 50, 100, 1000, Inf))
 
-map_lim <- st_bbox(c(xmin = -65, xmax = -55, ymin = -66, ymax = -60),
-                       crs = "EPSG:4326") %>% 
-  project_bbox() %>% 
-  expand_bbox(factor = 1.1)
+topfive_class_df <- as.data.frame(topfive_class, xy = TRUE) %>% 
+  pivot_longer(-c("x", "y"), 
+               names_to = "name", 
+               values_to = "count") %>% 
+  separate_wider_delim(name, 
+                       delim = ".", 
+                       names = c("year", "species")) %>% 
+  drop_na(count)
 
-ant_basemap(map_lim) +
-  stars::geom_stars(aes(fill = log(count_norm + 1)), 
-                    data = topfive_stars) +
-  scale_fill_distiller(palette = "PuRd",
-                       direction = 1,
-                       na.value = NA) +
-  scale_x_continuous(breaks = c(-65, -60, -55)) +
-  scale_y_continuous(breaks = c(-66, -64, -62, -60)) +
-  coord_ant(map_lim) +
+ant_basemap() +
+  geom_raster(aes(x, y, fill = count), topfive_class_df) +
+  geom_sf(data = tar_read("ant_sf", store = here::here("_targets"))) +
+  scale_fill_brewer(palette = "RdPu", 
+                    na.value = NA, 
+                    direction = 1,
+                    na.translate = FALSE) +
+  scale_x_continuous(breaks = seq(-64, -54, by = 4)) +
+  scale_y_continuous(breaks = seq(-64, -59, by = 2)) +
+  labs(fill = "Ind nmi^-1") +
   facet_grid(species ~ year) +
-  expand_limits(fill = 0) +
-  theme(axis.text.x = element_text(size = 7))
+  coord_sf(xlim = map_bbox[1:2],
+           ylim = map_bbox[3:4],
+           crs = ant_proj()) +
+  theme(legend.position = "right",
+        text = element_text(size = 8))
 ```
 
 Distribution maps of five species of interest in each survey year, also aggregated to 25km bins.
@@ -138,21 +224,44 @@ soi_sf <- predators_agg %>%
   filter(species %in% soi) %>% 
   latlon_to_sf(coords = c("lon_mean", "lat_mean"))
 
-soi_stars <- rasterize_counts(soi_sf, res = 2.5e4)
+soi_rast <- soi_sf %>% 
+  st_transform(ant_proj()) %>% 
+  mutate(year_species = interaction(year, species)) %>% 
+  rasterize(rast_template, 
+            field = "count",
+            by = "year_species",
+            fun = sum)
 
-map_lim <- st_bbox(soi_sf) %>% 
-  project_bbox() %>% 
-  expand_bbox(factor = 1.2)
+map_bbox <- ext(-63, -54, -64, -59) %>% 
+  project(from = "+proj=longlat +datum=WGS84",
+          to = as.character(ant_proj())[[1]])
 
-ant_basemap(map_lim) +
-  stars::geom_stars(aes(fill = log(count_norm + 1)), data = soi_stars) +
-  scale_fill_distiller(palette = "PuRd",
-                       direction = 1,
-                       na.value = NA) +
-  scale_x_continuous(breaks = c(-65, -60, -55)) +
-  scale_y_continuous(breaks = c(-64, -62, -60, -58)) +
+soi_class <- soi_rast %>% 
+  classify(rcl = c(0, 1, 5, 10, 50, 100, 1000))
+
+soi_class_df <- as.data.frame(soi_class, xy = TRUE) %>% 
+  pivot_longer(-c("x", "y"), 
+               names_to = "name", 
+               values_to = "count") %>% 
+  separate_wider_delim(name, 
+                       delim = ".", 
+                       names = c("year", "species")) %>% 
+  drop_na(count)
+
+ant_basemap() +
+  geom_raster(aes(x, y, fill = count), soi_class_df) +
+  geom_sf(data = tar_read("ant_sf", store = here::here("_targets"))) +
+  scale_fill_brewer(palette = "RdPu", 
+                    na.value = NA, 
+                    direction = 1,
+                    na.translate = FALSE) +
+  scale_x_continuous(breaks = seq(-64, -54, by = 4)) +
+  scale_y_continuous(breaks = seq(-64, -59, by = 2)) +
+  labs(fill = "Ind nmi^-1") +
   facet_grid(species ~ year) +
-  expand_limits(fill = 0) +
-  coord_ant(map_lim) +
-  theme(axis.text.x = element_text(size = 7))
+  coord_sf(xlim = map_bbox[1:2],
+           ylim = map_bbox[3:4],
+           crs = ant_proj()) +
+  theme(legend.position = "right",
+        text = element_text(size = 8))
 ```

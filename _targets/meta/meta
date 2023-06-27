@@ -1,6 +1,6 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
 .ggOceanMapsenv|object|9be416b0fcb5a722|||||||||||||||
-.Random.seed|object|cc92006467965e01|||||||||||||||
+.Random.seed|object|e5db4c4c1dfbe878|||||||||||||||
 aggregate_ice|function|98303ff670dcb8c0|||||||||||||||
 aggregate_predators|function|0fe06086935b4f38|||||||||||||||
 ant_basemap|function|53ccb70018adf605|||||||||||||||
@@ -14,8 +14,8 @@ clean_ice|function|05226612d1013b1e|||||||||||||||
 coord_ant|function|cdecfd86ec5673e6|||||||||||||||
 create_ant_sf|function|2c61d9d32e09ae11|||||||||||||||
 download_ne|function|ef600711a740583b|||||||||||||||
-effort|stem|b49036e46c582d36|e20023f0b2f94722|5678bff6184c93ce|-1343068639||t19493.7003961099s|278115196bbe97ba|255191|rds|local|vector|||0.081||
-effort_sf|stem|649c35a7ea180c36|4232136cef60e63e|cc40d9b084b32014|1168345245||t19493.7010663451s|fec30fc2f4cd82e7|292338|rds|local|vector|||0.292||
+effort|stem|390b711fc3384f1c|af3fb35c40d1dc1b|a9b8962e41b2f215|-1343068639||t19530.7158936259s|6645bef4f3c47137|254797|rds|local|vector|||0.108||
+effort_sf|stem|f81c2f49399d5a01|4232136cef60e63e|db9fefb2972ca19b|1168345245||t19530.7158979687s|e079bac7acb67595|291902|rds|local|vector|||0.314||
 expand_bbox|function|56087ff1f8b5d4b0|||||||||||||||
 filter_sightings|function|50e0e093b049ae9f|||||||||||||||
 foo|object|3e4b2f88f53157e6|||||||||||||||
@@ -39,21 +39,21 @@ mfv|function|f21000b8ece515c2|||||||||||||||
 ne_data|stem|a321285c9c5667c6|08f4b1ea773d5b36|358148deb8fc7a7b|-394386540||t19442.1011459615s|22f8ef7af814df30|3178638|rds|local|vector|||1.169||
 ne_dir|stem|8f72953e55934289|9ef4bcd80e137b54|4e3739ef91745af0|-1431853077|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/geospatial/ne|t19429.7879181002s|73a5f5604ca1ab33|288|file|local|vector|||0.373||
 predators|stem|55fddb8cb2c8c3b6|950e72a72240abae|d38a35dc5dc62a92|-164442843||t19508.0632352114s|3731c1f15cdca704|972063|rds|local|vector|||0.459||
-predators_abundant|stem|dda8bcd6998320df|d0f86ca8867c9063|79f1a4bda5c1f5d3|560995570||t19515.7792504334s|207f85836b1c6253|10828|rds|local|vector|||0.081||
+predators_abundant|stem|a25454c9d8915421|d0f86ca8867c9063|04a327cc7dac3861|560995570||t19534.8213968066s|0fad7653ed5af257|10829|rds|local|vector|||0.038||
 predators_agg|stem|511e8c7379ff7f0d|1f53c6d2d5b8cbec|85196f3fa2973a8c|-374844731||t19493.701061932s|2aa6561ff04b9337|173301|rds|local|vector|||0.087||
 predators_file|stem|fc2f43e02077adfa|c25ecba9e733d114|2adb22bdbd8253cb|1489732230|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/WAMLR/WAMLR-2012-2016-Underway-Predator-Sightings.csv|t19429.9001013099s|675861551bea89bc|4474693|file|local|vector|||0.001||
 predators_sf|stem|18c24de8077e145a|f97dc84afa040797|bfce457c345801e0|25197916||t19493.7010670235s|976715c1d8bd5036|180323|rds|local|vector|||0.01||
-predators_stations|stem|ad132fa4f1b40ce7|16e72c133b7a752e|d7c969166de6695d|-713016168||t19515.7786609671s|9b1e2fa76e985a33|186861|rds|local|vector|||14.279||
+predators_stations|stem|0cec3769fdf0946e|16e72c133b7a752e|6fd2ec97f52a74d3|-713016168||t19534.821396173s|74e9df0d7539327d|186863|rds|local|vector|||12.696||
 project_bbox|function|2dd3ee9b088439f3|||||||||||||||
 rasterize_counts|function|6ffa7ab2f89b15fa|||||||||||||||
 read_ice|function|0a9c84e57e9a90af|||||||||||||||
 read_zoop|function|a429f63cd4d404f7|||||||||||||||
-reports|stem|7f130f473da79626|b7d2d7db1e4b06be|2787605231a5b6f2|-653841556|docs*reports/01_predators.qmd*reports/02_stations.qmd*reports/03_combined.qmd*reports/04_pred_clus.qmd*reports/_quarto.yml|t19515.8011371861s|787f6e9335d3b706|14335313|file|local|vector|||458.441||
-sightings_clust|stem|38b058b56bda55d2|d0de88d951f4e268|21ac9183ca77392f|-827995520||t19508.708953906s|3f313d33149582b3|4722|rds|local|vector|||0.003||
-sightings_dist|stem|abee362ba0301783|cd796f886c92552a|cfc722320486e244|-523125683||t19508.7089536866s|431ada894d3e20c4|236253|rds|local|vector|||0.979||
-sightings_mtx|stem|b6b2cf57d5f5c784|56c6b16beeb55b55|8902f109d5956960|972446550||t19508.70894214s|06cff98d284985a4|12044|rds|local|vector|||0.032||
+reports|stem|7f130f473da79626|b7d2d7db1e4b06be|70c48bfecf506918|-653841556|docs*reports/01_predators.qmd*reports/02_stations.qmd*reports/03_combined.qmd*reports/04_pred_clus.qmd*reports/_quarto.yml|t19515.8011371861s||14335313|file|local|vector|||175.081||33m39m System command quarto failed
+sightings_clust|stem|0cb2729dbb838fb5|d0de88d951f4e268|c90c1ed1888e98c7|-827995520||t19534.8214095129s|3f313d33149582b3|4722|rds|local|vector|||0.004||
+sightings_dist|stem|352f6563a53985b9|cd796f886c92552a|6fe302fcfa1195d7|-523125683||t19534.8214093198s|da147ff5cd8a0da8|236217|rds|local|vector|||1.014||
+sightings_mtx|stem|701ac44ef4383e69|56c6b16beeb55b55|d70accfaabff55b4|972446550||t19534.8213973159s|d38019059c3784cc|12046|rds|local|vector|||0.032||
 sightings_to_matrix|function|b498168e7aa49ce0|||||||||||||||
-station_effort|stem|51e18cea2d6b4186|40980f41921f7a6e|e0a31ba5d0031d7a|-1814110330||t19508.6857709243s|206a89e0acad743d|114216|rds|local|vector|||4.382||
+station_effort|stem|42bdc741608b78ca|40980f41921f7a6e|e76d900f79f4bfcc|-1814110330||t19534.8212446767s|7dd1ca60c3588aae|114093|rds|local|vector|||5.362||
 stations|object|68d83edd7ecc4812|||||||||||||||
 tod_pal|function|fa77082689a3b904|||||||||||||||
 wamlr_dir|stem|a72c48a6943b38cd|6fc1f28582ff1e0e|df4ed6fb5b91dbae|780487281||t19442.1011267147s|e3871644244b3637|115|rds|local|vector|||0.001||

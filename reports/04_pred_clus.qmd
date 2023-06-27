@@ -197,6 +197,33 @@ as_tibble(t(indval_fmt)) %>%
 * Cluster 2 = marginal ice zone (SNPT, ANPT, FUSE)
 * Cluster 3 = pagophilic (ADPN, CRSE, LESE)
 
+### Species within clusters
+
+```{r}
+#| label: clusters_species
+predators_abundant %>% left_join(
+  tibble(
+    amlr.station = names(clust),
+    pred_clust = factor(clust,
+                        labels = c("Open", "Marginal", "Pagophilic"))
+  ), by = "amlr.station") %>% 
+  complete(amlr.station, pred_clust, species, 
+           fill = list(count_norm = 0)) %>% 
+  group_by(species, pred_clust) %>% 
+  summarize(mean_abundance = mean(count_norm), .groups = "drop") %>%
+  mutate(species = fct_reorder(species, 
+                               mean_abundance, 
+                               .fun = sum,
+                               .desc = TRUE)) %>% 
+  ggplot(aes(species, mean_abundance)) +
+  geom_col() +
+  labs(y = "Mean abundance (ind nmi^-1)") +
+  facet_wrap(~ pred_clust, ncol = 1) +
+  theme_classic(base_size = 14) +
+  theme(axis.title.x = element_blank())
+```
+
+
 ## Cluster maps
 
 What geospatial patterns do we see in the predator communities? The marginal ice zone community was mostly observed just north of the South Shetland islands, occasionally farther north beyond Elephant Island. The open ocean community occupied the northeastern portion of the study area in 2012, 2014, and 2015. In 2013 it contracted westward and in 2016 it was entirely absent. The pagophilic predator community dominated the Bransfield Strait itself, expanding north towards Elephant Island in 2013 and 2016.
