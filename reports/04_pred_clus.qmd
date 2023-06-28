@@ -157,7 +157,7 @@ ggplot(both_clust) +
 
 The above mosaic plot shows the distribution of stations by predator and zooplankton clusters. For example, the bottom left rectangle indicates 34 stations were assigned to zooplankton cluster 1 and predator cluster 1. Rectangles color-coded by zooplankton cluster using the color palette from Dietrich et al. 2021 Fig 3a.
 
-Upon visual inspection of the mosaic plot, there appears to be some general correlation. Predator cluster 1 associates somewhat indiscriminately with zooplankton clusters 2a-3b. Predator cluster 2 associates strongly with zooplankton cluster 2a, as well as with 2b to a lesser extent. Predator cluster 3 associates with zooplankton clusters 3a and 3b. Zooplankton cluster 1 seems to be the "background". 
+Upon visual inspection of the mosaic plot, there appears to be some general correlation. Predator cluster 1 associates somewhat indiscriminately with zooplankton clusters 2a-3b. Predator cluster 2 associates strongly with zooplankton cluster 2a, as well as with 2b to a lesser extent. Predator cluster 3 associates with zooplankton clusters 3a and 3b. Zooplankton cluster 1 seems to be the "background".
 
 For context, zooplankton cluster 1 was mostly salps, clusters 2a and 2b were small krill and amphipods (mostly offshore), and clusters 3a and 3b were large krill and *Metridia* (mostly in the Bransfield Strait).
 
@@ -193,9 +193,9 @@ as_tibble(t(indval_fmt)) %>%
 
 ### Cluster descriptions
 
-* Cluster 1 = open ocean? (ANFU)
-* Cluster 2 = marginal ice zone (SNPT, ANPT, FUSE)
-* Cluster 3 = pagophilic (ADPN, CRSE, LESE)
+-   Cluster 1 = open ocean? (ANFU)
+-   Cluster 2 = marginal ice zone (SNPT, ANPT, FUSE)
+-   Cluster 3 = pagophilic (ADPN, CRSE, LESE)
 
 ### Species within clusters
 
@@ -222,7 +222,6 @@ predators_abundant %>% left_join(
   theme_classic(base_size = 14) +
   theme(axis.title.x = element_blank())
 ```
-
 
 ## Cluster maps
 
@@ -364,10 +363,10 @@ ggplot(nmds_df, aes(NMDS2, NMDS3)) +
 
 I compared the drivers of community structure two ways: physics (hydrology and ice coverage) and zooplankton (community assignments). Here's what makes jumps out at me:
 
-* Predator cluster associations with ice kind of track with what we expected. The pagophilic predator cluster correlates with first-year ice, open ocean predators with open ice, marginal ice predators with thin ice. Weirdly, multi-year ice falls among the open ocean predators, but only two stations were classified as multi-year ice so it's probably a small sample size thing.
-* Predator cluster 1 (open water) and 2 (marginal ice zone) are associated with higher temperatures and zooplankton cluster 2 (small euphausiids, amphipods, etc). They differ in the open water predator cluster was found in areas with greater phaeopigment and the marginal ice cluster in areas with greater chlorophyll-a.
-* Predator cluster 3 (pagophilic) is associated with higher salinity, deeper mixed layer, and macrozooplankton cluster 3 (big euphausiids, Metridia, etc)
-* Macrozooplankton cluster 1 (salps etc) evenly distributed across predator clusters
+-   Predator cluster associations with ice kind of track with what we expected. The pagophilic predator cluster correlates with first-year ice, open ocean predators with open ice, marginal ice predators with thin ice. Weirdly, multi-year ice falls among the open ocean predators, but only two stations were classified as multi-year ice so it's probably a small sample size thing.
+-   Predator cluster 1 (open water) and 2 (marginal ice zone) are associated with higher temperatures and zooplankton cluster 2 (small euphausiids, amphipods, etc). They differ in the open water predator cluster was found in areas with greater phaeopigment and the marginal ice cluster in areas with greater chlorophyll-a.
+-   Predator cluster 3 (pagophilic) is associated with higher salinity, deeper mixed layer, and macrozooplankton cluster 3 (big euphausiids, Metridia, etc)
+-   Macrozooplankton cluster 1 (salps etc) evenly distributed across predator clusters
 
 ```{r}
 #| label: env-loadings
@@ -456,4 +455,31 @@ BBCC
 "
 hydro_plot + ice_plot + zoop_plot + 
   plot_layout(design = layout, guides = "collect")
+```
+
+## Clusters by ice coverage
+
+I asserted the clusters corresponded to open water, marginal ice, and pack ice communities. Let's verify that.
+
+```{r}
+library(ggridges)
+
+pred_clust_ice <- tibble(
+  amlr.station = names(clust),
+  pred_clust = factor(clust,
+                      labels = c("Open", "Marginal", "Pagophilic"))
+) %>% 
+  left_join(station_ice,
+            by = "amlr.station") %>% 
+  drop_na(ice_coverage)
+
+ggplot(pred_clust_ice, aes(x = ice_coverage / 10, fill = after_stat(x))) + 
+  geom_histogram(bins = 20, color = "grey30") +
+  scale_x_continuous(labels = scales::percent) +
+  scale_fill_distiller(palette = "Blues", guide = NULL) +
+  facet_grid(rows = vars(pred_clust)) +
+  labs(x = "Ice coverage",
+       y = "Station count") +
+  theme_minimal()
+
 ```
