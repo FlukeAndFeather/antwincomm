@@ -462,8 +462,6 @@ hydro_plot + ice_plot + zoop_plot +
 I asserted the clusters corresponded to open water, marginal ice, and pack ice communities. Let's verify that.
 
 ```{r}
-library(ggridges)
-
 pred_clust_ice <- tibble(
   amlr.station = names(clust),
   pred_clust = factor(clust,
