@@ -20,15 +20,15 @@ clean_ice <- function(ice_types) {
                  THIN = "BRASH")
 }
 
-# Adds three columns to stations data frame:
+# Aggregates ice data:
 # ice_type [fct] OPEN, THIN, FY, MY
 # ice_intervals [int] count of intervals with ice obs associated with station
 # ice_type_freq [dbl] fraction of intervals assoc w station with modal ice type
 # ice_coverage [dbl] mean of ice coverage code
 aggregate_ice <- function(stations, ice_raw) {
   stations2 <- stations %>%
-    transmute(amlr_station = amlr.station,
-              year_station = year,
+    transmute(amlr.station,
+              year_station = Year,
               date_station = as.Date(date.tow))
 
   # Spatially join stations to raw ice observations
@@ -50,12 +50,12 @@ aggregate_ice <- function(stations, ice_raw) {
     }) %>%
     ungroup() %>%
     filter(station_distance <= units::as_units(15, "km"),
-           abs(station_lag) <= as.difftime(1, units = "days")) %>%
+           abs(station_lag) <= as.difftime(3, units = "days")) %>%
     st_as_sf(sf_column_name = "geometry")
 
   # Aggregate ice observations by station
-  ice_aggregate <- ice_stations %>%
-    group_by(amlr_station, year = year_ice) %>%
+  ice_stations %>%
+    group_by(amlr.station, year = year_ice) %>%
     summarize(modal_ice_type = mfv(ice_type),
               ice_intervals = n(),
               ice_type_freq = sum(ice_type == modal_ice_type),
@@ -66,7 +66,49 @@ aggregate_ice <- function(stations, ice_raw) {
                                                         "FY",
                                                         "MY"))) %>%
     as_tibble() %>%
-    select(amlr_station, ice_type, ice_intervals, ice_type_freq, ice_coverage)
+    select(amlr.station, ice_type, ice_intervals, ice_type_freq, ice_coverage)
+}
 
-  left_join(stations, ice_aggregate, by = c(amlr.station = "amlr_station"))
+collect_seaice <- function(seaice_dir) {
+  seaice <- seaice_dir %>%
+    dir(full.names = TRUE) %>%
+    map(rast) %>%
+    rast()
+  set.names(seaice, as.character(2012:2016))
+
+  proj_ext <- ext(-67, -50, -68, -55) %>%
+    project(from = "epsg:4326",
+            to = crs(seaice))
+  crop(seaice, proj_ext)
+}
+
+seaice2contour <- function(seaice_dir, contour_level) {
+  seaice_rast <- collect_seaice(seaice_dir)
+  map(
+    seq(nlyr(seaice_rast)),
+    ~ as.contour(seaice_rast[[.x]], levels = contour_level * 1000)
+  ) %>%
+    vect() %>%
+    mutate(Year = 2012:2016,
+           ice_conc = contour_level) %>%
+    wrap()
+}
+
+seaice2df <- function(seaice_dir) {
+  seaice_rast <- collect_seaice(seaice_dir)
+  proj_ext <- ext(-67, -50, -68, -55) %>%
+    project(from = "epsg:4326",
+            to = crs(seaice_rast))
+  template_ext <- ext(-67, -50, -68, -55) %>%
+    project(from = "epsg:4326",
+            to = as.character(ant_proj())[[1]])
+  rast_template <- rast(crs = as.character(ant_proj())[[1]],
+                        extent = template_ext,
+                        resolution = 25e3)
+  project(seaice_rast, rast_template) %>%
+    as.data.frame(xy = TRUE) %>%
+    pivot_longer(as.character(2012:2016),
+                 names_to = "Year",
+                 values_to = "seaice_conc") %>%
+    mutate(seaice_conc = seaice_conc / 1000)
 }

@@ -19,15 +19,18 @@ library(ggtree)
 library(patchwork)
 library(sf)
 library(targets)
+library(tidyterra)
 library(tidyverse)
 library(vegan)
 
 tar_load(c("predators_stations", "predators_abundant", 
+           "seaice_conc_df", "seaice_contours",
            "sightings_clust", "sightings_mtx", "sightings_dist", 
-           "zoop_sf"), 
+           "zoop_sf", "ant_sf"), 
          store = here::here("_targets"))
 source(here::here("R", "sp.R"))
 source(here::here("R", "zoop.R"))
+seaice_contours <- terra::unwrap(seaice_contours)
 ```
 
 ## Predator clusters
@@ -64,7 +67,7 @@ pred_frac %>%
 
 ## Optimal number of clusters
 
-We use the gap statistic [@tibshirani2001] to choose the optimal number of clusters ($k$). The gap statistic ($f$) is a goodness of clustering measure. The authors recommended choosing the smallest $k$ such that $f(k) \geq f(k+1) - s(k+1)$ where $s$ is the standard error of $f$. According to this rule, the predators are best described by two clusters (indicated in blue). However, $f(2)$ is only *slightly* greater than the threshold $f(3) - s(3)$, and $f$ is determined stochastically, so depending on the iteration the rule may choose $k=3$. Based on our prior knowledge of three predator guilds (pagophilic, open water, and intermediate), we'll present the results for $k=3$ here and re-run the analysis for $k=2$ in the supplemental.
+We use the gap statistic [@tibshirani2001] to choose the optimal number of clusters ($k$). The gap statistic ($f$) is a goodness of clustering measure. The authors recommended choosing $k$ at the shoulder. Heuristically, the shoulder is the smallest $k$ such that $f(k) \geq f(k+1) - s(k+1)$ where $s$ is the standard error of $f$. According to this rule, the predators are best described by one cluster (indicated in blue). However, there's a clear jump from $k=2$ to $k=3$, so based on our prior knowledge of three predator guilds (pagophilic, open water, and intermediate), we'll present the results for $k=3$ here.
 
 ```{r}
 #| label: optimal-clusters
@@ -109,7 +112,7 @@ Hierarchical clustering of stations by predator community. Note: `r nrow(zoop_sf
 ```{r}
 #| label: predator_dendro
 
-# Cut predators into five clusters
+# Cut predators into three clusters
 clust <- cutree(sightings_clust, 3)
 g <- split(names(clust), clust)
 p <- ggtree(sightings_clust, hang = -1)
@@ -169,8 +172,9 @@ Which species best represent each cluster? Using Dufrene-Legendre indicator spec
 #| label: indicator_species
 
 species_wide <- predators_abundant %>% 
+  select(amlr.station, species, count_nmi) %>% 
   pivot_wider(names_from = species,
-              values_from = count_norm,
+              values_from = count_nmi,
               values_fill = 0) %>% 
   column_to_rownames("amlr.station")
 cluster_indval <- labdsv::indval(species_wide, clust)
@@ -208,9 +212,9 @@ predators_abundant %>% left_join(
                         labels = c("Open", "Marginal", "Pagophilic"))
   ), by = "amlr.station") %>% 
   complete(amlr.station, pred_clust, species, 
-           fill = list(count_norm = 0)) %>% 
+           fill = list(count_nmi = 0)) %>% 
   group_by(species, pred_clust) %>% 
-  summarize(mean_abundance = mean(count_norm), .groups = "drop") %>%
+  summarize(mean_abundance = mean(count_nmi), .groups = "drop") %>%
   mutate(species = fct_reorder(species, 
                                mean_abundance, 
                                .fun = sum,
@@ -225,7 +229,7 @@ predators_abundant %>% left_join(
 
 ## Cluster maps
 
-What geospatial patterns do we see in the predator communities? The marginal ice zone community was mostly observed just north of the South Shetland islands, occasionally farther north beyond Elephant Island. The open ocean community occupied the northeastern portion of the study area in 2012, 2014, and 2015. In 2013 it contracted westward and in 2016 it was entirely absent. The pagophilic predator community dominated the Bransfield Strait itself, expanding north towards Elephant Island in 2013 and 2016.
+What geospatial patterns do we see in the predator communities? The pagophilic predator community (purple) was largely found within the Bransfield Strait and the open ocean predator community (green) further offshore (with the exception of 2015, when it moved more into the Strait). The marginal ice zone predator community (orange) was geographically dynamic, its distribution shifting in space substantially between years. Blue line indicates 65% ice concentration contour during the month of August in each year.
 
 ```{r}
 #| label: cluster_maps
@@ -249,10 +253,12 @@ map_lim <- st_bbox(pred_clust_sf) %>%
 
 ant_basemap(map_lim) +
   geom_sf(aes(color = pred_clust), pred_clust_sf, size = 2, shape = 15) +
+  geom_sf(data = seaice_contours, color = "skyblue") +
   facet_wrap(~ Year) +
   scale_x_continuous(breaks = c(-60, -55)) +
   scale_y_continuous(breaks = c(-63, -62, -61, -60)) +
   scale_color_brewer(palette = "Dark2") +
+  scale_fill_gradient(lim = c(0, 1), na.value = "transparent") +
   coord_ant(map_lim) +
   theme(legend.position = "bottom")
 ```
@@ -413,7 +419,7 @@ envfit_facs <- scores(pred_envfit,
 
 # Hydrology plot
 hydro_plot <- ggplot(nmds_df, aes(NMDS1, NMDS2)) +
-  geom_point(aes(color = pred_clust), alpha = 0.8) +
+  geom_point(aes(color = pred_clust)) +
   geom_segment(aes(x = 0, y = 0, xend = NMDS1, yend = NMDS2),
                data = envfit_vecs,
                linewidth = 1,
@@ -427,7 +433,7 @@ hydro_plot <- ggplot(nmds_df, aes(NMDS1, NMDS2)) +
 # Ice plot
 ice_facs <- filter(envfit_facs, str_detect(envvar, "ice_type"))
 ice_plot <- ggplot(nmds_df, aes(NMDS1, NMDS2)) +
-  geom_point(aes(color = pred_clust), alpha = 0.6) +
+  geom_point(aes(color = pred_clust)) +
   geom_point(aes(x = NMDS1, y = NMDS2),
              data = ice_facs,
              size = 2) +
@@ -439,7 +445,7 @@ ice_plot <- ggplot(nmds_df, aes(NMDS1, NMDS2)) +
 # Macrozooplankton plot
 zoop_facs <- filter(envfit_facs, str_detect(envvar, "zoop"))
 zoop_plot <- ggplot(nmds_df, aes(NMDS1, NMDS2)) +
-  geom_point(aes(color = pred_clust), alpha = 0.6) +
+  geom_point(aes(color = pred_clust)) +
   geom_point(aes(x = NMDS1, y = NMDS2),
              data = zoop_facs,
              size = 2) +

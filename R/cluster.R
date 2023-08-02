@@ -50,17 +50,23 @@ assign_sightings <- function(sightings, stations, max_dist_km) {
 
 filter_sightings <- function(sightings, stations, station_thr) {
   total_stations <- n_distinct(stations$amlr.station)
-  sightings_agg <- sightings %>%
+  retain <- sightings %>%
+    group_by(species) %>%
+    summarize(stations_present = n()) %>%
+    mutate(station_frac = stations_present / n()) %>%
+    filter(station_frac >= station_thr)
+  semi_join(sightings, retain, by = "species")
+}
+
+normalize_counts <- function(sightings, effort, stations) {
+  sightings %>%
     as_tibble() %>%
     group_by(amlr.station, species) %>%
-    summarize(count_norm = sum(count) / survey_nmi[1], .groups = "drop")
-  retain <- sightings_agg %>%
-    group_by(species) %>%
-    summarize(stations_present = n(),
-              station_frac = stations_present / total_stations,
-              .groups = "drop") %>%
-    filter(station_frac >= station_thr)
-  semi_join(sightings_agg, retain, by = "species")
+    summarize(count = sum(count), .groups = "drop") %>%
+    left_join(select(as_tibble(effort), amlr.station, survey_nmi),
+              by = "amlr.station") %>%
+    mutate(count_nmi = count / survey_nmi) %>%
+    left_join(select(stations, amlr.station, Year), by = "amlr.station")
 }
 
 sightings_to_matrix <- function(sightings) {
@@ -68,7 +74,7 @@ sightings_to_matrix <- function(sightings) {
     as_tibble() %>%
     pivot_wider(id_cols = amlr.station,
                 names_from = species,
-                values_from = count_norm,
+                values_from = count_nmi,
                 values_fill = 0) %>%
     mutate(across(-amlr.station, ~ log(.x + 1)))
   sightings_mtx <- as.matrix(select(sightings_wide, -amlr.station))

@@ -5,7 +5,7 @@ library(tidyverse)
 
 # Set target options:
 tar_option_set(
-  packages = c("readxl", "sf", "tidyverse"),
+  packages = c("readxl", "sf", "terra", "tidyterra", "tidyverse"),
   format = "rds"
 )
 
@@ -86,6 +86,14 @@ list(
              ice_code <= 10) %>%
       latlon_to_sf(coords = c("lon", "lat"))
   ),
+  # Satellite sea ice data
+  tar_target(
+    seaice_dir,
+    here("data", "ice", "Aug sea ice concentration"),
+    format = "file"
+  ),
+  tar_target(seaice_contours, seaice2contour(seaice_dir, 0.65)),
+  tar_target(seaice_conc_df, seaice2df(seaice_dir)),
   # Aggregate predators and ice observations
   tar_target(
     station_effort,
@@ -94,13 +102,14 @@ list(
       summarize(survey_nmi = sum(nmi), .groups = "drop")
   ),
   tar_target(
+    stations_ice,
+    aggregate_ice(zoop_sf, ice_raw)
+  ),
+  tar_target(
     predators_stations,
     assign_sightings(predators_sf, zoop_sf, max_dist_km = 15) %>%
-      aggregate_ice(ice_raw) %>%
-      left_join(station_effort %>%
-                  as_tibble() %>%
-                  select(amlr.station, survey_nmi),
-                by = "amlr.station")
+      normalize_counts(station_effort, zoop_sf) %>%
+      left_join(stations_ice, by = "amlr.station")
   ),
   tar_target(
     predators_abundant,
