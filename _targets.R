@@ -113,7 +113,7 @@ list(
   ),
   tar_target(
     predators_abundant,
-    filter_sightings(predators_stations, zoop_sf, station_thr = 0.05)
+    filter_sightings(predators_stations, zoop_sf)
   ),
   # Clustering
   tar_target(sightings_mtx, sightings_to_matrix(predators_abundant)),

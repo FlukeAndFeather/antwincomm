@@ -1,6 +1,6 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
 .ggOceanMapsenv|object|9be416b0fcb5a722|||||||||||||||
-.Random.seed|object|6f71a713e7ec53be|||||||||||||||
+.Random.seed|object|6b0ba79a60bbfe8b|||||||||||||||
 aggregate_ice|function|f8bd02bb34deb3ad|||||||||||||||
 aggregate_predators|function|0fe06086935b4f38|||||||||||||||
 ant_basemap|function|53ccb70018adf605|||||||||||||||
@@ -18,7 +18,7 @@ download_ne|function|ef600711a740583b|||||||||||||||
 effort|stem|390b711fc3384f1c|af3fb35c40d1dc1b|a9b8962e41b2f215|-1343068639||t19571.8687193363s|6645bef4f3c47137|254797|rds|local|vector|||0.094||
 effort_sf|stem|f81c2f49399d5a01|4232136cef60e63e|db9fefb2972ca19b|1168345245||t19571.8687209776s|e079bac7acb67595|291902|rds|local|vector|||0.01||
 expand_bbox|function|56087ff1f8b5d4b0|||||||||||||||
-filter_sightings|function|3d906c75c80028f2|||||||||||||||
+filter_sightings|function|a25be98fdbb49437|||||||||||||||
 ice_file|stem|ed745479a3d46342|9874a65447b30d40|4e3739ef91745af0|810424550|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/ice/ice.csv|t19571.6512737676s|d12006e1e1baba6c|6038195|file|local|vector|||0.001||
 ice_raw|stem|90c07d83da838201|972267b92e84d29d|a5cf4aa2af9c48f0|1872418592||t19571.8687082834s|59a2b97c16957d47|1969863|rds|local|vector|||1.756||
 latlon_to_sf|function|c0c1dd8ddbeae868|||||||||||||||
@@ -26,7 +26,7 @@ mfv|function|f21000b8ece515c2|||||||||||||||
 ne_dir|stem|8f72953e55934289|9ef4bcd80e137b54|4e3739ef91745af0|-1431853077|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/geospatial/ne|t19442.1011396931s|adafa3628d79be13|7204615|file|local|vector|||3.456||
 normalize_counts|function|2ead233725b1e276|||||||||||||||
 predators|stem|55fddb8cb2c8c3b6|950e72a72240abae|d38a35dc5dc62a92|-164442843||t19571.8684917823s|3731c1f15cdca704|972063|rds|local|vector|||0.426||
-predators_abundant|stem|e9de34b668af7534|d0f86ca8867c9063|023400f2d61b2223|560995570||t19571.8821225133s|e54d995ba444f9fe|22990|rds|local|vector|||0.024||
+predators_abundant|stem|c766726d94f2c2dc|66e8be4eb1ad06d7|007b5b2d488c2240|560995570||t19573.6927579777s|e87d36eae5ee0f65|22932|rds|local|vector|||0.022||
 predators_agg|stem|511e8c7379ff7f0d|1f53c6d2d5b8cbec|85196f3fa2973a8c|-374844731||t19571.8684932705s|2aa6561ff04b9337|173301|rds|local|vector|||0.082||
 predators_file|stem|fc2f43e02077adfa|c25ecba9e733d114|2adb22bdbd8253cb|1489732230|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/WAMLR/WAMLR-2012-2016-Underway-Predator-Sightings.csv|t19429.9001013099s|675861551bea89bc|4474693|file|local|vector|||0.002||
 predators_sf|stem|18c24de8077e145a|f97dc84afa040797|bfce457c345801e0|25197916||t19571.8684985266s|976715c1d8bd5036|180323|rds|local|vector|||0.394||
@@ -39,9 +39,9 @@ seaice_contours|stem|3b6fa5b0f402b403|ce0166d6da753181|7126a3e66395e488|79441936
 seaice_dir|stem|f4c32d6753a37f97|51534e2b4d04aaf1|4e3739ef91745af0|400935404|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/ice/Aug sea ice concentration|t19544.9313194444s|87426689d6d9aca2|3018510|file|local|vector|||3.143||
 seaice2contour|function|cd0f600c0820d6fc|||||||||||||||
 seaice2df|function|82a764afc057feb6|||||||||||||||
-sightings_clust|stem|0c57aae76556cb9f|d0de88d951f4e268|88314d1eff193a3e|-827995520||t19571.8821342708s|110b12ddf2800167|4708|rds|local|vector|||0.003||
-sightings_dist|stem|a8c9ebcc911d4099|cd796f886c92552a|2d5404ed11dcb60a|-523125683||t19571.8821340882s|0161c52798488f98|236185|rds|local|vector|||0.924||
-sightings_mtx|stem|001289783493898c|56c6b16beeb55b55|ce6d07d1b5cd8e6b|972446550||t19571.8821230672s|43a19d48aa1ed4c4|12690|rds|local|vector|||0.034||
+sightings_clust|stem|0cb2729dbb838fb5|d0de88d951f4e268|c90c1ed1888e98c7|-827995520||t19571.8972555066s|3f313d33149582b3|4722|rds|local|vector|||0.002||
+sightings_dist|stem|352f6563a53985b9|cd796f886c92552a|6fe302fcfa1195d7|-523125683||t19571.89725534s|da147ff5cd8a0da8|236217|rds|local|vector|||1.027||
+sightings_mtx|stem|701ac44ef4383e69|56c6b16beeb55b55|0539f2693fb7ffc0|972446550||t19571.8972432161s|d38019059c3784cc|12046|rds|local|vector|||0.036||
 sightings_to_matrix|function|0342d347f2209012|||||||||||||||
 station_effort|stem|42bdc741608b78ca|40980f41921f7a6e|e76d900f79f4bfcc|-1814110330||t19571.8721302501s|7dd1ca60c3588aae|114093|rds|local|vector|||5.252||
 stations_ice|stem|ebf5e238590a566d|ef13596ec078da53|e9ae2625261f7ad1|-2147004053||t19571.8804393383s|a5853091f78c2b22|3892|rds|local|vector|||12.027||

@@ -1,9 +1,9 @@
 library(sf)
 library(tidyverse)
 
-tar_load(c("predators_stations", "sightings_clust", "zoop"))
+tar_load(c("predators_abundant", "sightings_clust", "zoop"))
 clust <- cutree(sightings_clust, 3)
-station_ice <- predators_stations %>%
+station_ice <- predators_abundant %>%
   distinct(amlr.station, ice_type, ice_coverage) %>%
   as_tibble()
 pred_prey <- tibble(
@@ -18,9 +18,10 @@ pred_prey <- tibble(
             by = "amlr.station") %>%
   left_join(station_ice, by = "amlr.station")
 
+library(crosstable)
+
 pred_prey %>%
-  mutate(zoop_clust2 = substr(zoop_clust, 1, 1)) %>%
-  crosstable(c(zoop_clust2, ice_coverage),
+  crosstable(c(zoop_clust, ice_coverage),
              by = pred_clust,
              total = "both") %>%
   as_flextable()
@@ -30,8 +31,7 @@ pred_prey %>%
 
 library(nnet)
 pred_prey2 <- pred_prey %>%
-  mutate(zoop_clust2 = substr(zoop_clust, 1, 1),
-         pred_clust = relevel(pred_clust, ref = "Open"))
+  mutate(pred_clust = relevel(pred_clust, ref = "Open"))
 test <- multinom(pred_clust ~ 0 + zoop_clust + ice_coverage,
                  data = pred_prey2)
 summary(test)
@@ -62,11 +62,11 @@ ggplot(test_pred,
   facet_grid(cols = vars(zoop_clust)) +
   theme_classic()
 
-# Is "open" right? --------------------------------------------------------
 
-predators_stations %>%
-  semi_join(filter(pred_prey, pred_clust == "Open"),
+# Icy open water? ---------------------------------------------------------
+
+predators_abundant %>%
+  left_join(select(pred_prey, amlr.station, pred_clust),
             by = "amlr.station") %>%
-  as.data.frame() %>%
-  select(amlr.station, species, count_norm) %>% View()
-  pivot_wider(names_from = "species", values_from = "count_norm")
+  filter(pred_clust == "Open",
+         ice_coverage >= 7.5) %>% View()

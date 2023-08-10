@@ -35,13 +35,13 @@ seaice_contours <- terra::unwrap(seaice_contours)
 
 ## Predator clusters
 
-Following the methods of Dietrich et al. (2021), clustering analysis is restricted to species sighted near 5% or more of stations. This avoids granting undue leverage to rare species. `r n_distinct(predators_abundant$species)` species retained (i.e., species above red line).
+Dietrich et al. (2021) restricted cluster analysis to taxa observed at 5% or more of stations, which was necessary to avoid giving rare species too much leverage. Predators are far less diverse, so this analysis retains all species except uncertain IDs (e.g. UNSE = unknown seal). `r n_distinct(predators_abundant$species)` species included in analysis.
 
 ```{r}
 #| label: abundant_predators
 
 total_stations <- n_distinct(zoop_sf$amlr.station)
-pred_frac <- predators_stations %>%
+pred_frac <- predators_abundant %>%
   as_tibble() %>% 
   group_by(amlr.station, species) %>% 
   summarize(count_station = sum(count),
@@ -51,7 +51,6 @@ pred_frac <- predators_stations %>%
             stations_present = n(),
             station_frac = stations_present / total_stations) %>%
   arrange(desc(station_frac))
-cutoff_row <- sum(pred_frac$station_frac >= 0.05)
   
 frac_fn <- scales::label_percent(accuracy = 0.1)
 pred_frac %>% 
@@ -59,15 +58,13 @@ pred_frac %>%
   mutate(Fraction = frac_fn(Fraction)) %>% 
   knitr::kable(align = "lrr") %>% 
   kableExtra::kable_styling("striped",
-                            full_width = FALSE) %>% 
-  kableExtra::row_spec(cutoff_row, 
-                       extra_css = "border-bottom: 2px dashed red")
+                            full_width = FALSE)
 
 ```
 
 ## Optimal number of clusters
 
-We use the gap statistic [@tibshirani2001] to choose the optimal number of clusters ($k$). The gap statistic ($f$) is a goodness of clustering measure. The authors recommended choosing $k$ at the shoulder. Heuristically, the shoulder is the smallest $k$ such that $f(k) \geq f(k+1) - s(k+1)$ where $s$ is the standard error of $f$. According to this rule, the predators are best described by one cluster (indicated in blue). However, there's a clear jump from $k=2$ to $k=3$, so based on our prior knowledge of three predator guilds (pagophilic, open water, and intermediate), we'll present the results for $k=3$ here.
+We use the gap statistic [@tibshirani2001] to choose the optimal number of clusters ($k$). The gap statistic ($f$) is a goodness of clustering measure. The authors recommended choosing $k$ at the shoulder. Heuristically, the shoulder is the smallest $k$ such that $f(k) \geq f(k+1) - s(k+1)$ where $s$ is the standard error of $f$. According to this rule, the predators are best described by one cluster. However, there's a clear jump from $k=2$ to $k=3$, followed by a leveling off. Therefore, based on our prior knowledge of three predator guilds (pagophilic, open water, and marginal ice), we'll present the results for $k=3$ here.
 
 ```{r}
 #| label: optimal-clusters
@@ -168,6 +165,8 @@ For context, zooplankton cluster 1 was mostly salps, clusters 2a and 2b were sma
 
 Which species best represent each cluster? Using Dufrene-Legendre indicator species analysis. Apply indicator value cutoff at 25%.
 
+TODO: add text about how to interpret values.
+
 ```{r}
 #| label: indicator_species
 
@@ -195,11 +194,62 @@ as_tibble(t(indval_fmt)) %>%
 
 ```
 
-### Cluster descriptions
+### Cluster interpretation
 
--   Cluster 1 = open ocean? (ANFU)
--   Cluster 2 = marginal ice zone (SNPT, ANPT, FUSE)
--   Cluster 3 = pagophilic (ADPN, CRSE, LESE)
+-   Cluster 1 = open water
+-   Cluster 2 = marginal ice zone
+-   Cluster 3 = pagophilic
+
+Indicator value $d_{ic}$ of species $i$ in cluster $c$ is the product of relative fidelity, $f_{ic}$, and relative abundance, $a_{ic}$. See documentation of `labdsv::indval()`.
+
+Relative fidelity $f_{ic}$ of species $i$ in cluster $c$ is:
+
+$$
+f_{ic} = \frac{\sum_{j \in c}p_{ij}}{n_c}
+$$
+
+Relative abundance $a_{ic}$ is:
+
+$$
+a_{ic}=\frac{\sum_{j \in c}x_{ij}/n_c}{\sum_{k=1}^K (\sum_{j \in k}x_{ij}/n_k)}
+$$
+
+A high indicator value, e.g., $d_{ic}\approx1$, means species $i$ is present in nearly all sites in cluster $c$ and nearly absent from sites not in $c$. The greatest $d_{ic}$ observed here was Adèlie penguins in cluster 3 at 0.74. ADPN were observed in 45 of the 60 cluster 3 sites, for $f_{ic}=0.75$. The average abundance of ADPN in cluster 1 was 4.04 ind nm\^-1, compared to 0.113 and 0.166 in clusters 2 and 3, respectively. Yields $a_{ic}=0.935$.
+
+Note that differences in indicator values between species reflect *relative* changes in frequency/abundance. For example, in cluster 3 (pagophilic predators), Antarctic fur seals were found at more stations ($f_{ic}=0.783$) and in higher abundances (mean 2.22 ind nm\^-1) than crabeater seals ($f_{ic}=0.650$, mean 1.73 ind nm\^-1), yet they have the same indicator value $d_{ic}=0.63$. That's because Antarctic fur seals were still somewhat abundant in another cluster whereas crabeater seals were concentrated in cluster 3. Specifically, mean Antarctic fur seal abundance was 0.441 ind nm\^-1 in cluster 2 (marginal ice zone), 19.9% of their cluster 1 abundance. Crabeater seals dropped from 1.73 ind nm\^-1 to 0.133 ind nm\^-1, or 7.7% of cluster 1 abundance.
+
+Comparing the highest indicator values between clusters, the pagophilic community has the most distinct collection of predators, followed by the marginal ice zone and open water communities. Three species had $d_{ic} \gt 0.6$ in the pagophilic cluster: Adèlie penguins, Antarctic fur seals, and crabeater seals. All three of these species were both more prevalent and more abundant in the pagophilic cluster than either of the other two. In contrast, the open water community had no species with $d_{ic} \gt 0.35$. The three most prevalent species in the open water cluster were snow petrels, Antarctic petrels, and southern giant petrels, all of which were more abundant in the marginal ice zone cluster. Meaning, the pagophilic community was distinct because of specific species (Adèlie penguins, Antarctic fur seals, and crabeater seals), while the open water community was characterized by more variable species compositions. The marginal ice zone community fell in between. Its highest indicator value species (snow petrel, Antarctic petrel, and southern giant petrel) were widespread across communities, so their relative abundances in the marginal ice zone cluster were lower ($a_{ic} \in [0.400 - 0.652]$) than the three highest indicator value species were in the pagophilic cluster ($a_{ic} \in [0.810 - 0.971]$).
+
+```{r}
+#| label: indval_interpret
+
+# Adelie penguin x cluster 3 worked example
+predators_abundant2 <- predators_abundant %>% 
+  mutate(cluster = map_int(amlr.station, \(x) clust[x]))
+adpn <- filter(predators_abundant2, species == "ADPN")
+
+pic_adpn <- sum(adpn$cluster == 3)
+nc3 <- sum(clust == 3)
+fic_adpn <- pic_adpn / nc3
+
+abu_adpn <- adpn %>% 
+  group_by(cluster) %>% 
+  summarize(abu = sum(count_nmi) / n())
+aic_adpn <- abu_adpn$abu[3] / sum(abu_adpn$abu)
+
+# ANFU x cluster 1
+anfu <- filter(predators_abundant2, species == "ANFU")
+
+pic_anfu <- sum(anfu$cluster == 1)
+nc1 <- sum(clust == 1)
+fic_anfu <- pic_anfu / nc1
+
+abu_anfu <- anfu %>% 
+  group_by(cluster) %>% 
+  summarize(abu = sum(count_nmi) / n())
+aic_anfu <- abu_anfu$abu[1] / sum(abu_anfu$abu)
+
+```
 
 ### Species within clusters
 
@@ -227,14 +277,17 @@ predators_abundant %>% left_join(
   theme(axis.title.x = element_blank())
 ```
 
-## Cluster maps
+## Cluster distribution
 
-What geospatial patterns do we see in the predator communities? The pagophilic predator community (purple) was largely found within the Bransfield Strait and the open ocean predator community (green) further offshore (with the exception of 2015, when it moved more into the Strait). The marginal ice zone predator community (orange) was geographically dynamic, its distribution shifting in space substantially between years. Blue line indicates 65% ice concentration contour during the month of August in each year.
+How frequent are the different clusters? The marginal ice zone predator community was observed most often, followed by the open water then the pagophilic communities. The pagophilic community was observed most frequently in 2016. Sea ice extent was less in 2016 than 2013 and 2015, so the relative frequency of the pagophilic community in 2016 is initially surprising. However, it may be explained by the greater sea ice in 2013 and 2015 limiting survey access to the Bransfield Strait.
 
 ```{r}
-#| label: cluster_maps
+#| label: cluster_freq
 
-pred_clust_sf <- tibble(
+station_ice <- predators_abundant %>%
+  distinct(amlr.station, ice_coverage)
+
+pred_clust <- tibble(
   amlr.station = names(clust),
   pred_clust = factor(clust,
                       labels = c("Open", "Marginal", "Pagophilic"))
@@ -244,6 +297,20 @@ pred_clust_sf <- tibble(
                    geometry,
                    Year),
             by = "amlr.station") %>% 
+  left_join(station_ice, by = "amlr.station")
+
+pred_clust %>% 
+  mutate(Year = factor(Year)) %>% 
+  crosstable::crosstable("Year", by = "pred_clust", total = "col")
+
+```
+
+What geospatial patterns do we see in the predator communities? The pagophilic predator community (purple) was largely found within the Bransfield Strait. The marginal ice zone community was mostly distributed around the South Shetland Islands, however in the years 2013 and 2015 (when sea ice extent was greatest) this community was more frequent further offshore. The open water community was found furthest off shore (north in 2012 and 2014, west in 2016), with the exception of 2015 when it moved south to the entrance of the Bransfield Strait, even moving within the Strait. Is this the result of polynyas? Blue line indicates 65% ice concentration contour during the month of August in each year. Notice the limited coverage of the Bransfield Strait in 2012 and 2013, and the absence of eastern stations in 2016.
+
+```{r}
+#| label: cluster_maps
+
+pred_clust_sf <- pred_clust %>% 
   st_as_sf() %>% 
   st_transform(ant_proj())
 
@@ -251,8 +318,15 @@ map_lim <- st_bbox(pred_clust_sf) %>%
   project_bbox() %>% 
   expand_bbox(factor = 1.2)
 
+icy_open <- filter(pred_clust_sf,
+                   pred_clust == "Open",
+                   ice_coverage >= 7.5)
+
 ant_basemap(map_lim) +
-  geom_sf(aes(color = pred_clust), pred_clust_sf, size = 2, shape = 15) +
+  geom_sf(aes(color = pred_clust), 
+          pred_clust_sf, 
+          size = 2, 
+          shape = 15) +
   geom_sf(data = seaice_contours, color = "skyblue") +
   facet_wrap(~ Year) +
   scale_x_continuous(breaks = c(-60, -55)) +
@@ -388,10 +462,7 @@ station_env <- zoop_sf %>%
          zoop = `Winter Cluster factor`) %>% 
   as_tibble() %>% 
   left_join(station_ice, by = "amlr.station") %>% 
-  mutate(zoop = fct_collapse(zoop,
-                             `2` = c("2a", "2b"),
-                             `3` = c("3a", "3b")),
-         Year = factor(Year)) %>% 
+  mutate(Year = factor(Year)) %>% 
   slice(map_int(rownames(sightings_mtx),
                 ~ which(.x == amlr.station))) %>% 
   select(-amlr.station, -geometry)
@@ -425,8 +496,8 @@ hydro_plot <- ggplot(nmds_df, aes(NMDS1, NMDS2)) +
                linewidth = 1,
                color = "grey50",
                alpha = 0.6) +
-  geom_text(aes(x = NMDS1, y = NMDS2, label = envvar),
-            data = envfit_vecs) +
+  ggrepel::geom_text_repel(aes(x = NMDS1, y = NMDS2, label = envvar),
+                           data = envfit_vecs) +
   scale_color_brewer(palette = "Dark2") +
   theme_classic()
 
@@ -463,6 +534,37 @@ hydro_plot + ice_plot + zoop_plot +
   plot_layout(design = layout, guides = "collect")
 ```
 
+Summaries of environmental conditions by cluster.
+
+```{r}
+#| label: env_summ
+
+env <- tibble(
+  amlr.station = names(clust),
+  pred_clust = factor(clust,
+                      labels = c("Open", "Marginal", "Pagophilic"))
+) %>% 
+  left_join(
+    select(as_tibble(zoop_sf),
+           amlr.station, avg.salinity, Integ.chla.100m),
+    by = "amlr.station") %>% 
+  left_join(select(station_ice, amlr.station, ice_coverage),
+            by = "amlr.station") %>% 
+  pivot_longer(avg.salinity:ice_coverage, 
+               names_to = "envvar",
+               values_to = "envval")
+env %>% 
+  group_by(envvar) %>% 
+  summarize(envaov = list(aov(envval ~ pred_clust))) %>% 
+  mutate(Fval = map_dbl(envaov, \(aov) summary(aov)[[1]]$`F value`[1]),
+         pval = map_dbl(envaov, \(aov) summary(aov)[[1]]$`Pr(>F)`[1]))
+env %>% 
+  group_by(pred_clust, envvar) %>% 
+  summarize(across(envval, list(mean = partial(mean, na.rm = TRUE),
+                                sd = partial(sd, na.rm = TRUE))),
+            .groups = "drop")
+```
+
 ## Clusters by ice coverage
 
 I asserted the clusters corresponded to open water, marginal ice, and pack ice communities. Let's verify that.
@@ -487,3 +589,22 @@ ggplot(pred_clust_ice, aes(x = ice_coverage / 10, fill = after_stat(x))) +
   theme_minimal()
 
 ```
+
+## Predator *x* prey clusters
+
+Predator/prey cluster associations were statistically significant. The most positive residuals were between pagophilic predators x zooplankton 3b (4.07), pagophilic predators x zooplankton 3a (2.68), marginal ice zone predators x zooplankton 2a (2.33), and open water predators x zooplankton 2b (1.82). Zooplankton 1 was not
+
+```{r}
+pred_prey <- as_tibble(pred_clust) %>% 
+  select(amlr.station, pred_clust) %>% 
+  left_join(select(as_tibble(zoop_sf), 
+                   amlr.station, 
+                   prey_clust = `Winter Cluster factor`),
+            by = "amlr.station")
+pred_prey_chisq <- with(pred_prey, chisq.test(pred_clust, prey_clust))
+pred_prey_chisq
+pred_prey_chisq$residuals
+
+```
+
+## 

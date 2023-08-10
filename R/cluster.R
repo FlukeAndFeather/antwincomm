@@ -48,13 +48,14 @@ assign_sightings <- function(sightings, stations, max_dist_km) {
     st_as_sf()
 }
 
-filter_sightings <- function(sightings, stations, station_thr) {
+filter_sightings <- function(sightings, stations) {
+  unk_sp <- c("UNSE", "UNPR", "UGPT", "UNPN")
   total_stations <- n_distinct(stations$amlr.station)
   retain <- sightings %>%
     group_by(species) %>%
     summarize(stations_present = n()) %>%
-    mutate(station_frac = stations_present / n()) %>%
-    filter(station_frac >= station_thr)
+    mutate(station_frac = stations_present / total_stations) %>%
+    filter(!species %in% unk_sp)
   semi_join(sightings, retain, by = "species")
 }
 
