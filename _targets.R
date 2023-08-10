@@ -109,16 +109,45 @@ list(
     predators_stations,
     assign_sightings(predators_sf, zoop_sf, max_dist_km = 15) %>%
       normalize_counts(station_effort, zoop_sf) %>%
-      left_join(stations_ice, by = "amlr.station")
-  ),
-  tar_target(
-    predators_abundant,
-    filter_sightings(predators_stations, zoop_sf)
+      left_join(stations_ice, by = "amlr.station") %>%
+      filter(!species %in% c("UNSE", "UNPR", "UGPT", "UNPN"))
   ),
   # Clustering
-  tar_target(sightings_mtx, sightings_to_matrix(predators_abundant)),
+  tar_target(sightings_mtx, sightings_to_matrix(predators_stations)),
   tar_target(sightings_dist, vegan::vegdist(sightings_mtx, method = "bray")),
   tar_target(sightings_clust, hclust(sightings_dist, method = "ward.D2")),
+  tar_target(sightings_gap, cluster_gap(sightings_mtx, max_k = 10, seed = 139)),
+  tar_target(sightings_cut, cutree(sightings_clust, k = 3)),
+  tar_target(sightings_indval, labdsv::indval(sightings_mtx, sightings_cut)),
+  tar_target(
+    predators_clust,
+    mutate(predators_stations,
+           pred_clust = station_to_cluster(amlr.station, sightings_cut))
+  ),
+  tar_target(
+    stations_clust,
+    zoop_sf %>%
+      left_join(stations_ice, by = "amlr.station") %>%
+      mutate(pred_clust = station_to_cluster(amlr.station, sightings_cut)) %>%
+      semi_join(predators_clust, by = "amlr.station")
+  ),
+  # NMDS
+  tar_target(nmds_stress, stress(sightings_mtx, k = 1:6)),
+  tar_target(nmds_sightings,
+             vegan::metaMDS(
+               sightings_mtx,
+               distance = "bray",
+               k = 3,
+               trymax = 100,
+               trace = FALSE)),
+  tar_target(nmds_shepard, shepard(nmds_sightings)),
+  tar_target(nmds_env, env_data(zoop, stations_ice, predators_stations)),
+  tar_target(nmds_df, nmds_to_df(nmds_sightings, sightings_cut, nmds_env)),
+  tar_target(nmds_envfit, vegan::envfit(nmds_sightings,
+                                        select(nmds_env, -amlr.station),
+                                        permutations = 999,
+                                        choices = 1:3,
+                                        na.rm = TRUE)),
   # Reports
   tar_quarto(reports, here("reports"))
 )

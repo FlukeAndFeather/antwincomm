@@ -48,17 +48,7 @@ assign_sightings <- function(sightings, stations, max_dist_km) {
     st_as_sf()
 }
 
-filter_sightings <- function(sightings, stations) {
-  unk_sp <- c("UNSE", "UNPR", "UGPT", "UNPN")
-  total_stations <- n_distinct(stations$amlr.station)
-  retain <- sightings %>%
-    group_by(species) %>%
-    summarize(stations_present = n()) %>%
-    mutate(station_frac = stations_present / total_stations) %>%
-    filter(!species %in% unk_sp)
-  semi_join(sightings, retain, by = "species")
-}
-
+# Normalize species counts by survey effort
 normalize_counts <- function(sightings, effort, stations) {
   sightings %>%
     as_tibble() %>%
@@ -70,6 +60,7 @@ normalize_counts <- function(sightings, effort, stations) {
     left_join(select(stations, amlr.station, Year), by = "amlr.station")
 }
 
+# Convert sightings data frame to matrix
 sightings_to_matrix <- function(sightings) {
   sightings_wide <- sightings %>%
     as_tibble() %>%
@@ -81,4 +72,39 @@ sightings_to_matrix <- function(sightings) {
   sightings_mtx <- as.matrix(select(sightings_wide, -amlr.station))
   row.names(sightings_mtx) <- sightings_wide$amlr.station
   sightings_mtx
+}
+
+# Generate gap statistic curve for choosing k
+cluster_gap <- function(mtx, max_k, seed = 139) {
+  cluster_fn <- function(x, k) {
+    list(cluster = stats::cutree(hclust(vegan::vegdist(x, method = "bray"),
+                                        method = "ward.D2"),
+                                 k = k))
+  }
+  set.seed(seed)
+  gap <- suppressWarnings(
+    cluster::clusGap(mtx,
+                     FUN = cluster_fn,
+                     K.max = 10,
+                     B = 500,
+                     verbose = FALSE)
+  )
+  as_tibble(gap$Tab) %>%
+    mutate(
+      k = seq_along(logW),
+      is_optimum = k == cluster::maxSE(gap, SE.sim, method = "Tibs2001SEmax")
+    )
+}
+
+# Create a predator cluster factor from a vector of stations and the cut tree
+station_to_cluster <- function(station, clust) {
+  clust_int <- clust[station]
+  factor(clust_int, levels = 1:3, labels = c("Open", "Marginal", "Pagophilic"))
+}
+
+# Determine if a species is rare (<5% of stations)
+is_rare <- function(species, station) {
+  n_station <- n_distinct(station)
+  species_rarity <- tapply(station, species, length) / n_station < 0.05
+  species_rarity[species]
 }

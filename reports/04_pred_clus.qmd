@@ -23,11 +23,14 @@ library(tidyterra)
 library(tidyverse)
 library(vegan)
 
-tar_load(c("predators_stations", "predators_abundant", 
-           "seaice_conc_df", "seaice_contours",
-           "sightings_clust", "sightings_mtx", "sightings_dist", 
-           "zoop_sf", "ant_sf"), 
-         store = here::here("_targets"))
+tar_load(
+  c("predators_clust", "stations_clust", "sightings_cut",
+    "seaice_conc_df", "seaice_contours", "stations_ice",
+    starts_with("sightings"),
+    starts_with("nmds"),
+    "zoop_sf", "ant_sf"), 
+  store = here::here("_targets")
+)
 source(here::here("R", "sp.R"))
 source(here::here("R", "zoop.R"))
 seaice_contours <- terra::unwrap(seaice_contours)
@@ -35,13 +38,13 @@ seaice_contours <- terra::unwrap(seaice_contours)
 
 ## Predator clusters
 
-Dietrich et al. (2021) restricted cluster analysis to taxa observed at 5% or more of stations, which was necessary to avoid giving rare species too much leverage. Predators are far less diverse, so this analysis retains all species except uncertain IDs (e.g. UNSE = unknown seal). `r n_distinct(predators_abundant$species)` species included in analysis.
+Dietrich et al. (2021) restricted cluster analysis to taxa observed at 5% or more of stations, which was necessary to avoid giving rare species too much leverage. Predators are far less diverse, so this analysis retains all species except uncertain IDs (e.g. UNSE = unknown seal). `r n_distinct(predators_clust$species)` species included in analysis.
 
 ```{r}
 #| label: abundant_predators
 
 total_stations <- n_distinct(zoop_sf$amlr.station)
-pred_frac <- predators_abundant %>%
+pred_frac <- predators_clust %>%
   as_tibble() %>% 
   group_by(amlr.station, species) %>% 
   summarize(count_station = sum(count),
@@ -64,36 +67,20 @@ pred_frac %>%
 
 ## Optimal number of clusters
 
-We use the gap statistic [@tibshirani2001] to choose the optimal number of clusters ($k$). The gap statistic ($f$) is a goodness of clustering measure. The authors recommended choosing $k$ at the shoulder. Heuristically, the shoulder is the smallest $k$ such that $f(k) \geq f(k+1) - s(k+1)$ where $s$ is the standard error of $f$. According to this rule, the predators are best described by one cluster. However, there's a clear jump from $k=2$ to $k=3$, followed by a leveling off. Therefore, based on our prior knowledge of three predator guilds (pagophilic, open water, and marginal ice), we'll present the results for $k=3$ here.
+We use the gap statistic [@tibshirani2001] to choose the optimal number of clusters ($k$). The gap statistic ($f$) is a goodness of clustering measure. The authors recommended choosing $k$ at the shoulder of the $f \sim k$ curve. Heuristically, the shoulder is the smallest $k$ such that $f(k) \geq f(k+1) - s(k+1)$ where $s$ is the standard error of $f$. According to this rule, the predators are best described by one cluster. However, there's a clear jump from $k=2$ to $k=3$ (red), followed by a leveling off. Therefore, based on our prior knowledge of three predator guilds (pagophilic, open water, and marginal ice), we'll present the results for $k=3$ here.
 
 ```{r}
 #| label: optimal-clusters
 
-cluster_fn <- function(x, k) {
-  bray_dist <- function(x) {
-    vegdist(x, method = "bray")
-  }
-  list(cluster = cutree(hclust(bray_dist(x), method = "ward.D2"), k = k))
-}
-set.seed(139)
-sightings_gap <- suppressWarnings(
-  clusGap(sightings_mtx, 
-                   FUN = cluster_fn,
-                   K.max = 10, 
-                   B = 500,
-                   verbose = FALSE)
-)
-sightings_gap_df <- as_tibble(sightings_gap$Tab) %>% 
-  mutate(
-    k = seq_along(logW),
-    is_optimum = k == maxSE(gap, SE.sim, method = "Tibs2001SEmax")
-  )
-ktibs <- filter(sightings_gap_df, is_optimum) %>% pull(k)
-tibs_thr <- with(sightings_gap_df, gap[ktibs + 1] - SE.sim[ktibs + 1])
-ggplot(sightings_gap_df, aes(x = k, y = gap)) +
+ktibs <- with(sightings_gap, k[is_optimum])
+tibs_thr <- with(sightings_gap, gap[ktibs + 1] - SE.sim[ktibs + 1])
+ggplot(sightings_gap, aes(x = k, y = gap)) +
   geom_line() +
   geom_pointrange(aes(ymin = gap - SE.sim, ymax = gap + SE.sim,
                       color = is_optimum)) +
+  geom_pointrange(aes(ymin = gap - SE.sim, ymax = gap + SE.sim),
+                  filter(sightings_gap, k == 3),
+                  color = "red") +
   geom_segment(x = ktibs, xend = ktibs + 1, 
                y = tibs_thr, yend = tibs_thr,
                color = "blue",
@@ -109,9 +96,7 @@ Hierarchical clustering of stations by predator community. Note: `r nrow(zoop_sf
 ```{r}
 #| label: predator_dendro
 
-# Cut predators into three clusters
-clust <- cutree(sightings_clust, 3)
-g <- split(names(clust), clust)
+g <- split(names(sightings_cut), sightings_cut)
 p <- ggtree(sightings_clust, hang = -1)
 pred_clust_mrca <- sapply(g, function(n) MRCA(p, n))
 
@@ -122,62 +107,14 @@ p %>%
   theme_dendrogram()
 ```
 
-How do the predator clusters compare to the zooplankton clusters?
-
-```{r}
-#| label: predator_mosaic
-#| warning: false
-
-# Join with zooplankton clusters
-both_clust <- zoop_sf %>% 
-  transmute(amlr.station, 
-            zoop_clust = factor(`Winter Cluster factor`)) %>% 
-  right_join(tibble(amlr.station = names(clust),
-                    pred_clust = factor(clust)),
-             by = "amlr.station")
-
-# Mosaic plot
-cluster_pal = c(`1` = "#96B687",
-                `2a` = "#9CB2C8",
-                `2b` = "#CAB3CC",
-                `3a` = "#D29A97",
-                `3b` = "#E8AD5C")
-ggplot(both_clust) +
-  geom_mosaic(aes(x = product(zoop_clust, pred_clust), 
-                  fill = zoop_clust)) +
-  geom_mosaic_text(aes(x = product(zoop_clust, pred_clust),
-                       label = after_stat(.wt)),
-                   as.label = TRUE) +
-  scale_fill_manual(values = cluster_pal) +
-  labs(x = "Predator cluster",
-       y = "Zooplankton cluster",
-       fill = "Zooplankton cluster") +
-  theme_classic()
-```
-
-The above mosaic plot shows the distribution of stations by predator and zooplankton clusters. For example, the bottom left rectangle indicates 34 stations were assigned to zooplankton cluster 1 and predator cluster 1. Rectangles color-coded by zooplankton cluster using the color palette from Dietrich et al. 2021 Fig 3a.
-
-Upon visual inspection of the mosaic plot, there appears to be some general correlation. Predator cluster 1 associates somewhat indiscriminately with zooplankton clusters 2a-3b. Predator cluster 2 associates strongly with zooplankton cluster 2a, as well as with 2b to a lesser extent. Predator cluster 3 associates with zooplankton clusters 3a and 3b. Zooplankton cluster 1 seems to be the "background".
-
-For context, zooplankton cluster 1 was mostly salps, clusters 2a and 2b were small krill and amphipods (mostly offshore), and clusters 3a and 3b were large krill and *Metridia* (mostly in the Bransfield Strait).
-
 ## Indicator species
 
 Which species best represent each cluster? Using Dufrene-Legendre indicator species analysis. Apply indicator value cutoff at 25%.
 
-TODO: add text about how to interpret values.
-
 ```{r}
 #| label: indicator_species
 
-species_wide <- predators_abundant %>% 
-  select(amlr.station, species, count_nmi) %>% 
-  pivot_wider(names_from = species,
-              values_from = count_nmi,
-              values_fill = 0) %>% 
-  column_to_rownames("amlr.station")
-cluster_indval <- labdsv::indval(species_wide, clust)
-indval_mtx <- cluster_indval$indval
+indval_mtx <- sightings_indval$indval
 indval_fmt <- apply(indval_mtx, 2, function(x) {
   ord <- order(x, decreasing = TRUE)
   result <- ifelse(x >= 0.25, 
@@ -224,57 +161,29 @@ Comparing the highest indicator values between clusters, the pagophilic communit
 #| label: indval_interpret
 
 # Adelie penguin x cluster 3 worked example
-predators_abundant2 <- predators_abundant %>% 
-  mutate(cluster = map_int(amlr.station, \(x) clust[x]))
-adpn <- filter(predators_abundant2, species == "ADPN")
+adpn <- filter(predators_clust, species == "ADPN")
 
-pic_adpn <- sum(adpn$cluster == 3)
-nc3 <- sum(clust == 3)
+pic_adpn <- sum(adpn$pred_clust == "Pagophilic")
+nc3 <- sum(sightings_cut == 3)
 fic_adpn <- pic_adpn / nc3
 
 abu_adpn <- adpn %>% 
-  group_by(cluster) %>% 
+  group_by(pred_clust) %>% 
   summarize(abu = sum(count_nmi) / n())
 aic_adpn <- abu_adpn$abu[3] / sum(abu_adpn$abu)
 
 # ANFU x cluster 1
-anfu <- filter(predators_abundant2, species == "ANFU")
+anfu <- filter(predators_clust, species == "ANFU")
 
-pic_anfu <- sum(anfu$cluster == 1)
-nc1 <- sum(clust == 1)
+pic_anfu <- sum(anfu$pred_clust == "Open")
+nc1 <- sum(sightings_cut == 1)
 fic_anfu <- pic_anfu / nc1
 
 abu_anfu <- anfu %>% 
-  group_by(cluster) %>% 
-  summarize(abu = sum(count_nmi) / n())
+  group_by(pred_clust) %>% 
+  summarize(abu = sum(log(count_nmi + 1)) / n())
 aic_anfu <- abu_anfu$abu[1] / sum(abu_anfu$abu)
 
-```
-
-### Species within clusters
-
-```{r}
-#| label: clusters_species
-predators_abundant %>% left_join(
-  tibble(
-    amlr.station = names(clust),
-    pred_clust = factor(clust,
-                        labels = c("Open", "Marginal", "Pagophilic"))
-  ), by = "amlr.station") %>% 
-  complete(amlr.station, pred_clust, species, 
-           fill = list(count_nmi = 0)) %>% 
-  group_by(species, pred_clust) %>% 
-  summarize(mean_abundance = mean(count_nmi), .groups = "drop") %>%
-  mutate(species = fct_reorder(species, 
-                               mean_abundance, 
-                               .fun = sum,
-                               .desc = TRUE)) %>% 
-  ggplot(aes(species, mean_abundance)) +
-  geom_col() +
-  labs(y = "Mean abundance (ind nmi^-1)") +
-  facet_wrap(~ pred_clust, ncol = 1) +
-  theme_classic(base_size = 14) +
-  theme(axis.title.x = element_blank())
 ```
 
 ## Cluster distribution
@@ -284,24 +193,10 @@ How frequent are the different clusters? The marginal ice zone predator communit
 ```{r}
 #| label: cluster_freq
 
-station_ice <- predators_abundant %>%
-  distinct(amlr.station, ice_coverage)
-
-pred_clust <- tibble(
-  amlr.station = names(clust),
-  pred_clust = factor(clust,
-                      labels = c("Open", "Marginal", "Pagophilic"))
-) %>% 
-  left_join(select(zoop_sf,
-                   amlr.station,
-                   geometry,
-                   Year),
-            by = "amlr.station") %>% 
-  left_join(station_ice, by = "amlr.station")
-
-pred_clust %>% 
+stations_clust %>% 
   mutate(Year = factor(Year)) %>% 
-  crosstable::crosstable("Year", by = "pred_clust", total = "col")
+  crosstable::crosstable("Year", by = "pred_clust", total = "col") %>% 
+  crosstable::as_flextable()
 
 ```
 
@@ -310,23 +205,23 @@ What geospatial patterns do we see in the predator communities? The pagophilic p
 ```{r}
 #| label: cluster_maps
 
-pred_clust_sf <- pred_clust %>% 
-  st_as_sf() %>% 
-  st_transform(ant_proj())
-
-map_lim <- st_bbox(pred_clust_sf) %>% 
+map_lim <- st_bbox(stations_clust) %>% 
   project_bbox() %>% 
   expand_bbox(factor = 1.2)
 
-icy_open <- filter(pred_clust_sf,
+icy_open <- filter(stations_clust,
                    pred_clust == "Open",
                    ice_coverage >= 7.5)
 
 ant_basemap(map_lim) +
   geom_sf(aes(color = pred_clust), 
-          pred_clust_sf, 
+          stations_clust, 
           size = 2, 
           shape = 15) +
+  # geom_sf(data = filter(stations_clust, 
+  #                       amlr.station %in% c("AMLR2015_W1111",
+  #                                           "AMLR2015_W1113")),
+  #         color = "yellow") +
   geom_sf(data = seaice_contours, color = "skyblue") +
   facet_wrap(~ Year) +
   scale_x_continuous(breaks = c(-60, -55)) +
@@ -344,19 +239,6 @@ How many NMDS axes should we use? Scree plot
 ```{r}
 #| label: nmds-scree
 
-nmds_stress <- tibble(
-  k = 1:6,
-  stress = map_dbl(k, function(k) {
-    metaMDS(
-      sightings_mtx, 
-      distance = "bray",
-      k = k,
-      trymax = 100,
-      trace = FALSE
-    )$stress
-  })
-)
-
 ggplot(nmds_stress, aes(k, stress)) +
   geom_line() +
   geom_point() +
@@ -372,30 +254,14 @@ ggplot(nmds_stress, aes(k, stress)) +
 ```{r}
 #| label: nmds-shepard
 
-sightings_nmds <- metaMDS(
-  sightings_mtx, 
-  distance = "bray",
-  k = 3,
-  trymax = 100,
-  trace = FALSE
-)
-
-nmds_isoreg <- isoreg(sightings_nmds$diss, sightings_nmds$dist)
-
-nmds_shepard <- tibble(
-  diss = sightings_nmds$diss,
-  dist = sightings_nmds$dist,
-  mono = nmds_isoreg$yf
-)
-
 nmds_spear <- cor(nmds_shepard$diss,
                   nmds_shepard$dist,
                   method = "spearman")
 nmds_label <- str_glue(
-  "Non-metric fit, R^2 = {round(1 - sightings_nmds$stress^2, 3)}\n",
+  "Non-metric fit, R^2 = {round(1 - nmds_sightings$stress^2, 3)}\n",
   "Linear fit, R^2 = {round(nmds_spear^2, 3)}\n",
-  "k = {sightings_nmds$ndim}\n",
-  "Stress = {round(sightings_nmds$stress, 3)}"
+  "k = {nmds_sightings$ndim}\n",
+  "Stress = {round(nmds_sightings$stress, 3)}"
 )
 
 ggplot(nmds_shepard, aes(diss, dist)) +
@@ -414,14 +280,6 @@ NMDS plots, color-coded by predator cluster.
 
 ```{r}
 #| label: loading
-
-nmds_df <- sightings_nmds$points %>% 
-  as_tibble(rownames = "amlr.station") %>% 
-  rename_with(~ paste0("N", .x), starts_with("MDS")) %>% 
-  right_join(pred_clust_sf %>% 
-               as_tibble() %>% 
-               select(amlr.station, pred_clust),
-             by = "amlr.station")
 
 ggplot(nmds_df, aes(NMDS1, NMDS2)) +
   geom_point(aes(color = pred_clust)) +
@@ -451,6 +309,14 @@ I compared the drivers of community structure two ways: physics (hydrology and i
 ```{r}
 #| label: env-loadings
 
+
+
+```
+
+```{r}
+#| label: env-loadings-old
+#| eval: false
+
 station_ice <- predators_stations %>% 
   distinct(amlr.station, ice_type, ice_coverage) %>% 
   as_tibble()
@@ -461,14 +327,14 @@ station_env <- zoop_sf %>%
          Integ.phae.100m, TOD_2levels_civil, Year, 
          zoop = `Winter Cluster factor`) %>% 
   as_tibble() %>% 
-  left_join(station_ice, by = "amlr.station") %>% 
+  left_join(stations_ice, by = "amlr.station") %>% 
   mutate(Year = factor(Year)) %>% 
   slice(map_int(rownames(sightings_mtx),
                 ~ which(.x == amlr.station))) %>% 
   select(-amlr.station, -geometry)
 
 # Fit multiple regression model
-pred_envfit <- envfit(sightings_nmds, 
+pred_envfit <- envfit(nmds_sightings, 
                       station_env, 
                       permutations = 999, 
                       choices = 1:3,
@@ -538,6 +404,7 @@ Summaries of environmental conditions by cluster.
 
 ```{r}
 #| label: env_summ
+#| eval: false
 
 env <- tibble(
   amlr.station = names(clust),
@@ -548,7 +415,7 @@ env <- tibble(
     select(as_tibble(zoop_sf),
            amlr.station, avg.salinity, Integ.chla.100m),
     by = "amlr.station") %>% 
-  left_join(select(station_ice, amlr.station, ice_coverage),
+  left_join(select(stations_ice, amlr.station, ice_coverage),
             by = "amlr.station") %>% 
   pivot_longer(avg.salinity:ice_coverage, 
                names_to = "envvar",
@@ -570,12 +437,13 @@ env %>%
 I asserted the clusters corresponded to open water, marginal ice, and pack ice communities. Let's verify that.
 
 ```{r}
+#| eval: false
 pred_clust_ice <- tibble(
   amlr.station = names(clust),
   pred_clust = factor(clust,
                       labels = c("Open", "Marginal", "Pagophilic"))
 ) %>% 
-  left_join(station_ice,
+  left_join(stations_ice,
             by = "amlr.station") %>% 
   drop_na(ice_coverage)
 
@@ -595,6 +463,7 @@ ggplot(pred_clust_ice, aes(x = ice_coverage / 10, fill = after_stat(x))) +
 Predator/prey cluster associations were statistically significant. The most positive residuals were between pagophilic predators x zooplankton 3b (4.07), pagophilic predators x zooplankton 3a (2.68), marginal ice zone predators x zooplankton 2a (2.33), and open water predators x zooplankton 2b (1.82). Zooplankton 1 was not
 
 ```{r}
+#| eval: false
 pred_prey <- as_tibble(pred_clust) %>% 
   select(amlr.station, pred_clust) %>% 
   left_join(select(as_tibble(zoop_sf), 
