@@ -1,0 +1,101 @@
+library(ggtree)
+library(shiny)
+library(sf)
+library(targets)
+library(tidyterra)
+library(tidyverse)
+
+tar_load_everything(store = here::here("_targets"))
+source(here::here("R", "sp.R"))
+seaice_contours <- terra::unwrap(seaice_contours)
+
+# Create the community map
+make_community_map <- function(highlighted = NULL) {
+
+  stopifnot(is.null(highlighted) ||
+              highlighted %in% stations_clust$amlr.station)
+
+  map_lim <- st_bbox(stations_clust) %>%
+    project_bbox() %>%
+    expand_bbox(factor = 1.2)
+
+  highlighted_sf <- if (is.null(highlighted)) {
+    NULL
+  } else {
+    geom_sf(data = filter(stations_clust, amlr.station == highlighted),
+            size = 3,
+            shape = 21,
+            color = "magenta",
+            fill = NA)
+  }
+
+  ant_basemap(map_lim) +
+    geom_sf(aes(color = pred_clust),
+            stations_clust,
+            size = 2,
+            shape = 15) +
+    highlighted_sf +
+    geom_sf(data = seaice_contours, color = "skyblue") +
+    facet_wrap(~ Year) +
+    scale_x_continuous(breaks = c(-60, -55)) +
+    scale_y_continuous(breaks = c(-63, -62, -61, -60)) +
+    scale_color_brewer(palette = "Dark2") +
+    scale_fill_gradient(lim = c(0, 1), na.value = "transparent") +
+    coord_ant(map_lim) +
+    theme(legend.position = "bottom",
+          legend.title = element_blank())
+}
+
+# Create the environment histograms
+make_env_hist <- function(var, highlighted = NULL) {
+  dat <- nmds_env
+  dat[["var"]] <- dat[[var]]
+  xlbl <- c(
+    avg.salinity = "Salinity (PSU)",
+    ice_coverage = "Ice coverage (%)",
+    Integ.chla.100m = "Chl a (mg m^-2)"
+  )[var]
+  ggplot(dat, aes(var)) +
+    geom_histogram(bins = 30) +
+    labs(x = xlbl) +
+    theme_classic()
+}
+
+# Create cluster dendrogram
+make_cluster_dendro <- function(highlighted = NULL) {
+  g <- split(names(sightings_cut), sightings_cut)
+  p <- ggtree(sightings_clust, hang = -1)
+  pred_clust_mrca <- sapply(g, function(n) MRCA(p, n))
+
+  p %>%
+    groupClade(pred_clust_mrca, group_name = "Predator cluster") +
+    aes(color = `Predator cluster`) +
+    layout_dendrogram() +
+    theme_dendrogram()
+}
+
+# Create station table
+make_station_table <- function(highlighted = NULL) {
+  if (is.null(highlighted)) {
+    return(NULL)
+  }
+  nmds_env %>%
+    filter(amlr.station == highlighted) %>%
+    left_join(select(zoop, amlr.station, date.tow),
+              by = "amlr.station") %>%
+    left_join(select(as_tibble(station_effort), amlr.station, survey_nmi),
+              by = "amlr.station") %>%
+    select(amlr.station, Year, date.tow, survey_nmi, avg.salinity,
+           Integ.chla.100m, ice_coverage, zoop_clust, avg.temp, Integ.phae.100m,
+           TOD_2levels_civil, ice_type)
+}
+
+# Create sightings table
+make_sightings_table <- function(highlighted = NULL) {
+  if (is.null(highlighted)) {
+    return(NULL)
+  }
+  predators_clust %>%
+    filter(amlr.station == highlighted) %>%
+    select(amlr.station,  species, count, count_nmi)
+}
