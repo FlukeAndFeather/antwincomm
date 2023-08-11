@@ -64,9 +64,15 @@ make_cluster_dendro <- function(highlighted = NULL) {
   p <- ggtree(sightings_clust, hang = -1)
   pred_clust_mrca <- sapply(g, function(n) MRCA(p, n))
 
+  station_highlight <- if (!is.null(highlighted)) {
+    station_y <- p$data$y[p$data$isTip & p$data$label == highlighted]
+    geom_point(x = 0, y = station_y, color = "red", shape = 17)
+  }
+
   p %>%
     groupClade(pred_clust_mrca, group_name = "Predator cluster") +
     aes(color = `Predator cluster`) +
+    station_highlight +
     layout_dendrogram() +
     theme_dendrogram()
 }
@@ -82,11 +88,9 @@ make_station_table <- function(highlighted = NULL) {
               by = "amlr.station") %>%
     left_join(select(as_tibble(station_effort), amlr.station, survey_nmi),
               by = "amlr.station") %>%
-    select(amlr.station, Year, date.tow, survey_nmi, avg.salinity,
+    select(amlr.station, Year, survey_nmi, avg.salinity,
            Integ.chla.100m, ice_coverage, zoop_clust, avg.temp, Integ.phae.100m,
-           TOD_2levels_civil, ice_type) %>%
-    map2_chr(names(.), \(v, n) str_glue("{n}: {v}")) %>%
-    paste(collapse = ", ")
+           TOD_2levels_civil, ice_type)
 }
 
 # Create sightings table

@@ -21,8 +21,8 @@ ui <- fillPage(
     # Right column: tree, station table, sightings table
     fillCol(
       plotOutput("cluster_dendro", height = "100%"),
-      textOutput("station_table"),
-      tableOutput("sightings_table"),
+      DT::dataTableOutput("station_table"),
+      DT::dataTableOutput("sightings_table"),
       flex = c(3, 2, 3)
     ),
 

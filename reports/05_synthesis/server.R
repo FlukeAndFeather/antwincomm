@@ -12,10 +12,13 @@ server <- function(input, output) {
   output$cluster_dendro <- renderPlot(
     make_cluster_dendro(highlighted = input$community_map_selected)
   )
-  output$station_table <- renderText(
-    make_station_table(highlighted = input$community_map_selected)
+  output$station_table <- DT::renderDataTable(
+    DT::datatable(
+      make_station_table(highlighted = input$community_map_selected),
+      options = list(scrollX = TRUE)
+    )
   )
-  output$sightings_table <- renderTable(
+  output$sightings_table <- DT::renderDataTable(
     make_sightings_table(highlighted = input$community_map_selected)
   )
 
