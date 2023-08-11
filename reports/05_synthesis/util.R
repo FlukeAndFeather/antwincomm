@@ -1,3 +1,4 @@
+library(ggiraph)
 library(ggtree)
 library(shiny)
 library(sf)
@@ -10,31 +11,16 @@ source(here::here("R", "sp.R"))
 seaice_contours <- terra::unwrap(seaice_contours)
 
 # Create the community map
-make_community_map <- function(highlighted = NULL) {
-
-  stopifnot(is.null(highlighted) ||
-              highlighted %in% stations_clust$amlr.station)
-
+make_community_map <- function() {
   map_lim <- st_bbox(stations_clust) %>%
     project_bbox() %>%
     expand_bbox(factor = 1.2)
 
-  highlighted_sf <- if (is.null(highlighted)) {
-    NULL
-  } else {
-    geom_sf(data = filter(stations_clust, amlr.station == highlighted),
-            size = 3,
-            shape = 21,
-            color = "magenta",
-            fill = NA)
-  }
-
-  ant_basemap(map_lim) +
-    geom_sf(aes(color = pred_clust),
+  p <- ant_basemap(map_lim) +
+    geom_sf_interactive(aes(color = pred_clust, data_id = amlr.station),
             stations_clust,
             size = 2,
             shape = 15) +
-    highlighted_sf +
     geom_sf(data = seaice_contours, color = "skyblue") +
     facet_wrap(~ Year) +
     scale_x_continuous(breaks = c(-60, -55)) +
@@ -44,12 +30,22 @@ make_community_map <- function(highlighted = NULL) {
     coord_ant(map_lim) +
     theme(legend.position = "bottom",
           legend.title = element_blank())
+
+  girafe(ggobj = p) %>%
+    girafe_options(opts_selection(type = "single"))
 }
 
 # Create the environment histograms
 make_env_hist <- function(var, highlighted = NULL) {
   dat <- nmds_env
   dat[["var"]] <- dat[[var]]
+  dat <- dat[!is.na(dat[["var"]]), ]
+
+  highlighted_val <- if(!is.null(highlighted)) {
+    val <- dat[["var"]][dat$amlr.station == highlighted]
+    geom_vline(xintercept = val, color = "red")
+  }
+
   xlbl <- c(
     avg.salinity = "Salinity (PSU)",
     ice_coverage = "Ice coverage (%)",
@@ -57,6 +53,7 @@ make_env_hist <- function(var, highlighted = NULL) {
   )[var]
   ggplot(dat, aes(var)) +
     geom_histogram(bins = 30) +
+    highlighted_val +
     labs(x = xlbl) +
     theme_classic()
 }
@@ -87,7 +84,9 @@ make_station_table <- function(highlighted = NULL) {
               by = "amlr.station") %>%
     select(amlr.station, Year, date.tow, survey_nmi, avg.salinity,
            Integ.chla.100m, ice_coverage, zoop_clust, avg.temp, Integ.phae.100m,
-           TOD_2levels_civil, ice_type)
+           TOD_2levels_civil, ice_type) %>%
+    map2_chr(names(.), \(v, n) str_glue("{n}: {v}")) %>%
+    paste(collapse = ", ")
 }
 
 # Create sightings table

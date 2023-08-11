@@ -5,7 +5,7 @@ ui <- fillPage(
   fillRow(
     # Left column: map and env histogram
     fillCol(
-      plotOutput("community_map", height = "100%"),
+      girafeOutput("community_map", height = "100%"),
       div(
         selectInput("env_var",
                     "Environmental variable",
@@ -21,9 +21,9 @@ ui <- fillPage(
     # Right column: tree, station table, sightings table
     fillCol(
       plotOutput("cluster_dendro", height = "100%"),
-      DT::dataTableOutput("station_table", height = "100%"),
-      DT::dataTableOutput("sightings_table", height = "100%"),
-      flex = c(5, 1, 4)
+      textOutput("station_table"),
+      tableOutput("sightings_table"),
+      flex = c(3, 2, 3)
     ),
 
     flex = c(2, 1)
