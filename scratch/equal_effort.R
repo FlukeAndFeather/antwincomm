@@ -2,6 +2,7 @@ library(lubridate)
 library(sf)
 library(tidyverse)
 source("R/sp.R")
+tar_load_everything()
 
 # Distance between stations
 inter_station_dist <- zoop_sf %>%
@@ -13,55 +14,24 @@ inter_station_dist <- zoop_sf %>%
   ungroup()
 
 station_radius_km <- 15
-dist_quant <- ecdf(inter_station_dist$dist_near_km)(station_radius_km * 2)
+dist_quant <- ecdf(inter_station_dist$dist_near_km)(station_radius_km * 1.5)
 ggplot(inter_station_dist, aes(dist_near_km)) +
   stat_ecdf() +
-  geom_segment(x = station_radius_km * 2, xend = station_radius_km * 2, y = 0, yend = dist_quant,
+  geom_segment(x = station_radius_km * 1.5, xend = station_radius_km * 1.5, y = 0, yend = dist_quant,
                color = "firebrick") +
-  geom_segment(x = 0, xend = station_radius_km * 2, y = dist_quant, yend = dist_quant,
+  geom_segment(x = 0, xend = station_radius_km * 1.5, y = dist_quant, yend = dist_quant,
                color = "firebrick") +
   annotate("text",
            x = 0,
-           y = 0.3,
-           label = str_glue("{round(dist_quant * 100, 1)}% of stations within {station_radius_km * 2} km\nof nearest neighbor"),
+           y = 0.2,
+           label = str_glue("{round(dist_quant * 100, 1)}% of stations within\n{station_radius_km * 1.5} km of nearest neighbor"),
            hjust = 0) +
   theme_classic()
 
 # Exclude stations <30 km from nearest neighbor
 # TODO: If 2 stations <30km apart, keep 1
-keep <- inter_station_dist$amlr.station[inter_station_dist$dist_near_km > 30]
+keep <- inter_station_dist$amlr.station[inter_station_dist$dist_near_km > station_radius_km * 1.5]
 stations <- filter(zoop_sf, amlr.station %in% keep)
-
-# Try voronoi tesselation
-station_voronoi <- stations %>%
-  st_transform(ant_proj()) %>%
-  group_by(Year) %>%
-  group_modify(\(rows, keys) {
-    envelope <- rows %>%
-      st_union() %>%
-      st_convex_hull() %>%
-      st_buffer(station_radius_km * 1000)
-    voronoi <- st_voronoi(st_union(rows))
-    st_as_sf(st_intersection(st_cast(voronoi), envelope))
-  }) %>%
-  ungroup() %>%
-  st_sf(crs = ant_proj())
-station_buffers <- stations %>%
-  st_transform(ant_proj()) %>%
-  st_buffer(station_radius_km * 1000)
-station_poly <- map(station$amlr.station
-  st_geometry(arrange(station_voronoi, amlr.station)),
-  st_geometry(station_buffers),
-  \(v, b) {browser();st_intersection(v, b)}
-) %>%
-  list_rbind() %>%
-  st_as_sf()
-map_lim <- expand_bbox(st_bbox(station_))
-ant_basemap() +
-  geom_sf(data = station_voronoi, fill = NA, color = "grey80") +
-  geom_sf(data = stations, color = "firebrick") +
-  coord_ant(map_lim)
-  facet_wrap(~ Year)
 
 # 15km buffers around station
 station_buffers <- stations %>%
@@ -115,25 +85,6 @@ stations <- stations %>%
             by = "amlr.station") %>%
   filter(between(effort_km, 29, 34))
 
-for (i in seq(nrow(stations))) {
-  st <- stations[i, ]
-  filename <- file.path("figs",
-                        "effort_maps",
-                        paste0(st$amlr.station, ".jpg"))
-  tr <- filter(local_track, amlr.station == st$amlr.station)
-  bf <- filter(station_buffers, amlr.station == st$amlr.station)
-
-  p <- ant_basemap() +
-    geom_sf(data = tr) +
-    geom_sf(data = st, color = "firebrick") +
-    geom_sf(data = bf, color = "cornflowerblue", fill = NA) +
-    labs(title = st$amlr.station,
-         caption = str_glue("effort={round(tr$effort_km, 1)}km")) +
-    coord_ant(map_lim = expand_bbox(st_bbox(bf), 1.2))
-
-  ggsave(filename, p)
-}
-
 for (yr in unique(stations$Year)) {
   filename <- file.path("figs",
                         "effort_maps",
@@ -146,8 +97,7 @@ for (yr in unique(stations$Year)) {
     geom_sf(data = tr) +
     geom_sf(data = st, color = "firebrick") +
     geom_sf(data = bf, color = "cornflowerblue", fill = NA) +
-    labs(title = st$amlr.station,
-         caption = str_glue("effort={round(tr$effort_km, 1)}km")) +
+    labs(title = st$amlr.station) +
     coord_ant(map_lim = expand_bbox(st_bbox(bf), 1.2))
 
   ggsave(filename, p)
