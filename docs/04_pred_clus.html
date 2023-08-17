@@ -112,8 +112,11 @@ div.csl-indent {
   <li><a href="#cluster-interpretation" id="toc-cluster-interpretation" class="nav-link" data-scroll-target="#cluster-interpretation">Cluster interpretation</a></li>
   </ul></li>
   <li><a href="#cluster-distribution" id="toc-cluster-distribution" class="nav-link" data-scroll-target="#cluster-distribution">Cluster distribution</a></li>
-  <li><a href="#nmds" id="toc-nmds" class="nav-link" data-scroll-target="#nmds">NMDS</a></li>
-  <li><a href="#environmental-loadings" id="toc-environmental-loadings" class="nav-link" data-scroll-target="#environmental-loadings">Environmental loadings</a></li>
+  <li><a href="#nmds" id="toc-nmds" class="nav-link" data-scroll-target="#nmds">NMDS</a>
+  <ul class="collapse">
+  <li><a href="#nmds-diagnostics" id="toc-nmds-diagnostics" class="nav-link" data-scroll-target="#nmds-diagnostics">NMDS diagnostics</a></li>
+  <li><a href="#environmental-loading" id="toc-environmental-loading" class="nav-link" data-scroll-target="#environmental-loading">Environmental loading</a></li>
+  </ul></li>
   <li><a href="#clusters-by-ice-coverage" id="toc-clusters-by-ice-coverage" class="nav-link" data-scroll-target="#clusters-by-ice-coverage">Clusters by ice coverage</a></li>
   <li><a href="#predator-x-prey-clusters" id="toc-predator-x-prey-clusters" class="nav-link" data-scroll-target="#predator-x-prey-clusters">Predator <em>x</em> prey clusters</a></li>
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
@@ -178,129 +181,129 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">SNPT</td>
-<td style="text-align: right;">12649</td>
-<td style="text-align: right;">239</td>
-<td style="text-align: left;">60.7%</td>
+<td style="text-align: right;">12314</td>
+<td style="text-align: right;">233</td>
+<td style="text-align: left;">59.1%</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ANPT</td>
-<td style="text-align: right;">2430</td>
-<td style="text-align: right;">212</td>
-<td style="text-align: left;">53.8%</td>
+<td style="text-align: right;">2351</td>
+<td style="text-align: right;">209</td>
+<td style="text-align: left;">53.0%</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">SGPT</td>
-<td style="text-align: right;">636</td>
-<td style="text-align: right;">184</td>
-<td style="text-align: left;">46.7%</td>
+<td style="text-align: right;">620</td>
+<td style="text-align: right;">177</td>
+<td style="text-align: left;">44.9%</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">FUSE</td>
-<td style="text-align: right;">7754</td>
-<td style="text-align: right;">166</td>
-<td style="text-align: left;">42.1%</td>
+<td style="text-align: right;">5443</td>
+<td style="text-align: right;">152</td>
+<td style="text-align: left;">38.6%</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">KEGU</td>
-<td style="text-align: right;">723</td>
+<td style="text-align: right;">679</td>
 <td style="text-align: right;">127</td>
 <td style="text-align: left;">32.2%</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ANFU</td>
-<td style="text-align: right;">1046</td>
-<td style="text-align: right;">106</td>
-<td style="text-align: left;">26.9%</td>
+<td style="text-align: right;">1089</td>
+<td style="text-align: right;">108</td>
+<td style="text-align: left;">27.4%</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">CAPT</td>
-<td style="text-align: right;">535</td>
-<td style="text-align: right;">85</td>
-<td style="text-align: left;">21.6%</td>
+<td style="text-align: right;">544</td>
+<td style="text-align: right;">84</td>
+<td style="text-align: left;">21.3%</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ADPN</td>
-<td style="text-align: right;">8594</td>
-<td style="text-align: right;">73</td>
-<td style="text-align: left;">18.5%</td>
+<td style="text-align: right;">8532</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: left;">17.3%</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">CRSE</td>
-<td style="text-align: right;">3111</td>
-<td style="text-align: right;">64</td>
-<td style="text-align: left;">16.2%</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">LESE</td>
-<td style="text-align: right;">189</td>
+<td style="text-align: right;">3112</td>
 <td style="text-align: right;">58</td>
 <td style="text-align: left;">14.7%</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">BLPT</td>
-<td style="text-align: right;">648</td>
-<td style="text-align: right;">54</td>
-<td style="text-align: left;">13.7%</td>
+<td style="text-align: right;">655</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: left;">13.5%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LESE</td>
+<td style="text-align: right;">195</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: left;">12.4%</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ANTE</td>
-<td style="text-align: right;">179</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: left;">9.6%</td>
+<td style="text-align: right;">157</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: left;">9.4%</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">PFSB</td>
-<td style="text-align: right;">38</td>
-<td style="text-align: right;">28</td>
-<td style="text-align: left;">7.1%</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">6.3%</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">MIWH</td>
-<td style="text-align: right;">52</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: left;">5.1%</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">GEPN</td>
-<td style="text-align: right;">232</td>
-<td style="text-align: right;">14</td>
-<td style="text-align: left;">3.6%</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ELSE</td>
-<td style="text-align: right;">19</td>
-<td style="text-align: right;">13</td>
-<td style="text-align: left;">3.3%</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: left;">4.3%</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">WESE</td>
+<td style="text-align: right;">19</td>
 <td style="text-align: right;">16</td>
-<td style="text-align: right;">13</td>
-<td style="text-align: left;">3.3%</td>
+<td style="text-align: left;">4.1%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GEPN</td>
+<td style="text-align: right;">142</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">3.0%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ELSE</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">2.8%</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">KIWH</td>
-<td style="text-align: right;">63</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: left;">1.5%</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">1.3%</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">ANSH</td>
-<td style="text-align: right;">103</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: left;">0.8%</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">EMPN</td>
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: left;">0.5%</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">SBWH</td>
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: left;">0.5%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ANSH</td>
+<td style="text-align: right;">89</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">0.3%</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ROSE</td>
@@ -317,7 +320,7 @@ div.csl-indent {
 </section>
 <section id="optimal-number-of-clusters" class="level2">
 <h2 class="anchored" data-anchor-id="optimal-number-of-clusters">Optimal number of clusters</h2>
-<p>We use the gap statistic <span class="citation" data-cites="tibshirani2001">(<a href="#ref-tibshirani2001" role="doc-biblioref">Tibshirani, Walther, and Hastie 2001</a>)</span> to choose the optimal number of clusters (<span class="math inline">\(k\)</span>). The gap statistic (<span class="math inline">\(f\)</span>) is a goodness of clustering measure. The authors recommended choosing <span class="math inline">\(k\)</span> at the shoulder of the <span class="math inline">\(f \sim k\)</span> curve. Heuristically, the shoulder is the smallest <span class="math inline">\(k\)</span> such that <span class="math inline">\(f(k) \geq f(k+1) - s(k+1)\)</span> where <span class="math inline">\(s\)</span> is the standard error of <span class="math inline">\(f\)</span>. According to this rule, the predators are best described by one cluster. However, there’s a clear jump from <span class="math inline">\(k=2\)</span> to <span class="math inline">\(k=3\)</span> (red), followed by a leveling off. Therefore, based on our prior knowledge of three predator guilds (pagophilic, open water, and marginal ice), we’ll present the results for <span class="math inline">\(k=3\)</span> here.</p>
+<p>We use the gap statistic <span class="citation" data-cites="tibshirani2001">(<a href="#ref-tibshirani2001" role="doc-biblioref">Tibshirani, Walther, and Hastie 2001</a>)</span> to choose the optimal number of clusters (<span class="math inline">\(k\)</span>). The gap statistic (<span class="math inline">\(f\)</span>) is a goodness of clustering measure. The authors recommended choosing <span class="math inline">\(k\)</span> at the shoulder of the <span class="math inline">\(f \sim k\)</span> curve. Heuristically, the shoulder is the smallest <span class="math inline">\(k\)</span> such that <span class="math inline">\(f(k) \geq f(k+1) - s(k+1)\)</span> where <span class="math inline">\(s\)</span> is the standard error of <span class="math inline">\(f\)</span>. According to this rule, the predators are best described by three clusters.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -343,7 +346,7 @@ div.csl-indent {
 <p><img src="04_pred_clus_files/figure-html/optimal-clusters-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Hierarchical clustering of stations by predator community. Note: 394 stations were included in the zooplankton clustering, but only 252 stations were used for predator clustering.</p>
+<p>Hierarchical clustering of stations by predator community. Note: 394 stations were included in the zooplankton clustering, but only 245 stations were used for predator clustering.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -364,7 +367,7 @@ div.csl-indent {
 </section>
 <section id="indicator-species" class="level2">
 <h2 class="anchored" data-anchor-id="indicator-species">Indicator species</h2>
-<p>Which species best represent each cluster? Using Dufrene-Legendre indicator species analysis. Apply indicator value cutoff at 25%.</p>
+<p>Which species best represent each cluster? Using Dufrene-Legendre indicator species analysis. Indicator values, <span class="math inline">\(d\)</span>, presented for each cluster for <span class="math inline">\(d\gt0.25\)</span>. <span class="math inline">\(d\)</span> is the product of relative frequency (fraction of sites present within cluster) and relative abundance (fraction of abundance found within cluster).</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -399,17 +402,21 @@ div.csl-indent {
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">ANFU (40%)<br>
-CAPT (30%)<br>
-BLPT (25%)</td>
-<td style="text-align: left;">SNPT (62%)<br>
-FUSE (47%)<br>
-ANPT (45%)<br>
-SGPT (32%)</td>
-<td style="text-align: left;">ADPN (92%)<br>
-CRSE (67%)<br>
-LESE (34%)<br>
-FUSE (28%)</td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;">FUSE (86%)<br>
+KEGU (48%)<br>
+SNPT (46%)<br>
+SGPT (40%)<br>
+CRSE (35%)<br>
+LESE (33%)<br>
+ANPT (29%)<br>
+ADPN (28%)<br>
+ANTE (26%)</td>
+<td style="text-align: left;">ANFU (49%)<br>
+ANPT (46%)<br>
+SNPT (42%)<br>
+CAPT (36%)<br>
+SGPT (29%)</td>
 </tr>
 </tbody>
 </table>
@@ -420,98 +427,64 @@ FUSE (28%)</td>
 <section id="cluster-interpretation" class="level3">
 <h3 class="anchored" data-anchor-id="cluster-interpretation">Cluster interpretation</h3>
 <ul>
-<li>Cluster 1 = open water</li>
-<li>Cluster 2 = marginal ice zone</li>
-<li>Cluster 3 = pagophilic</li>
+<li>Cluster 1 = uncertain</li>
+<li>Cluster 2 = pagophilic</li>
+<li>Cluster 3 = open water</li>
 </ul>
-<p>Indicator value <span class="math inline">\(d_{ic}\)</span> of species <span class="math inline">\(i\)</span> in cluster <span class="math inline">\(c\)</span> is the product of relative fidelity, <span class="math inline">\(f_{ic}\)</span>, and relative abundance, <span class="math inline">\(a_{ic}\)</span>. See documentation of <code>labdsv::indval()</code>.</p>
-<p>Relative fidelity <span class="math inline">\(f_{ic}\)</span> of species <span class="math inline">\(i\)</span> in cluster <span class="math inline">\(c\)</span> is:</p>
-<p><span class="math display">\[
-f_{ic} = \frac{\sum_{j \in c}p_{ij}}{n_c}
-\]</span></p>
-<p>Relative abundance <span class="math inline">\(a_{ic}\)</span> is:</p>
-<p><span class="math display">\[
-a_{ic}=\frac{\sum_{j \in c}x_{ij}/n_c}{\sum_{k=1}^K (\sum_{j \in k}x_{ij}/n_k)}
-\]</span></p>
-<p>A high indicator value, e.g., <span class="math inline">\(d_{ic}\approx1\)</span>, means species <span class="math inline">\(i\)</span> is present in nearly all sites in cluster <span class="math inline">\(c\)</span> and nearly absent from sites not in <span class="math inline">\(c\)</span>. The greatest <span class="math inline">\(d_{ic}\)</span> observed here was Adèlie penguins in cluster 3 at 0.74. ADPN were observed in 45 of the 60 cluster 3 sites, for <span class="math inline">\(f_{ic}=0.75\)</span>. The average abundance of ADPN in cluster 1 was 4.04 ind nm^-1, compared to 0.113 and 0.166 in clusters 2 and 3, respectively. Yields <span class="math inline">\(a_{ic}=0.935\)</span>.</p>
-<p>Note that differences in indicator values between species reflect <em>relative</em> changes in frequency/abundance. For example, in cluster 3 (pagophilic predators), Antarctic fur seals were found at more stations (<span class="math inline">\(f_{ic}=0.783\)</span>) and in higher abundances (mean 2.22 ind nm^-1) than crabeater seals (<span class="math inline">\(f_{ic}=0.650\)</span>, mean 1.73 ind nm^-1), yet they have the same indicator value <span class="math inline">\(d_{ic}=0.63\)</span>. That’s because Antarctic fur seals were still somewhat abundant in another cluster whereas crabeater seals were concentrated in cluster 3. Specifically, mean Antarctic fur seal abundance was 0.441 ind nm^-1 in cluster 2 (marginal ice zone), 19.9% of their cluster 1 abundance. Crabeater seals dropped from 1.73 ind nm^-1 to 0.133 ind nm^-1, or 7.7% of cluster 1 abundance.</p>
-<p>Comparing the highest indicator values between clusters, the pagophilic community has the most distinct collection of predators, followed by the marginal ice zone and open water communities. Three species had <span class="math inline">\(d_{ic} \gt 0.6\)</span> in the pagophilic cluster: Adèlie penguins, Antarctic fur seals, and crabeater seals. All three of these species were both more prevalent and more abundant in the pagophilic cluster than either of the other two. In contrast, the open water community had no species with <span class="math inline">\(d_{ic} \gt 0.35\)</span>. The three most prevalent species in the open water cluster were snow petrels, Antarctic petrels, and southern giant petrels, all of which were more abundant in the marginal ice zone cluster. Meaning, the pagophilic community was distinct because of specific species (Adèlie penguins, Antarctic fur seals, and crabeater seals), while the open water community was characterized by more variable species compositions. The marginal ice zone community fell in between. Its highest indicator value species (snow petrel, Antarctic petrel, and southern giant petrel) were widespread across communities, so their relative abundances in the marginal ice zone cluster were lower (<span class="math inline">\(a_{ic} \in [0.400 - 0.652]\)</span>) than the three highest indicator value species were in the pagophilic cluster (<span class="math inline">\(a_{ic} \in [0.810 - 0.971]\)</span>).</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Adelie penguin x cluster 3 worked example</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>adpn <span class="ot">&lt;-</span> <span class="fu">filter</span>(predators_clust, species <span class="sc">==</span> <span class="st">"ADPN"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>pic_adpn <span class="ot">&lt;-</span> <span class="fu">sum</span>(adpn<span class="sc">$</span>pred_clust <span class="sc">==</span> <span class="dv">3</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>nc3 <span class="ot">&lt;-</span> <span class="fu">sum</span>(stations_clust<span class="sc">$</span>pred_clust <span class="sc">==</span> <span class="dv">3</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>fic_adpn <span class="ot">&lt;-</span> pic_adpn <span class="sc">/</span> nc3</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>abu_adpn <span class="ot">&lt;-</span> adpn <span class="sc">%&gt;%</span> </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pred_clust) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">abu =</span> <span class="fu">sum</span>(count_nmi) <span class="sc">/</span> <span class="fu">n</span>())</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>aic_adpn <span class="ot">&lt;-</span> abu_adpn<span class="sc">$</span>abu[<span class="dv">3</span>] <span class="sc">/</span> <span class="fu">sum</span>(abu_adpn<span class="sc">$</span>abu)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ANFU x cluster 1</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>anfu <span class="ot">&lt;-</span> <span class="fu">filter</span>(predators_clust, species <span class="sc">==</span> <span class="st">"ANFU"</span>)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>pic_anfu <span class="ot">&lt;-</span> <span class="fu">sum</span>(anfu<span class="sc">$</span>pred_clust <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>nc1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(stations_clust<span class="sc">$</span>pred_clust <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>fic_anfu <span class="ot">&lt;-</span> pic_anfu <span class="sc">/</span> nc1</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>abu_anfu <span class="ot">&lt;-</span> anfu <span class="sc">%&gt;%</span> </span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pred_clust) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">abu =</span> <span class="fu">sum</span>(count_nmi) <span class="sc">/</span> <span class="fu">n</span>())</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>aic_anfu <span class="ot">&lt;-</span> abu_anfu<span class="sc">$</span>abu[<span class="dv">1</span>] <span class="sc">/</span> <span class="fu">sum</span>(abu_anfu<span class="sc">$</span>abu)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
+<p>Relative to cluster 3, cluster 2 was composed of more ice associated species. The strongest indicator for cluster 2 was the Antarctic fur seal, which was sighted at 98.6% of cluster 2 sites, for 87% of the species’ total abundance. Pagophilic predators such as crabeater seals, leopard seals, and Adélie penguins were also indicator species for this cluster. Another pagophilic predator, the minke whale, was too rare overall to be significant indicator species for any cluster, but was sighted most frequently in cluster 2 (12.2% of sites versus 5.2% and 4.4% of clusters 1 and 3, respectively) and 80.0% of its abundance was in cluster 2.</p>
+<p>Cluster 3 describes a more open water guild. Southern fulmars and cape petrels were significant indicator species for this cluster. Blue petrels, an open water predator, were most frequently observed in cluster 3 (36.3% of sites, relative to 6.9% and 10.8% of sites in clusters 1 and 2) in greater numbers than elsewhere (66.0% of total abundance).</p>
+<p>Snow petrels, Antarctic petrels, and southern giant petrels were significant indicator species for both clusters 2 and 3. These species were the most widespread predators overall, sighted at 59.1%, 53.0%, and 44.9% of stations. Snow petrels were also the most abundant predator in the survey, accounting for 34.1% of total individuals observed.</p>
+<p>No species were identified as significant indicators for cluster 1. Species observed at &gt;25% of cluster 1 sites include Adélie penguins, crabeater seals, and Antarctic fur seals, suggesting a pack ice community. In terms of relative abundance, 59.8% of Weddell seals, 43.6% of Adélie penguins, and 20.2% of crabeater seals were sighted in cluster 1. If this cluster represents the pack ice community, the lack of significant indicator species may be attributable to difficulty surveying the pack ice?</p>
 </section>
 </section>
 <section id="cluster-distribution" class="level2">
 <h2 class="anchored" data-anchor-id="cluster-distribution">Cluster distribution</h2>
-<p>How frequent are the different clusters? The marginal ice zone predator community was observed most often, followed by the open water then the pagophilic communities. The pagophilic community was observed most frequently in 2016. Sea ice extent was less in 2016 than 2013 and 2015, so the relative frequency of the pagophilic community in 2016 is initially surprising. However, it may be explained by the greater sea ice in 2013 and 2015 limiting survey access to the Bransfield Strait.</p>
+<p>How frequent are the different clusters and where were they found? The open water community was observed most often, followed by the marginal ice zone then the uncertain communities. The relative frequency of the open water community was greatest in 2012, when survey effort in the Bransfield Strait was most limited, and least in 2016. Generally, the open water community occupied the offshore regions, but in 2014 and 2015 it moved onto the shelf into the triangle between Elephant, Joinville, and George Islands.</p>
+<p>The marginal ice zone community occupied the shallower, western part of the Bransfield Strait, moving offshore of the Shetland Islands in 2014 and north of Elephant Island in 2016.</p>
+<p>The uncertain community was most commonly observed in the south eastern part of the survey region, near Joinville Island. A particularly coherent group of sites in this community formed in 2013 between Joinville Island and the South Shetlands.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>predators_clust <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">factor</span>(Year)) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  crosstable<span class="sc">::</span><span class="fu">crosstable</span>(<span class="st">"Year"</span>, <span class="at">by =</span> <span class="st">"pred_clust"</span>, <span class="at">total =</span> <span class="st">"col"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  crosstable<span class="sc">::</span><span class="fu">as_flextable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>stations_clust <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">factor</span>(Year)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  crosstable<span class="sc">::</span><span class="fu">crosstable</span>(<span class="st">"Year"</span>, <span class="at">by =</span> <span class="st">"pred_clust"</span>, <span class="at">total =</span> <span class="st">"col"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  crosstable<span class="sc">::</span><span class="fu">as_flextable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 
-<div class="tabwid"><style>.cl-a69ce9a6{}.cl-a692c958{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a692c980{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a692ebcc{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a692ebd6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a693382a{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a693383e{width:45.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a693383f{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a6933848{width:45.6pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a6933849{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a693384a{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a6933852{width:45.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a6933853{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a6933854{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a6933855{width:45.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a693385c{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a693385d{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class="cl-a69ce9a6">
-<thead><tr style="overflow-wrap:break-word;"><td rowspan="2" class="cl-a6933852"><p class="cl-a692ebcc"><span class="cl-a692c958">label</span></p></td><td rowspan="2" class="cl-a6933854"><p class="cl-a692ebcc"><span class="cl-a692c958">variable</span></p></td><td colspan="3" class="cl-a6933853"><p class="cl-a692ebcc"><span class="cl-a692c958">pred_clust</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a693385c"><p class="cl-a692ebcc"><span class="cl-a692c958">Open</span></p></td><td class="cl-a693385c"><p class="cl-a692ebcc"><span class="cl-a692c958">Marginal</span></p></td><td class="cl-a693385c"><p class="cl-a692ebcc"><span class="cl-a692c958">Pagophilic</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td rowspan="6" class="cl-a693383e"><p class="cl-a692ebd6"><span class="cl-a692c980">Year</span></p></td><td class="cl-a693383f"><p class="cl-a692ebd6"><span class="cl-a692c980">2012</span></p></td><td class="cl-a693382a"><p class="cl-a692ebd6"><span class="cl-a692c980">72 (62.07%)</span></p></td><td class="cl-a693382a"><p class="cl-a692ebd6"><span class="cl-a692c980">41 (35.34%)</span></p></td><td class="cl-a693382a"><p class="cl-a692ebd6"><span class="cl-a692c980">3 (2.59%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a693383f"><p class="cl-a692ebd6"><span class="cl-a692c980">2013</span></p></td><td class="cl-a693382a"><p class="cl-a692ebd6"><span class="cl-a692c980">41 (13.44%)</span></p></td><td class="cl-a693382a"><p class="cl-a692ebd6"><span class="cl-a692c980">192 (62.95%)</span></p></td><td class="cl-a693382a"><p class="cl-a692ebd6"><span class="cl-a692c980">72 (23.61%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a693383f"><p class="cl-a692ebd6"><span class="cl-a692c980">2014</span></p></td><td class="cl-a693382a"><p class="cl-a692ebd6"><span class="cl-a692c980">140 (34.31%)</span></p></td><td class="cl-a693382a"><p class="cl-a692ebd6"><span class="cl-a692c980">189 (46.32%)</span></p></td><td class="cl-a693382a"><p class="cl-a692ebd6"><span class="cl-a692c980">79 (19.36%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a693383f"><p class="cl-a692ebd6"><span class="cl-a692c980">2015</span></p></td><td class="cl-a693382a"><p class="cl-a692ebd6"><span class="cl-a692c980">143 (41.33%)</span></p></td><td class="cl-a693382a"><p class="cl-a692ebd6"><span class="cl-a692c980">161 (46.53%)</span></p></td><td class="cl-a693382a"><p class="cl-a692ebd6"><span class="cl-a692c980">42 (12.14%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a693383f"><p class="cl-a692ebd6"><span class="cl-a692c980">2016</span></p></td><td class="cl-a693382a"><p class="cl-a692ebd6"><span class="cl-a692c980">43 (12.91%)</span></p></td><td class="cl-a693382a"><p class="cl-a692ebd6"><span class="cl-a692c980">165 (49.55%)</span></p></td><td class="cl-a693382a"><p class="cl-a692ebd6"><span class="cl-a692c980">125 (37.54%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a693384a"><p class="cl-a692ebd6"><span class="cl-a692c980">Total</span></p></td><td class="cl-a6933849"><p class="cl-a692ebd6"><span class="cl-a692c980">439 (29.11%)</span></p></td><td class="cl-a6933849"><p class="cl-a692ebd6"><span class="cl-a692c980">748 (49.60%)</span></p></td><td class="cl-a6933849"><p class="cl-a692ebd6"><span class="cl-a692c980">321 (21.29%)</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-cafb68be{}.cl-caf28ad2{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-caf28af0{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-caf2b08e{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-caf2b0a2{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-caf3157e{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf31588{width:80.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf3159c{width:45.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf3159d{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf315a6{width:84.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf315a7{width:45.6pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf315ba{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf315bb{width:80.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf315c4{width:84.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf315ce{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf315d8{width:45.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf315ec{width:80.5pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf315f6{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf315f7{width:84.1pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf31600{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf3160a{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf31614{width:45.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf3161e{width:80.5pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf3161f{width:84.1pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-caf31628{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class="cl-cafb68be">
+<thead><tr style="overflow-wrap:break-word;"><td rowspan="2" class="cl-caf315d8"><p class="cl-caf2b08e"><span class="cl-caf28ad2">label</span></p></td><td rowspan="2" class="cl-caf315f6"><p class="cl-caf2b08e"><span class="cl-caf28ad2">variable</span></p></td><td colspan="3" class="cl-caf315ec"><p class="cl-caf2b08e"><span class="cl-caf28ad2">pred_clust</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-caf3161e"><p class="cl-caf2b08e"><span class="cl-caf28ad2">Uncertain</span></p></td><td class="cl-caf3161f"><p class="cl-caf2b08e"><span class="cl-caf28ad2">Marginal ice</span></p></td><td class="cl-caf3160a"><p class="cl-caf2b08e"><span class="cl-caf28ad2">Open water</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td rowspan="6" class="cl-caf3159c"><p class="cl-caf2b0a2"><span class="cl-caf28af0">Year</span></p></td><td class="cl-caf3159d"><p class="cl-caf2b0a2"><span class="cl-caf28af0">2012</span></p></td><td class="cl-caf31588"><p class="cl-caf2b0a2"><span class="cl-caf28af0">6 (31.58%)</span></p></td><td class="cl-caf315a6"><p class="cl-caf2b0a2"><span class="cl-caf28af0">3 (15.79%)</span></p></td><td class="cl-caf3157e"><p class="cl-caf2b0a2"><span class="cl-caf28af0">10 (52.63%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-caf3159d"><p class="cl-caf2b0a2"><span class="cl-caf28af0">2013</span></p></td><td class="cl-caf31588"><p class="cl-caf2b0a2"><span class="cl-caf28af0">8 (17.02%)</span></p></td><td class="cl-caf315a6"><p class="cl-caf2b0a2"><span class="cl-caf28af0">16 (34.04%)</span></p></td><td class="cl-caf3157e"><p class="cl-caf2b0a2"><span class="cl-caf28af0">23 (48.94%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-caf3159d"><p class="cl-caf2b0a2"><span class="cl-caf28af0">2014</span></p></td><td class="cl-caf31588"><p class="cl-caf2b0a2"><span class="cl-caf28af0">13 (19.12%)</span></p></td><td class="cl-caf315a6"><p class="cl-caf2b0a2"><span class="cl-caf28af0">20 (29.41%)</span></p></td><td class="cl-caf3157e"><p class="cl-caf2b0a2"><span class="cl-caf28af0">35 (51.47%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-caf3159d"><p class="cl-caf2b0a2"><span class="cl-caf28af0">2015</span></p></td><td class="cl-caf31588"><p class="cl-caf2b0a2"><span class="cl-caf28af0">15 (25.00%)</span></p></td><td class="cl-caf315a6"><p class="cl-caf2b0a2"><span class="cl-caf28af0">14 (23.33%)</span></p></td><td class="cl-caf3157e"><p class="cl-caf2b0a2"><span class="cl-caf28af0">31 (51.67%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-caf3159d"><p class="cl-caf2b0a2"><span class="cl-caf28af0">2016</span></p></td><td class="cl-caf31588"><p class="cl-caf2b0a2"><span class="cl-caf28af0">16 (31.37%)</span></p></td><td class="cl-caf315a6"><p class="cl-caf2b0a2"><span class="cl-caf28af0">21 (41.18%)</span></p></td><td class="cl-caf3157e"><p class="cl-caf2b0a2"><span class="cl-caf28af0">14 (27.45%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-caf315ce"><p class="cl-caf2b0a2"><span class="cl-caf28af0">Total</span></p></td><td class="cl-caf315bb"><p class="cl-caf2b0a2"><span class="cl-caf28af0">58 (23.67%)</span></p></td><td class="cl-caf315c4"><p class="cl-caf2b0a2"><span class="cl-caf28af0">74 (30.20%)</span></p></td><td class="cl-caf315ba"><p class="cl-caf2b0a2"><span class="cl-caf28af0">113 (46.12%)</span></p></td></tr></tbody></table></div>
 </div>
 </div>
-<p>What geospatial patterns do we see in the predator communities? The pagophilic predator community (purple) was largely found within the Bransfield Strait. The marginal ice zone community was mostly distributed around the South Shetland Islands, however in the years 2013 and 2015 (when sea ice extent was greatest) this community was more frequent further offshore. The open water community was found furthest off shore (north in 2012 and 2014, west in 2016), with the exception of 2015 when it moved south to the entrance of the Bransfield Strait, even moving within the Strait. Is this the result of polynyas? Blue line indicates 65% ice concentration contour during the month of August in each year. Notice the limited coverage of the Bransfield Strait in 2012 and 2013, and the absence of eastern stations in 2016.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pred_clust_sf <span class="ot">&lt;-</span> predators_clust <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">ant_proj</span>())</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(pred_clust_sf) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.2</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>icy_open <span class="ot">&lt;-</span> <span class="fu">filter</span>(pred_clust_sf,</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                   pred_clust <span class="sc">==</span> <span class="st">"Open"</span>,</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                   ice_coverage <span class="sc">&gt;=</span> <span class="fl">7.5</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ant_basemap</span>(map_lim) <span class="sc">+</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust), </span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>          pred_clust_sf, </span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="dv">2</span>, </span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">shape =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> seaice_contours, <span class="at">color =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Year) <span class="sc">+</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">55</span>)) <span class="sc">+</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">63</span>, <span class="sc">-</span><span class="dv">62</span>, <span class="sc">-</span><span class="dv">61</span>, <span class="sc">-</span><span class="dv">60</span>)) <span class="sc">+</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">na.value =</span> <span class="st">"transparent"</span>) <span class="sc">+</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_ant</span>(map_lim) <span class="sc">+</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(stations_clust) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.2</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ant_basemap</span>(map_lim) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Sea ice</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(x, y, <span class="at">fill =</span> seaice_conc), </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">filter</span>(seaice_conc_df, seaice_conc <span class="sc">&gt;=</span> <span class="fl">0.65</span>)) <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">lim =</span> <span class="fu">c</span>(<span class="fl">0.65</span>, <span class="dv">1</span>),</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                       <span class="at">palette =</span> <span class="st">"Blues"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                       <span class="at">na.value =</span> <span class="st">"transparent"</span>) <span class="sc">+</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> seaice_contours, <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Predator clusters</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  ggnewscale<span class="sc">::</span><span class="fu">new_scale_fill</span>() <span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> pred_clust), </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>          stations_clust, </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="dv">2</span>, </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">shape =</span> <span class="dv">22</span>) <span class="sc">+</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Year) <span class="sc">+</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">55</span>)) <span class="sc">+</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">63</span>, <span class="sc">-</span><span class="dv">62</span>, <span class="sc">-</span><span class="dv">61</span>, <span class="sc">-</span><span class="dv">60</span>)) <span class="sc">+</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">3</span>))) <span class="sc">+</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_ant</span>(map_lim) <span class="sc">+</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="04_pred_clus_files/figure-html/cluster_maps-1.png" class="img-fluid" width="672"></p>
@@ -520,252 +493,308 @@ a_{ic}=\frac{\sum_{j \in c}x_{ij}/n_c}{\sum_{k=1}^K (\sum_{j \in k}x_{ij}/n_k)}
 </section>
 <section id="nmds" class="level2">
 <h2 class="anchored" data-anchor-id="nmds">NMDS</h2>
-<p>How many NMDS axes should we use? Scree plot</p>
+<section id="nmds-diagnostics" class="level3">
+<h3 class="anchored" data-anchor-id="nmds-diagnostics">NMDS diagnostics</h3>
+<p>How many NMDS axes should we use? Scree plot indicates 3 axes is acceptable.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_stress, <span class="fu">aes</span>(k, stress)) <span class="sc">+</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span>), <span class="at">linetype =</span> <span class="st">"dotted"</span>) <span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> nmds_stress<span class="sc">$</span>k) <span class="sc">+</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_stress, <span class="fu">aes</span>(k, stress)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span>), <span class="at">linetype =</span> <span class="st">"dotted"</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> nmds_stress<span class="sc">$</span>k) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="04_pred_clus_files/figure-html/nmds-scree-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>3 axes for NMDS looks acceptable. How does ordination distance compare to dissimilarity (Shepard diagram)?</p>
+<p>Shepard diagram demonstrates the ordination distance and observed dissimilarity are acceptably correlated.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>nmds_spear <span class="ot">&lt;-</span> <span class="fu">cor</span>(nmds_shepard<span class="sc">$</span>diss,</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                  nmds_shepard<span class="sc">$</span>dist,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>nmds_label <span class="ot">&lt;-</span> <span class="fu">str_glue</span>(</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Non-metric fit, R^2 = {round(1 - nmds_sightings$stress^2, 3)}</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Linear fit, R^2 = {round(nmds_spear^2, 3)}</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"k = {nmds_sightings$ndim}</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Stress = {round(nmds_sightings$stress, 3)}"</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_shepard, <span class="fu">aes</span>(diss, dist)) <span class="sc">+</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> mono), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.05</span>, <span class="at">y =</span> <span class="fl">2.9</span>, <span class="at">label =</span> nmds_label,</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Observed dissimilarity"</span>,</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Ordination distance"</span>) <span class="sc">+</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>nmds_spear <span class="ot">&lt;-</span> <span class="fu">cor</span>(nmds_shepard<span class="sc">$</span>diss,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                  nmds_shepard<span class="sc">$</span>dist,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>nmds_label <span class="ot">&lt;-</span> <span class="fu">str_glue</span>(</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Non-metric fit, R^2 = {round(1 - nmds_sightings$stress^2, 3)}</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Linear fit, R^2 = {round(nmds_spear^2, 3)}</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"k = {nmds_sightings$ndim}</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Stress = {round(nmds_sightings$stress, 3)}"</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_shepard, <span class="fu">aes</span>(diss, dist)) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> mono), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.05</span>, <span class="at">y =</span> <span class="fl">2.9</span>, <span class="at">label =</span> nmds_label,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Observed dissimilarity"</span>,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Ordination distance"</span>) <span class="sc">+</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="04_pred_clus_files/figure-html/nmds-shepard-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>NMDS plots, color-coded by predator cluster.</p>
+</section>
+<section id="environmental-loading" class="level3">
+<h3 class="anchored" data-anchor-id="environmental-loading">Environmental loading</h3>
+<p>Only two environmental variables were significantly correlated with the NMDS axes: sampling year and ice coverage, with <span class="math inline">\(r^2\)</span> values of 0.061 and 0.053, respectively. Compare this to the macrozooplankton analysis, where 8 environmental values were significantly correlated with the NMDS axes and <span class="math inline">\(r^2\)</span> values were as high as 0.36 (chl <em>a</em> in the upper 100 m) and 0.703 (upper mixed layer salinity).</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS1, NMDS2)) <span class="sc">+</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust)) <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>nmds_envfit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+***VECTORS
+
+                   NMDS1    NMDS2    NMDS3     r2 Pr(&gt;r)  
+zuml_m           0.40862  0.87690  0.25315 0.0036  0.886  
+avg.temp         0.02450  0.47593  0.87914 0.0289  0.137  
+avg.salinity    -0.21281  0.81690 -0.53608 0.0042  0.851  
+Integ.chla.100m  0.58009 -0.68159  0.44601 0.0084  0.676  
+Integ.phae.100m -0.62639  0.77907  0.02640 0.0118  0.535  
+ice_coverage     0.29566 -0.34014 -0.89269 0.0530  0.019 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Permutation: free
+Number of permutations: 999
+
+***FACTORS:
+
+Centroids:
+                     NMDS1   NMDS2   NMDS3
+TOD_2levels_civilD  0.0039  0.0135 -0.0178
+TOD_2levels_civilN -0.0342 -0.0532  0.0422
+Year2012           -0.0506 -0.1034  0.2666
+Year2013           -0.0599 -0.3141 -0.0313
+Year2014           -0.0119 -0.0128  0.0616
+Year2015           -0.0359  0.2545 -0.0718
+Year2016            0.0960  0.0877 -0.0443
+zoop_clust1         0.0208  0.0409 -0.0117
+zoop_clust2a        0.0488  0.0502 -0.0046
+zoop_clust2b       -0.0360 -0.1098  0.1243
+zoop_clust3a       -0.1339 -0.1791  0.1201
+zoop_clust3b       -0.1906 -0.0757 -0.3073
+ice_typeOPEN       -0.0241  0.0746  0.0986
+ice_typeTHIN       -0.0352 -0.0029 -0.0933
+ice_typeFY          0.0234 -0.0443  0.0421
+ice_typeMY          0.5843  0.2982 -0.0369
+
+Goodness of fit:
+                      r2 Pr(&gt;r)   
+TOD_2levels_civil 0.0024  0.725   
+Year              0.0612  0.002 **
+zoop_clust        0.0282  0.203   
+ice_type          0.0141  0.473   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Permutation: free
+Number of permutations: 999
+
+56 observations deleted due to missingness</code></pre>
+</div>
+</div>
+<p>NMDS plots, color-coded by predator cluster with year and ice coverage loadings.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ice_vector <span class="ot">&lt;-</span> <span class="fu">scores</span>(nmds_envfit, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">display =</span> <span class="st">"vectors"</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"envvar"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"NMDS"</span>),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                <span class="sc">~</span> .x <span class="sc">*</span> <span class="fu">ordiArrowMul</span>(nmds_envfit))) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(envvar <span class="sc">==</span> <span class="st">"ice_coverage"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>year_centroids <span class="ot">&lt;-</span> <span class="fu">scores</span>(nmds_envfit, </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">display =</span> <span class="st">"factors"</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"envvar"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(envvar, <span class="st">"Year"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"NMDS"</span>),</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>                <span class="sc">~</span> .x <span class="sc">*</span> <span class="fu">ordiArrowMul</span>(nmds_envfit)),</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">Year =</span> <span class="fu">substr</span>(envvar, <span class="dv">5</span>, <span class="dv">8</span>))</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS1, NMDS2)) <span class="sc">+</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust), <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> year_centroids, </span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">18</span>,</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">2.5</span>,</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> Year),</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>                           year_centroids) <span class="sc">+</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> NMDS1, <span class="at">yend =</span> NMDS2),</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>               ice_vector, </span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>               <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>,</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="fl">1.5</span>,</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.65</span>,</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">angle =</span> <span class="dv">20</span>, <span class="at">length =</span> <span class="fu">unit</span>(<span class="dv">15</span>, <span class="st">"points"</span>))) <span class="sc">+</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="at">data =</span> ice_vector,</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>                           <span class="at">label =</span> <span class="st">"Ice coverage"</span>) <span class="sc">+</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Predator cluster"</span>) <span class="sc">+</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
 <div class="cell-output-display">
 <p><img src="04_pred_clus_files/figure-html/loading-1.png" class="img-fluid" width="672"></p>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS1, NMDS3)) <span class="sc">+</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust)) <span class="sc">+</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS1, NMDS3)) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust), <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> year_centroids, </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">18</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">2.5</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> Year),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                           year_centroids) <span class="sc">+</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> NMDS1, <span class="at">yend =</span> NMDS3),</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>               ice_vector, </span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="fl">1.5</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.65</span>,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">angle =</span> <span class="dv">20</span>, <span class="at">length =</span> <span class="fu">unit</span>(<span class="dv">15</span>, <span class="st">"points"</span>))) <span class="sc">+</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="at">data =</span> ice_vector,</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>                           <span class="at">label =</span> <span class="st">"Ice coverage"</span>) <span class="sc">+</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Predator cluster"</span>) <span class="sc">+</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="04_pred_clus_files/figure-html/loading-2.png" class="img-fluid" width="672"></p>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS2, NMDS3)) <span class="sc">+</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust)) <span class="sc">+</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS2, NMDS3)) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust), <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> year_centroids, </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">18</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">2.5</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> Year),</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>                           year_centroids) <span class="sc">+</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> NMDS2, <span class="at">yend =</span> NMDS3),</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>               ice_vector, </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>,</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="fl">1.5</span>,</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.65</span>,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">angle =</span> <span class="dv">20</span>, <span class="at">length =</span> <span class="fu">unit</span>(<span class="dv">15</span>, <span class="st">"points"</span>))) <span class="sc">+</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="at">data =</span> ice_vector,</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>                           <span class="at">label =</span> <span class="st">"Ice coverage"</span>) <span class="sc">+</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Predator cluster"</span>) <span class="sc">+</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="04_pred_clus_files/figure-html/loading-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="environmental-loadings" class="level2">
-<h2 class="anchored" data-anchor-id="environmental-loadings">Environmental loadings</h2>
-<p>I compared the drivers of community structure two ways: physics (hydrology and ice coverage) and zooplankton (community assignments). Here’s what makes jumps out at me:</p>
-<ul>
-<li>Predator cluster associations with ice kind of track with what we expected. The pagophilic predator cluster correlates with first-year ice, open ocean predators with open ice, marginal ice predators with thin ice. Weirdly, multi-year ice falls among the open ocean predators, but only two stations were classified as multi-year ice so it’s probably a small sample size thing.</li>
-<li>Predator cluster 1 (open water) and 2 (marginal ice zone) are associated with higher temperatures and zooplankton cluster 2 (small euphausiids, amphipods, etc). They differ in the open water predator cluster was found in areas with greater phaeopigment and the marginal ice cluster in areas with greater chlorophyll-a.</li>
-<li>Predator cluster 3 (pagophilic) is associated with higher salinity, deeper mixed layer, and macrozooplankton cluster 3 (big euphausiids, Metridia, etc)</li>
-<li>Macrozooplankton cluster 1 (salps etc) evenly distributed across predator clusters</li>
-</ul>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>station_ice <span class="ot">&lt;-</span> predators_stations <span class="sc">%&gt;%</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(amlr.station, ice_type, ice_coverage) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Evironmental variables</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>station_env <span class="ot">&lt;-</span> zoop_sf <span class="sc">%&gt;%</span> </span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(amlr.station, zuml_m, avg.temp, avg.salinity, Integ.chla<span class="fl">.100</span>m, </span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>         Integ.phae<span class="fl">.100</span>m, TOD_2levels_civil, Year, </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">zoop =</span> <span class="st">`</span><span class="at">Winter Cluster factor</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(stations_ice, <span class="at">by =</span> <span class="st">"amlr.station"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">factor</span>(Year)) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">map_int</span>(<span class="fu">rownames</span>(sightings_mtx),</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>                <span class="sc">~</span> <span class="fu">which</span>(.x <span class="sc">==</span> amlr.station))) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>amlr.station, <span class="sc">-</span>geometry)</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit multiple regression model</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>pred_envfit <span class="ot">&lt;-</span> <span class="fu">envfit</span>(nmds_sightings, </span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>                      station_env, </span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>                      <span class="at">permutations =</span> <span class="dv">999</span>, </span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>                      <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>                      <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract envfit vectors and factors</span></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>envfit_vecs <span class="ot">&lt;-</span> <span class="fu">scores</span>(pred_envfit, </span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>                      <span class="at">display =</span> <span class="st">"vectors"</span>,</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>                      <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"envvar"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"NMDS"</span>),</span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>                <span class="sc">~</span> .x <span class="sc">*</span> <span class="fu">ordiArrowMul</span>(pred_envfit)))</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>envfit_facs <span class="ot">&lt;-</span> <span class="fu">scores</span>(pred_envfit, </span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>                      <span class="at">display =</span> <span class="st">"factors"</span>,</span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>                      <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"envvar"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"NMDS"</span>),</span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>                <span class="sc">~</span> .x <span class="sc">*</span> <span class="fu">ordiArrowMul</span>(pred_envfit)))</span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Hydrology plot</span></span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>hydro_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS1, NMDS2)) <span class="sc">+</span></span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust)) <span class="sc">+</span></span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> NMDS1, <span class="at">yend =</span> NMDS2),</span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> envfit_vecs,</span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"grey50"</span>,</span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">x =</span> NMDS1, <span class="at">y =</span> NMDS2, <span class="at">label =</span> envvar),</span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>                           <span class="at">data =</span> envfit_vecs) <span class="sc">+</span></span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Ice plot</span></span>
-<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>ice_facs <span class="ot">&lt;-</span> <span class="fu">filter</span>(envfit_facs, <span class="fu">str_detect</span>(envvar, <span class="st">"ice_type"</span>))</span>
-<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>ice_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS1, NMDS2)) <span class="sc">+</span></span>
-<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust)) <span class="sc">+</span></span>
-<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> NMDS1, <span class="at">y =</span> NMDS2),</span>
-<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> ice_facs,</span>
-<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">x =</span> NMDS1, <span class="at">y =</span> NMDS2, <span class="at">label =</span> envvar),</span>
-<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>                           <span class="at">data =</span> ice_facs) <span class="sc">+</span></span>
-<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
-<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a><span class="co"># Macrozooplankton plot</span></span>
-<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>zoop_facs <span class="ot">&lt;-</span> <span class="fu">filter</span>(envfit_facs, <span class="fu">str_detect</span>(envvar, <span class="st">"zoop"</span>))</span>
-<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>zoop_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nmds_df, <span class="fu">aes</span>(NMDS1, NMDS2)) <span class="sc">+</span></span>
-<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust)) <span class="sc">+</span></span>
-<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> NMDS1, <span class="at">y =</span> NMDS2),</span>
-<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> zoop_facs,</span>
-<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">x =</span> NMDS1, <span class="at">y =</span> NMDS2, <span class="at">label =</span> envvar),</span>
-<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>                           <span class="at">data =</span> zoop_facs) <span class="sc">+</span></span>
-<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
-<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>layout <span class="ot">&lt;-</span> <span class="st">"</span></span>
-<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a><span class="st">AAAA</span></span>
-<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a><span class="st">AAAA</span></span>
-<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a><span class="st">BBCC</span></span>
-<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a><span class="st">"</span></span>
-<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a>hydro_plot <span class="sc">+</span> ice_plot <span class="sc">+</span> zoop_plot <span class="sc">+</span> </span>
-<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">design =</span> layout, <span class="at">guides =</span> <span class="st">"collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>Summaries of environmental conditions by cluster.</p>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">amlr.station =</span> <span class="fu">names</span>(clust),</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">pred_clust =</span> <span class="fu">factor</span>(clust,</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Open"</span>, <span class="st">"Marginal"</span>, <span class="st">"Pagophilic"</span>))</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">as_tibble</span>(zoop_sf),</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>           amlr.station, avg.salinity, Integ.chla<span class="fl">.100</span>m),</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"amlr.station"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">select</span>(stations_ice, amlr.station, ice_coverage),</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"amlr.station"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(avg.salinity<span class="sc">:</span>ice_coverage, </span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"envvar"</span>,</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"envval"</span>)</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(envvar) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">envaov =</span> <span class="fu">list</span>(<span class="fu">aov</span>(envval <span class="sc">~</span> pred_clust))) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Fval =</span> <span class="fu">map_dbl</span>(envaov, \(aov) <span class="fu">summary</span>(aov)[[<span class="dv">1</span>]]<span class="sc">$</span><span class="st">`</span><span class="at">F value</span><span class="st">`</span>[<span class="dv">1</span>]),</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">pval =</span> <span class="fu">map_dbl</span>(envaov, \(aov) <span class="fu">summary</span>(aov)[[<span class="dv">1</span>]]<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span>[<span class="dv">1</span>]))</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>env <span class="sc">%&gt;%</span> </span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pred_clust, envvar) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(envval, <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">partial</span>(mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>                                <span class="at">sd =</span> <span class="fu">partial</span>(sd, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))),</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
 </section>
 <section id="clusters-by-ice-coverage" class="level2">
 <h2 class="anchored" data-anchor-id="clusters-by-ice-coverage">Clusters by ice coverage</h2>
-<p>I asserted the clusters corresponded to open water, marginal ice, and pack ice communities. Let’s verify that.</p>
+<p>Median ice coverage increased from the open water cluster (median 33.0%) to the marginal ice (59.6%) and uncertain (70.6%) clusters. This supports the labels of “open water” and “marginal ice” for clusters 3 and 2, respectively. Also provides evidence for the “pack ice” cluster.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pred_clust_ice <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">amlr.station =</span> <span class="fu">names</span>(clust),</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">pred_clust =</span> <span class="fu">factor</span>(clust,</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Open"</span>, <span class="st">"Marginal"</span>, <span class="st">"Pagophilic"</span>))</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(stations_ice,</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"amlr.station"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(ice_coverage)</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pred_clust_ice, <span class="fu">aes</span>(<span class="at">x =</span> ice_coverage <span class="sc">/</span> <span class="dv">10</span>, <span class="at">fill =</span> <span class="fu">after_stat</span>(x))) <span class="sc">+</span> </span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"grey30"</span>) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>median_coverge <span class="ot">&lt;-</span> stations_clust <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(ice_coverage) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pred_clust) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">median_ice =</span> <span class="fu">median</span>(ice_coverage <span class="sc">/</span> <span class="dv">10</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(stations_clust, </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> ice_coverage <span class="sc">/</span> <span class="dv">10</span>, <span class="at">fill =</span> <span class="fu">after_stat</span>(x))) <span class="sc">+</span> </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"grey30"</span>) <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> median_ice),</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>             median_coverge,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"Blues"</span>, <span class="at">guide =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(pred_clust)) <span class="sc">+</span></span>
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Ice coverage"</span>,</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Station count"</span>) <span class="sc">+</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"# sites"</span>) <span class="sc">+</span></span>
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9 rows containing non-finite values (`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="04_pred_clus_files/figure-html/ice_clusters-1.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 </section>
 <section id="predator-x-prey-clusters" class="level2">
 <h2 class="anchored" data-anchor-id="predator-x-prey-clusters">Predator <em>x</em> prey clusters</h2>
-<p>Predator/prey cluster associations were statistically significant. The most positive residuals were between pagophilic predators x zooplankton 3b (4.07), pagophilic predators x zooplankton 3a (2.68), marginal ice zone predators x zooplankton 2a (2.33), and open water predators x zooplankton 2b (1.82). Zooplankton 1 was not</p>
+<p>Predator/prey cluster associations were statistically significant overall (<span class="math inline">\(\chi = 53.6, p&lt;0.001\)</span>) as were 5 pairwise associations after applying Bonferroni correction. The marginal ice and uncertain predator communities were positively associated with macrozooplankton communities 3b (large krill, including <em>E. superba</em>) and 3a (an extremely diverse assemblage associated with cold, high salinity water), respectively. The open water predator community was positively associated with cluster 2b (<em>Thysanoessa macrura</em>) and negatively associated with 3a and 3b. Macrozooplankton cluster 1 (a ubiquitous cluster indicated by <em>Salpa</em> and <em>Clione</em>) was not significantly associated with any predator cluster. Neither was macrozooplankton cluster 2a (indicated by important prey species such as <em>E. frigida</em>, <em>E. triacantha</em>, myctophid larvae, and <em>Themisto gaudichaudii</em>), but it associated most often with the open water predator cluster.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>pred_prey <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(pred_clust) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(amlr.station, pred_clust) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">select</span>(<span class="fu">as_tibble</span>(zoop_sf), </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                   amlr.station, </span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">prey_clust =</span> <span class="st">`</span><span class="at">Winter Cluster factor</span><span class="st">`</span>),</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"amlr.station"</span>)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>pred_prey_chisq <span class="ot">&lt;-</span> <span class="fu">with</span>(pred_prey, <span class="fu">chisq.test</span>(pred_clust, prey_clust))</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>pred_prey_chisq</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>pred_prey_chisq<span class="sc">$</span>residuals</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pred_prey_chisq <span class="ot">&lt;-</span> <span class="fu">with</span>(stations_clust, </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">chisq.test</span>(pred_clust, </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">`</span><span class="at">Winter Cluster factor</span><span class="st">`</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">simulate.p.value =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>pred_prey_chisq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test with simulated p-value (based on 2000
+    replicates)
+
+data:  pred_clust and Winter Cluster factor
+X-squared = 53.608, df = NA, p-value = 0.0004998</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pred_prey_chisq<span class="sc">$</span>residuals</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Winter Cluster factor
+pred_clust              1         2a         2b         3a         3b
+  Uncertain     0.2780373 -0.5848185 -1.4524028  3.6007890 -1.2567901
+  Marginal ice  0.1048690 -0.9683823 -1.4619767 -0.5331966  4.0520606
+  Open water   -0.2840587  1.2026349  2.2236355 -2.1482360 -2.3786799</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pred_prey_table <span class="ot">&lt;-</span> <span class="fu">with</span>(stations_clust, <span class="fu">table</span>(pred_clust, </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                                              <span class="st">`</span><span class="at">Winter Cluster factor</span><span class="st">`</span>))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>chisq.posthoc.test<span class="sc">::</span><span class="fu">chisq.posthoc.test</span>(pred_prey_table, </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">simulate.p.value =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(Dimension, Value), </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"zoop_clust"</span>, </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"Value"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="st">`</span><span class="at">p values</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">p values</span><span class="st">`</span> <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  Dimension    zoop_clust Residuals `p values`
+  &lt;chr&gt;        &lt;chr&gt;          &lt;dbl&gt;      &lt;dbl&gt;
+1 Marginal ice 3b              5.06   0.000006
+2 Uncertain    3a              4.31   0.000244
+3 Open water   3b             -3.38   0.0108  
+4 Open water   2b              3.31   0.0139  
+5 Open water   3a             -3.06   0.0331  </code></pre>
+</div>
 </div>
 </section>
 <section id="section" class="level2 unnumbered">

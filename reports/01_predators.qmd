@@ -28,7 +28,7 @@ The five most abundant species (in ind nmi\^-1).
 
 top_five <- predators_agg %>% 
   group_by(species) %>% 
-  summarize(total_count = sum(count_norm)) %>% 
+  summarize(total_count = sum(count)) %>% 
   arrange(desc(total_count)) %>%
   slice(1:5)
 
@@ -40,7 +40,7 @@ top_five
 top_five_plot_data <- predators_agg %>% 
   semi_join(top_five, by = "species") %>% 
   group_by(year, species) %>% 
-  summarize(total = sum(count_norm), .groups = "drop") %>% 
+  summarize(total = sum(count), .groups = "drop") %>% 
   mutate(species = fct_reorder(species, total, .fun = sum),
          year = factor(year, levels = 2016:2012))
 year_labels <- top_five_plot_data %>% 

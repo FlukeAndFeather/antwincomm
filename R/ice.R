@@ -79,14 +79,15 @@ collect_seaice <- function(seaice_dir) {
   proj_ext <- ext(-67, -50, -68, -55) %>%
     project(from = "epsg:4326",
             to = crs(seaice))
-  crop(seaice, proj_ext)
+  wrap(crop(seaice, proj_ext))
 }
 
-seaice2contour <- function(seaice_dir, contour_level) {
-  seaice_rast <- collect_seaice(seaice_dir)
+seaice2contour <- function(seaice_rast, contour_level) {
+  seaice_rast <- unwrap(seaice_rast)
   map(
     seq(nlyr(seaice_rast)),
-    ~ as.contour(seaice_rast[[.x]], levels = contour_level * 1000)
+    ~ as.contour(seaice_rast[[.x]],
+                 levels = contour_level * 1000)
   ) %>%
     vect() %>%
     mutate(Year = 2012:2016,
@@ -94,8 +95,8 @@ seaice2contour <- function(seaice_dir, contour_level) {
     wrap()
 }
 
-seaice2df <- function(seaice_dir) {
-  seaice_rast <- collect_seaice(seaice_dir)
+seaice2df <- function(seaice_rast) {
+  seaice_rast <- unwrap(seaice_rast)
   proj_ext <- ext(-67, -50, -68, -55) %>%
     project(from = "epsg:4326",
             to = crs(seaice_rast))

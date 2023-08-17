@@ -1,11 +1,10 @@
 # Calculate NMDS stress across numbers of axes
-stress <- function(mtx, k) {
+stress <- function(dist, k) {
   tibble(
     k = k,
     stress = map_dbl(k, \(k) {
       vegan::metaMDS(
-        mtx,
-        distance = "bray",
+        dist,
         k = k,
         trymax = 100,
         trace = FALSE
@@ -43,5 +42,6 @@ env_data <- function(stations, ice, predators) {
     select(ice, amlr.station, ice_type, ice_coverage),
     by = "amlr.station"
   ) %>%
-    semi_join(predators, by = "amlr.station")
+    semi_join(predators, by = "amlr.station") %>%
+    mutate(Year = factor(Year))
 }

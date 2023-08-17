@@ -44,13 +44,16 @@ list(
   tar_target(predators_sf,
              latlon_to_sf(predators_agg, coords = c("lon_mean", "lat_mean"))),
   # Effort
-  tar_target(effort,
-             predators %>%
-               filter(nmi < 1000) %>%
-               mutate(year = lubridate::year(lubridate::mdy_hm(UTC_start))) %>%
-               group_by(cruise, year, interval, lon_mean, lat_mean) %>%
-               summarize(nmi = sum(nmi), .groups = "drop") %>%
-               mutate(species = "survey", count_norm = 1)),
+  tar_target(
+    effort,
+    predators %>%
+      distinct(cruise, processID, interval, UTC_start, UTC_end, nmi,
+               lon_mean, lat_mean) %>%
+      filter(nmi < 1000) %>%
+      mutate(UTC_start = lubridate::mdy_hm(UTC_start),
+             year = lubridate::year(UTC_start),
+             species = "survey")
+  ),
   tar_target(effort_sf,
              latlon_to_sf(effort, coords = c("lon_mean", "lat_mean"))),
   # Zooplankton
@@ -92,12 +95,13 @@ list(
     here("data", "ice", "Aug sea ice concentration"),
     format = "file"
   ),
-  tar_target(seaice_contours, seaice2contour(seaice_dir, 0.65)),
-  tar_target(seaice_conc_df, seaice2df(seaice_dir)),
-  # Aggregate predators and ice observations
+  tar_target(seaice_rast, collect_seaice(seaice_dir)),
+  tar_target(seaice_contours, seaice2contour(seaice_rast, 0.65)),
+  tar_target(seaice_conc_df, seaice2df(seaice_rast)),
+  # Aggregate effort and ice observations
   tar_target(
     station_effort,
-    assign_sightings(effort_sf, zoop_sf, max_dist_km = 15) %>%
+    assign_sightings(effort_sf, zoop_sf, max_dist_km = 15, max_days = 1) %>%
       group_by(year, amlr.station) %>%
       summarize(survey_nmi = sum(nmi), .groups = "drop")
   ),
@@ -107,10 +111,9 @@ list(
   ),
   tar_target(
     predators_stations,
-    assign_sightings(predators_sf, zoop_sf, max_dist_km = 15) %>%
-      normalize_counts(station_effort, zoop_sf) %>%
-      left_join(stations_ice, by = "amlr.station") %>%
-      filter(!species %in% c("UNSE", "UNPR", "UGPT", "UNPN"))
+    assign_sightings(predators_sf, zoop_sf, max_dist_km = 15, max_days = 3) %>%
+      normalize_counts(station_effort) %>%
+      filter_species(station_thr = 0.00)
   ),
   # Clustering
   tar_target(sightings_mtx, sightings_to_matrix(predators_stations)),
@@ -135,8 +138,7 @@ list(
   tar_target(nmds_stress, stress(sightings_mtx, k = 1:6)),
   tar_target(nmds_sightings,
              vegan::metaMDS(
-               sightings_mtx,
-               distance = "bray",
+               sightings_dist,
                k = 3,
                trymax = 100,
                trace = FALSE)),

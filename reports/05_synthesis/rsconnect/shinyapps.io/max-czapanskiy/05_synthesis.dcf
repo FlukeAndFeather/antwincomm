@@ -1,0 +1,10 @@
+name: 05_synthesis
+title:
+username: max-czapanskiy
+account: max-czapanskiy
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 9591864
+bundleId:
+url: https://max-czapanskiy.shinyapps.io/05_synthesis/
+version: 1
