@@ -1,6 +1,6 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
 .ggOceanMapsenv|object|9be416b0fcb5a722|||||||||||||||
-.Random.seed|object|d5705d946a00ff5c|||||||||||||||
+.Random.seed|object|c15bade13904822c|||||||||||||||
 abu_adpn|object|d5818fb3ef181eba|||||||||||||||
 abu_anfu|object|217cd49552bd0308|||||||||||||||
 adpn|object|52fdc4c2d65599ed|||||||||||||||
@@ -19,6 +19,7 @@ bc_dist|object|05d61dc69a9718ad|||||||||||||||
 check_wamlr|function|962a9e009fcc84ad|||||||||||||||
 clean_ice|function|05226612d1013b1e|||||||||||||||
 cluster_gap|function|0861c5eb2266a9c7|||||||||||||||
+code_to_common|function|4eec73b98411941f|||||||||||||||
 collect_seaice|function|57aec6b806ea0db7|||||||||||||||
 coord_ant|function|cdecfd86ec5673e6|||||||||||||||
 create_ant_sf|function|2c61d9d32e09ae11|||||||||||||||
@@ -49,7 +50,7 @@ nc1|object|0fbe831a95534477|||||||||||||||
 nc3|object|d90cc0e0a92082ce|||||||||||||||
 ne_data|stem|a321285c9c5667c6|08f4b1ea773d5b36|358148deb8fc7a7b|-394386540||t19583.9656252944s|22f8ef7af814df30|3178638|rds|local|vector|||0.975||
 ne_dir|stem|8f72953e55934289|9ef4bcd80e137b54|4e3739ef91745af0|-1431853077|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/geospatial/ne|t19429.7879181002s|73a5f5604ca1ab33|288|file|local|vector|||3.114||
-nmds_df|stem|57f83973e5e1b0db|a664bdd86bb30d6b|930dc2f185cffa53|-1075263988||t19586.6883220241s|e62c89919cf1b3f1|16423|rds|local|vector|||0.016||
+nmds_df|stem|a32d5a47263832eb|a664bdd86bb30d6b|3661aa7cbb8d7fec|-1075263988||t19587.7616065827s|9e35d6667d996b24|16436|rds|local|vector|||0.016||
 nmds_env|stem|511332af59667671|2674312a668d9204|7d115a729c032a66|-804096964||t19586.6965497324s|fb174744f3cf4598|10122|rds|local|vector|||0.023||
 nmds_envfit|stem|e9c4b5a34a6a43b8|005330d33d38d04c|1b8c74e8ee5a5591|1173447826||t19586.6965690048s|d0868d5581cc8454|1779|rds|local|vector|||1.635||
 nmds_label|object|64a825570853fc62|||||||||||||||
@@ -57,7 +58,7 @@ nmds_shepard|stem|b182c4b12d1482e5|1fd50ca428e83b4e|68d4261d8b04f82d|408199445||
 nmds_sightings|stem|41b897d511235779|71d3d3b575bda29d|0dca7f941615a003|-433491751||t19586.6615876046s|0aefe3404030a044|533358|rds|local|vector|||5.18||
 nmds_spear|object|3a34a49645074c96|||||||||||||||
 nmds_stress|stem|6e3b8122d1d2516c|7288b1ed632cb399|5e7f8e9e7dab7e02|-145042907||t19586.6613225182s|036fa79c5dd9944c|238|rds|local|vector|||57.59||
-nmds_to_df|function|8b6a171f1cfa529c|||||||||||||||
+nmds_to_df|function|e56079c3dcd4ccb1|||||||||||||||
 normalize_counts|function|11d26b0019d6b302|||||||||||||||
 p|object|b8b5a0d5d780e5b7|||||||||||||||
 pic_adpn|object|e3b943fa04c59a15|||||||||||||||
@@ -66,14 +67,13 @@ pred_clust_mrca|object|d8af2bff68cdeac8|||||||||||||||
 pred_frac|object|7cddab43c009b974|||||||||||||||
 predators|stem|55fddb8cb2c8c3b6|950e72a72240abae|d38a35dc5dc62a92|-164442843||t19583.9142321757s|3731c1f15cdca704|972063|rds|local|vector|||0.188||
 predators_agg|stem|392e0971c6d66a79|1f53c6d2d5b8cbec|c10f82bb7cfd968b|-374844731||t19583.9691398374s|887c230fc13de4c0|137359|rds|local|vector|||0.086||
-predators_clust|stem|941514e5eff374db|c50c9f19da33822d|248599db3c6c4812|-1175719319||t19586.6883215588s|4f081115f3d91f81|16835|rds|local|vector|||0.008||
+predators_clust|stem|17572962d77b0a6f|c50c9f19da33822d|ad1153307a3719de|-1175719319||t19587.7616061272s|4f3d875746f0116a|16833|rds|local|vector|||0.008||
 predators_file|stem|fc2f43e02077adfa|c25ecba9e733d114|2adb22bdbd8253cb|1489732230|/Users/frank/Documents/GitHub/manuscripts/antwincomm/data/WAMLR/WAMLR-2012-2016-Underway-Predator-Sightings.csv|t19429.9001013099s|675861551bea89bc|4474693|file|local|vector|||0.002||
 predators_sf|stem|f672b97a6ac7297b|f97dc84afa040797|0660bb48f5d30c16|25197916||t19583.9691487173s|dc90e5dbf3f953e6|145253|rds|local|vector|||0.577||
 predators_stations|stem|7e13906e7c6c7add|d567fb60b87984dc|d11fa59e959753c4|-713016168||t19586.6606549438s|182ec1676596ac77|15236|rds|local|vector|||0.913||
 project_bbox|function|2dd3ee9b088439f3|||||||||||||||
 rasterize_counts|function|189ac3fa5f12396d|||||||||||||||
 read_zoop|function|a429f63cd4d404f7|||||||||||||||
-reports|object|ef46db3751d8e999|||||||||||||||
 sac|object|9e15eebd565077fe|||||||||||||||
 seaice_conc_df|stem|ff521e033e9a767e|b8425ff222a1ceae|9685384313c3dae7|1352802934||t19583.9656711463s|967f093aae7eece9|36589|rds|local|vector|||0.337||
 seaice_contours|stem|3b6fa5b0f402b403|eba8cd90706dca64|b1566fc7ea073d7f|794419364||t19583.9656667484s|b3c151c7aa792b2a|6949|rds|local|vector|||0.319||
@@ -93,11 +93,11 @@ station_effort|stem|5b390c3d232cfc7b|3ddae57b83faa617|0116ebe43bf723bf|-18141103
 station_loc|object|82a8b18f708f5f6e|||||||||||||||
 station_name|object|2a2e6095dc4cc275|||||||||||||||
 station_sf|object|07968bd33c890c6f|||||||||||||||
-station_to_cluster|function|22e95934d14918da|||||||||||||||
+station_to_cluster|function|95bf69ab15a36af4|||||||||||||||
 station_track|object|95269e76cc125835|||||||||||||||
 station_track_sfg|object|47d0e24daba8201e|||||||||||||||
 station_utc|object|af80bf18605e219c|||||||||||||||
-stations_clust|stem|4d8a77d94e605625|9c72fc0b9875bf7e|181d12b15b373e98|-1815329802||t19586.6883225967s|f56ce7fec2e5aba7|94671|rds|local|vector|||0.018||
+stations_clust|stem|ba79407a7c18431b|9c72fc0b9875bf7e|49653f508c918f2d|-1815329802||t19587.7616072288s|433a77bc6b757b58|94667|rds|local|vector|||0.017||
 stations_ice|stem|ebf5e238590a566d|ef13596ec078da53|e9ae2625261f7ad1|-2147004053||t19583.9658307716s|a5853091f78c2b22|3892|rds|local|vector|||13.494||
 stress|function|c9a64d36e99e7b1a|||||||||||||||
 tibs_thr|object|df2f461306fb728c|||||||||||||||

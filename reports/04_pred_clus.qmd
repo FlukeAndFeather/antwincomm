@@ -14,6 +14,7 @@ bibliography: references.bib
 #| include: false
 
 library(ggtree)
+library(gridExtra)
 library(patchwork)
 library(sf)
 library(targets)
@@ -22,6 +23,7 @@ library(tidyverse)
 library(vegan)
 
 tar_load_everything(store = here::here("_targets"))
+source(here::here("R", "predators.R"))
 source(here::here("R", "sp.R"))
 source(here::here("R", "zoop.R"))
 seaice_contours <- terra::unwrap(seaice_contours)
@@ -108,8 +110,9 @@ Which species best represent each cluster? Using Dufrene-Legendre indicator spec
 indval_mtx <- sightings_indval$indval
 indval_fmt <- apply(indval_mtx, 2, function(x) {
   ord <- order(x, decreasing = TRUE)
+  species <- code_to_common(rownames(indval_mtx))
   result <- ifelse(x >= 0.25, 
-         str_glue("{rownames(indval_mtx)} ({round(x * 100)}%)"),
+         str_glue("{species} ({round(x, 2)})"),
          NA) %>% 
     `[`(ord) %>% 
     na.omit() %>% 
@@ -124,8 +127,8 @@ as_tibble(t(indval_fmt)) %>%
 
 ### Cluster interpretation
 
--   Cluster 1 = uncertain
--   Cluster 2 = pagophilic
+-   Cluster 1 = pack ice
+-   Cluster 2 = marginal ice
 -   Cluster 3 = open water
 
 Relative to cluster 3, cluster 2 was composed of more ice associated species. The strongest indicator for cluster 2 was the Antarctic fur seal, which was sighted at 98.6% of cluster 2 sites, for 87% of the species' total abundance. Pagophilic predators such as crabeater seals, leopard seals, and Adélie penguins were also indicator species for this cluster. Another pagophilic predator, the minke whale, was too rare overall to be significant indicator species for any cluster, but was sighted most frequently in cluster 2 (12.2% of sites versus 5.2% and 4.4% of clusters 1 and 3, respectively) and 80.0% of its abundance was in cluster 2.
@@ -138,11 +141,11 @@ No species were identified as significant indicators for cluster 1. Species obse
 
 ## Cluster distribution
 
-How frequent are the different clusters and where were they found? The open water community was observed most often, followed by the marginal ice zone then the uncertain communities. The relative frequency of the open water community was greatest in 2012, when survey effort in the Bransfield Strait was most limited, and least in 2016. Generally, the open water community occupied the offshore regions, but in 2014 and 2015 it moved onto the shelf into the triangle between Elephant, Joinville, and George Islands.
+How frequent are the different clusters and where were they found? The open water community was observed most often, followed by the marginal ice zone then the pack ice communities. The relative frequency of the open water community was greatest in 2012, when survey effort in the Bransfield Strait was most limited, and least in 2016. Generally, the open water community occupied the offshore regions, but in 2014 and 2015 it moved onto the shelf into the triangle between Elephant, Joinville, and George Islands.
 
 The marginal ice zone community occupied the shallower, western part of the Bransfield Strait, moving offshore of the Shetland Islands in 2014 and north of Elephant Island in 2016.
 
-The uncertain community was most commonly observed in the south eastern part of the survey region, near Joinville Island. A particularly coherent group of sites in this community formed in 2013 between Joinville Island and the South Shetlands.
+The pack ice community was most commonly observed in the south eastern part of the survey region, near Joinville Island. A particularly coherent group of sites in this community formed in 2013 between Joinville Island and the South Shetlands.
 
 ```{r}
 #| label: cluster_freq
@@ -162,14 +165,44 @@ map_lim <- st_bbox(stations_clust) %>%
   project_bbox() %>% 
   expand_bbox(factor = 1.2)
 
+# Indicator species grob
+indval_grob <- apply(sightings_indval$indval, 2, function(col) {
+  # Extract indicator values >0.25 from each cluster's column and format with
+  # species name
+  col <- sort(col[col > 0.25], decreasing = TRUE)
+  species <- code_to_common(names(col))
+  if (length(col) == 0) {
+    "None"
+  } else {
+    str_glue("{species} ({round(col, 2)})")
+  }
+}) %>% 
+  # Create a 
+  map(\(x) {
+    nrow = max(map_dbl(., length))
+    c(x, rep("", nrow - length(x)))
+  }) %>% 
+  as_tibble() %>% 
+  set_names(levels(stations_clust$pred_clust)) %>% 
+  tableGrob(
+    rows = NULL,
+    theme = ttheme_minimal(base_size = 6,
+                           padding = unit(c(1, 1), "mm"),
+                           core = list(fg_params = list(hjust = 0,
+                                                        x = 0)),
+                           colhead = list(fg_params = list(hjust = 0,
+                                                           x = 0)))
+  )
+
 ant_basemap(map_lim) +
   # Sea ice
   geom_tile(aes(x, y, fill = seaice_conc), 
-            filter(seaice_conc_df, seaice_conc >= 0.65)) +
+            filter(seaice_conc_df, between(seaice_conc, 0.65, 1)),
+            alpha = 0.8) +
   scale_fill_distiller(lim = c(0.65, 1),
                        palette = "Blues",
                        na.value = "transparent") +
-  geom_sf(data = seaice_contours, color = "darkblue") +
+  # geom_sf(data = seaice_contours, color = "darkblue") +
   # Predator clusters
   ggnewscale::new_scale_fill() +
   geom_sf(aes(fill = pred_clust), 
@@ -183,7 +216,10 @@ ant_basemap(map_lim) +
   guides(fill = guide_legend(override.aes = list(size = 3))) +
   coord_ant(map_lim) +
   theme(legend.position = "bottom",
-        legend.title = element_blank())
+        legend.title = element_blank()) +
+  inset_element(indval_grob, 
+                0.67, 0, 1, 0.5, 
+                align_to = "panel")
 ```
 
 ## NMDS
@@ -247,97 +283,81 @@ NMDS plots, color-coded by predator cluster with year and ice coverage loadings.
 
 ```{r}
 #| label: loading
-
-ice_vector <- scores(nmds_envfit, 
-                     display = "vectors",
-                     choices = 1:3) %>% 
-  as_tibble(rownames = "envvar") %>% 
-  mutate(across(starts_with("NMDS"),
-                ~ .x * ordiArrowMul(nmds_envfit))) %>% 
-  filter(envvar == "ice_coverage")
+#| fig-width: 9
+#| fig-height: 5
 
 year_centroids <- scores(nmds_envfit, 
-                     display = "factors",
-                     choices = 1:3) %>% 
+                         display = "factors",
+                         choices = 1:3) %>% 
   as_tibble(rownames = "envvar") %>% 
   filter(str_starts(envvar, "Year")) %>% 
   mutate(across(starts_with("NMDS"),
                 ~ .x * ordiArrowMul(nmds_envfit)),
          Year = substr(envvar, 5, 8))
 
-ggplot(nmds_df, aes(NMDS1, NMDS2)) +
-  geom_point(aes(color = pred_clust), alpha = 0.8) +
-  geom_point(data = year_centroids, 
-             shape = 18,
-             size = 2.5,
-             color = "black",
-             alpha = 0.85) +
-  ggrepel::geom_text_repel(aes(label = Year),
-                           year_centroids) +
-  geom_segment(aes(xend = NMDS1, yend = NMDS2),
-               ice_vector, 
-               x = 0, y = 0,
-               size = 1.5,
+nmds_plot <- function(axis1, axis2) {
+  ice_ordisurf <- ordisurf(
+    nmds_sightings ~ nmds_env$ice_coverage,
+    choices = c(axis1, axis2),
+    plot = FALSE
+  )
+  
+  x <- paste0("NMDS", axis1)
+  y <- paste0("NMDS", axis2)
+  
+  ice_df <- expand_grid(
+    axis1 = ice_ordisurf$grid$x,
+    axis2 = ice_ordisurf$grid$y,
+  ) %>% 
+    cbind(as.numeric(ice_ordisurf$grid$z)) %>% 
+    set_names(c(x, y, "ice_coverage")) %>% 
+    mutate(ice_coverage = ice_coverage / 10) %>% 
+    drop_na(ice_coverage)
+  
+  ggplot(nmds_df, aes(.data[[x]], .data[[y]])) +
+    stat_contour(aes(z = .data$ice_coverage, 
+                     color = after_stat(level)),
+                 ice_df) +
+    scale_color_distiller(
+      "Ice coverage",
+      palette = "Blues",
+      labels = scales::percent,
+      limits = c(0.25, 0.75),
+      breaks = seq(0.25, 0.75, by = 0.1),
+      guide = guide_colorbar(barwidth = unit(2, "in"),
+                             direction = "horizontal")
+    ) +
+    ggnewscale::new_scale_color() +
+    geom_point(aes(color = pred_clust), alpha = 0.8) +
+    geom_point(data = year_centroids, 
+               shape = 18,
+               size = 2.5,
                color = "black",
-               alpha = 0.65,
-               arrow = arrow(angle = 20, length = unit(15, "points"))) +
-  ggrepel::geom_text_repel(data = ice_vector,
-                           label = "Ice coverage") +
-  labs(color = "Predator cluster") +
-  scale_color_brewer(palette = "Dark2") +
-  theme_classic() +
-  theme(legend.position = "bottom")
+               alpha = 0.85) +
+    ggrepel::geom_text_repel(aes(label = Year),
+                             year_centroids) +
+    scale_color_brewer(
+      palette = "Dark2",
+      guide = guide_legend(override.aes = list(size = 2),
+                           direction = "horizontal",
+                           order = 1)
+    ) +
+    labs(color = "Predator cluster") +
+    theme_classic()
+}
 
-ggplot(nmds_df, aes(NMDS1, NMDS3)) +
-  geom_point(aes(color = pred_clust), alpha = 0.8) +
-  geom_point(data = year_centroids, 
-             shape = 18,
-             size = 2.5,
-             color = "black",
-             alpha = 0.85) +
-  ggrepel::geom_text_repel(aes(label = Year),
-                           year_centroids) +
-  geom_segment(aes(xend = NMDS1, yend = NMDS3),
-               ice_vector, 
-               x = 0, y = 0,
-               size = 1.5,
-               color = "black",
-               alpha = 0.65,
-               arrow = arrow(angle = 20, length = unit(15, "points"))) +
-  ggrepel::geom_text_repel(data = ice_vector,
-                           label = "Ice coverage") +
-  labs(color = "Predator cluster") +
-  scale_color_brewer(palette = "Dark2") +
-  theme_classic() +
-  theme(legend.position = "bottom")
-
-ggplot(nmds_df, aes(NMDS2, NMDS3)) +
-  geom_point(aes(color = pred_clust), alpha = 0.8) +
-  geom_point(data = year_centroids, 
-             shape = 18,
-             size = 2.5,
-             color = "black",
-             alpha = 0.85) +
-  ggrepel::geom_text_repel(aes(label = Year),
-                           year_centroids) +
-  geom_segment(aes(xend = NMDS2, yend = NMDS3),
-               ice_vector, 
-               x = 0, y = 0,
-               size = 1.5,
-               color = "black",
-               alpha = 0.65,
-               arrow = arrow(angle = 20, length = unit(15, "points"))) +
-  ggrepel::geom_text_repel(data = ice_vector,
-                           label = "Ice coverage") +
-  labs(color = "Predator cluster") +
-  scale_color_brewer(palette = "Dark2") +
-  theme_classic() +
-  theme(legend.position = "bottom")
+map2(c(1, 1, 2), c(2, 3, 3), nmds_plot) %>% 
+  reduce(`|`) +
+  plot_annotation(tag_levels = 'A') +
+  plot_layout(guides = "collect") &
+    theme(legend.position = "bottom",
+          legend.direction = "horizontal",
+          plot.tag = element_text(face = "bold"))
 ```
 
 ## Clusters by ice coverage
 
-Median ice coverage increased from the open water cluster (median 33.0%) to the marginal ice (59.6%) and uncertain (70.6%) clusters. This supports the labels of "open water" and "marginal ice" for clusters 3 and 2, respectively. Also provides evidence for the "pack ice" cluster.
+Median ice coverage increased from the open water cluster (median 33.0%) to the marginal ice (59.6%) and pack ice (70.6%) clusters. This supports the labels of "open water" and "marginal ice" for clusters 3 and 2, respectively. Also provides evidence for the "pack ice" cluster.
 
 ```{r}
 #| label: ice_clusters
@@ -364,7 +384,7 @@ ggplot(stations_clust,
 
 ## Predator *x* prey clusters
 
-Predator/prey cluster associations were statistically significant overall ($\chi = 53.6, p<0.001$) as were 5 pairwise associations after applying Bonferroni correction. The marginal ice and uncertain predator communities were positively associated with macrozooplankton communities 3b (large krill, including *E. superba*) and 3a (an extremely diverse assemblage associated with cold, high salinity water), respectively. The open water predator community was positively associated with cluster 2b (*Thysanoessa macrura*) and negatively associated with 3a and 3b. Macrozooplankton cluster 1 (a ubiquitous cluster indicated by *Salpa* and *Clione*) was not significantly associated with any predator cluster. Neither was macrozooplankton cluster 2a (indicated by important prey species such as *E. frigida*, *E. triacantha*, myctophid larvae, and *Themisto gaudichaudii*), but it associated most often with the open water predator cluster.
+Predator/prey cluster associations were statistically significant overall ($\chi = 53.6, p<0.001$) as were 5 pairwise associations after applying Bonferroni correction. The marginal ice and pack ice predator communities were positively associated with macrozooplankton communities 3b (large krill, including *E. superba*) and 3a (an extremely diverse assemblage associated with cold, high salinity water), respectively. The open water predator community was positively associated with cluster 2b (*Thysanoessa macrura*) and negatively associated with 3a and 3b. Macrozooplankton cluster 1 (a ubiquitous cluster indicated by *Salpa* and *Clione*) was not significantly associated with any predator cluster. Neither was macrozooplankton cluster 2a (indicated by important prey species such as *E. frigida*, *E. triacantha*, myctophid larvae, and *Themisto gaudichaudii*), but it associated most often with the open water predator cluster.
 
 ```{r}
 #| label: pred_prey
@@ -388,4 +408,25 @@ chisq.posthoc.test::chisq.posthoc.test(pred_prey_table,
 
 ```
 
-## 
+```{r}
+#| label: contingency
+
+pred_prey_tbl <- with(stations_clust, 
+                      table(pred_clust, `Winter Cluster factor`))
+pred_prey_chisq$expected
+pred_prey_chisq$observed
+
+expand_grid(`Predator cluster` = levels(stations_clust$pred_clust),
+            `Zooplankton cluster` = unique(stations_clust$`Winter Cluster factor`)) %>% 
+  mutate(observed = map2_int(`Predator cluster`, 
+                             `Zooplankton cluster`,
+                             \(i, j) pred_prey_chisq$observed[i, j]),
+         expected = map2_dbl(`Predator cluster`, 
+                             `Zooplankton cluster`,
+                             \(i, j) pred_prey_chisq$expected[i, j])) %>% 
+  mutate(label = str_glue("{observed} ({round(expected, 1)})")) %>% 
+  pivot_wider(id_cols = `Predator cluster`,
+              names_from = `Zooplankton cluster`, 
+              values_from = label) %>% 
+  knitr::kable()
+```

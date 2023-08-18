@@ -56,3 +56,28 @@ normalize_counts <- function(sightings, effort) {
               by = "amlr.station") %>%
     mutate(count_nmi = count / survey_nmi)
 }
+
+code_to_common <- function(species_code) {
+  c(ADPN	= "Adélie penguin",
+    ANFU	= "Southern fulmar",
+    ANPT	= "Antarctic petrel",
+    ANSH	= "Antarctic shag",
+    ANTE	= "Antarctic tern",
+    BLPT	= "Blue petrel",
+    CAPT	= "Cape petrel",
+    CRSE	= "Crabeater seal",
+    ELSE	= "Elephant seal",
+    EMPN	= "Emperor penguin",
+    FUSE	= "Antarctic fur seal",
+    GEPN	= "Gentoo penguin",
+    KEGU	= "Kelp gull",
+    KIWH	= "Killer whale",
+    LESE	= "Leopard seal",
+    MIWH	= "Minke whale",
+    PFSB	= "Pale-faced sheathbill",
+    ROSE	= "Ross seal",
+    SBWH	= "Bottlenose whale",
+    SGPT	= "Southern giant petrel",
+    SNPT	= "Snow petrel",
+    WESE	= "Weddell seal")[species_code]
+}
