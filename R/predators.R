@@ -52,32 +52,40 @@ normalize_counts <- function(sightings, effort) {
     as_tibble() %>%
     group_by(amlr.station, species) %>%
     summarize(count = sum(count), .groups = "drop") %>%
-    left_join(select(as_tibble(effort), amlr.station, survey_nmi),
-              by = "amlr.station") %>%
+    right_join(select(as_tibble(effort), amlr.station, survey_nmi),
+               by = "amlr.station") %>%
     mutate(count_nmi = count / survey_nmi)
 }
 
 code_to_common <- function(species_code) {
-  c(ADPN	= "Adélie penguin",
-    ANFU	= "Southern fulmar",
-    ANPT	= "Antarctic petrel",
-    ANSH	= "Antarctic shag",
-    ANTE	= "Antarctic tern",
-    BLPT	= "Blue petrel",
-    CAPT	= "Cape petrel",
-    CRSE	= "Crabeater seal",
-    ELSE	= "Elephant seal",
-    EMPN	= "Emperor penguin",
-    FUSE	= "Antarctic fur seal",
-    GEPN	= "Gentoo penguin",
-    KEGU	= "Kelp gull",
-    KIWH	= "Killer whale",
-    LESE	= "Leopard seal",
-    MIWH	= "Minke whale",
-    PFSB	= "Pale-faced sheathbill",
-    ROSE	= "Ross seal",
-    SBWH	= "Bottlenose whale",
-    SGPT	= "Southern giant petrel",
-    SNPT	= "Snow petrel",
-    WESE	= "Weddell seal")[species_code]
+  c(ADPN = "Adélie penguin",
+    ANFU = "Southern fulmar",
+    ANPT = "Antarctic petrel",
+    ANPR = "Antarctic prion",
+    ANSH = "Antarctic shag",
+    ANTE = "Antarctic tern",
+    BBAL = "Black-browed albatross",
+    BLPT = "Blue petrel",
+    CAPT = "Cape petrel",
+    CHPN = "Chinstrap penguin",
+    CODP = "Common diving petrel",
+    CRSE = "Crabeater seal",
+    ELSE = "Elephant seal",
+    EMPN = "Emperor penguin",
+    FUSE = "Antarctic fur seal",
+    GEPN = "Gentoo penguin",
+    HUWH = "Humpback whale",
+    KEGU = "Kelp gull",
+    KEPT = "Kerguelen petrel",
+    KIWH = "Killer whale",
+    LESE = "Leopard seal",
+    MIWH = "Minke whale",
+    NGPT = "Northern giant petrel",
+    PFSB = "Pale-faced sheathbill",
+    ROSE = "Ross seal",
+    SBWH = "Bottlenose whale",
+    SGPT = "Southern giant petrel",
+    SNPT = "Snow petrel",
+    SPSK = "SPSK WHAT",
+    WESE = "Weddell seal")[species_code]
 }

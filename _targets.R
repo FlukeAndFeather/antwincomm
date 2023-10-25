@@ -101,7 +101,7 @@ list(
   # Aggregate effort and ice observations
   tar_target(
     station_effort,
-    assign_sightings(effort_sf, zoop_sf, max_dist_km = 15, max_days = 1) %>%
+    assign_sightings(effort_sf, zoop_sf, max_dist_km = 15, max_days = 3) %>%
       group_by(year, amlr.station) %>%
       summarize(survey_nmi = sum(nmi), .groups = "drop")
   ),

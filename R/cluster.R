@@ -55,7 +55,12 @@ cluster_gap <- function(mtx, max_k, seed = 139) {
 # Create a predator cluster factor from a vector of stations and the cut tree
 station_to_cluster <- function(station, clust) {
   clust_int <- clust[station]
-  factor(clust_int, levels = 1:3, labels = c("Pack ice", "Marginal ice", "Open water"))
+  factor(clust_int,
+         levels = 1:3,
+         labels = c("Pack ice",
+                    "Open water",
+                    "Marginal ice")) %>%
+    fct_relevel(c("Open water", "Marginal ice", "Pack ice"))
 }
 
 # Determine if a species is rare (<5% of stations)
