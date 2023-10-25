@@ -128,8 +128,8 @@ as_tibble(t(indval_fmt)) %>%
 ### Cluster interpretation
 
 -   Cluster 1 = pack ice
--   Cluster 2 = marginal ice
--   Cluster 3 = open water
+-   Cluster 2 = open water
+-   Cluster 3 = marginal ice
 
 Relative to cluster 3, cluster 2 was composed of more ice associated species. The strongest indicator for cluster 2 was the Antarctic fur seal, which was sighted at 98.6% of cluster 2 sites, for 87% of the species' total abundance. Pagophilic predators such as crabeater seals, leopard seals, and Adélie penguins were also indicator species for this cluster. Another pagophilic predator, the minke whale, was too rare overall to be significant indicator species for any cluster, but was sighted most frequently in cluster 2 (12.2% of sites versus 5.2% and 4.4% of clusters 1 and 3, respectively) and 80.0% of its abundance was in cluster 2.
 
@@ -165,35 +165,6 @@ map_lim <- st_bbox(stations_clust) %>%
   project_bbox() %>% 
   expand_bbox(factor = 1.2)
 
-# Indicator species grob
-indval_grob <- apply(sightings_indval$indval, 2, function(col) {
-  # Extract indicator values >0.25 from each cluster's column and format with
-  # species name
-  col <- sort(col[col > 0.25], decreasing = TRUE)
-  species <- code_to_common(names(col))
-  if (length(col) == 0) {
-    "None"
-  } else {
-    str_glue("{species} ({round(col, 2)})")
-  }
-}) %>% 
-  # Create a 
-  map(\(x) {
-    nrow = max(map_dbl(., length))
-    c(x, rep("", nrow - length(x)))
-  }) %>% 
-  as_tibble() %>% 
-  set_names(levels(stations_clust$pred_clust)) %>% 
-  tableGrob(
-    rows = NULL,
-    theme = ttheme_minimal(base_size = 6,
-                           padding = unit(c(1, 1), "mm"),
-                           core = list(fg_params = list(hjust = 0,
-                                                        x = 0)),
-                           colhead = list(fg_params = list(hjust = 0,
-                                                           x = 0)))
-  )
-
 ant_basemap(map_lim) +
   # Sea ice
   geom_tile(aes(x, y, fill = seaice_conc), 
@@ -202,7 +173,6 @@ ant_basemap(map_lim) +
   scale_fill_distiller(lim = c(0.65, 1),
                        palette = "Blues",
                        na.value = "transparent") +
-  # geom_sf(data = seaice_contours, color = "darkblue") +
   # Predator clusters
   ggnewscale::new_scale_fill() +
   geom_sf(aes(fill = pred_clust), 
@@ -216,10 +186,37 @@ ant_basemap(map_lim) +
   guides(fill = guide_legend(override.aes = list(size = 3))) +
   coord_ant(map_lim) +
   theme(legend.position = "bottom",
-        legend.title = element_blank()) +
-  inset_element(indval_grob, 
-                0.67, 0, 1, 0.5, 
-                align_to = "panel")
+        legend.title = element_blank())
+```
+
+```{r}
+#| label: cluster_maps2
+#| warning: false
+
+library(eks)
+cluster_kde <- stations_clust %>% 
+  group_by(pred_clust) %>% 
+  group_map(\(rows, keys) st_kde(rows)$sf %>% 
+              filter(contlabel %in% c(50, 95)) %>% 
+              mutate(pred_clust = keys$pred_clust)) %>% 
+  reduce(sf:::rbind.sf)
+
+ant_basemap(map_lim) +
+  # Predator clusters
+  ggnewscale::new_scale_fill() +
+  geom_sf(aes(color = pred_clust,
+              linetype = contlabel), 
+          cluster_kde, 
+          fill = NA,
+          linewidth = 1) +
+  facet_wrap(~ pred_clust) +
+  scale_x_continuous(breaks = c(-60, -55)) +
+  scale_y_continuous(breaks = c(-63, -62, -61, -60)) +
+  scale_color_brewer(palette = "Dark2") +
+  scale_linetype_manual(values = c(2, 1), guide = "none") +
+  coord_ant(map_lim) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
 ```
 
 ## NMDS
@@ -355,9 +352,45 @@ map2(c(1, 1, 2), c(2, 3, 3), nmds_plot) %>%
           plot.tag = element_text(face = "bold"))
 ```
 
+## Environmental conditions by cluster
+
+```{r}
+#| label: env_clust
+
+kw <- map(c("zuml_m", "avg.temp", "avg.salinity", 
+            "Integ.chla.100m", "Integ.phae.100m"),
+          \(v) {
+            kw <- kruskal.test(stations_clust[[v]], stations_clust$pred_clust)
+            data.frame(var = v, p = kw$p.value * 5)
+          }) %>% 
+  list_rbind()
+
+stations_clust %>% 
+  as.data.frame() %>% 
+  group_by(pred_clust) %>%
+  summarize(
+    across(c(zuml_m, avg.temp, avg.salinity, Integ.chla.100m, Integ.phae.100m),
+           list(mean = partial(mean, na.rm = TRUE), 
+                q1 = \(x) quantile(x, 0.25, na.rm = TRUE), 
+                q3 = \(x) quantile(x, 0.75, na.rm = TRUE)),
+           .names = "{.col}={.fn}")
+  ) %>% 
+  pivot_longer(-pred_clust) %>% 
+  separate_wider_delim(name, "=", names = c("var", "fn")) %>% 
+  pivot_wider(names_from = "fn", values_from = "value") %>% 
+  mutate(across(mean:q3, \(x) formatC(signif(x, digits=3), digits = 3, format = "fg", flag = "#"))) %>% 
+  transmute(pred_clust, var, value = str_glue("{mean} ({q1} - {q3})")) %>% 
+  pivot_wider(names_from = pred_clust, values_from = "value") %>% 
+  left_join(kw, by = "var") %>% 
+  mutate(var = ifelse(p <= 0.05, paste0(var, " *"), var)) %>% 
+  select(-p) %>% 
+  knitr::kable()
+
+```
+
 ## Clusters by ice coverage
 
-Median ice coverage increased from the open water cluster (median 33.0%) to the marginal ice (59.6%) and pack ice (70.6%) clusters. This supports the labels of "open water" and "marginal ice" for clusters 3 and 2, respectively. Also provides evidence for the "pack ice" cluster.
+Median ice coverage increased from the open water cluster (median 34.1%) to the marginal ice (56.0%) and pack ice (74.9%) clusters. This supports the labels of "open water" and "marginal ice" for clusters 3 and 2, respectively. Also provides evidence for the "pack ice" cluster.
 
 ```{r}
 #| label: ice_clusters

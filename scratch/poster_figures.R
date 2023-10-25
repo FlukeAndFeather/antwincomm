@@ -26,16 +26,14 @@ p <- ant_basemap(map_lim) +
           cluster_kde,
           fill = NA,
           linewidth = 1) +
-  facet_wrap(~ pred_clust) +
+  facet_grid(cols = vars(pred_clust)) +
   scale_x_continuous(breaks = c(-60, -55)) +
   scale_y_continuous(breaks = c(-63, -62, -61, -60)) +
   scale_color_brewer(palette = "Dark2") +
   scale_linetype_manual(values = c(2, 1), guide = "none") +
   coord_ant(map_lim) +
-  theme(legend.position = "bottom",
-        legend.title = element_blank(),
-        strip.text = element_text(size = 14, face = "bold"),
-        legend.text = element_text(size = 14, face = "bold"))
+  theme(legend.position = "none",
+        strip.text = element_text(size = 14, face = "bold"))
 
 # Generate the ggplot2 plot grob
 g <- grid.force(ggplotGrob(p))
@@ -56,17 +54,17 @@ guide_names <- str_subset(
 txt_colors <- RColorBrewer::brewer.pal(3, "Dark2")
 for (i in 1:3) {
   g <- editGrob(grob = g, gPath = strip_names[i], gp = gpar(col = txt_colors[i]))
-  g <- editGrob(grob = g, gPath = guide_names[i], gp = gpar(col = txt_colors[i]))
 }
 # Draw the edited plot
 grid.newpage()
 grid.draw(g)
 
-# 14.31x7.15
-scale_factor <- 0.40
+# 14.31x4.5
+scale_factor <- 0.60
 ggsave("figs/poster/community_distributions.jpg",
+       g,
        width = 14.31 * scale_factor,
-       height = 7.15 * scale_factor,
+       height = 4.5 * scale_factor,
        units = "in",
        dpi = 600)
 
@@ -78,7 +76,7 @@ median_coverge <- stations_clust %>%
   group_by(pred_clust) %>%
   summarize(median_ice = median(ice_coverage / 10, na.rm = TRUE))
 
-ggplot(stations_clust,
+p <- ggplot(stations_clust,
        aes(x = ice_coverage / 10, fill = after_stat(x))) +
   geom_histogram(bins = 20, color = "grey30") +
   geom_vline(aes(xintercept = median_ice),
@@ -92,11 +90,33 @@ ggplot(stations_clust,
   theme_minimal(base_size = 14) +
   theme(strip.text = element_text(face = "bold"))
 
-# 14.31x8.14
+# Generate the ggplot2 plot grob
+g <- grid.force(ggplotGrob(p))
+# Get the names and paths of grobs
+grob_ls <- grid.ls(g, print = FALSE)
+grob_names <- grob_ls$name
+grob_paths <- grob_ls$gPath
+
+strip_names <- guide_parent_names <- str_subset(
+  grob_names[str_detect(grob_paths, "strip.text.*titleGrob")],
+  "GRID.text"
+)
+
+txt_colors <- RColorBrewer::brewer.pal(3, "Dark2")
+for (i in 1:3) {
+  g <- editGrob(grob = g, gPath = strip_names[i], gp = gpar(col = txt_colors[i]))
+}
+
+# Draw the edited plot
+grid.newpage()
+grid.draw(g)
+
+# 14.31x8.8
 scale_factor <- 0.40
-ggsave("figs/poster/ice_coverage.svg",
+ggsave("figs/poster/ice_coverage.jpg",
+       g,
        width = 14.31 * scale_factor,
-       height = 8.14 * scale_factor,
+       height = 8.8 * scale_factor,
        units = "in",
        dpi = 600)
 

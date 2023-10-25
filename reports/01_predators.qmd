@@ -13,6 +13,7 @@ output-dir: "docs"
 
 library(sf)
 library(targets)
+library(terra)
 library(tidyverse)
 
 tar_load(c("predators_agg", "ant_sf", "effort_sf"), 
@@ -22,33 +23,39 @@ source(here::here("R", "sp.R"))
 
 ## Counts
 
-The five most abundant species (in ind nmi\^-1).
+The six most abundant species (in ind nmi\^-1).
 
 ```{r}
 
-top_five <- predators_agg %>% 
+top_six <- predators_agg %>% 
   group_by(species) %>% 
   summarize(total_count = sum(count)) %>% 
   arrange(desc(total_count)) %>%
-  slice(1:5)
+  slice(1:6) %>% 
+  mutate(common_name = c("Snow petrel", 
+                         "Antarctic fur seal",
+                         "Adélie penguin",
+                         "Crabeater seal",
+                         "Antarctic petrel",
+                         "Southern fulmar"))
 
-top_five
+top_six
 ```
 
 ```{r}
 
-top_five_plot_data <- predators_agg %>% 
-  semi_join(top_five, by = "species") %>% 
+top_six_plot_data <- predators_agg %>% 
+  semi_join(top_six, by = "species") %>% 
   group_by(year, species) %>% 
   summarize(total = sum(count), .groups = "drop") %>% 
   mutate(species = fct_reorder(species, total, .fun = sum),
          year = factor(year, levels = 2016:2012))
-year_labels <- top_five_plot_data %>% 
+year_labels <- top_six_plot_data %>% 
   filter(species == "SNPT") %>% 
   arrange(desc(year)) %>%                   # Make the labels show up at
   mutate(total = cumsum(total) - total / 2) # correct y-axis position
 
-ggplot(top_five_plot_data, aes(species, total, group = year)) +
+ggplot(top_six_plot_data, aes(species, total, group = year)) +
   geom_col(color = "black", fill = "grey80") +
   geom_text(aes(label = year), year_labels) +
   labs(y = "Total species count") +
@@ -65,10 +72,10 @@ Survey effort. 21 out of the 19404 intervals were recorded as nmi \> 1000 (as op
 ```{r}
 #| label: species_climatologies
 
-library(terra)
-# Mkae "top five" predator sightings spatially aware
-topfive_sf <- predators_agg %>% 
-  semi_join(top_five, by = "species") %>% 
+# Make "top six" predator sightings spatially aware
+topsix_sf <- predators_agg %>% 
+  semi_join(top_six, by = "species") %>% 
+  left_join(select(top_six, species, common_name), by = "species") %>% 
   latlon_to_sf(coords = c("lon_mean", "lat_mean"))
 # Create a template raster of the study area
 effort_ext <- effort_sf %>% 
@@ -85,33 +92,33 @@ effort_rast <- effort_sf %>%
             by = "year",
             fun = sum)
 # Rasterize the predator sightings by year and species
-topfive_rast <- topfive_sf %>% 
+topsix_rast <- topsix_sf %>% 
   st_transform(ant_proj()) %>% 
-  mutate(year_species = interaction(year, species)) %>% 
+  mutate(year_commonname = interaction(year, common_name)) %>% 
   rasterize(rast_template, 
             field = "count",
-            by = "year_species",
+            by = "year_commonname",
             fun = sum)
 # Normalize counts by effort
-topfive_norm <- topfive_rast
-for (i in seq(nlyr(topfive_rast))) {
-  lyr_name <- names(topfive_rast)[i]
+topsix_norm <- topsix_rast
+for (i in seq(nlyr(topsix_rast))) {
+  lyr_name <- names(topsix_rast)[i]
   lyr_year <- substr(lyr_name, 1, 4)
   effort_year <- effort_rast[lyr_year] %>% 
     subst(0, NA)
-  topfive_norm[[i]] <- topfive_norm[[i]] / effort_year
+  topsix_norm[[i]] <- topsix_norm[[i]] / effort_year
 }
 # Average across years
-topfive_climatology <- unique(top_five$species) %>% 
+topsix_climatology <- unique(top_six$common_name) %>% 
   map(function(sp) {
-    sp_rast <- subset(topfive_norm, 
-                      which(str_detect(names(topfive_norm), sp)))
+    sp_rast <- subset(topsix_norm, 
+                      which(str_detect(names(topsix_norm), sp)))
     mean(sp_rast, na.rm = TRUE)
   }) %>% 
-  set_names(unique(top_five$species)) %>% 
+  set_names(unique(top_six$common_name)) %>% 
   rast()
 # Classify raster (otherwise CRSE throw it all off)
-topfive_clim_class <- topfive_climatology %>% 
+topsix_clim_class <- topsix_climatology %>% 
   classify(rcl = c(0, 1, 5, 10, 50))
 
 # Project bounding box
@@ -121,7 +128,7 @@ map_bbox <- ext(-63, -54, -64, -59) %>%
  
 # Make the map! 
 ant_basemap() +
-  tidyterra::geom_spatraster(data = topfive_clim_class) +
+  tidyterra::geom_spatraster(data = topsix_clim_class) +
   geom_sf(data = tar_read("ant_sf", store = here::here("_targets"))) +
   scale_fill_brewer(palette = "RdPu", 
                     na.value = NA, 
@@ -164,10 +171,10 @@ ant_basemap(map_bbox) +
 
 ### Yearly distributions
 
-Distribution maps of the five most abundant species in each survey year, aggregated to 30km bins.
+Distribution maps of the six most abundant species in each survey year, aggregated to 30km bins.
 
 ```{r}
-#| label: topfive_map
+#| label: topsix_map
 #| warning: false
 #| column: screen
 #| out-width: 100%
@@ -178,10 +185,10 @@ map_bbox <- ext(-63, -54, -64, -59) %>%
   project(from = "+proj=longlat +datum=WGS84",
           to = as.character(ant_proj())[[1]])
 
-topfive_class <- topfive_rast %>% 
+topsix_class <- topsix_rast %>% 
   classify(rcl = c(0, 1, 5, 10, 50, 100, 1000, Inf))
 
-topfive_class_df <- as.data.frame(topfive_class, xy = TRUE) %>% 
+topsix_class_df <- as.data.frame(topsix_class, xy = TRUE) %>% 
   pivot_longer(-c("x", "y"), 
                names_to = "name", 
                values_to = "count") %>% 
@@ -191,7 +198,7 @@ topfive_class_df <- as.data.frame(topfive_class, xy = TRUE) %>%
   drop_na(count)
 
 ant_basemap() +
-  geom_raster(aes(x, y, fill = count), topfive_class_df) +
+  geom_raster(aes(x, y, fill = count), topsix_class_df) +
   geom_sf(data = tar_read("ant_sf", store = here::here("_targets"))) +
   scale_fill_brewer(palette = "RdPu", 
                     na.value = NA, 
@@ -208,7 +215,7 @@ ant_basemap() +
         text = element_text(size = 8))
 ```
 
-Distribution maps of five species of interest in each survey year, also aggregated to 25km bins.
+Distribution maps of six species of interest in each survey year, also aggregated to 25km bins.
 
 ```{r}
 #| label: soi_map
@@ -264,4 +271,81 @@ ant_basemap() +
            crs = ant_proj()) +
   theme(legend.position = "right",
         text = element_text(size = 8))
+```
+
+Distribution maps of all species in all years, for supplemental.
+
+```{r}
+#| label: pred_map
+#| warning: false
+#| column: screen
+#| out-width: 100%
+#| fig-height: 9
+#| fig-width: 7.5
+#| fig-dpi: 600
+
+pred_sf <- predators_agg %>% 
+  filter(!str_starts(species, "U")) %>% 
+  mutate(common_name = code_to_common(species)) %>% 
+  latlon_to_sf(coords = c("lon_mean", "lat_mean"))
+
+pred_rast <- pred_sf %>% 
+  st_transform(ant_proj()) %>% 
+  mutate(year_commonname = interaction(year, common_name)) %>% 
+  rasterize(rast_template, 
+            field = "count",
+            by = "year_commonname",
+            fun = sum)
+
+# Normalize counts by effort
+pred_norm <- pred_rast
+for (i in seq(nlyr(pred_rast))) {
+  lyr_name <- names(pred_rast)[i]
+  lyr_year <- substr(lyr_name, 1, 4)
+  effort_year <- effort_rast[lyr_year] %>% 
+    subst(0, NA)
+  pred_norm[[i]] <- pred_norm[[i]] / effort_year
+}
+# Average across years
+pred_climatology <- unique(code_to_common(pred_sf$species)) %>% 
+  map(function(sp) {
+    sp_rast <- subset(pred_norm, 
+                      which(str_detect(names(pred_norm), sp)))
+    mean(sp_rast, na.rm = TRUE)
+  }) %>% 
+  set_names(unique(pred_sf$common_name)) %>% 
+  rast()
+
+map_bbox <- ext(-63, -54, -64, -59) %>% 
+  project(from = "+proj=longlat +datum=WGS84",
+          to = as.character(ant_proj())[[1]])
+
+pred_class <- pred_climatology %>% 
+  classify(rcl = c(0, 1, 5, 10, 50, 100, 1000))
+
+pred_class_df <- as.data.frame(pred_class, xy = TRUE) %>% 
+  pivot_longer(-c("x", "y"), 
+               names_to = "name", 
+               values_to = "count") %>% 
+  drop_na(count) %>% 
+  mutate(name = map_chr(name, \(n) paste(strwrap(n, 15), collapse = "\n")))
+
+p <- ant_basemap() +
+  geom_raster(aes(x, y, fill = count), pred_class_df) +
+  geom_sf(data = tar_read("ant_sf", store = here::here("_targets"))) +
+  scale_fill_brewer(palette = "RdPu", 
+                    na.value = NA, 
+                    direction = 1,
+                    na.translate = FALSE) +
+  scale_x_continuous(breaks = seq(-64, -54, by = 4)) +
+  scale_y_continuous(breaks = seq(-64, -59, by = 2)) +
+  labs(fill = "Ind nmi^-1") +
+  facet_wrap(~ name, ncol = 6) +
+  coord_sf(xlim = map_bbox[1:2],
+           ylim = map_bbox[3:4],
+           crs = ant_proj()) +
+  theme(legend.position = "top",
+        text = element_text(size = 8))
+
+ggsave("figs/s1.jpg", p, width = 6, height = 8, units = "in", dpi = 600)
 ```
