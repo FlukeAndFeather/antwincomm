@@ -16,9 +16,9 @@ library(targets)
 library(terra)
 library(tidyverse)
 
-tar_load(c("predators_agg", "ant_sf", "effort_sf"), 
-         store = here::here("_targets"))
+tar_load_everything(store = here::here("_targets"))
 source(here::here("R", "sp.R"))
+source(here::here("R", "predators.R"))
 ```
 
 ## Counts
@@ -273,17 +273,9 @@ ant_basemap() +
         text = element_text(size = 8))
 ```
 
-Distribution maps of all species in all years, for supplemental.
+Distribution maps of all species in all years, for supplemental. Organized by mammals and birds
 
 ```{r}
-#| label: pred_map
-#| warning: false
-#| column: screen
-#| out-width: 100%
-#| fig-height: 9
-#| fig-width: 7.5
-#| fig-dpi: 600
-
 pred_sf <- predators_agg %>% 
   filter(!str_starts(species, "U")) %>% 
   mutate(common_name = code_to_common(species)) %>% 
@@ -328,11 +320,46 @@ pred_class_df <- as.data.frame(pred_class, xy = TRUE) %>%
                names_to = "name", 
                values_to = "count") %>% 
   drop_na(count) %>% 
-  mutate(name = map_chr(name, \(n) paste(strwrap(n, 15), collapse = "\n")))
+  mutate(name = map_chr(name, \(n) paste(strwrap(n, 20), collapse = "\n")))
+
+```
+
+```{r}
+#| label: bird_climatologies
+#| warning: false
+#| column: screen
+#| out-width: 100%
+#| fig-height: 9
+#| fig-width: 6.5
+#| fig-dpi: 600
+
+bird_class_df <- pred_class_df %>% 
+  semi_join(tibble(name = c(
+    "Blue petrel",
+    "Antarctic shag",
+    "Cape petrel",
+    "Kelp gull",
+    "Antarctic petrel",
+    "Southern giant\npetrel",
+    "Adélie penguin",
+    "Kerguelen petrel",
+    "Gentoo penguin",
+    "Antarctic tern",
+    "Northern giant\npetrel",
+    "Pale-faced\nsheathbill",
+    "Chinstrap penguin",
+    "Southern fulmar",
+    "Antarctic prion",
+    "Common diving\npetrel",
+    "South polar skua",
+    "Snow petrel",
+    "Emperor penguin",
+    "Black-browed\nalbatross"
+  )), by = "name") 
 
 p <- ant_basemap() +
-  geom_raster(aes(x, y, fill = count), pred_class_df) +
-  geom_sf(data = tar_read("ant_sf", store = here::here("_targets"))) +
+  geom_raster(aes(x, y, fill = count), bird_class_df) +
+  geom_sf(data = ant_sf) +
   scale_fill_brewer(palette = "RdPu", 
                     na.value = NA, 
                     direction = 1,
@@ -340,12 +367,60 @@ p <- ant_basemap() +
   scale_x_continuous(breaks = seq(-64, -54, by = 4)) +
   scale_y_continuous(breaks = seq(-64, -59, by = 2)) +
   labs(fill = "Ind nmi^-1") +
-  facet_wrap(~ name, ncol = 6) +
+  facet_wrap(~ name, ncol = 5) +
   coord_sf(xlim = map_bbox[1:2],
            ylim = map_bbox[3:4],
            crs = ant_proj()) +
   theme(legend.position = "top",
         text = element_text(size = 8))
 
-ggsave("figs/s1.jpg", p, width = 6, height = 8, units = "in", dpi = 600)
+ggsave(here::here("figs/s1.jpg"), 
+       p, 
+       width = 6.5, 
+       height = 9, 
+       units = "in", 
+       dpi = 600)
+
+p
+
+```
+
+```{r}
+#| label: mammal_climatologies
+#| warning: false
+#| column: screen
+#| out-width: 100%
+#| fig-height: 9
+#| fig-width: 6.5
+#| fig-dpi: 600
+
+mammal_class_df <- pred_class_df %>% 
+  anti_join(bird_class_df, by = "name") 
+
+p <- ant_basemap() +
+  geom_raster(aes(x, y, fill = count), mammal_class_df) +
+  geom_sf(data = ant_sf) +
+  scale_fill_brewer(palette = "RdPu", 
+                    na.value = NA, 
+                    direction = 1,
+                    na.translate = FALSE) +
+  scale_x_continuous(breaks = seq(-64, -54, by = 4)) +
+  scale_y_continuous(breaks = seq(-64, -59, by = 2)) +
+  labs(fill = "Ind nmi^-1") +
+  facet_wrap(~ name, ncol = 3) +
+  coord_sf(xlim = map_bbox[1:2],
+           ylim = map_bbox[3:4],
+           crs = ant_proj()) +
+  theme(legend.position = "top",
+        text = element_text(size = 8))
+
+ggsave(here::here("figs/s2.jpg"), 
+       p, 
+       width = 6.5, 
+       height = 9, 
+       units = "in", 
+       dpi = 600)
+
+p
+
 ```
