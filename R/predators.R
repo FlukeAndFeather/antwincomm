@@ -86,6 +86,6 @@ code_to_common <- function(species_code) {
     SBWH = "Bottlenose whale",
     SGPT = "Southern giant petrel",
     SNPT = "Snow petrel",
-    SPSK = "SPSK WHAT",
+    SPSK = "South polar skua",
     WESE = "Weddell seal")[species_code]
 }
