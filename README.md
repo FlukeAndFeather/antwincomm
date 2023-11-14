@@ -12,7 +12,6 @@ Bransfield Strait and South Shetland Islands) using observations
 collected during the 2012-2016 NOAA/NSF austral winter cruises on the RV
 Ice Breaker Nathaniel B. Palmer. 
 
-I LOVE BAGELS !!!!!!!
 
 
 *Work in progress!!*
