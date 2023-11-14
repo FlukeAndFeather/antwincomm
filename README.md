@@ -10,7 +10,10 @@ Characterizing the marine winter predator community (seabirds and marine
 mammals) around the northern Antarctic Peninsula (including the
 Bransfield Strait and South Shetland Islands) using observations
 collected during the 2012-2016 NOAA/NSF austral winter cruises on the RV
-Ice Breaker Nathaniel B. Palmer.
+Ice Breaker Nathaniel B. Palmer. 
+
+I LOVE BAGELS !!!!!!!
+
 
 *Work in progress!!*
 
