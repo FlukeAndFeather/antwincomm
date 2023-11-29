@@ -36,7 +36,7 @@ map_lim <- st_bbox(zoop_sf) %>%
   project_bbox() %>% 
   expand_bbox(factor = 1.2)
 
-ant_basemap(map_lim) +
+ant_basemap() +
   geom_sf(aes(color = time.of.day), zoop_sf, size = 0.2) +
   geom_sf(data = zoop_buffers_10k, color = "lightgrey", fill = NA) +
   geom_sf(data = zoop_buffers_15k, color = "lightgrey", fill = NA) +
@@ -63,7 +63,7 @@ station_map <- function(var, pseudolog = FALSE) {
     var <- str_glue("log({var}+1)")
     zoop_trans[[var]] <- log(zoop_trans[[old_var]] + 1)
   }
-  ant_basemap(map_lim) +
+  ant_basemap() +
     geom_sf(aes(color = .data[[var]]), zoop_trans, size = 2, shape = 15) +
     facet_wrap(~ Year) +
     scale_x_continuous(breaks = c(-60, -55)) +

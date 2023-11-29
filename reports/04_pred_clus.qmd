@@ -22,7 +22,11 @@ library(tidyterra)
 library(tidyverse)
 library(vegan)
 
-tar_load_everything(store = here::here("_targets"))
+tar_load(c("nmds_df", "nmds_env", "nmds_envfit", "nmds_shepard", "nmds_sightings", 
+           "nmds_stress", "predators_clust", "seaice_conc_df", "seaice_contours", 
+           "sightings_clust", "sightings_cut", "sightings_gap", "sightings_indval", 
+           "stations_clust", "zoop_sf"), 
+         store = here::here("_targets"))
 source(here::here("R", "predators.R"))
 source(here::here("R", "sp.R"))
 source(here::here("R", "zoop.R"))
@@ -165,7 +169,7 @@ map_lim <- st_bbox(stations_clust) %>%
   project_bbox() %>% 
   expand_bbox(factor = 1.2)
 
-ant_basemap(map_lim) +
+ant_basemap() +
   # Sea ice
   geom_tile(aes(x, y, fill = seaice_conc), 
             filter(seaice_conc_df, between(seaice_conc, 0.65, 1)),
@@ -201,7 +205,7 @@ cluster_kde <- stations_clust %>%
               mutate(pred_clust = keys$pred_clust)) %>% 
   reduce(sf:::rbind.sf)
 
-ant_basemap(map_lim) +
+ant_basemap() +
   # Predator clusters
   ggnewscale::new_scale_fill() +
   geom_sf(aes(color = pred_clust,

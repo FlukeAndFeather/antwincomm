@@ -11,16 +11,92 @@ output-dir: "docs"
 #| label: setup
 #| include: false
 
+library(lubridate)
 library(sf)
 library(targets)
 library(tidyverse)
 
-tar_load_everything(store = here::here("_targets"))
+tar_load(c("effort_sf", "predators_agg", "predators_stations", 
+           "station_effort", "stations_ice", "zoop", "zoop_sf"),
+         store = here::here("_targets"))
 source(here::here("R", "sp.R"))
 source(here::here("R", "zoop.R"))
 ```
 
 ## Sightings and stations
+
+Visual description of line transect and point station aggregation, for supplemental.
+
+```{r}
+#| label: fig-aggregation
+#| fig-cap: "Biophysical observations (e.g., macrozooplankton net tows and CTD casts) collected at stations (yellow point) were associated with visual surveys for predators collected along line transects. All visual surveys conducted within 15 km (shaded circle) and 3 days were aggregated with station observations to form sites. In this example, the station was sampled on August 15, 2016 and visual surveys were condected within 15 km of the station twice: on August 15 (red) and on August 23 (blue). Only the visual surveys collected on August 15 were associated with this site."
+#| warning: false
+
+points_to_line <- function(pts) {
+  pts %>% 
+    group_by(segmentid) %>% 
+    summarize(begin = paste0(first(processID), first(interval)),
+              end = paste0(last(processID), last(interval)),
+              lbl = format(first(UTC_start), "%b %d %Y"),
+              do_union = FALSE) %>% 
+    mutate(segmentid = factor(segmentid, labels = lbl)) %>% 
+    st_cast("LINESTRING")
+}
+
+tow_origin <- as.POSIXct("1899-12-31", tz = "UTC")
+station_prj <- slice(zoop_sf, 25) %>% 
+  st_transform(ant_proj()) %>% 
+  mutate(tow.UTC = date.tow + (start.time.UTC - tow_origin),
+         lbl = format(tow.UTC, "%b %d"))
+station_buffer <- st_buffer(station_prj, 15e3)
+station_bbox <- st_bbox(station_buffer) %>% 
+  expand_bbox(1.5)
+transect_prj <- effort_sf %>% 
+  filter(between(UTC_start, 
+                 station_prj$tow.UTC - days(3),
+                 station_prj$tow.UTC + days(3))) %>% 
+  st_transform(ant_proj()) %>% 
+  st_intersection(station_buffer) %>% 
+  mutate(lag = UTC_start - lag(UTC_start, default = UTC_start[1]),
+         segmentid = factor(cumsum(lag > hours(6))))
+transect_line <- transect_prj %>% 
+  points_to_line()
+transect_prj2 <- effort_sf %>% 
+  filter(year == station_prj$Year) %>% 
+  st_transform(ant_proj()) %>% 
+  st_crop(station_bbox) %>% 
+  mutate(lag = UTC_start - lag(UTC_start, default = UTC_start[1]),
+         segmentid = factor(cumsum(lag > hours(6))))
+transect_line2 <- transect_prj2 %>% 
+  points_to_line()
+
+transect_endpoints <- transect_prj2 %>% 
+  filter(paste0(processID, interval) %in% c(transect_line2$begin, 
+                                            transect_line2$end))
+
+ant_basemap() +
+  geom_sf(data = station_buffer,
+          fill = "grey50",
+          alpha = 0.1,
+          linetype = "dashed") +
+  geom_sf(aes(color = segmentid),
+          transect_line2,
+          linetype = "dotted",
+          linewidth = 1) +
+  geom_sf(aes(color = segmentid),
+          transect_line,
+          linewidth = 1) +
+  geom_sf(data = station_prj,
+          shape = 23,
+          size = 4,
+          fill = "gold") +
+  scale_color_manual(values = c("firebrick", "cornflowerblue")) +
+  coord_ant(station_bbox) +
+  theme(legend.position = c(0.03, 0.98),
+        legend.justification = c(0, 1),
+        legend.title = element_blank())
+
+```
 
 Station locations on predator (five most abundant) count maps. Spatially restricted to station transects.
 
@@ -54,7 +130,7 @@ map_lim <- st_bbox(zoop_sf) %>%
   project_bbox() %>% 
   expand_bbox(factor = 1.2)
 
-ant_basemap(map_lim) +
+ant_basemap() +
   stars::geom_stars(aes(fill = count), data = topfive_stars) +
   geom_sf(aes(color = time.of.day), zoop_sf, size = 0.2) +
   scale_x_continuous(breaks = c(-65, -60, -55)) +
@@ -91,7 +167,7 @@ soi_sf <- predators_agg %>%
 
 soi_stars <- rasterize_counts(soi_sf, res = 2.5e4)
 
-ant_basemap(map_lim) +
+ant_basemap() +
   stars::geom_stars(aes(fill = count), data = soi_stars) +
   geom_sf(aes(color = time.of.day), zoop_sf, size = 0.2) +
   scale_x_continuous(breaks = c(-65, -60, -55)) +
@@ -146,7 +222,7 @@ ice_sf <- station_effort %>%
   select(amlr.station, year) %>% 
   right_join(stations_ice, by = "amlr.station")
 
-ant_basemap(map_lim) +
+ant_basemap() +
   geom_sf(aes(color = ice_type), 
           ice_sf,
           size = 0.5) +

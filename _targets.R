@@ -52,7 +52,8 @@ list(
       filter(nmi < 1000) %>%
       mutate(UTC_start = lubridate::mdy_hm(UTC_start),
              year = lubridate::year(UTC_start),
-             species = "survey")
+             species = "survey",
+             km = nmi_to_km(nmi))
   ),
   tar_target(effort_sf,
              latlon_to_sf(effort, coords = c("lon_mean", "lat_mean"))),

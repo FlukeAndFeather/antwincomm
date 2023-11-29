@@ -18,7 +18,7 @@ cluster_kde <- stations_clust %>%
               mutate(pred_clust = keys$pred_clust)) %>%
   reduce(sf:::rbind.sf)
 
-p <- ant_basemap(map_lim) +
+p <- ant_basemap() +
   # Predator clusters
   ggnewscale::new_scale_fill() +
   geom_sf(aes(color = pred_clust,

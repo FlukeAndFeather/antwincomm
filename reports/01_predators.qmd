@@ -14,16 +14,18 @@ output-dir: "docs"
 library(sf)
 library(targets)
 library(terra)
+library(tidyterra)
 library(tidyverse)
 
-tar_load_everything(store = here::here("_targets"))
+tar_load(c("ant_sf", "effort_sf", "predators_agg"),
+         store = here::here("_targets"))
 source(here::here("R", "sp.R"))
 source(here::here("R", "predators.R"))
 ```
 
 ## Counts
 
-The six most abundant species (in ind nmi\^-1).
+The six most abundant species (in ind km\^-1).
 
 ```{r}
 
@@ -87,18 +89,14 @@ rast_template <- rast(crs = as.character(ant_proj())[[1]],
 # Rasterize effort by year
 effort_rast <- effort_sf %>% 
   st_transform(ant_proj()) %>% 
-  rasterize(rast_template,
-            field = "nmi",
-            by = "year",
-            fun = sum)
+  rasterize_by("km", "year", sum, rast_template)
+
 # Rasterize the predator sightings by year and species
 topsix_rast <- topsix_sf %>% 
   st_transform(ant_proj()) %>% 
-  mutate(year_commonname = interaction(year, common_name)) %>% 
-  rasterize(rast_template, 
-            field = "count",
-            by = "year_commonname",
-            fun = sum)
+  mutate(year_commonname = as.character(interaction(year, common_name))) %>% 
+  rasterize_by("count", "year_commonname", sum, rast_template)
+
 # Normalize counts by effort
 topsix_norm <- topsix_rast
 for (i in seq(nlyr(topsix_rast))) {
@@ -128,15 +126,15 @@ map_bbox <- ext(-63, -54, -64, -59) %>%
  
 # Make the map! 
 ant_basemap() +
-  tidyterra::geom_spatraster(data = topsix_clim_class) +
-  geom_sf(data = tar_read("ant_sf", store = here::here("_targets"))) +
+  geom_spatraster(data = topsix_clim_class) +
+  geom_sf(data = ant_sf) +
   scale_fill_brewer(palette = "RdPu", 
                     na.value = NA, 
                     direction = 1,
                     na.translate = FALSE) +
   scale_x_continuous(breaks = seq(-64, -54, by = 4)) +
   scale_y_continuous(breaks = seq(-64, -59, by = 2)) +
-  labs(fill = "Ind nmi^-1") +
+  labs(fill = expression("Ind km"^-1)) +
   facet_wrap(~lyr) +
   coord_sf(xlim = map_bbox[1:2],
            ylim = map_bbox[3:4],
@@ -153,8 +151,8 @@ ant_basemap() +
 
 map_bbox <- ext(effort_rast)
 
-ant_basemap(map_bbox) +
-  tidyterra::geom_spatraster(data = effort_rast) +
+ant_basemap() +
+  geom_spatraster(data = effort_rast) +
   scale_fill_distiller(palette = "PuRd", 
                        direction = 1, 
                        na.value = NA) +
@@ -163,7 +161,7 @@ ant_basemap(map_bbox) +
   coord_sf(xlim = map_bbox[1:2],
            ylim = map_bbox[3:4],
            crs = ant_proj()) +
-  labs(fill = "nmi") +
+  labs(fill = "km") +
   facet_wrap(~lyr) +
   expand_limits(fill = 0)
 
@@ -188,7 +186,8 @@ map_bbox <- ext(-63, -54, -64, -59) %>%
 topsix_class <- topsix_rast %>% 
   classify(rcl = c(0, 1, 5, 10, 50, 100, 1000, Inf))
 
-topsix_class_df <- as.data.frame(topsix_class, xy = TRUE) %>% 
+topsix_class_df <- topsix_class %>% 
+  as.data.frame(xy = TRUE) %>% 
   pivot_longer(-c("x", "y"), 
                names_to = "name", 
                values_to = "count") %>% 
@@ -206,7 +205,7 @@ ant_basemap() +
                     na.translate = FALSE) +
   scale_x_continuous(breaks = seq(-64, -54, by = 4)) +
   scale_y_continuous(breaks = seq(-64, -59, by = 2)) +
-  labs(fill = "Ind nmi^-1") +
+  labs(fill = expression("Ind km"^-1)) +
   facet_grid(species ~ year) +
   coord_sf(xlim = map_bbox[1:2],
            ylim = map_bbox[3:4],
@@ -233,11 +232,8 @@ soi_sf <- predators_agg %>%
 
 soi_rast <- soi_sf %>% 
   st_transform(ant_proj()) %>% 
-  mutate(year_species = interaction(year, species)) %>% 
-  rasterize(rast_template, 
-            field = "count",
-            by = "year_species",
-            fun = sum)
+  mutate(year_species = as.character(interaction(year, species))) %>% 
+  rasterize_by("count", "year_species", sum, rast_template)
 
 map_bbox <- ext(-63, -54, -64, -59) %>% 
   project(from = "+proj=longlat +datum=WGS84",
@@ -246,7 +242,8 @@ map_bbox <- ext(-63, -54, -64, -59) %>%
 soi_class <- soi_rast %>% 
   classify(rcl = c(0, 1, 5, 10, 50, 100, 1000))
 
-soi_class_df <- as.data.frame(soi_class, xy = TRUE) %>% 
+soi_class_df <- soi_class %>% 
+  as.data.frame(xy = TRUE) %>% 
   pivot_longer(-c("x", "y"), 
                names_to = "name", 
                values_to = "count") %>% 
@@ -264,7 +261,7 @@ ant_basemap() +
                     na.translate = FALSE) +
   scale_x_continuous(breaks = seq(-64, -54, by = 4)) +
   scale_y_continuous(breaks = seq(-64, -59, by = 2)) +
-  labs(fill = "Ind nmi^-1") +
+  labs(fill = expression("Ind km"^-1)) +
   facet_grid(species ~ year) +
   coord_sf(xlim = map_bbox[1:2],
            ylim = map_bbox[3:4],
@@ -283,11 +280,8 @@ pred_sf <- predators_agg %>%
 
 pred_rast <- pred_sf %>% 
   st_transform(ant_proj()) %>% 
-  mutate(year_commonname = interaction(year, common_name)) %>% 
-  rasterize(rast_template, 
-            field = "count",
-            by = "year_commonname",
-            fun = sum)
+  mutate(year_commonname = as.character(interaction(year, common_name))) %>% 
+  rasterize_by("count", "year_commonname", sum, rast_template)
 
 # Normalize counts by effort
 pred_norm <- pred_rast
@@ -320,7 +314,9 @@ pred_class_df <- as.data.frame(pred_class, xy = TRUE) %>%
                names_to = "name", 
                values_to = "count") %>% 
   drop_na(count) %>% 
-  mutate(name = map_chr(name, \(n) paste(strwrap(n, 20), collapse = "\n")))
+  mutate(name = map_chr(name, \(n) paste(strwrap(n, 20), collapse = "\n"))) %>% 
+  # one sighting each, maps not useful
+  filter(!name %in% c("Antarctic prion", "Humpback whale"))
 
 ```
 
@@ -355,7 +351,7 @@ bird_class_df <- pred_class_df %>%
     "Snow petrel",
     "Emperor penguin",
     "Black-browed\nalbatross"
-  )), by = "name") 
+  )), by = "name")
 
 p <- ant_basemap() +
   geom_raster(aes(x, y, fill = count), bird_class_df) +
@@ -366,7 +362,7 @@ p <- ant_basemap() +
                     na.translate = FALSE) +
   scale_x_continuous(breaks = seq(-64, -54, by = 4)) +
   scale_y_continuous(breaks = seq(-64, -59, by = 2)) +
-  labs(fill = "Ind nmi^-1") +
+  labs(fill = expression("Ind km"^-1)) +
   facet_wrap(~ name, ncol = 5) +
   coord_sf(xlim = map_bbox[1:2],
            ylim = map_bbox[3:4],
@@ -395,7 +391,7 @@ p
 #| fig-dpi: 600
 
 mammal_class_df <- pred_class_df %>% 
-  anti_join(bird_class_df, by = "name") 
+  anti_join(bird_class_df, by = "name")
 
 p <- ant_basemap() +
   geom_raster(aes(x, y, fill = count), mammal_class_df) +
@@ -406,7 +402,7 @@ p <- ant_basemap() +
                     na.translate = FALSE) +
   scale_x_continuous(breaks = seq(-64, -54, by = 4)) +
   scale_y_continuous(breaks = seq(-64, -59, by = 2)) +
-  labs(fill = "Ind nmi^-1") +
+  labs(fill = expression("Ind km"^-1)) +
   facet_wrap(~ name, ncol = 3) +
   coord_sf(xlim = map_bbox[1:2],
            ylim = map_bbox[3:4],

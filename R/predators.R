@@ -54,7 +54,8 @@ normalize_counts <- function(sightings, effort) {
     summarize(count = sum(count), .groups = "drop") %>%
     right_join(select(as_tibble(effort), amlr.station, survey_nmi),
                by = "amlr.station") %>%
-    mutate(count_nmi = count / survey_nmi)
+    mutate(count_nmi = count / survey_nmi,
+           count_km = nmi_to_km(count_nmi))
 }
 
 code_to_common <- function(species_code) {

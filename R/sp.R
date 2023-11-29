@@ -83,7 +83,7 @@ latlon_to_sf <- function(df, coords = c("x", "y")) {
                crs = sp::CRS("+proj=longlat +datum=WGS84"))
 }
 
-ant_basemap <- function(map_lim = NULL) {
+ant_basemap <- function() {
   ggplot() +
     geom_sf(data = tar_read("ant_sf", store = here::here("_targets"))) +
     theme_minimal() +
@@ -118,5 +118,25 @@ expand_bbox <- function(x, factor) {
   result["xmax"] <- x0 + xrng * factor / 2
   result["ymin"] <- y0 - yrng * factor / 2
   result["ymax"] <- y0 + yrng * factor / 2
+  result
+}
+
+nmi_to_km <- function(nmi) nmi * 1.852
+
+rasterize_by <- function(x_sf, field, by, fun, template) {
+  result <- x_sf %>%
+    vect() %>%
+    rasterize(template,
+              field = field,
+              by = by,
+              fun = fun)
+  result_names <- names(result) %>%
+    str_extract("c[(]([^,]+)", 1) %>%
+    str_replace_all("\\\"", "")
+  names(result) <- ifelse(
+    !is.na(result_names),
+    result_names,
+    names(result)
+  )
   result
 }
