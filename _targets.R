@@ -104,7 +104,9 @@ list(
     station_effort,
     assign_sightings(effort_sf, zoop_sf, max_dist_km = 15, max_days = 3) %>%
       group_by(year, amlr.station) %>%
-      summarize(survey_nmi = sum(nmi), .groups = "drop")
+      summarize(survey_nmi = sum(nmi),
+                survey_km = nmi_to_km(survey_nmi),
+                .groups = "drop")
   ),
   tar_target(
     stations_ice,

@@ -2,8 +2,9 @@ aggregate_predators <- function(predators) {
   predators %>%
     filter(species != "NULL") %>%
     mutate(UTC_start = lubridate::mdy_hm(UTC_start),
-           year = lubridate::year(UTC_start)) %>%
-    group_by(year, interval, species, UTC_start, lon_mean, lat_mean, nmi) %>%
+           year = lubridate::year(UTC_start),
+           km = nmi_to_km(nmi)) %>%
+    group_by(year, interval, species, UTC_start, lon_mean, lat_mean, nmi, km) %>%
     summarize(count = sum(count_species), .groups = "drop")
 }
 
@@ -52,7 +53,7 @@ normalize_counts <- function(sightings, effort) {
     as_tibble() %>%
     group_by(amlr.station, species) %>%
     summarize(count = sum(count), .groups = "drop") %>%
-    right_join(select(as_tibble(effort), amlr.station, survey_nmi),
+    right_join(select(as_tibble(effort), amlr.station, survey_nmi, survey_km),
                by = "amlr.station") %>%
     mutate(count_nmi = count / survey_nmi,
            count_km = nmi_to_km(count_nmi))

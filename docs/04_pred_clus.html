@@ -324,23 +324,24 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ktibs <span class="ot">&lt;-</span> <span class="fu">with</span>(sightings_gap, k[is_optimum])</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ktibs <span class="ot">&lt;-</span> <span class="dv">3</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>tibs_thr <span class="ot">&lt;-</span> <span class="fu">with</span>(sightings_gap, gap[ktibs <span class="sc">+</span> <span class="dv">1</span>] <span class="sc">-</span> SE.sim[ktibs <span class="sc">+</span> <span class="dv">1</span>])</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sightings_gap, <span class="fu">aes</span>(<span class="at">x =</span> k, <span class="at">y =</span> gap)) <span class="sc">+</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> gap <span class="sc">-</span> SE.sim, <span class="at">ymax =</span> gap <span class="sc">+</span> SE.sim,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">color =</span> is_optimum)) <span class="sc">+</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> gap <span class="sc">-</span> SE.sim, <span class="at">ymax =</span> gap <span class="sc">+</span> SE.sim),</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">filter</span>(sightings_gap, k <span class="sc">==</span> <span class="dv">3</span>),</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">x =</span> ktibs, <span class="at">xend =</span> ktibs <span class="sc">+</span> <span class="dv">1</span>, </span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> tibs_thr, <span class="at">yend =</span> tibs_thr,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"blue"</span>,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"blue"</span>,</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                                <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"black"</span>)) <span class="sc">+</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> gap <span class="sc">-</span> SE.sim, <span class="at">ymax =</span> gap <span class="sc">+</span> SE.sim)) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> gap <span class="sc">-</span> SE.sim, <span class="at">ymax =</span> gap <span class="sc">+</span> SE.sim),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">filter</span>(sightings_gap, k <span class="sc">==</span> <span class="dv">3</span>),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">x =</span> ktibs, <span class="at">xend =</span> ktibs <span class="sc">+</span> <span class="dv">1</span>, </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> tibs_thr, <span class="at">yend =</span> tibs_thr,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"blue"</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(<span class="st">"Clusters"</span> <span class="sc">~</span><span class="er">~</span> (<span class="fu">italic</span>(k))),</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(<span class="st">"Gap statistic"</span> <span class="sc">~</span><span class="er">~</span> (<span class="fu">italic</span>(f)))) <span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"blue"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                                <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"black"</span>)) <span class="sc">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="04_pred_clus_files/figure-html/optimal-clusters-1.png" class="img-fluid" width="672"></p>
@@ -430,10 +431,203 @@ Antarctic petrel (0.29)</td>
 <li>Cluster 2 = open water</li>
 <li>Cluster 3 = marginal ice</li>
 </ul>
-<p>Relative to cluster 3, cluster 2 was composed of more ice associated species. The strongest indicator for cluster 2 was the Antarctic fur seal, which was sighted at 98.6% of cluster 2 sites, for 87% of the species’ total abundance. Pagophilic predators such as crabeater seals, leopard seals, and Adélie penguins were also indicator species for this cluster. Another pagophilic predator, the minke whale, was too rare overall to be significant indicator species for any cluster, but was sighted most frequently in cluster 2 (12.2% of sites versus 5.2% and 4.4% of clusters 1 and 3, respectively) and 80.0% of its abundance was in cluster 2.</p>
-<p>Cluster 3 describes a more open water guild. Southern fulmars and cape petrels were significant indicator species for this cluster. Blue petrels, an open water predator, were most frequently observed in cluster 3 (36.3% of sites, relative to 6.9% and 10.8% of sites in clusters 1 and 2) in greater numbers than elsewhere (66.0% of total abundance).</p>
-<p>Snow petrels, Antarctic petrels, and southern giant petrels were significant indicator species for both clusters 2 and 3. These species were the most widespread predators overall, sighted at 59.1%, 53.0%, and 44.9% of stations. Snow petrels were also the most abundant predator in the survey, accounting for 34.1% of total individuals observed.</p>
-<p>No species were identified as significant indicators for cluster 1. Species observed at &gt;25% of cluster 1 sites include Adélie penguins, crabeater seals, and Antarctic fur seals, suggesting a pack ice community. In terms of relative abundance, 59.8% of Weddell seals, 43.6% of Adélie penguins, and 20.2% of crabeater seals were sighted in cluster 1. If this cluster represents the pack ice community, the lack of significant indicator species may be attributable to difficulty surveying the pack ice?</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>predators_clust <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(amlr.station, species, count) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">complete</span>(species, amlr.station, <span class="at">fill =</span> <span class="fu">list</span>(<span class="at">count =</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(stations_clust <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(amlr.station, pred_clust),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"amlr.station"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(<span class="fu">mutate</span>(., <span class="at">pred_clust =</span> <span class="st">"All clusters"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(station_effort <span class="sc">%&gt;%</span> </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>              <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>              <span class="fu">transmute</span>(amlr.station, <span class="at">survey_km =</span> <span class="fu">nmi_to_km</span>(survey_nmi)),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"amlr.station"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species, pred_clust) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">density_km =</span> <span class="fu">sum</span>(count) <span class="sc">/</span> <span class="fu">sum</span>(survey_km),</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">freq =</span> <span class="fu">sum</span>(count <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">/</span> <span class="fu">n</span>(),</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">density_freq =</span> <span class="fu">str_glue</span>(<span class="st">"{sprintf('%0.3f', density_km)} [{scales::percent(freq, accuracy = 0.1)}]"</span>),</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>density_km, <span class="sc">-</span>freq) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> pred_clust, <span class="at">values_from =</span> density_freq) <span class="sc">%&gt;%</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="st">`</span><span class="at">All clusters</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">species</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Open water</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Marginal ice</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Pack ice</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">All clusters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SNPT</td>
+<td style="text-align: left;">1.554 [95.7%]</td>
+<td style="text-align: left;">3.116 [96.3%]</td>
+<td style="text-align: left;">0.463 [92.5%]</td>
+<td style="text-align: left;">1.665 [95.1%]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ADPN</td>
+<td style="text-align: left;">0.004 [6.5%]</td>
+<td style="text-align: left;">4.036 [42.6%]</td>
+<td style="text-align: left;">0.948 [67.9%]</td>
+<td style="text-align: left;">1.153 [27.8%]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">FUSE</td>
+<td style="text-align: left;">0.073 [50.7%]</td>
+<td style="text-align: left;">2.892 [100.0%]</td>
+<td style="text-align: left;">0.121 [52.8%]</td>
+<td style="text-align: left;">0.736 [62.0%]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CRSE</td>
+<td style="text-align: left;">0.005 [6.5%]</td>
+<td style="text-align: left;">0.437 [38.9%]</td>
+<td style="text-align: left;">1.380 [52.8%]</td>
+<td style="text-align: left;">0.421 [23.7%]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ANPT</td>
+<td style="text-align: left;">0.404 [92.8%]</td>
+<td style="text-align: left;">0.258 [85.2%]</td>
+<td style="text-align: left;">0.177 [66.0%]</td>
+<td style="text-align: left;">0.318 [85.3%]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ANFU</td>
+<td style="text-align: left;">0.240 [59.4%]</td>
+<td style="text-align: left;">0.033 [29.6%]</td>
+<td style="text-align: left;">0.045 [18.9%]</td>
+<td style="text-align: left;">0.147 [44.1%]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">KEGU</td>
+<td style="text-align: left;">0.056 [44.2%]</td>
+<td style="text-align: left;">0.158 [74.1%]</td>
+<td style="text-align: left;">0.108 [49.1%]</td>
+<td style="text-align: left;">0.092 [51.8%]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BLPT</td>
+<td style="text-align: left;">0.125 [32.6%]</td>
+<td style="text-align: left;">0.090 [13.0%]</td>
+<td style="text-align: left;">0.001 [1.9%]</td>
+<td style="text-align: left;">0.089 [21.6%]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SGPT</td>
+<td style="text-align: left;">0.084 [73.2%]</td>
+<td style="text-align: left;">0.101 [88.9%]</td>
+<td style="text-align: left;">0.066 [52.8%]</td>
+<td style="text-align: left;">0.084 [72.2%]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CAPT</td>
+<td style="text-align: left;">0.084 [47.8%]</td>
+<td style="text-align: left;">0.116 [20.4%]</td>
+<td style="text-align: left;">0.006 [13.2%]</td>
+<td style="text-align: left;">0.074 [34.3%]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LESE</td>
+<td style="text-align: left;">0.004 [8.7%]</td>
+<td style="text-align: left;">0.080 [38.9%]</td>
+<td style="text-align: left;">0.025 [30.2%]</td>
+<td style="text-align: left;">0.026 [20.0%]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ANTE</td>
+<td style="text-align: left;">0.012 [9.4%]</td>
+<td style="text-align: left;">0.061 [38.9%]</td>
+<td style="text-align: left;">0.003 [5.7%]</td>
+<td style="text-align: left;">0.021 [15.1%]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GEPN</td>
+<td style="text-align: left;">0.005 [2.2%]</td>
+<td style="text-align: left;">0.054 [5.6%]</td>
+<td style="text-align: left;">0.017 [11.3%]</td>
+<td style="text-align: left;">0.019 [4.9%]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ANSH</td>
+<td style="text-align: left;">0.022 [0.7%]</td>
+<td style="text-align: left;">0.000 [0.0%]</td>
+<td style="text-align: left;">0.000 [0.0%]</td>
+<td style="text-align: left;">0.012 [0.4%]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MIWH</td>
+<td style="text-align: left;">0.002 [3.6%]</td>
+<td style="text-align: left;">0.018 [13.0%]</td>
+<td style="text-align: left;">0.003 [9.4%]</td>
+<td style="text-align: left;">0.006 [6.9%]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">KIWH</td>
+<td style="text-align: left;">0.000 [0.0%]</td>
+<td style="text-align: left;">0.023 [5.6%]</td>
+<td style="text-align: left;">0.005 [3.8%]</td>
+<td style="text-align: left;">0.006 [2.0%]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PFSB</td>
+<td style="text-align: left;">0.002 [5.8%]</td>
+<td style="text-align: left;">0.006 [18.5%]</td>
+<td style="text-align: left;">0.006 [13.2%]</td>
+<td style="text-align: left;">0.004 [10.2%]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">WESE</td>
+<td style="text-align: left;">0.002 [5.1%]</td>
+<td style="text-align: left;">0.001 [1.9%]</td>
+<td style="text-align: left;">0.006 [15.1%]</td>
+<td style="text-align: left;">0.003 [6.5%]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ELSE</td>
+<td style="text-align: left;">0.004 [5.8%]</td>
+<td style="text-align: left;">0.000 [0.0%]</td>
+<td style="text-align: left;">0.002 [5.7%]</td>
+<td style="text-align: left;">0.002 [4.5%]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">EMPN</td>
+<td style="text-align: left;">0.000 [0.7%]</td>
+<td style="text-align: left;">0.000 [0.0%]</td>
+<td style="text-align: left;">0.002 [1.9%]</td>
+<td style="text-align: left;">0.001 [0.8%]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SBWH</td>
+<td style="text-align: left;">0.001 [1.4%]</td>
+<td style="text-align: left;">0.000 [0.0%]</td>
+<td style="text-align: left;">0.000 [0.0%]</td>
+<td style="text-align: left;">0.001 [0.8%]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ROSE</td>
+<td style="text-align: left;">0.000 [0.7%]</td>
+<td style="text-align: left;">0.000 [0.0%]</td>
+<td style="text-align: left;">0.000 [0.0%]</td>
+<td style="text-align: left;">0.000 [0.4%]</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
 </section>
 </section>
 <section id="cluster-distribution" class="level2">
@@ -444,46 +638,46 @@ Antarctic petrel (0.29)</td>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>stations_clust <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">factor</span>(Year)) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  crosstable<span class="sc">::</span><span class="fu">crosstable</span>(<span class="st">"Year"</span>, <span class="at">by =</span> <span class="st">"pred_clust"</span>, <span class="at">total =</span> <span class="st">"col"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  crosstable<span class="sc">::</span><span class="fu">as_flextable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>stations_clust <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">factor</span>(Year)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  crosstable<span class="sc">::</span><span class="fu">crosstable</span>(<span class="st">"Year"</span>, <span class="at">by =</span> <span class="st">"pred_clust"</span>, <span class="at">total =</span> <span class="st">"col"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  crosstable<span class="sc">::</span><span class="fu">as_flextable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 
-<div class="tabwid"><style>.cl-468d21a6{}.cl-468051e2{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-468051f6{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-46808e5a{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-46808e64{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-4680ea3a{width:80.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea44{width:45.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea4e{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea4f{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea58{width:84.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea59{width:45.6pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea62{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea63{width:84.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea6c{width:80.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea6d{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea6e{width:45.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea76{width:80.5pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea80{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea81{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea8a{width:84.1pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea8b{width:45.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea94{width:80.5pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea95{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680ea9e{width:84.1pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4680eaa8{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class="cl-468d21a6">
-<thead><tr style="overflow-wrap:break-word;"><td rowspan="2" class="cl-4680ea6e"><p class="cl-46808e5a"><span class="cl-468051e2">label</span></p></td><td rowspan="2" class="cl-4680ea81"><p class="cl-46808e5a"><span class="cl-468051e2">variable</span></p></td><td colspan="3" class="cl-4680ea80"><p class="cl-46808e5a"><span class="cl-468051e2">pred_clust</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4680ea95"><p class="cl-46808e5a"><span class="cl-468051e2">Open water</span></p></td><td class="cl-4680ea9e"><p class="cl-46808e5a"><span class="cl-468051e2">Marginal ice</span></p></td><td class="cl-4680ea94"><p class="cl-46808e5a"><span class="cl-468051e2">Pack ice</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td rowspan="6" class="cl-4680ea44"><p class="cl-46808e64"><span class="cl-468051f6">Year</span></p></td><td class="cl-4680ea4f"><p class="cl-46808e64"><span class="cl-468051f6">2012</span></p></td><td class="cl-4680ea4e"><p class="cl-46808e64"><span class="cl-468051f6">14 (73.68%)</span></p></td><td class="cl-4680ea58"><p class="cl-46808e64"><span class="cl-468051f6">3 (15.79%)</span></p></td><td class="cl-4680ea3a"><p class="cl-46808e64"><span class="cl-468051f6">2 (10.53%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4680ea4f"><p class="cl-46808e64"><span class="cl-468051f6">2013</span></p></td><td class="cl-4680ea4e"><p class="cl-46808e64"><span class="cl-468051f6">25 (53.19%)</span></p></td><td class="cl-4680ea58"><p class="cl-46808e64"><span class="cl-468051f6">11 (23.40%)</span></p></td><td class="cl-4680ea3a"><p class="cl-46808e64"><span class="cl-468051f6">11 (23.40%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4680ea4f"><p class="cl-46808e64"><span class="cl-468051f6">2014</span></p></td><td class="cl-4680ea4e"><p class="cl-46808e64"><span class="cl-468051f6">39 (57.35%)</span></p></td><td class="cl-4680ea58"><p class="cl-46808e64"><span class="cl-468051f6">14 (20.59%)</span></p></td><td class="cl-4680ea3a"><p class="cl-46808e64"><span class="cl-468051f6">15 (22.06%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4680ea4f"><p class="cl-46808e64"><span class="cl-468051f6">2015</span></p></td><td class="cl-4680ea4e"><p class="cl-46808e64"><span class="cl-468051f6">39 (65.00%)</span></p></td><td class="cl-4680ea58"><p class="cl-46808e64"><span class="cl-468051f6">8 (13.33%)</span></p></td><td class="cl-4680ea3a"><p class="cl-46808e64"><span class="cl-468051f6">13 (21.67%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4680ea4f"><p class="cl-46808e64"><span class="cl-468051f6">2016</span></p></td><td class="cl-4680ea4e"><p class="cl-46808e64"><span class="cl-468051f6">21 (41.18%)</span></p></td><td class="cl-4680ea58"><p class="cl-46808e64"><span class="cl-468051f6">18 (35.29%)</span></p></td><td class="cl-4680ea3a"><p class="cl-46808e64"><span class="cl-468051f6">12 (23.53%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-4680ea6d"><p class="cl-46808e64"><span class="cl-468051f6">Total</span></p></td><td class="cl-4680ea62"><p class="cl-46808e64"><span class="cl-468051f6">138 (56.33%)</span></p></td><td class="cl-4680ea63"><p class="cl-46808e64"><span class="cl-468051f6">54 (22.04%)</span></p></td><td class="cl-4680ea6c"><p class="cl-46808e64"><span class="cl-468051f6">53 (21.63%)</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-ba20b28c{}.cl-ba189d2c{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ba189d40{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ba18b712{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ba18b71c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ba18ff88{width:80.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ff92{width:45.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ff93{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ff9c{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ff9d{width:84.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ff9e{width:45.6pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ff9f{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ffa6{width:84.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ffa7{width:80.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ffb0{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ffb1{width:45.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ffb2{width:80.5pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ffba{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ffc4{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ffc5{width:84.1pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ffc6{width:45.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ffce{width:80.5pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ffcf{width:86.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ffd8{width:84.1pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ba18ffd9{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class="cl-ba20b28c">
+<thead><tr style="overflow-wrap:break-word;"><td rowspan="2" class="cl-ba18ffb1"><p class="cl-ba18b712"><span class="cl-ba189d2c">label</span></p></td><td rowspan="2" class="cl-ba18ffc4"><p class="cl-ba18b712"><span class="cl-ba189d2c">variable</span></p></td><td colspan="3" class="cl-ba18ffba"><p class="cl-ba18b712"><span class="cl-ba189d2c">pred_clust</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ba18ffcf"><p class="cl-ba18b712"><span class="cl-ba189d2c">Open water</span></p></td><td class="cl-ba18ffd8"><p class="cl-ba18b712"><span class="cl-ba189d2c">Marginal ice</span></p></td><td class="cl-ba18ffce"><p class="cl-ba18b712"><span class="cl-ba189d2c">Pack ice</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td rowspan="6" class="cl-ba18ff92"><p class="cl-ba18b71c"><span class="cl-ba189d40">Year</span></p></td><td class="cl-ba18ff9c"><p class="cl-ba18b71c"><span class="cl-ba189d40">2012</span></p></td><td class="cl-ba18ff93"><p class="cl-ba18b71c"><span class="cl-ba189d40">14 (73.68%)</span></p></td><td class="cl-ba18ff9d"><p class="cl-ba18b71c"><span class="cl-ba189d40">3 (15.79%)</span></p></td><td class="cl-ba18ff88"><p class="cl-ba18b71c"><span class="cl-ba189d40">2 (10.53%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ba18ff9c"><p class="cl-ba18b71c"><span class="cl-ba189d40">2013</span></p></td><td class="cl-ba18ff93"><p class="cl-ba18b71c"><span class="cl-ba189d40">25 (53.19%)</span></p></td><td class="cl-ba18ff9d"><p class="cl-ba18b71c"><span class="cl-ba189d40">11 (23.40%)</span></p></td><td class="cl-ba18ff88"><p class="cl-ba18b71c"><span class="cl-ba189d40">11 (23.40%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ba18ff9c"><p class="cl-ba18b71c"><span class="cl-ba189d40">2014</span></p></td><td class="cl-ba18ff93"><p class="cl-ba18b71c"><span class="cl-ba189d40">39 (57.35%)</span></p></td><td class="cl-ba18ff9d"><p class="cl-ba18b71c"><span class="cl-ba189d40">14 (20.59%)</span></p></td><td class="cl-ba18ff88"><p class="cl-ba18b71c"><span class="cl-ba189d40">15 (22.06%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ba18ff9c"><p class="cl-ba18b71c"><span class="cl-ba189d40">2015</span></p></td><td class="cl-ba18ff93"><p class="cl-ba18b71c"><span class="cl-ba189d40">39 (65.00%)</span></p></td><td class="cl-ba18ff9d"><p class="cl-ba18b71c"><span class="cl-ba189d40">8 (13.33%)</span></p></td><td class="cl-ba18ff88"><p class="cl-ba18b71c"><span class="cl-ba189d40">13 (21.67%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ba18ff9c"><p class="cl-ba18b71c"><span class="cl-ba189d40">2016</span></p></td><td class="cl-ba18ff93"><p class="cl-ba18b71c"><span class="cl-ba189d40">21 (41.18%)</span></p></td><td class="cl-ba18ff9d"><p class="cl-ba18b71c"><span class="cl-ba189d40">18 (35.29%)</span></p></td><td class="cl-ba18ff88"><p class="cl-ba18b71c"><span class="cl-ba189d40">12 (23.53%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ba18ffb0"><p class="cl-ba18b71c"><span class="cl-ba189d40">Total</span></p></td><td class="cl-ba18ff9f"><p class="cl-ba18b71c"><span class="cl-ba189d40">138 (56.33%)</span></p></td><td class="cl-ba18ffa6"><p class="cl-ba18b71c"><span class="cl-ba189d40">54 (22.04%)</span></p></td><td class="cl-ba18ffa7"><p class="cl-ba18b71c"><span class="cl-ba189d40">53 (21.63%)</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(stations_clust) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.2</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ant_basemap</span>() <span class="sc">+</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Sea ice</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(x, y, <span class="at">fill =</span> seaice_conc), </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">filter</span>(seaice_conc_df, <span class="fu">between</span>(seaice_conc, <span class="fl">0.65</span>, <span class="dv">1</span>)),</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">lim =</span> <span class="fu">c</span>(<span class="fl">0.65</span>, <span class="dv">1</span>),</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                       <span class="at">palette =</span> <span class="st">"Blues"</span>,</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                       <span class="at">na.value =</span> <span class="st">"transparent"</span>) <span class="sc">+</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Predator clusters</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  ggnewscale<span class="sc">::</span><span class="fu">new_scale_fill</span>() <span class="sc">+</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> pred_clust), </span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>          stations_clust, </span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="dv">2</span>, </span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">shape =</span> <span class="dv">22</span>) <span class="sc">+</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Year) <span class="sc">+</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">55</span>)) <span class="sc">+</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">63</span>, <span class="sc">-</span><span class="dv">62</span>, <span class="sc">-</span><span class="dv">61</span>, <span class="sc">-</span><span class="dv">60</span>)) <span class="sc">+</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">3</span>))) <span class="sc">+</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_ant</span>(map_lim) <span class="sc">+</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>map_lim <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(stations_clust) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">project_bbox</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_bbox</span>(<span class="at">factor =</span> <span class="fl">1.2</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ant_basemap</span>() <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Sea ice</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(x, y, <span class="at">fill =</span> seaice_conc), </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">filter</span>(seaice_conc_df, <span class="fu">between</span>(seaice_conc, <span class="fl">0.65</span>, <span class="dv">1</span>)),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">lim =</span> <span class="fu">c</span>(<span class="fl">0.65</span>, <span class="dv">1</span>),</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                       <span class="at">palette =</span> <span class="st">"Blues"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                       <span class="at">na.value =</span> <span class="st">"transparent"</span>) <span class="sc">+</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Predator clusters</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  ggnewscale<span class="sc">::</span><span class="fu">new_scale_fill</span>() <span class="sc">+</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> pred_clust), </span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>          stations_clust, </span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="dv">2</span>, </span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">shape =</span> <span class="dv">22</span>) <span class="sc">+</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Year) <span class="sc">+</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">55</span>)) <span class="sc">+</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">63</span>, <span class="sc">-</span><span class="dv">62</span>, <span class="sc">-</span><span class="dv">61</span>, <span class="sc">-</span><span class="dv">60</span>)) <span class="sc">+</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">3</span>))) <span class="sc">+</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_ant</span>(map_lim) <span class="sc">+</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="04_pred_clus_files/figure-html/cluster_maps-1.png" class="img-fluid" width="672"></p>
@@ -492,30 +686,30 @@ Antarctic petrel (0.29)</td>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eks)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cluster_kde <span class="ot">&lt;-</span> stations_clust <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pred_clust) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_map</span>(\(rows, keys) <span class="fu">st_kde</span>(rows)<span class="sc">$</span>sf <span class="sc">%&gt;%</span> </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(contlabel <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">95</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">pred_clust =</span> keys<span class="sc">$</span>pred_clust)) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reduce</span>(sf<span class="sc">:::</span>rbind.sf)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ant_basemap</span>() <span class="sc">+</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Predator clusters</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  ggnewscale<span class="sc">::</span><span class="fu">new_scale_fill</span>() <span class="sc">+</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust,</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">linetype =</span> contlabel), </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>          cluster_kde, </span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="cn">NA</span>,</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> pred_clust) <span class="sc">+</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">55</span>)) <span class="sc">+</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">63</span>, <span class="sc">-</span><span class="dv">62</span>, <span class="sc">-</span><span class="dv">61</span>, <span class="sc">-</span><span class="dv">60</span>)) <span class="sc">+</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_ant</span>(map_lim) <span class="sc">+</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eks)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cluster_kde <span class="ot">&lt;-</span> stations_clust <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pred_clust) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_map</span>(\(rows, keys) <span class="fu">st_kde</span>(rows)<span class="sc">$</span>sf <span class="sc">%&gt;%</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(contlabel <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">95</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">pred_clust =</span> keys<span class="sc">$</span>pred_clust)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reduce</span>(sf<span class="sc">:::</span>rbind.sf)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ant_basemap</span>() <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Predator clusters</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  ggnewscale<span class="sc">::</span><span class="fu">new_scale_fill</span>() <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> pred_clust,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">linetype =</span> contlabel), </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>          cluster_kde, </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="cn">NA</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> pred_clust) <span class="sc">+</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">60</span>, <span class="sc">-</span><span class="dv">55</span>)) <span class="sc">+</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">63</span>, <span class="sc">-</span><span class="dv">62</span>, <span class="sc">-</span><span class="dv">61</span>, <span class="sc">-</span><span class="dv">60</span>)) <span class="sc">+</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_ant</span>(map_lim) <span class="sc">+</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="04_pred_clus_files/figure-html/cluster_maps2-1.png" class="img-fluid" width="672"></p>
@@ -530,13 +724,13 @@ Antarctic petrel (0.29)</td>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_stress, <span class="fu">aes</span>(k, stress)) <span class="sc">+</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span>), <span class="at">linetype =</span> <span class="st">"dotted"</span>) <span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> nmds_stress<span class="sc">$</span>k) <span class="sc">+</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_stress, <span class="fu">aes</span>(k, stress)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span>), <span class="at">linetype =</span> <span class="st">"dotted"</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> nmds_stress<span class="sc">$</span>k) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="04_pred_clus_files/figure-html/nmds-scree-1.png" class="img-fluid" width="672"></p>
@@ -546,25 +740,25 @@ Antarctic petrel (0.29)</td>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>nmds_spear <span class="ot">&lt;-</span> <span class="fu">cor</span>(nmds_shepard<span class="sc">$</span>diss,</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                  nmds_shepard<span class="sc">$</span>dist,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>nmds_label <span class="ot">&lt;-</span> <span class="fu">str_glue</span>(</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Non-metric fit, R^2 = {round(1 - nmds_sightings$stress^2, 3)}</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Linear fit, R^2 = {round(nmds_spear^2, 3)}</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"k = {nmds_sightings$ndim}</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Stress = {round(nmds_sightings$stress, 3)}"</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_shepard, <span class="fu">aes</span>(diss, dist)) <span class="sc">+</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> mono), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.05</span>, <span class="at">y =</span> <span class="fl">2.9</span>, <span class="at">label =</span> nmds_label,</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Observed dissimilarity"</span>,</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Ordination distance"</span>) <span class="sc">+</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>nmds_spear <span class="ot">&lt;-</span> <span class="fu">cor</span>(nmds_shepard<span class="sc">$</span>diss,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                  nmds_shepard<span class="sc">$</span>dist,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>nmds_label <span class="ot">&lt;-</span> <span class="fu">str_glue</span>(</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Non-metric fit, R^2 = {round(1 - nmds_sightings$stress^2, 3)}</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Linear fit, R^2 = {round(nmds_spear^2, 3)}</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"k = {nmds_sightings$ndim}</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Stress = {round(nmds_sightings$stress, 3)}"</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nmds_shepard, <span class="fu">aes</span>(diss, dist)) <span class="sc">+</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> mono), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.05</span>, <span class="at">y =</span> <span class="fl">2.9</span>, <span class="at">label =</span> nmds_label,</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Observed dissimilarity"</span>,</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Ordination distance"</span>) <span class="sc">+</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="04_pred_clus_files/figure-html/nmds-shepard-1.png" class="img-fluid" width="672"></p>
@@ -577,57 +771,242 @@ Antarctic petrel (0.29)</td>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>nmds_envfit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>vector_tbl <span class="ot">&lt;-</span> <span class="fu">with</span>(nmds_envfit<span class="sc">$</span>vectors, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">cbind</span>(arrows, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">r2 =</span> r, </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">p =</span> pvals)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"var"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="st">"Vector"</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(NMDS1<span class="sc">:</span>p, \(x) <span class="fu">sprintf</span>(<span class="st">"%0.3f"</span>, x)))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>factor_tbl <span class="ot">&lt;-</span> <span class="fu">with</span>(nmds_envfit<span class="sc">$</span>factors, </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">cbind</span>(centroids, </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                         <span class="at">r2 =</span> r[var.id],</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>                         <span class="at">p =</span> pvals[var.id])) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"var"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="st">"Factor"</span>,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(NMDS1<span class="sc">:</span>p, \(x) <span class="fu">sprintf</span>(<span class="st">"%0.3f"</span>, x)))</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(vector_tbl, factor_tbl) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(type) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-***VECTORS
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">var</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">NMDS1</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">NMDS2</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">NMDS3</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">r2</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Vector</td>
+<td style="text-align: left;">zuml_m</td>
+<td style="text-align: left;">0.245</td>
+<td style="text-align: left;">0.958</td>
+<td style="text-align: left;">0.149</td>
+<td style="text-align: left;">0.003</td>
+<td style="text-align: left;">0.917</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Vector</td>
+<td style="text-align: left;">avg.temp</td>
+<td style="text-align: left;">0.073</td>
+<td style="text-align: left;">0.468</td>
+<td style="text-align: left;">0.881</td>
+<td style="text-align: left;">0.029</td>
+<td style="text-align: left;">0.135</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Vector</td>
+<td style="text-align: left;">avg.salinity</td>
+<td style="text-align: left;">-0.054</td>
+<td style="text-align: left;">0.831</td>
+<td style="text-align: left;">-0.554</td>
+<td style="text-align: left;">0.004</td>
+<td style="text-align: left;">0.841</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Vector</td>
+<td style="text-align: left;">Integ.chla.100m</td>
+<td style="text-align: left;">0.578</td>
+<td style="text-align: left;">-0.601</td>
+<td style="text-align: left;">0.552</td>
+<td style="text-align: left;">0.011</td>
+<td style="text-align: left;">0.580</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Vector</td>
+<td style="text-align: left;">Integ.phae.100m</td>
+<td style="text-align: left;">-0.526</td>
+<td style="text-align: left;">0.848</td>
+<td style="text-align: left;">0.069</td>
+<td style="text-align: left;">0.011</td>
+<td style="text-align: left;">0.564</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Vector</td>
+<td style="text-align: left;">ice_coverage</td>
+<td style="text-align: left;">0.325</td>
+<td style="text-align: left;">-0.391</td>
+<td style="text-align: left;">-0.861</td>
+<td style="text-align: left;">0.054</td>
+<td style="text-align: left;">0.013</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Factor</td>
+<td style="text-align: left;">TOD_2levels_civilD</td>
+<td style="text-align: left;">0.009</td>
+<td style="text-align: left;">0.015</td>
+<td style="text-align: left;">-0.025</td>
+<td style="text-align: left;">0.003</td>
+<td style="text-align: left;">0.683</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Factor</td>
+<td style="text-align: left;">TOD_2levels_civilN</td>
+<td style="text-align: left;">-0.027</td>
+<td style="text-align: left;">-0.050</td>
+<td style="text-align: left;">0.048</td>
+<td style="text-align: left;">0.003</td>
+<td style="text-align: left;">0.683</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Factor</td>
+<td style="text-align: left;">Year2012</td>
+<td style="text-align: left;">-0.070</td>
+<td style="text-align: left;">-0.093</td>
+<td style="text-align: left;">0.260</td>
+<td style="text-align: left;">0.061</td>
+<td style="text-align: left;">0.002</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Factor</td>
+<td style="text-align: left;">Year2013</td>
+<td style="text-align: left;">-0.062</td>
+<td style="text-align: left;">-0.306</td>
+<td style="text-align: left;">-0.036</td>
+<td style="text-align: left;">0.061</td>
+<td style="text-align: left;">0.002</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Factor</td>
+<td style="text-align: left;">Year2014</td>
+<td style="text-align: left;">-0.015</td>
+<td style="text-align: left;">-0.007</td>
+<td style="text-align: left;">0.061</td>
+<td style="text-align: left;">0.061</td>
+<td style="text-align: left;">0.002</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Factor</td>
+<td style="text-align: left;">Year2015</td>
+<td style="text-align: left;">-0.011</td>
+<td style="text-align: left;">0.258</td>
+<td style="text-align: left;">-0.079</td>
+<td style="text-align: left;">0.061</td>
+<td style="text-align: left;">0.002</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Factor</td>
+<td style="text-align: left;">Year2016</td>
+<td style="text-align: left;">0.106</td>
+<td style="text-align: left;">0.076</td>
+<td style="text-align: left;">-0.047</td>
+<td style="text-align: left;">0.061</td>
+<td style="text-align: left;">0.002</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Factor</td>
+<td style="text-align: left;">zoop_clust1</td>
+<td style="text-align: left;">0.024</td>
+<td style="text-align: left;">0.041</td>
+<td style="text-align: left;">-0.020</td>
+<td style="text-align: left;">0.028</td>
+<td style="text-align: left;">0.197</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Factor</td>
+<td style="text-align: left;">zoop_clust2a</td>
+<td style="text-align: left;">0.072</td>
+<td style="text-align: left;">0.048</td>
+<td style="text-align: left;">-0.003</td>
+<td style="text-align: left;">0.028</td>
+<td style="text-align: left;">0.197</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Factor</td>
+<td style="text-align: left;">zoop_clust2b</td>
+<td style="text-align: left;">-0.065</td>
+<td style="text-align: left;">-0.101</td>
+<td style="text-align: left;">0.117</td>
+<td style="text-align: left;">0.028</td>
+<td style="text-align: left;">0.197</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Factor</td>
+<td style="text-align: left;">zoop_clust3a</td>
+<td style="text-align: left;">-0.133</td>
+<td style="text-align: left;">-0.158</td>
+<td style="text-align: left;">0.123</td>
+<td style="text-align: left;">0.028</td>
+<td style="text-align: left;">0.197</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Factor</td>
+<td style="text-align: left;">zoop_clust3b</td>
+<td style="text-align: left;">-0.169</td>
+<td style="text-align: left;">-0.073</td>
+<td style="text-align: left;">-0.309</td>
+<td style="text-align: left;">0.028</td>
+<td style="text-align: left;">0.197</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Factor</td>
+<td style="text-align: left;">ice_typeOPEN</td>
+<td style="text-align: left;">-0.031</td>
+<td style="text-align: left;">0.081</td>
+<td style="text-align: left;">0.085</td>
+<td style="text-align: left;">0.014</td>
+<td style="text-align: left;">0.497</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Factor</td>
+<td style="text-align: left;">ice_typeTHIN</td>
+<td style="text-align: left;">-0.018</td>
+<td style="text-align: left;">-0.002</td>
+<td style="text-align: left;">-0.095</td>
+<td style="text-align: left;">0.014</td>
+<td style="text-align: left;">0.497</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Factor</td>
+<td style="text-align: left;">ice_typeFY</td>
+<td style="text-align: left;">0.022</td>
+<td style="text-align: left;">-0.043</td>
+<td style="text-align: left;">0.040</td>
+<td style="text-align: left;">0.014</td>
+<td style="text-align: left;">0.497</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Factor</td>
+<td style="text-align: left;">ice_typeMY</td>
+<td style="text-align: left;">0.618</td>
+<td style="text-align: left;">0.278</td>
+<td style="text-align: left;">-0.039</td>
+<td style="text-align: left;">0.014</td>
+<td style="text-align: left;">0.497</td>
+</tr>
+</tbody>
+</table>
 
-                   NMDS1    NMDS2    NMDS3     r2 Pr(&gt;r)  
-zuml_m           0.24477  0.95804  0.14914 0.0029  0.917  
-avg.temp         0.07336  0.46819  0.88058 0.0293  0.135  
-avg.salinity    -0.05391  0.83099 -0.55367 0.0043  0.841  
-Integ.chla.100m  0.57823 -0.60054  0.55227 0.0105  0.580  
-Integ.phae.100m -0.52615  0.84761  0.06874 0.0110  0.564  
-ice_coverage     0.32490 -0.39124 -0.86103 0.0544  0.013 *
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-Permutation: free
-Number of permutations: 999
 
-***FACTORS:
-
-Centroids:
-                     NMDS1   NMDS2   NMDS3
-TOD_2levels_civilD  0.0087  0.0152 -0.0249
-TOD_2levels_civilN -0.0274 -0.0504  0.0479
-Year2012           -0.0704 -0.0933  0.2598
-Year2013           -0.0624 -0.3065 -0.0363
-Year2014           -0.0146 -0.0067  0.0613
-Year2015           -0.0112  0.2575 -0.0792
-Year2016            0.1062  0.0758 -0.0473
-zoop_clust1         0.0243  0.0407 -0.0199
-zoop_clust2a        0.0724  0.0477 -0.0026
-zoop_clust2b       -0.0652 -0.1015  0.1172
-zoop_clust3a       -0.1334 -0.1576  0.1226
-zoop_clust3b       -0.1695 -0.0729 -0.3092
-ice_typeOPEN       -0.0305  0.0810  0.0853
-ice_typeTHIN       -0.0175 -0.0021 -0.0947
-ice_typeFY          0.0216 -0.0427  0.0404
-ice_typeMY          0.6184  0.2781 -0.0392
-
-Goodness of fit:
-                      r2 Pr(&gt;r)   
-TOD_2levels_civil 0.0027  0.683   
-Year              0.0605  0.002 **
-zoop_clust        0.0282  0.197   
-ice_type          0.0136  0.497   
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-Permutation: free
-Number of permutations: 999
-
-56 observations deleted due to missingness</code></pre>
 </div>
 </div>
 <p>NMDS plots, color-coded by predator cluster with year and ice coverage loadings.</p>

@@ -322,14 +322,14 @@ predators_stations %>%
 ### Line transects
 
 ```{r}
-survey_nmi <- predators_stations %>% 
-  distinct(amlr.station, survey_nmi) %>% 
-  pull(survey_nmi)
-mean_nmi <- format(mean(survey_nmi), digits = 3) 
-sd_nmi <- format(sd(survey_nmi), digits = 3) 
+survey_km <- predators_stations %>% 
+  distinct(amlr.station, survey_km) %>% 
+  pull(survey_km)
+mean_km <- format(mean(survey_km), digits = 3) 
+sd_km <- format(sd(survey_km), digits = 3) 
 ```
 
-`r mean_nmi` $\pm$ `r sd_nmi` nm of survey effort associated with each station.
+`r mean_km` $\pm$ `r sd_km` km of survey effort associated with each station.
 
 ### Ice and effort combined
 
@@ -371,23 +371,23 @@ ice_table <- stations_ice %>%
               values_from = ice_val)
   )
 
-effort_table <- predators_stations %>% 
-  distinct(amlr.station, survey_nmi) %>% 
+effort_table <- predators_stations %>%
+  distinct(amlr.station, survey_km) %>% 
   mutate(year = str_extract(amlr.station, "AMLR([0-9]{4}).*", 1)) %>% 
   group_by(year) %>% 
   summarize(`Stations sampled` = n(),
-            mean_nmi = mean(survey_nmi),
-            sd_nmi = sd(survey_nmi),
-            `Effort per station (nmi)` = str_glue("{sprintf('%0.1f', mean_nmi)} \U00B1 {sprintf('%0.1f', sd_nmi)}")) %>% 
-  select(year, `Stations sampled`, `Effort per station (nmi)`) %>% 
+            mean_km = mean(survey_km),
+            sd_km = sd(survey_km),
+            `Effort per station (km)` = str_glue("{sprintf('%0.1f', mean_km)} \U00B1 {sprintf('%0.1f', sd_km)}")) %>% 
+  select(year, `Stations sampled`, `Effort per station (km)`) %>% 
   rbind(
     predators_stations %>% 
-      distinct(amlr.station, survey_nmi) %>% 
+      distinct(amlr.station, survey_km) %>% 
       mutate(year = str_extract(amlr.station, "AMLR([0-9]{4}).*", 1)) %>% 
       summarize(
         year = "Total",
         `Stations sampled` = n(),
-        `Effort per station (nmi)` = str_glue("{sprintf('%0.1f', mean(survey_nmi))} \U00B1 {sprintf('%0.1f', sd(survey_nmi))}")
+        `Effort per station (km)` = str_glue("{sprintf('%0.1f', mean(survey_km))} \U00B1 {sprintf('%0.1f', sd(survey_km))}")
       )
   )
 

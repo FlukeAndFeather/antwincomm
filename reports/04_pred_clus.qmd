@@ -22,10 +22,11 @@ library(tidyterra)
 library(tidyverse)
 library(vegan)
 
-tar_load(c("nmds_df", "nmds_env", "nmds_envfit", "nmds_shepard", "nmds_sightings", 
-           "nmds_stress", "predators_clust", "seaice_conc_df", "seaice_contours", 
-           "sightings_clust", "sightings_cut", "sightings_gap", "sightings_indval", 
-           "stations_clust", "zoop_sf"), 
+tar_load(c("nmds_df", "nmds_env", "nmds_envfit", "nmds_shepard", 
+           "nmds_sightings", "nmds_stress", "predators_clust", 
+           "seaice_conc_df", "seaice_contours", "sightings_clust", 
+           "sightings_cut", "sightings_gap", "sightings_indval", 
+           "station_effort", "stations_clust", "zoop_sf"), 
          store = here::here("_targets"))
 source(here::here("R", "predators.R"))
 source(here::here("R", "sp.R"))
@@ -69,12 +70,11 @@ We use the gap statistic [@tibshirani2001] to choose the optimal number of clust
 ```{r}
 #| label: optimal-clusters
 
-ktibs <- with(sightings_gap, k[is_optimum])
+ktibs <- 3
 tibs_thr <- with(sightings_gap, gap[ktibs + 1] - SE.sim[ktibs + 1])
 ggplot(sightings_gap, aes(x = k, y = gap)) +
   geom_line() +
-  geom_pointrange(aes(ymin = gap - SE.sim, ymax = gap + SE.sim,
-                      color = is_optimum)) +
+  geom_pointrange(aes(ymin = gap - SE.sim, ymax = gap + SE.sim)) +
   geom_pointrange(aes(ymin = gap - SE.sim, ymax = gap + SE.sim),
                   filter(sightings_gap, k == 3),
                   color = "red") +
@@ -82,6 +82,8 @@ ggplot(sightings_gap, aes(x = k, y = gap)) +
                y = tibs_thr, yend = tibs_thr,
                color = "blue",
                linetype = "dashed") +
+  labs(x = expression("Clusters" ~~ (italic(k))),
+       y = expression("Gap statistic" ~~ (italic(f)))) +
   scale_color_manual(values = c(`TRUE` = "blue",
                                 `FALSE` = "black")) +
   theme_classic() +
@@ -135,13 +137,30 @@ as_tibble(t(indval_fmt)) %>%
 -   Cluster 2 = open water
 -   Cluster 3 = marginal ice
 
-Relative to cluster 3, cluster 2 was composed of more ice associated species. The strongest indicator for cluster 2 was the Antarctic fur seal, which was sighted at 98.6% of cluster 2 sites, for 87% of the species' total abundance. Pagophilic predators such as crabeater seals, leopard seals, and Adélie penguins were also indicator species for this cluster. Another pagophilic predator, the minke whale, was too rare overall to be significant indicator species for any cluster, but was sighted most frequently in cluster 2 (12.2% of sites versus 5.2% and 4.4% of clusters 1 and 3, respectively) and 80.0% of its abundance was in cluster 2.
-
-Cluster 3 describes a more open water guild. Southern fulmars and cape petrels were significant indicator species for this cluster. Blue petrels, an open water predator, were most frequently observed in cluster 3 (36.3% of sites, relative to 6.9% and 10.8% of sites in clusters 1 and 2) in greater numbers than elsewhere (66.0% of total abundance).
-
-Snow petrels, Antarctic petrels, and southern giant petrels were significant indicator species for both clusters 2 and 3. These species were the most widespread predators overall, sighted at 59.1%, 53.0%, and 44.9% of stations. Snow petrels were also the most abundant predator in the survey, accounting for 34.1% of total individuals observed.
-
-No species were identified as significant indicators for cluster 1. Species observed at \>25% of cluster 1 sites include Adélie penguins, crabeater seals, and Antarctic fur seals, suggesting a pack ice community. In terms of relative abundance, 59.8% of Weddell seals, 43.6% of Adélie penguins, and 20.2% of crabeater seals were sighted in cluster 1. If this cluster represents the pack ice community, the lack of significant indicator species may be attributable to difficulty surveying the pack ice?
+```{r}
+#| label: abu_by_clust
+predators_clust %>% 
+  select(amlr.station, species, count) %>% 
+  complete(species, amlr.station, fill = list(count = 0)) %>% 
+  left_join(stations_clust %>% 
+              as_tibble() %>% 
+              select(amlr.station, pred_clust),
+            by = "amlr.station") %>% 
+  rbind(mutate(., pred_clust = "All clusters")) %>% 
+  left_join(station_effort %>% 
+              as_tibble() %>% 
+              transmute(amlr.station, survey_km = nmi_to_km(survey_nmi)),
+            by = "amlr.station") %>% 
+  group_by(species, pred_clust) %>% 
+  summarize(density_km = sum(count) / sum(survey_km),
+            freq = sum(count > 0) / n(),
+            density_freq = str_glue("{sprintf('%0.3f', density_km)} [{scales::percent(freq, accuracy = 0.1)}]"),
+            .groups = "drop") %>% 
+  select(-density_km, -freq) %>% 
+  pivot_wider(names_from = pred_clust, values_from = density_freq) %>%
+  arrange(desc(`All clusters`)) %>% 
+  knitr::kable()
+```
 
 ## Cluster distribution
 
@@ -276,7 +295,25 @@ Only two environmental variables were significantly correlated with the NMDS axe
 ```{r}
 #| label: envfit
 
-nmds_envfit
+vector_tbl <- with(nmds_envfit$vectors, 
+                   cbind(arrows, 
+                         r2 = r, 
+                         p = pvals)) %>% 
+  as_tibble(rownames = "var") %>% 
+  mutate(type = "Vector",
+         across(NMDS1:p, \(x) sprintf("%0.3f", x)))
+
+factor_tbl <- with(nmds_envfit$factors, 
+                   cbind(centroids, 
+                         r2 = r[var.id],
+                         p = pvals[var.id])) %>% 
+  as_tibble(rownames = "var") %>% 
+  mutate(type = "Factor",
+         across(NMDS1:p, \(x) sprintf("%0.3f", x)))
+
+rbind(vector_tbl, factor_tbl) %>% 
+  relocate(type) %>% 
+  knitr::kable()
 
 ```
 

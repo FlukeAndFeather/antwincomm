@@ -538,14 +538,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>survey_nmi <span class="ot">&lt;-</span> predators_stations <span class="sc">%&gt;%</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(amlr.station, survey_nmi) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(survey_nmi)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>mean_nmi <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">mean</span>(survey_nmi), <span class="at">digits =</span> <span class="dv">3</span>) </span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>sd_nmi <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">sd</span>(survey_nmi), <span class="at">digits =</span> <span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>survey_km <span class="ot">&lt;-</span> predators_stations <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(amlr.station, survey_km) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(survey_km)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>mean_km <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">mean</span>(survey_km), <span class="at">digits =</span> <span class="dv">3</span>) </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>sd_km <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">sd</span>(survey_km), <span class="at">digits =</span> <span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>16.3 <span class="math inline">\(\pm\)</span> 5.56 nm of survey effort associated with each station.</p>
+<p>30.2 <span class="math inline">\(\pm\)</span> 10.3 km of survey effort associated with each station.</p>
 </section>
 <section id="ice-and-effort-combined" class="level3">
 <h3 class="anchored" data-anchor-id="ice-and-effort-combined">Ice and effort combined</h3>
@@ -589,23 +589,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> ice_val)</span>
 <span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>effort_table <span class="ot">&lt;-</span> predators_stations <span class="sc">%&gt;%</span> </span>
-<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(amlr.station, survey_nmi) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>effort_table <span class="ot">&lt;-</span> predators_stations <span class="sc">%&gt;%</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(amlr.station, survey_km) <span class="sc">%&gt;%</span> </span>
 <span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">str_extract</span>(amlr.station, <span class="st">"AMLR([0-9]{4}).*"</span>, <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
 <span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="st">`</span><span class="at">Stations sampled</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">n</span>(),</span>
-<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_nmi =</span> <span class="fu">mean</span>(survey_nmi),</span>
-<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_nmi =</span> <span class="fu">sd</span>(survey_nmi),</span>
-<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Effort per station (nmi)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">str_glue</span>(<span class="st">"{sprintf('%0.1f', mean_nmi)} \U00B1 {sprintf('%0.1f', sd_nmi)}"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, <span class="st">`</span><span class="at">Stations sampled</span><span class="st">`</span>, <span class="st">`</span><span class="at">Effort per station (nmi)</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_km =</span> <span class="fu">mean</span>(survey_km),</span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_km =</span> <span class="fu">sd</span>(survey_km),</span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Effort per station (km)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">str_glue</span>(<span class="st">"{sprintf('%0.1f', mean_km)} \U00B1 {sprintf('%0.1f', sd_km)}"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, <span class="st">`</span><span class="at">Stations sampled</span><span class="st">`</span>, <span class="st">`</span><span class="at">Effort per station (km)</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(</span>
 <span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>    predators_stations <span class="sc">%&gt;%</span> </span>
-<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>      <span class="fu">distinct</span>(amlr.station, survey_nmi) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>      <span class="fu">distinct</span>(amlr.station, survey_km) <span class="sc">%&gt;%</span> </span>
 <span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">str_extract</span>(amlr.station, <span class="st">"AMLR([0-9]{4}).*"</span>, <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(</span>
 <span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>        <span class="at">year =</span> <span class="st">"Total"</span>,</span>
 <span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">Stations sampled</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">n</span>(),</span>
-<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">Effort per station (nmi)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">str_glue</span>(<span class="st">"{sprintf('%0.1f', mean(survey_nmi))} \U00B1 {sprintf('%0.1f', sd(survey_nmi))}"</span>)</span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">Effort per station (km)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">str_glue</span>(<span class="st">"{sprintf('%0.1f', mean(survey_km))} \U00B1 {sprintf('%0.1f', sd(survey_km))}"</span>)</span>
 <span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>      )</span>
 <span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a></span>
@@ -638,7 +638,7 @@ Ice conditions
 <tr class="odd">
 <th style="text-align: left;" data-quarto-table-cell-role="th">year</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">Stations sampled</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Effort per station (nmi)</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Effort per station (km)</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Open water</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Thin ice</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">First-year ice</th>
@@ -649,7 +649,7 @@ Ice conditions
 <tr class="odd">
 <td style="text-align: left;">2012</td>
 <td style="text-align: right;">19</td>
-<td style="text-align: left;">18.8 ± 4.8</td>
+<td style="text-align: left;">34.9 ± 8.8</td>
 <td style="text-align: left;">14 (2.4% ± 4.0%)</td>
 <td style="text-align: left;">1 (10.0% ± 7.7%)</td>
 <td style="text-align: left;">0</td>
@@ -658,7 +658,7 @@ Ice conditions
 <tr class="even">
 <td style="text-align: left;">2013</td>
 <td style="text-align: right;">47</td>
-<td style="text-align: left;">20.8 ± 7.3</td>
+<td style="text-align: left;">38.5 ± 13.5</td>
 <td style="text-align: left;">3 (16.3% ± 5.5%)</td>
 <td style="text-align: left;">22 (51.2% ± 7.5%)</td>
 <td style="text-align: left;">20 (67.0% ± 7.0%)</td>
@@ -667,7 +667,7 @@ Ice conditions
 <tr class="odd">
 <td style="text-align: left;">2014</td>
 <td style="text-align: right;">68</td>
-<td style="text-align: left;">14.4 ± 3.8</td>
+<td style="text-align: left;">26.6 ± 7.0</td>
 <td style="text-align: left;">9 (10.5% ± 3.7%)</td>
 <td style="text-align: left;">10 (55.2% ± 6.1%)</td>
 <td style="text-align: left;">48 (44.8% ± 6.1%)</td>
@@ -676,7 +676,7 @@ Ice conditions
 <tr class="even">
 <td style="text-align: left;">2015</td>
 <td style="text-align: right;">60</td>
-<td style="text-align: left;">15.0 ± 4.6</td>
+<td style="text-align: left;">27.8 ± 8.5</td>
 <td style="text-align: left;">13 (4.6% ± 2.7%)</td>
 <td style="text-align: left;">37 (56.7% ± 6.4%)</td>
 <td style="text-align: left;">10 (73.1% ± 5.7%)</td>
@@ -685,7 +685,7 @@ Ice conditions
 <tr class="odd">
 <td style="text-align: left;">2016</td>
 <td style="text-align: right;">51</td>
-<td style="text-align: left;">15.3 ± 4.5</td>
+<td style="text-align: left;">28.4 ± 8.3</td>
 <td style="text-align: left;">8 (7.8% ± 3.7%)</td>
 <td style="text-align: left;">31 (59.2% ± 6.8%)</td>
 <td style="text-align: left;">12 (75.8% ± 5.9%)</td>
@@ -694,7 +694,7 @@ Ice conditions
 <tr class="even">
 <td style="text-align: left;">Total</td>
 <td style="text-align: right;">245</td>
-<td style="text-align: left;">16.3 ± 5.6</td>
+<td style="text-align: left;">30.2 ± 10.3</td>
 <td style="text-align: left;">47 (6.4% ± 1.6%)</td>
 <td style="text-align: left;">101 (55.6% ± 3.2%)</td>
 <td style="text-align: left;">90 (57.0% ± 3.2%)</td>
