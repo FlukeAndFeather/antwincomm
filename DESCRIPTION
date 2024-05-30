@@ -1,10 +1,40 @@
 Package: antwincomm
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Sea-ice and macrozooplankton distribution as determinants of top
+    predator community structure in Antarctic winter
+Version: 1.0.0
 Authors@R: 
     person("Max", "Czapanskiy", , "maxczapanskiy@gmail.com", role = c("aut", "cre"),
            comment = c("ORCID-ID" = "0000-0002-6302-905X"))
-Description: What the package does (one paragraph).
+Description: The Antarctic Peninsula marine ecosystem is highly
+    productive, with large populations of commercially and ecologically
+    important species including Antarctic krill Euphausia superba, Adélie
+    penguins Pygoscelis adeliae, and crabeater seals Lobodon
+    carcinophagus. The ecology of the peninsula is rapidly changing due to
+    accelerating climate change and fishing pres- sure. Systematic
+    ecosystem surveys have focused on austral spring and summer, leaving
+    an information gap on winter ecosystem dynamics. Using data from 5
+    consecutive ecosystem surveys, we quantified the composition and
+    distribution of winter predator communities and investigated the
+    physical and biological influences on community structure. Seabirds
+    and marine mammals clustered into 3 communities: an ice-associated
+    community represented by Adélie penguins and crabeater seals; a
+    diverse marginal ice zone community dominated by fur seals and several
+    species of seabirds including 3 petrels, kelp gulls Larus dominicanus,
+    and Antarctic terns Sterna vittata; and an open water community
+    consisting of southern fulmars Fulmarus glacialoides and 4 species of
+    petrels. These communities were distributed along an environmental
+    gradient ranging from ice-covered, cold, saline water to ice-free,
+    warmer, and fresher water with greater chlorophyll concentrations.
+    Predator communities were also associated with different communities
+    of macrozooplankton: ice-associated predators with an extremely
+    diverse assemblage of typically mesopelagic zooplankton; marginal ice
+    zone predators with a community of large-bodied euphausiids (E.
+    superba, E. crystallorophias); and open water predators with a
+    community of small-bodied euphausiids (Thysanoessa macrura). Our
+    synthesis of integrated winter predator and macrozooplankton
+    communities relative to sea-ice concentration provides reference
+    points for future ecosystem assessments within this rapidly changing
+    region.
 License: MIT + file LICENSE
 ByteCompile: true
 Encoding: UTF-8
