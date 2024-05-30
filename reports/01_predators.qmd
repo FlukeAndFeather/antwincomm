@@ -125,9 +125,15 @@ map_bbox <- ext(-63, -54, -64, -59) %>%
           to = as.character(ant_proj())[[1]])
  
 # Make the map! 
-ant_basemap() +
+sublabels <- tibble(lyr = names(topsix_clim_class),
+                    x = -62.25, y = -59.25) %>% 
+  arrange(lyr) %>% 
+  mutate(labels = LETTERS[1:6]) %>% 
+  st_as_sf(crs = "EPSG:4326", coords = c("x", "y"))
+p <- ant_basemap() +
   geom_spatraster(data = topsix_clim_class) +
   geom_sf(data = ant_sf) +
+  geom_sf_text(aes(label = labels), sublabels, fontface = "bold") +
   scale_fill_brewer(palette = "RdPu", 
                     na.value = NA, 
                     direction = 1,
@@ -139,7 +145,12 @@ ant_basemap() +
   coord_sf(xlim = map_bbox[1:2],
            ylim = map_bbox[3:4],
            crs = ant_proj()) +
-  theme(legend.position = "top")
+  theme(legend.position = "top",
+        panel.background = element_rect(color = "grey20"),
+        strip.text = element_blank())
+ggsave(here::here("figs/Figure 2.eps"), p, 
+       width = 169, height = 121, units = "mm")
+p
 
 ```
 

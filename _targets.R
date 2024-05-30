@@ -153,6 +153,8 @@ list(
                                         permutations = 999,
                                         choices = 1:3,
                                         na.rm = TRUE)),
+  # Overview map (figure 1)
+  tar_target(overview_map, make_overview_map()),
   # Reports
   tar_quarto(reports, here("reports"))
 )

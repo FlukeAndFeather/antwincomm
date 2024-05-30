@@ -140,3 +140,11 @@ rasterize_by <- function(x_sf, field, by, fun, template) {
   )
   result
 }
+
+make_overview_map <- function() {
+  map_bbox <- st_bbox(c(xmin = -64, xmax = -53, ymin = -64.5, ymax = -58.5),
+                      crs = "EPSG:4326") %>%
+    project_bbox()
+  ant_basemap() +
+    coord_ant(map_bbox)
+}
