@@ -1,0 +1,170 @@
+---
+title: "Sea-ice and macrozooplankton distribution as determinants of top predator community structure in Antarctic winter"
+author:
+  - Max F. Czapanskiy:
+      orcid: 0000-0002-6302-905X
+      institute:
+        - ims
+        - fed
+        - esd1
+  - Jarrod A. Santora:
+      correspondence: "yes"
+      email: jarrod.santora@noaa.gov
+      institute: 
+        - fed
+        - dam
+  - Kimberly S. Dietrich:
+      institute: 
+        - ims
+        - fed
+  - Megan A. Cimino:
+      orcid: 0000-0002-1715-2903
+      institute:
+        - ims
+        - esd1
+  - Elliott L. Hazen:
+      institute: esd1
+  - Christian S. Reiss:
+      institute: esd2
+  - Richard R. Veit:
+      institute: cuny
+institute:
+  - ims:
+      name: Institute of Marine Sciences, University of California Santa Cruz
+      address: Santa Cruz, California 95060, USA
+  - fed: 
+      name: Fisheries Ecology Division, Southwest Fisheries Science Center, National Marine Fisheries Service, National Oceanic and Atmospheric Administration
+      address: Santa Cruz, California 95060, USA
+  - esd1:
+      name: Ecosystem Science Division, Southwest Fisheries Science Center, National Marine Fisheries Service, National Oceanic and Atmospheric Administration
+      address: Monterey, California 93940, USA
+  - dam:
+      name: Department of Applied Math, University of California Santa Cruz
+      address: Santa Cruz, California 95060, USA
+  - esd2:
+      name: Ecosystem Science Division, Southwest Fisheries Science Center, National Marine Fisheries Service, National Oceanic and Atmospheric Administration
+      address: La Jolla, California 92037, USA
+  - cuny:
+      name: City University of New York, College of Staten Island, Biology Department
+      address: Staten Island, New York 10314, USA
+title-block-published: "Last updated"  
+date: now
+date-format: long
+format: 
+  docx:
+    reference-doc: "../templates/template.docx" # Insert path for the DOCX file
+execute:
+  echo: true
+  warning: false
+  message: false
+  comment: "#>"
+  fig-path: "../figures/"
+  fig-dpi: 600
+filters:
+  - ../templates/scholarly-metadata.lua
+  - ../templates/author-info-blocks.lua
+  - ../templates/pagebreak.lua
+bibliography: references.bib
+csl: "../templates/marine-ecology-progress-series.csl" # Insert path for the bib-style
+abstract: |
+  The Antarctic Peninsula marine ecosystem is highly productive, with large 
+  populations of commercially and ecologically important species including 
+  Antarctic krill (*Euphausia superba*), Adelié Adélie penguins (*Pygoscelis 
+  adeliae*), and crabeater seals (*Lobodon carcinophagus*). The ecology of the 
+  peninsula is rapidly changing due to accelerating climate change and fishing 
+  pressure. Systematic ecosystem surveys have focused on austral spring and 
+  summer, leaving an information gap on winter ecosystem dynamics. Using data 
+  from 5 consecutive ecosystem surveys, we quantified the composition and 
+  distribution of winter predator communities and investigated the physical and 
+  biological influences on community structure. Seabirds and marine mammals 
+  clustered into 3 communities: an ice-associated community represented by 
+  Adélie penguins and crabeater seals; a diverse marginal ice zone community
+  dominated by fur seals and several species of seabirds including 3 petrels, 
+  kelp gulls (*Larus dominicanus*), and Antarctic terns (*Sterna vittata*); and 
+  an open water community consisting of Southern fulmars (*Fulmarus 
+  glacialoides*) and 4 species of petrels. These communities were distributed 
+  along an environmental gradient ranging from ice-covered, cold, saline waters 
+  to ice-free, warmer, and fresher water with greater chlorophyll 
+  concentrations. Predator communities were also associated with different 
+  communities of macrozooplankton: ice-associated predators with an extremely 
+  diverse assemblage of typically mesopelagic zooplankton; marginal ice zone 
+  predators with a community of large-bodied euphausiids community (*E. superba*
+  , *E. crystallorophias*); and open water predators with a community of small-
+  bodied euphausiids (*Thysanoessa macrura*). Our synthesis of integrated winter 
+  predator and macrozooplankton communities relative to sea-ice concentration 
+  provides reference points for future ecosystem assessments within this rapidly 
+  changing region.
+keywords: |
+  Biogeography; Krill; Marine mammal; Polar regions; Sea ice; Seabird; 
+  Zooplankton
+---
+
+<!-- This is the format for text comments that will be ignored during renderings. Do not put R code in these comments because it will not be ignored. -->
+
+<!-- With the following code you can access and display values from the yml header above. -->
+
+Keywords: `r rmarkdown::metadata$keywords`
+
+<!-- The actual document text starts here: -->
+
+# Introduction
+
+The marine ecosystem surrounding the Antarctic Peninsula is highly productive and rapidly changing [@clarkeClimateChangeMarine2007; @montes-hugoRecentChangesPhytoplankton2009]. Integrated assessments and syntheses across trophic levels will help us better understand variability of the ecosystem and potential impacts of climate change, such as effects of phenological shifts and carry-over effects between seasons. Variability in the spring biomass and distribution of Antarctic phytoplankton, abundance and diversity of zooplankton, and population dynamics of upper trophic level species (e.g. reproductive success and recruitment) are controlled, in part, by physical and biogeochemical processes during the preceding winter [@hinkeDailyActivityMinimum2011; @sabaWinterSpringControls2014; @meyerWinterPackiceZone2017]. However, systematic ecosystem surveys have focused on austral spring and summer due to more favorable weather. Thus, there is a paucity of information on winter ecosystem dynamics (i.e. diversity and distribution of communities). Since climate-related effects will likely accelerate and percolate through the ecosystem, it is important to document what these effects are, including anthropogenic stressors.
+
+Winter-time climate change near the northern Antarctic Peninsula and fisheries pressure are increasing faster than in other seasons. Atmospheric temperatures around the Antarctic Peninsula increased faster than anywhere else in the southern hemisphere over the last 50 yr, with the most rapid warming occurring during austral winter [@jonesSixtyYearsWidespread2019; @ducklowMarinePelagicEcosystem2022]. Warmer winters, combined with stronger winds, have reduced the duration of sea-ice coverage in the region by an average of \>90 d yr^–1^ [@ducklow2013west], leading to reduced biodiversity and biomass at the base of the food web, including phytoplankton, microzooplankton, and larval fish [@linDeclinePlanktonDiversity2021; @corsoClimateDrivesLongterm2022]. Further, recent record low winter sea-ice coverage in the Antarctic Peninsula suggests that the rate of warming and overall resilience of the marine ecosystem may have been underestimated [@purichRecordLowAntarctic2023]. These winter ecosystem changes have negatively impacted predator populations, including those of penguins [@trivelpiece2011variability] and fur seals [@krauseRapidPopulationCollapse2022; @forcadaNinetyYearsChange2023] that had been recovering. Concurrently, the annual commercial catch of Antarctic krill Euphausia superba increased 4-fold from 2010 to 2020 [@kawaguchi2020krill]. As winter sea-ice extent and concentration decrease, the winter fishery activities have expanded farther south and have become more spatially concentrated [@nicol2016fishery]. This spatial shift has resulted in greater overlap between fisheries and predators at local scales [@hinkeIdentifyingRiskConcurrent2017]. The increasing overlap between commercial fisheries, and foraging seals and penguins, brings into question whether negative impact on predators will increase or decrease [@wattersLongtermObservationsAntarctica2020]. Effective ecosystem-based management of the Antarctic Peninsula is thus hindered by limited data on winter-time community structure and foraging interactions among species [@bestleyMarineEcosystemAssessment2020].
+
+The winter communities of seabirds and marine mammals in the northern Antarctic Peninsula is a mix of overwintering and seasonal members [@santoraEnvironmentalDeterminantsTop2014]. These species include a variety of ice-obligate, ice-avoidant, and intermediate species. Ice-obligate (pagophilic) species consist primarily of swimmers, such as crabeater seals *Lobodon carcinophaga*, Adélie penguins *Pygoscelis adeliae*, and leopard seals *Hydrurga leptonyx*. Most of these either follow the ice edge north as it advances in winter [@thiebotAdeliePenguinsExtensive2019] or remain in the pack ice [@burnsWinterHabitatUse2004] all year. Pagophilic predators exploit prey resources associated with pack ice and rely on ice floes to haul out for rest, avoid predators, and reproduce [@southwellTimingPuppingPackice2003; @ainleyBirdsAntarcticSea2017; @besterAntarcticMarineMammals2017]. The ice-avoidant (open water) species include several fulmarine petrels, such as southern fulmars *Fulmarus glacialoides*, cape petrels *Daption capense*, and blue petrels *Halobaena caerulea*. This guild is abundant in the region during the austral summer [@santoraSpatiotemporalPersistenceTop2013; @warwick-evansMultiscaleAssessmentDistribution2021], but many individuals migrate farther north in winter [@delordSpeciesSpecificForaging2016]. These seabirds have broader wing morphology adapted for efficient flight in strong, consistent winds [@ainleySpeciesHabitatRelationshipsAntarctic1993]. In contrast, intermediate between these 2 guilds, snow petrels *Pagodroma nivea* and Antarctic petrels *Thalassoica antarctica* have narrower wings and forage in areas of marginal ice coverage [@santoraEnvironmentalDeterminantsTop2014]. During winter, they are largely confined to the marginal ice zone [@delordAntarcticPetrelsIce2020; @delordSpeciesSpecificForaging2016].
+
+At fine spatial scales (\<10 km), the structure of the top predator community of the Antarctic Peninsula in winter is driven by both physical (sea ice coverage) and biological (prey abundance and distribution) factors [@fraserIceEdgesSeabird1986; @reissOverwinterHabitatSelection2017]. The mesoscale (10s to 100s km) distribution of macrozooplankton communities is more geographically consistent in winter than summer, independent of ice conditions [@dietrich2021winter], whereas the fine-scale distribution of seabird communities dynamically responds to ice coverage in all seasons [@ainleySpeciesHabitatRelationshipsAntarctic1993]. Five winter communities of macrozooplankton have previously been identified in this region [@dietrich2021winter]. Two of these communities contain smaller euphausiids (*Thysanoessa macrura*, *E. frigida*, *E. triacantha*) and amphipods (*Primno*, *Themisto*) and occupy the region offshore of the shelf, north and west of the South Shetland Islands. Within the Bransfield Strait, a community dominated by large euphausiids (*E. superba*, *E. crystallorophias*) occurs in the western part of the strait, while a highly diverse assemblage including chaetognaths, *Calanoides acutus*, and siphonophores occurs in the eastern strait. A fifth macrozooplankton community is ubiquitous within this region and contains pelagic tunicates (*Salpa thompsoni*) and gastropods (*Clione limacina*). If the distribution of prey communities influences structure of predator communities, then we would expect associations between the open water seabird guild and the off-shelf macrozooplankton communities (called 2a and 2b by @dietrich2021winter), as well as the pagophilic penguin/pinniped predator community with the Bransfield Strait macrozooplankton communities (called 3a and 3b by @dietrich2021winter). Conversely, if the physical factors influencing predator community distribution at the fine-scale also drive mesoscale patterns, then predator communities would be associated directly with ice coverage (and perhaps hydrology) rather than macrozooplankton communities.
+
+Here, we investigated the ecological determinants of top predator community structure in the Antarctic Peninsula during winter (August to September) using data from 5 consecutive ecosystem surveys in 2012–2016. The study period coincided with several high and low sea-ice years, and captured natural variability in the extent and distribution of the winter marginal ice zone habitat within the northern Antarctic Peninsula marine ecosystem [@santoraEnvironmentalDeterminantsTop2014; @reissOverwinterHabitatSelection2017; @dietrich2021winter]. Antarctic sea ice reached a record high in 2014, before the current regime of rapid declines [@parkinson40yRecordReveals2019], and an extreme El Niño event in 2015/2016 had substantial impacts on phytoplankton and zooplankton communities [@costaLargeDiatomBloom2021; @walshExtremeNinoSouthern2023]. We clustered top predator observations into distinct communities following the methods used for macrozooplankton communities from the same surveys [@dietrich2021winter]. We quantified associations between the top predator communities and (1) physical environmental factors and (2) macrozooplankton communities to test the hypothesis that community structure at lower trophic levels, combined with sea-ice extent, determines community structure at higher trophic levels. Our winter ecosystem observations have potential implications for future climate and fishery impact assessments that emphasize relationships between the physical environment, macrozooplankton distribution, and top predator community structure.
+
+# Background
+
+# Methods
+
+# Results
+
+<!-- Here's some example analysis code: -->
+
+```{r}
+#| label: get-data
+#| eval: false
+# Note the path that we need to use to access our data files when rendering this document
+my_data <- read.csv(here::here('analysis/data/raw_data/my_csv_file.csv'))
+```
+
+```{r}
+#| label: fig-demo-plot
+#| fig-cap: "A plot of random numbers"
+plot(rnorm(10))
+```
+
+@fig-demo-plot shows how we can have a caption and cross-reference for a plot. Note that figure label and cross-references must both be prefixed with `fig-`
+
+```{r}
+#| label: demo-inline-code
+#| echo: false
+x <- round(pi, 2)
+```
+
+Here is an example of inline code `r x` in the middle of a sentence.
+
+# Discussion
+
+# Conclusion
+
+# Acknowledgements
+
+<!-- The following line inserts a page break  -->
+
+\newpage
+
+# References
+
+<!-- The following line ensures the references appear here for the MS Word or HTML output files, rather than right at the end of the document (this will not work for PDF files):  -->
+
+::: {#refs}
+:::
+
+\newpage

@@ -6,3 +6,4 @@
 ^CONTRIBUTING\.md$
 ^\.binder/Dockerfile$
 ^\.binder$
+analysis

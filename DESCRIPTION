@@ -2,7 +2,7 @@ Package: antwincomm
 Title: Sea-ice and macrozooplankton distribution as determinants of top
     predator community structure in Antarctic winter
 Version: 1.0.0
-Authors@R: 
+Authors@R:
     person("Max", "Czapanskiy", , "maxczapanskiy@gmail.com", role = c("aut", "cre"),
            comment = c("ORCID-ID" = "0000-0002-6302-905X"))
 Description: The Antarctic Peninsula marine ecosystem is highly
@@ -36,8 +36,26 @@ Description: The Antarctic Peninsula marine ecosystem is highly
     points for future ecosystem assessments within this rapidly changing
     region.
 License: MIT + file LICENSE
+Imports:
+    cluster,
+    dplyr,
+    glue,
+    knitr,
+    lubridate,
+    raster,
+    readr,
+    rnaturalearth,
+    sf,
+    stars,
+    terra,
+    tidyterra,
+    units,
+    vegan,
+    here
 ByteCompile: true
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
+Suggests: devtools,
+    git2r

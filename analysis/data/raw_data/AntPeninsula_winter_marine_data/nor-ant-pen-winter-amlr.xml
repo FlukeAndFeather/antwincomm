@@ -1,0 +1,2574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml system="https://pasta.edirepository.org" xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd">
+  <access system="https://pasta.edirepository.org" scope="document" order="allowFirst" authSystem="https://pasta.edirepository.org/authentication">
+    <allow>
+      <principal>https://orcid.org/0000-0002-6302-905X</principal>
+      <permission>all</permission>
+    </allow>
+    <allow>
+      <principal>public</principal>
+      <permission>read</permission>
+    </allow>
+  </access>
+  <dataset>
+    <title>Winter Marine Surveys of the Northern Antarctic Peninsula, 2012-2016</title>
+    <creator>
+      <individualName>
+        <salutation>Dr</salutation>
+        <givenName>Christian</givenName>
+        <surName>Reiss</surName>
+      </individualName>
+      <organizationName>NOAA Southwest Fisheries Science Center</organizationName>
+      <positionName>Program Lead, Krill and Oceanographic Research</positionName>
+      <electronicMailAddress>christian.reiss@noaa.gov</electronicMailAddress>
+    </creator>
+    <creator>
+      <individualName>
+        <salutation>Dr</salutation>
+        <givenName>Jarrod</givenName>
+        <surName>Santora</surName>
+      </individualName>
+      <organizationName>NOAA Southwest Fisheries Science Center</organizationName>
+      <positionName>Research Fish Biologist</positionName>
+      <electronicMailAddress>jarrod.santora@noaa.gov</electronicMailAddress>
+      <userId directory="https://orcid.org">0000-0002-5991-4283</userId>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Dietrich</givenName>
+        <surName>Kim</surName>
+      </individualName>
+      <organizationName>NOAA Southwest Fisheries Science Center</organizationName>
+      <positionName>Staff Research Associate</positionName>
+    </creator>
+    <creator>
+      <individualName>
+        <salutation>Dr</salutation>
+        <givenName>Max</givenName>
+        <surName>Czapanskiy</surName>
+      </individualName>
+      <organizationName>NOAA Southwest Fisheries Science Center</organizationName>
+      <positionName>Postdoctoral Scholar</positionName>
+      <userId directory="https://orcid.org">0000-0002-6302-905X</userId>
+    </creator>
+    <abstract>      <para>Winter survey data from the Northern Antarctic Peninsula (including hydrography, zooplankton, and top predators) conducted from the R/V Nathaniel B. Palmer during the austral winter (August-September) of 2012-2016. Survey stations were selected from the U.S. Antarctic Marine Living Resources Program's standard grid, approximately 15-20 nm apart covering the region 60° to 64° S and 54° to 63° W. At each station, hydrography and chlorophyll measurements were collected with CTD profilers and Niskin bottles, and macrozooplankton samples were collected using an Isaacs-Kidd Midwater Trawl. Between stations, observers recorded abundance and behavior of top predators (seabirds and marine mammals).</para>
+</abstract>
+    <keywordSet>
+      <keyword>sea ice</keyword>
+      <keyword>polynya</keyword>
+      <keyword>seabird</keyword>
+      <keyword>marine mammal</keyword>
+      <keyword>Antarctic krill</keyword>
+      <keyword>AMLR</keyword>
+      <keyword>polar ecosystem</keyword>
+      <keyword>Antarctic Peninsula</keyword>
+    </keywordSet>
+    <keywordSet>
+      <keyword>winter</keyword>
+      <keyword>ice</keyword>
+      <keyword>birds</keyword>
+      <keyword>mammals</keyword>
+      <keyword>zooplankton</keyword>
+      <keyword>communities</keyword>
+      <keyword>biogeography</keyword>
+      <keywordThesaurus>LTER Controlled Vocabulary</keywordThesaurus>
+    </keywordSet>
+    <intellectualRights>      <para>This data package is released to the "public domain" under Creative Commons CC0 1.0 "No Rights Reserved" (see: https://creativecommons.org/publicdomain/zero/1.0/). It is considered professional etiquette to provide attribution of the original work if this data package is shared in whole or by individual components. A generic citation is provided for this data package on the website https://portal.edirepository.org (herein "website") in the summary metadata page. Communication (and collaboration) with the creators of this data package is recommended to prevent duplicate research or publication. This data package (and its components) is made available "as is" and with no warranty of accuracy or fitness for use. The creators of this data package and the website shall not be liable for any damages resulting from misinterpretation or misuse of the data package or its components. Periodic updates of this data package may be available from the website. Thank you.</para>
+</intellectualRights>
+    <coverage>
+      <geographicCoverage>
+        <geographicDescription>Northern Antarctic Peninsula</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-64.0</westBoundingCoordinate>
+          <eastBoundingCoordinate>-54.0</eastBoundingCoordinate>
+          <northBoundingCoordinate>-60.0</northBoundingCoordinate>
+          <southBoundingCoordinate>-64.0</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <temporalCoverage>
+        <rangeOfDates>
+          <beginDate>
+            <calendarDate>2012</calendarDate>
+          </beginDate>
+          <endDate>
+            <calendarDate>2016</calendarDate>
+          </endDate>
+        </rangeOfDates>
+      </temporalCoverage>
+    </coverage>
+    <contact>
+      <individualName>
+        <salutation>Dr</salutation>
+        <givenName>Christian</givenName>
+        <surName>Reiss</surName>
+      </individualName>
+      <organizationName>NOAA Southwest Fisheries Science Center</organizationName>
+      <positionName>Program Lead, Krill and Oceanographic Research</positionName>
+      <electronicMailAddress>christian.reiss@noaa.gov</electronicMailAddress>
+    </contact>
+    <contact>
+      <individualName>
+        <salutation>Dr</salutation>
+        <givenName>Jarrod</givenName>
+        <surName>Santora</surName>
+      </individualName>
+      <organizationName>NOAA Southwest Fisheries Science Center</organizationName>
+      <positionName>Research Fish Biologist</positionName>
+      <electronicMailAddress>jarrod.santora@noaa.gov</electronicMailAddress>
+      <userId directory="https://orcid.org">0000-0002-5991-4283</userId>
+    </contact>
+    <dataTable>
+      <entityName>StationZooplanktonPhysics</entityName>
+      <entityDescription>Data collected at sampling stations, including zooplankton abundance and physical and biological oceanography.</entityDescription>
+      <physical>
+        <objectName>StationZooplanktonPhysics.csv</objectName>
+        <size unit="byte">280511</size>
+        <authentication method="MD5">8a927b253e3cbc1a2be1b19f90fe7bd9</authentication>
+        <dataFormat>
+          <textFormat>
+            <numHeaderLines>1</numHeaderLines>
+            <recordDelimiter>\n</recordDelimiter>
+            <attributeOrientation>column</attributeOrientation>
+            <simpleDelimited>
+              <fieldDelimiter>,</fieldDelimiter>
+              <quoteCharacter>"</quoteCharacter>
+            </simpleDelimited>
+          </textFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url function="download">https://ezeml.edirepository.org/user-data/Max_Czapanskiy-ee90b840cf3246b94bebb8000ad2afeb/uploads/nor-ant-pen-winter-amlr/StationZooplanktonPhysics.csv</url>
+          </online>
+        </distribution>
+      </physical>
+      <attributeList>
+        <attribute>
+          <attributeName>amlr.station</attributeName>
+          <attributeLabel>amlr.station</attributeLabel>
+          <attributeDefinition>Station identifier by year, season, and US Antarctic Marine Living Resources (AMLR) grid location. E.g., AMLR2016_W0013 corresponds to the station at location 13, surveyed in winter (W) of 2016.</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>cruise</attributeName>
+          <attributeLabel>cruise</attributeLabel>
+          <attributeDefinition>Cruise identifier. "AMLR" followed by the year e.g., "AMLR2016".</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>AMLR2012</code>
+                    <definition>AMLR 2012 winter cruise</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>AMLR2013</code>
+                    <definition>AMLR 2013 winter cruise</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>AMLR2014</code>
+                    <definition>AMLR 2014 winter cruise</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>AMLR2015</code>
+                    <definition>AMLR 2015 winter cruise</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>AMLR2016</code>
+                    <definition>AMLR 2016 winter cruise</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Year</attributeName>
+          <attributeLabel>Year</attributeLabel>
+          <attributeDefinition>Year of survey, 2012-2016</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">dateTime</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY</formatString>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>station.full</attributeName>
+          <attributeLabel>station.full</attributeLabel>
+          <attributeDefinition>Full station identifier. Season ("W" for winter) followed by the AMLR grid identifier.</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>station.grid</attributeName>
+          <attributeLabel>station.grid</attributeLabel>
+          <attributeDefinition>Location of station in the AMLR grid.</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>leg</attributeName>
+          <attributeLabel>leg</attributeLabel>
+          <attributeDefinition>Cruise leg. In this dataset, always "W" for winter.</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>W</code>
+                    <definition>Winter</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>amlr.area</attributeName>
+          <attributeLabel>amlr.area</attributeLabel>
+          <attributeDefinition>Area within the AMLR grid, which is divided into four sectors.</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>EI</code>
+                    <definition>Elephant Island sector, corresponding to the northeast portion of the grid.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>JI</code>
+                    <definition>Joinville Island sector, corresponding to the southeast part of the grid.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>SA</code>
+                    <definition>South Area sector, corresponding to the area of the grid within the Bransfield Strait.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>WA</code>
+                    <definition>West Area sector, corresponding to the area northwest of the South Shetland Islands.</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>gssmu</attributeName>
+          <attributeLabel>gssmu</attributeLabel>
+          <attributeDefinition>Groups of small-scale management units (GSSMUs) defined by CCAMLR.</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>APBS</code>
+                    <definition>Antarctic Peninsula Bransfield Strait</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>APDP</code>
+                    <definition>Antarctic Peninsula Drake Passage</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>APEW</code>
+                    <definition>FIXME</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>APPA</code>
+                    <definition>Antarctic Peninsula Pelagic Area</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>OPEN</code>
+                    <definition>FIXME</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>UNKN</code>
+                    <definition>FIXME</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>start.time.UTC</attributeName>
+          <attributeLabel>start.time.UTC</attributeLabel>
+          <attributeDefinition>Time (UTC) net entered water</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">dateTime</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY-MM-DDThh:mm:ssZ</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>water.depth</attributeName>
+          <attributeLabel>water.depth</attributeLabel>
+          <attributeDefinition>Water depth (m)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>meter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>integer</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>dec.latitude</attributeName>
+          <attributeLabel>dec.latitude</attributeLabel>
+          <attributeDefinition>Latitude (decimal degrees)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>degree</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>dec.longitude</attributeName>
+          <attributeLabel>dec.longitude</attributeLabel>
+          <attributeDefinition>Longitude (decimal degrees)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>degree</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>net.type</attributeName>
+          <attributeLabel>net.type</attributeLabel>
+          <attributeDefinition>Net type (all IKMT)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>I</code>
+                    <definition>Isaacs-Kidd Midwater Trawl Net</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>net.num</attributeName>
+          <attributeLabel>net.num</attributeLabel>
+          <attributeDefinition>Which time net went into the water at station (1 for first, 2 for second)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>First trawl</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>2</code>
+                    <definition>Second trawl</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>depth.fished</attributeName>
+          <attributeLabel>depth.fished</attributeLabel>
+          <attributeDefinition>Max depth net fished (m)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>meter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>integer</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>final.reading</attributeName>
+          <attributeLabel>final.reading</attributeLabel>
+          <attributeDefinition>Final flow meter reading</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>number</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>integer</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>initial.reading</attributeName>
+          <attributeLabel>initial.reading</attributeLabel>
+          <attributeDefinition>Initial flow meter reading</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>number</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing flow meter reading</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>volume</attributeName>
+          <attributeLabel>volume</attributeLabel>
+          <attributeDefinition>Volume of water filtered (m3)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>meterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Net.ice.type</attributeName>
+          <attributeLabel>Net.ice.type</attributeLabel>
+          <attributeDefinition>Predominate ice type when net was fishing; combination of ice type and % ice cover</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>zuml_m</attributeName>
+          <attributeLabel>zuml_m</attributeLabel>
+          <attributeDefinition>Upper mixed layer depth. The upper mixed layer depth was calculated as the depth (m) where the potential density differed by 0.05 kg m− 3 from the average of the potential density over the 5–10 m depth.</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>meter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No CTD cast at station</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>avg.Dens.Diff</attributeName>
+          <attributeLabel>avg.Dens.Diff</attributeLabel>
+          <attributeDefinition>Potential density difference averaged over the upper mixed layer</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>gramPerCentimeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No CTD cast at station</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>avg.salinity</attributeName>
+          <attributeLabel>avg.salinity</attributeLabel>
+          <attributeDefinition>Average of salinity in the upper mixed layer.</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>permil</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No CTD cast at station</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>avg.temp</attributeName>
+          <attributeLabel>avg.temp</attributeLabel>
+          <attributeDefinition>Average of water temperature in the upper mixed layer.</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>celsius</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No CTD cast at station</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Integ.chla.zuml</attributeName>
+          <attributeLabel>Integ.chla.zuml</attributeLabel>
+          <attributeDefinition>Chl a concentration at upper mixed layer depth, as measured by Niskin bottle samples</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>milligramPerMeterSquared</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No CTD cast at station</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Integ.phae.zuml</attributeName>
+          <attributeLabel>Integ.phae.zuml</attributeLabel>
+          <attributeDefinition>Phaeopigment concentration at upper mixed layer depth, as measured by Niskin bottle samples</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>milligramPerMeterSquared</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No CTD cast at station</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Integ.chla.100m</attributeName>
+          <attributeLabel>Integ.chla.100m</attributeLabel>
+          <attributeDefinition>Chl a concentration at 100 m, as measured by Niskin bottle samples</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>milligramPerMeterSquared</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No CTD cast at station</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Integ.phae.100m</attributeName>
+          <attributeLabel>Integ.phae.100m</attributeLabel>
+          <attributeDefinition>Phaeopigment concentration at 100 m, as measured by Niskin bottle samples</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>milligramPerMeterSquared</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No CTD cast at station</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Integ_chla_zuml_averaging</attributeName>
+          <attributeLabel>Integ_chla_zuml_averaging</attributeLabel>
+          <attributeDefinition>Chl a concentration at upper mixed layer depth, estimated by regressing CTD fluorescence data</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>milligramPerMeterSquared</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No CTD cast at station</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Integ_chla_100m_averaging</attributeName>
+          <attributeLabel>Integ_chla_100m_averaging</attributeLabel>
+          <attributeDefinition>Chl a concentration from Niskin bottle at 100 m, estimated by regressing CTD fluorescence data</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>milligramPerMeterSquared</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No CTD cast at station</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Integ_phae_zuml_averaging</attributeName>
+          <attributeLabel>Integ_phae_zuml_averaging</attributeLabel>
+          <attributeDefinition>Phaeopigment concentration at upper mixed layer depth, estimated by regressing CTD fluorescence data</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>milligramPerMeterSquared</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No CTD cast at station</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Integ_phae_100m_averaging</attributeName>
+          <attributeLabel>Integ_phae_100m_averaging</attributeLabel>
+          <attributeDefinition>Phaeopigment concentration at 100 m, estimated by regressing CTD fluorescence data</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>milligramPerMeterSquared</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No CTD cast at station</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Net.ice.YN</attributeName>
+          <attributeLabel>Net.ice.YN</attributeLabel>
+          <attributeDefinition>Was ice present at time of observation (usually as net started up from depth)?</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain enforced="yes">
+                  <codeDefinition>
+                    <code>Ice</code>
+                    <definition>Ice visible</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>None</code>
+                    <definition>No ice visible</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Net.ice.percent</attributeName>
+          <attributeLabel>Net.ice.percent</attributeLabel>
+          <attributeDefinition>Percent ice cover at time of net trawl.</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain enforced="yes">
+                  <codeDefinition>
+                    <code>10%</code>
+                    <definition>10% ice coverage (FIXME)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>100%</code>
+                    <definition>25% ice coverage</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>25%</code>
+                    <definition>50% ice coverage</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>50%</code>
+                    <definition>75% ice coverage</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>75%</code>
+                    <definition>100% ice coverage</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Ice</code>
+                    <definition>Some ice present (only used 2012 before protocol standardized)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>None</code>
+                    <definition>No ice present</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Winter Cluster factor</attributeName>
+          <attributeLabel>Winter Cluster factor</attributeLabel>
+          <attributeDefinition>Station macrozooplankton cluster assignment from Dietrich et al. (2021)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain enforced="yes">
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Macrozooplankton cluster 1 (defined in Dietrich et al. 2021)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>2a</code>
+                    <definition>Macrozooplankton cluster 2a (defined in Dietrich et al. 2021)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>2b</code>
+                    <definition>Macrozooplankton cluster 2b (defined in Dietrich et al. 2021)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>3a</code>
+                    <definition>Macrozooplankton cluster 3a (defined in Dietrich et al. 2021)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>3b</code>
+                    <definition>Macrozooplankton cluster 3b (defined in Dietrich et al. 2021)</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>NMDS_x</attributeName>
+          <attributeLabel>NMDS_x</attributeLabel>
+          <attributeDefinition>First NMDS axis value of macrozooplankton community analysis from Dietrich et al. (2021) Progress in Oceanography doi:10.1016/j.pocean.2021.102610</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>number</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>NMDS_y</attributeName>
+          <attributeLabel>NMDS_y</attributeLabel>
+          <attributeDefinition>Second NMDS axis value of macrozooplankton community analysis from Dietrich et al. (2021) Progress in Oceanography doi:10.1016/j.pocean.2021.102610</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>number</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>NMDS_z</attributeName>
+          <attributeLabel>NMDS_z</attributeLabel>
+          <attributeDefinition>Third NMDS axis value of macrozooplankton community analysis from Dietrich et al. (2021) Progress in Oceanography doi:10.1016/j.pocean.2021.102610</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>number</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Amphipoda_Cluc_N.A</attributeName>
+          <attributeLabel>Amphipoda_Cluc_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Cyllopus lucasi</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Amphipoda_Cmag_N.A</attributeName>
+          <attributeLabel>Amphipoda_Cmag_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Cyllopus magelanicus</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Amphipoda_Eusirus_N.A</attributeName>
+          <attributeLabel>Amphipoda_Eusirus_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Eusirus spp</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Amphipoda_Primno_N.A</attributeName>
+          <attributeLabel>Amphipoda_Primno_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Primno macropa</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Amphipoda_Pseudorchomene_N.A</attributeName>
+          <attributeLabel>Amphipoda_Pseudorchomene_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Pseudorchomene spp</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Amphipoda_Scina_N.A</attributeName>
+          <attributeLabel>Amphipoda_Scina_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Scina spp</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Amphipoda_Themisto_N.A</attributeName>
+          <attributeLabel>Amphipoda_Themisto_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Themisto gaudichaudii</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Amphipoda_Vibilia_N.A</attributeName>
+          <attributeLabel>Amphipoda_Vibilia_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Vibilia antarctica</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Chaetognatha_N.A</attributeName>
+          <attributeLabel>Chaetognatha_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Chaetognatha spp</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Copepoda_Cacutus_N.A</attributeName>
+          <attributeLabel>Copepoda_Cacutus_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Calanus acutus</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Copepoda_Cprop_N.A</attributeName>
+          <attributeLabel>Copepoda_Cprop_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Calanoides propinquus</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Copepoda_Haloptilus_N.A</attributeName>
+          <attributeLabel>Copepoda_Haloptilus_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Haloptilus spp</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Copepoda_Heterorhabdus_N.A</attributeName>
+          <attributeLabel>Copepoda_Heterorhabdus_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Heterorhabdus spp</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Copepoda_Metridia_N.A</attributeName>
+          <attributeLabel>Copepoda_Metridia_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Metridia spp</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Copepoda_Paraeuchaeta_N.A</attributeName>
+          <attributeLabel>Copepoda_Paraeuchaeta_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Paraeuchaeta spp</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Copepoda_Pleuromama_N.A</attributeName>
+          <attributeLabel>Copepoda_Pleuromama_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Pleuromama spp</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Copepoda_Rhincalanus_N.A</attributeName>
+          <attributeLabel>Copepoda_Rhincalanus_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Rhincalanus spp</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Ctenophora_Beroe_N.A</attributeName>
+          <attributeLabel>Ctenophora_Beroe_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Beroe spp</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Euphausiidae_Ecrystall_Adult</attributeName>
+          <attributeLabel>Euphausiidae_Ecrystall_Adult</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Euphausia crystallorophias (post-larvae)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Euphausiidae_Efrigida_Adult</attributeName>
+          <attributeLabel>Euphausiidae_Efrigida_Adult</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Euphausia frigida (post-larvae)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Euphausiidae_Efrigida_Larvae</attributeName>
+          <attributeLabel>Euphausiidae_Efrigida_Larvae</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Euphausia frigida (larvae)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Euphausiidae_Esuperba_Adult</attributeName>
+          <attributeLabel>Euphausiidae_Esuperba_Adult</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Euphausia superba (post-larvae)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Euphausiidae_Etricantha_Adult</attributeName>
+          <attributeLabel>Euphausiidae_Etricantha_Adult</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Euphausia tricantha (post-larvae)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Euphausiidae_Tmac_Adult</attributeName>
+          <attributeLabel>Euphausiidae_Tmac_Adult</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Thysanoessa macrura (post-larvae)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Euphausiidae_Tmac_Larvae</attributeName>
+          <attributeLabel>Euphausiidae_Tmac_Larvae</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Thysanoessa macrura (larvae)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Gastropoda_Clio_N.A</attributeName>
+          <attributeLabel>Gastropoda_Clio_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Clio pyramidata</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Gastropoda_Clione_N.A</attributeName>
+          <attributeLabel>Gastropoda_Clione_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Clione limacina</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Gastropoda_Limacina_N.A</attributeName>
+          <attributeLabel>Gastropoda_Limacina_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Limacina helecina</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Gastropoda_Spongio_N.A</attributeName>
+          <attributeLabel>Gastropoda_Spongio_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Spongiobranchaea australis</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Hydromedusae_Calycopsis_N.A</attributeName>
+          <attributeLabel>Hydromedusae_Calycopsis_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 -  Calycopsis borchgrevinki</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Hydromedusae_Pegantha_N.A</attributeName>
+          <attributeLabel>Hydromedusae_Pegantha_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Pegantha martgon</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Isopoda_N.A</attributeName>
+          <attributeLabel>Isopoda_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Isopoda unid</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Ostracoda_N.A</attributeName>
+          <attributeLabel>Ostracoda_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Ostracoda unid</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Pisces_Bathydraconidae_Larvae</attributeName>
+          <attributeLabel>Pisces_Bathydraconidae_Larvae</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Bathydraconidae (larvae)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Pisces_Other_eggs</attributeName>
+          <attributeLabel>Pisces_Other_eggs</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Fish eggs unid</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Pisces_Pleurogramma_Larvae</attributeName>
+          <attributeLabel>Pisces_Pleurogramma_Larvae</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Pleurogramma antarctica (larvae)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Polychaeta_Pelagobia_N.A</attributeName>
+          <attributeLabel>Polychaeta_Pelagobia_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Pelagobia longicirrata</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Polychaeta_Rhynchonereela_N.A</attributeName>
+          <attributeLabel>Polychaeta_Rhynchonereela_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Rhynchonereella bongraini </attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Polychaeta_Tomopteris_N.A</attributeName>
+          <attributeLabel>Polychaeta_Tomopteris_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Tomopteris spp</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Polychaeta_Vanadis_N.A</attributeName>
+          <attributeLabel>Polychaeta_Vanadis_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Vanadis antarctica</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Radiolaria_N.A</attributeName>
+          <attributeLabel>Radiolaria_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Radiolaria unid</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Siphonophora_N.A</attributeName>
+          <attributeLabel>Siphonophora_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Siphonophora unid</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Sipunculida_N.A</attributeName>
+          <attributeLabel>Sipunculida_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Sipunculida unid</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Tunicata_Ihlea_N.A</attributeName>
+          <attributeLabel>Tunicata_Ihlea_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Ihlea racovitzai</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Tunicata_Salpa_N.A</attributeName>
+          <attributeLabel>Tunicata_Salpa_N.A</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Salpa thompsoni</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Amphipoda_Hyperiella_Tot</attributeName>
+          <attributeLabel>Amphipoda_Hyperiella_Tot</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Hyperiella spp</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Cirripedia_Tot</attributeName>
+          <attributeLabel>Cirripedia_Tot</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Cirripedia unid</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Euphausiidae_Esuperba_F_Tot</attributeName>
+          <attributeLabel>Euphausiidae_Esuperba_F_Tot</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Euphausia superba (larvae-furcilia stage)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Pisces_Paralepididae_NotolepisSpp_Larvae_Tot</attributeName>
+          <attributeLabel>Pisces_Paralepididae_NotolepisSpp_Larvae_Tot</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Notolepis spp (larvae)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Pisces_Myctophidae_Adult_Tot</attributeName>
+          <attributeLabel>Pisces_Myctophidae_Adult_Tot</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Myctophidae (adult)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Pisces_Myctophidae_Larvae_Tot</attributeName>
+          <attributeLabel>Pisces_Myctophidae_Larvae_Tot</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Myctophidae (larvae)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Pisces_Other_Larvae_Tot</attributeName>
+          <attributeLabel>Pisces_Other_Larvae_Tot</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Fish unid (larvae)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Pisces_Chaenichthyidae_Larvae_Tot</attributeName>
+          <attributeLabel>Pisces_Chaenichthyidae_Larvae_Tot</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Chaenichthyidae (larvae)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Pisces_Nototheniidae_Larvae_Tot</attributeName>
+          <attributeLabel>Pisces_Nototheniidae_Larvae_Tot</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Nototheniidae (larvae)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Amphipoda_Other_Tot</attributeName>
+          <attributeLabel>Amphipoda_Other_Tot</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Amphipod unid</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Ctenophora_Other_Tot</attributeName>
+          <attributeLabel>Ctenophora_Other_Tot</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Ctenophora unid</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Ctenophora_Mertensiidae_Tot</attributeName>
+          <attributeLabel>Ctenophora_Mertensiidae_Tot</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Mertensiidae unid</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Hydromedusae_Other_Tot</attributeName>
+          <attributeLabel>Hydromedusae_Other_Tot</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Hydromeduae unid</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Polychaeta_Other_Tot</attributeName>
+          <attributeLabel>Polychaeta_Other_Tot</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Polychaeta unid</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Gastropoda_Other_Tot</attributeName>
+          <attributeLabel>Gastropoda_Other_Tot</attributeLabel>
+          <attributeDefinition>Abundance - # per m3 - Gastropoda unid</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>numberPerMeterCubed</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+      </attributeList>
+      <caseSensitive>no</caseSensitive>
+      <numberOfRecords>394</numberOfRecords>
+    </dataTable>
+    <dataTable>
+      <entityName>Ice</entityName>
+      <entityDescription>Ice conditions along the survey trackline. Each row corresponds to a ~1 nmi survey interval (see PredatorSightings).</entityDescription>
+      <physical>
+        <objectName>Ice.csv</objectName>
+        <size unit="byte">5889721</size>
+        <authentication method="MD5">891c7acacf80f55cb45f9836369f4ceb</authentication>
+        <dataFormat>
+          <textFormat>
+            <numHeaderLines>1</numHeaderLines>
+            <recordDelimiter>\n</recordDelimiter>
+            <attributeOrientation>column</attributeOrientation>
+            <simpleDelimited>
+              <fieldDelimiter>,</fieldDelimiter>
+              <quoteCharacter>"</quoteCharacter>
+            </simpleDelimited>
+          </textFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url function="download">https://ezeml.edirepository.org/user-data/Max_Czapanskiy-ee90b840cf3246b94bebb8000ad2afeb/uploads/nor-ant-pen-winter-amlr/Ice.csv</url>
+          </online>
+        </distribution>
+      </physical>
+      <attributeList>
+        <attribute>
+          <attributeName>Latitude</attributeName>
+          <attributeLabel>Latitude</attributeLabel>
+          <attributeDefinition>Latitude at start of interval</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>degree</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>Longitude</attributeName>
+          <attributeLabel>Longitude</attributeLabel>
+          <attributeDefinition>Longitude at start of interval</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>degree</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>IceDate</attributeName>
+          <attributeLabel>IceDate</attributeLabel>
+          <attributeDefinition>Date of interval</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">dateTime</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY-MM-DD</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>IceCode</attributeName>
+          <attributeLabel>IceCode</attributeLabel>
+          <attributeDefinition>Percent ice coverage</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>percent</standardUnit>
+              </unit>
+              <precision>10</precision>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No measurements taken during interval</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>IceType</attributeName>
+          <attributeLabel>IceType</attributeLabel>
+          <attributeDefinition>Type of ice coverage</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain enforced="yes">
+                  <codeDefinition>
+                    <code>BRASH</code>
+                    <definition>Brash ice</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>FY</code>
+                    <definition>First year ice</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>FY/MY</code>
+                    <definition>Mix of first and multi-year ice</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>FY/SLUSH</code>
+                    <definition>Mix of first year and slushy ice</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>FY/THIN</code>
+                    <definition>Mix of first year and thin ice</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>MY</code>
+                    <definition>Multi-year ice</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>MY/FY</code>
+                    <definition>Mix of multi-year and first year ice</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>OPEN</code>
+                    <definition>Open water (no ice)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>PACK</code>
+                    <definition>Pack ice</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>SLUSH</code>
+                    <definition>Slush</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>SLUSH/FY</code>
+                    <definition>Mix of slush and first year ice</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>SLUSH/THIN</code>
+                    <definition>Mix of slush and thin ice</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>THIN</code>
+                    <definition>Thin ice</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>THIN/FY</code>
+                    <definition>Mix of thin and first year ice</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>THIN/SLUSH</code>
+                    <definition>Mix of thin ice and slush</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No ice recorded</codeExplanation>
+          </missingValueCode>
+        </attribute>
+      </attributeList>
+      <caseSensitive>no</caseSensitive>
+      <numberOfRecords>154556</numberOfRecords>
+    </dataTable>
+    <dataTable>
+      <entityName>PredatorSightings</entityName>
+      <entityDescription>Sightings of predators (marine mammals and seabirds) along vessel trackline.</entityDescription>
+      <physical>
+        <objectName>PredatorSightings.csv</objectName>
+        <size unit="byte">3782027</size>
+        <authentication method="MD5">d6102bd36907991a0de2294ec8013531</authentication>
+        <dataFormat>
+          <textFormat>
+            <numHeaderLines>1</numHeaderLines>
+            <recordDelimiter>\n</recordDelimiter>
+            <attributeOrientation>column</attributeOrientation>
+            <simpleDelimited>
+              <fieldDelimiter>,</fieldDelimiter>
+              <quoteCharacter>"</quoteCharacter>
+            </simpleDelimited>
+          </textFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url function="download">https://ezeml.edirepository.org/user-data/Max_Czapanskiy-ee90b840cf3246b94bebb8000ad2afeb/uploads/nor-ant-pen-winter-amlr/PredatorSightings.csv</url>
+          </online>
+        </distribution>
+      </physical>
+      <attributeList>
+        <attribute>
+          <attributeName>cruise</attributeName>
+          <attributeLabel>cruise</attributeLabel>
+          <attributeDefinition>Cruise identifier</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>AMLR2012</code>
+                    <definition>AMLR winter cruise 2012</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>AMLR2013</code>
+                    <definition>AMLR winter cruise 2013</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>AMLR2014</code>
+                    <definition>AMLR winter cruise 2014</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>AMLR2015</code>
+                    <definition>AMLR winter cruise 2015</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>AMLR2016</code>
+                    <definition>AMLR winter cruise 2016</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>interval</attributeName>
+          <attributeLabel>interval</attributeLabel>
+          <attributeDefinition>Interval identifier within a process. Each interval aggregates all predator sightings of a species within 1 nautical mile.</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>number</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>integer</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>dist_km</attributeName>
+          <attributeLabel>dist_km</attributeLabel>
+          <attributeDefinition>Length of interval in km.</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>kilometer</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>nmi</attributeName>
+          <attributeLabel>nmi</attributeLabel>
+          <attributeDefinition>Length of interval in nautical miles.</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>nauticalMile</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>species</attributeName>
+          <attributeLabel>species</attributeLabel>
+          <attributeDefinition>Species code</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No predators sighted within interval</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>species_desc</attributeName>
+          <attributeLabel>species_desc</attributeLabel>
+          <attributeDefinition>Species common name</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No predators sighted within interval</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>behavior</attributeName>
+          <attributeLabel>behavior</attributeLabel>
+          <attributeDefinition>Predator behavior</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain enforced="yes">
+                  <codeDefinition>
+                    <code>FEEDING</code>
+                    <definition>Feeding</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>FLYING</code>
+                    <definition>Flying</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>FOLLOWING</code>
+                    <definition>Following</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>MILLING</code>
+                    <definition>Milling</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>PATTERING</code>
+                    <definition>Pattering</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>PORPOISING</code>
+                    <definition>Porpoising</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>SIT ON ICE</code>
+                    <definition>Sitting on ice</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>SITTING</code>
+                    <definition>Sitting on water</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No predators sighted within interval</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>count_species</attributeName>
+          <attributeLabel>count_species</attributeLabel>
+          <attributeDefinition>Count of individuals sighted</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>number</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>integer</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>JDN_start</attributeName>
+          <attributeLabel>JDN_start</attributeLabel>
+          <attributeDefinition>Julian day at start of interval</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>number</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>JDN_end</attributeName>
+          <attributeLabel>JDN_end</attributeLabel>
+          <attributeDefinition>Julian day at end of interval</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>number</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>UTC_start</attributeName>
+          <attributeLabel>UTC_start</attributeLabel>
+          <attributeDefinition>Date and time at start of interval</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">dateTime</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY-MM-DD hh:mm</formatString>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>UTC_end</attributeName>
+          <attributeLabel>UTC_end</attributeLabel>
+          <attributeDefinition>Date and time at end of interval</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">dateTime</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY-MM-DD hh:mm</formatString>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>lon_mean</attributeName>
+          <attributeLabel>lon_mean</attributeLabel>
+          <attributeDefinition>Mean longitude of interval</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>degree</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>lat_mean</attributeName>
+          <attributeLabel>lat_mean</attributeLabel>
+          <attributeDefinition>Mean latitude of interval</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>degree</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>speed_kts</attributeName>
+          <attributeLabel>speed_kts</attributeLabel>
+          <attributeDefinition>Speed of vessel (knots) during interval</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>knot</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>avg_sst</attributeName>
+          <attributeLabel>avg_sst</attributeLabel>
+          <attributeDefinition>Average sea surface temperature (measured by ship's instruments)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>celsius</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Ship's instrument reading not recorded during interval</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>avg_sal</attributeName>
+          <attributeLabel>avg_sal</attributeLabel>
+          <attributeDefinition>Average salinity (measured by ship's instruments)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>permil</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Ship's instrument reading not recorded during interval</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>avg_temp</attributeName>
+          <attributeLabel>avg_temp</attributeLabel>
+          <attributeDefinition>Average air temperature (measured by ship's instruments)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>celsius</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Ship's instrument reading not recorded during interval</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>avg_fluor</attributeName>
+          <attributeLabel>avg_fluor</attributeLabel>
+          <attributeDefinition>Average fluorescence (measured by ship's instruments)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>Relative fluorescence units</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Ship's instrument reading not recorded during interval</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>depth_meters</attributeName>
+          <attributeLabel>depth_meters</attributeLabel>
+          <attributeDefinition>Average depth (measured by ship's instruments)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>meter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Ship's instrument reading not recorded during interval</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>wind_speed_ms</attributeName>
+          <attributeLabel>wind_speed_ms</attributeLabel>
+          <attributeDefinition>Average wind speed (measured by ship's instruments)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>meterPerSecond</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Ship's instrument reading not recorded during interval</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>wind_dir_deg_azim</attributeName>
+          <attributeLabel>wind_dir_deg_azim</attributeLabel>
+          <attributeDefinition>Average wind directino (measured by ship's instruments)</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>degree</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Ship's instrument reading not recorded during interval</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Visibility</attributeName>
+          <attributeLabel>Visibility</attributeLabel>
+          <attributeDefinition>Visibility</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain enforced="yes">
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Poor; 300m strip box is difficult to see and heavy fog is likely</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>2</code>
+                    <definition>Moderate; can only see the 300m strip box, likely foggy or squall type weather</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>3</code>
+                    <definition>Good; can see the 300m strip box with no problem and beyond up to 3km</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>4</code>
+                    <definition>Optimal; horizon is not present but can see greater than 3km (common)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>5</code>
+                    <definition>Best; can see a sharp horizon over 5km</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Visibility not recorded</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>comment</attributeName>
+          <attributeLabel>comment</attributeLabel>
+          <attributeDefinition>Comment</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No comment for interval</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>amlr_station</attributeName>
+          <attributeLabel>amlr_station</attributeLabel>
+          <attributeDefinition>AMLR station id, when at a station</attributeDefinition>
+          <storageType typeSystem="XML Schema Datatypes">string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Between stations</codeExplanation>
+          </missingValueCode>
+        </attribute>
+      </attributeList>
+      <caseSensitive>no</caseSensitive>
+      <numberOfRecords>19404</numberOfRecords>
+    </dataTable>
+  </dataset>
+  <additionalMetadata>
+    <metadata>
+      <unitList>
+        <unit id="Relative fluorescence units" name="Relative fluorescence units">
+          <description></description>
+        </unit>
+      </unitList>
+    </metadata>
+  </additionalMetadata>
+  <additionalMetadata>
+    <metadata>
+      <emlEditor app="ezEML" release="2024.05.22"/>
+    </metadata>
+  </additionalMetadata>
+</eml:eml>
