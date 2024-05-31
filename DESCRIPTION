@@ -38,8 +38,10 @@ Description: The Antarctic Peninsula marine ecosystem is highly
 License: MIT + file LICENSE
 Imports:
     cluster,
+    devtools,
     dplyr,
     glue,
+    here,
     knitr,
     lubridate,
     raster,

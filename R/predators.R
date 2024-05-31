@@ -1,8 +1,13 @@
+#' Aggregate predator sightings
+#'
+#' @param predators Predator data (from raw CSV file)
+#'
+#' @return Predators aggregated in intervals
+#' @export
 aggregate_predators <- function(predators) {
   predators %>%
     filter(species != "NULL") %>%
-    mutate(UTC_start = lubridate::mdy_hm(UTC_start),
-           year = lubridate::year(UTC_start),
+    mutate(year = lubridate::year(UTC_start),
            km = nmi_to_km(nmi)) %>%
     group_by(year, interval, species, UTC_start, lon_mean, lat_mean, nmi, km) %>%
     summarize(count = sum(count_species), .groups = "drop")
@@ -59,6 +64,12 @@ normalize_counts <- function(sightings, effort) {
            count_km = nmi_to_km(count_nmi))
 }
 
+#' Convert species code to common name
+#'
+#' @param species_code 4-letter species codes (character vector)
+#'
+#' @return Species' common names
+#' @export
 code_to_common <- function(species_code) {
   c(ADPN = "Adélie penguin",
     ANFU = "Southern fulmar",

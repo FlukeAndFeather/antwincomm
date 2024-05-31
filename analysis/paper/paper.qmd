@@ -58,8 +58,13 @@ execute:
   warning: false
   message: false
   comment: "#>"
-  fig-path: "../figures/"
   fig-dpi: 600
+knitr:
+  opts_chunk: 
+    dev: # Output figures as .png and .eps 
+      - png
+      - postscript 
+    fig.path: "../figures/"
 filters:
   - ../templates/scholarly-metadata.lua
   - ../templates/author-info-blocks.lua
@@ -100,6 +105,15 @@ keywords: |
 ---
 
 Keywords: `r rmarkdown::metadata$keywords`
+
+```{r}
+#| label: load
+#| echo: false
+
+# Load this analysis as a package
+devtools::load_all()
+
+```
 
 # Introduction
 
@@ -197,8 +211,11 @@ There is concern that expansion of the Antarctic krill fishery into austral autu
 
 ```{r}
 #| label: fig-top6map
+#| fig-cap: "Geographic distributions of the 6 most abundant species observed during the surveys, averaged across survey years: (A) Adélie penguin, (B) Antarctic fur seal, (C) Antarctic petrel, (D) crabeater seal, (E) snow petrel, (F) southern fulmar. Unlike the cluster analysis, these maps aggregate sightings from all visual surveys within the study area. The sightings associated with sites are a subset of these (i.e. sightings more than 15 km or 3 d from a sampling station are included here)."
+#| out-width: 169mm
+#| out-height: 121mm
 
-plot(1, 1)
+make_fig_top6map(read_obj("topsix_clim_class", rast = TRUE))
 
 ```
 

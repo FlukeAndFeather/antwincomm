@@ -3,3 +3,7 @@
 .RData
 .Ruserdata
 .DS_Store
+analysis/data/derived_data/*
+!analysis/data/derived_data/README.md
+analysis/data/raw_data/*
+analysis/data/raw_data/README.md

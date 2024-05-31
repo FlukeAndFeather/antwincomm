@@ -1,33 +1,45 @@
-# Use WGS 84 / Antarctic Polar Stereographic for mapping, recentered on ant_lims()
+#' Use WGS 84 / Antarctic Polar Stereographic for mapping, recentered on ant_lims()
+#'
+#' @return CRS object
+#' @export
 ant_proj <- function() {
   lat_ts <- (ant_lims()["ymin"] + ant_lims()["ymax"]) / 2
   lon_0 <- (ant_lims()["xmin"] + ant_lims()["xmax"]) / 2
-  glue::glue(
-    "+proj=stere +lat_0=-90 +lat_ts={lat_ts} +lon_0={lon_0} +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs"
-  ) %>%
-  st_crs()
+  sf::st_crs(str_glue("+proj=stere +lat_0=-90 +lat_ts={lat_ts} +lon_0={lon_0} +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs"))
 }
 
+#' Spatial limits of study region
+#'
+#' @return A named vector with xmin, xmax, ymin, and ymax values
+#' @export
 ant_lims <- function() {
   c(xmin = -67, xmax = -50, ymin = -68, ymax = -55)
 }
 
-download_ne <- function(ne_dir) {
-  if (!dir.exists(ne_dir)) dir.create(ne_dir, recursive = TRUE)
-  rnaturalearth::ne_download(scale = "large",
-                             type = "land",
-                             category = "physical",
-                             destdir = ne_dir,
-                             returnclass = "sf")
-}
-
+#' Create Antarctic Peninsula sf object using Natural Earth data
+#'
+#' @param ne_dir directory to store Natural Earth data
+#' @param limits spatial limits
+#'
+#' @return Antarctic Peninsula sf object
+#' @export
 create_ant_sf <- function(ne_dir, limits = ant_lims()) {
+  # Download data from Natural Earth, if necessary
+  if (!dir.exists(ne_dir)) dir.create(ne_dir, recursive = TRUE)
+  if (!file.exists(file.path(ne_dir, "ne_10m_land.shp")))
+    rnaturalearth::ne_download(scale = "large",
+                               type = "land",
+                               category = "physical",
+                               destdir = ne_dir,
+                               returnclass = "sf")
+
+  # Load and crop data
   land <- rnaturalearth::ne_load(scale = "large",
                                  type = "land",
                                  category = "physical",
                                  destdir = ne_dir,
                                  returnclass = "sf")
-  st_crop(land, st_bbox(limits))
+  suppressWarnings(sf::st_crop(land, sf::st_bbox(limits)))
 }
 
 ant_raster_template <- function(limits = ant_lims(), res = 5e4) {
@@ -77,15 +89,27 @@ rasterize_counts <- function(counts_sf,
     st_set_crs(ant_proj())
 }
 
+#' Convert latitude/longitude data to sf object
+#'
+#' @param df Data frame with spatial data
+#' @param coords Names of columns containing longitude and latitude
+#'
+#' @return df converted to sf object
+#' @export
 latlon_to_sf <- function(df, coords = c("x", "y")) {
-  st_as_sf(df,
+  sf::st_as_sf(df,
                coords = coords,
-               crs = sp::CRS("+proj=longlat +datum=WGS84"))
+               crs = sf::st_crs("+proj=longlat +datum=WGS84"))
 }
 
+#' Create basemap of study region
+#'
+#' @return ggplot object
+#' @export
 ant_basemap <- function() {
+  ant_sf <- read_obj("ant_sf")
   ggplot() +
-    geom_sf(data = tar_read("ant_sf", store = here::here("_targets"))) +
+    geom_sf(data = ant_sf) +
     theme_minimal() +
     theme(axis.title = element_blank())
 }
@@ -123,13 +147,23 @@ expand_bbox <- function(x, factor) {
 
 nmi_to_km <- function(nmi) nmi * 1.852
 
+#' Rasterize data (predator abundance or effort) by year or other category
+#'
+#' @param x_sf point data to rasterize
+#' @param field field to rasterize
+#' @param by grouping variable
+#' @param fun rasterizing function
+#' @param template raster template
+#'
+#' @return terra raster
+#' @export
 rasterize_by <- function(x_sf, field, by, fun, template) {
   result <- x_sf %>%
-    vect() %>%
-    rasterize(template,
-              field = field,
-              by = by,
-              fun = fun)
+    terra::vect() %>%
+    terra::rasterize(template,
+                     field = field,
+                     by = by,
+                     fun = fun)
   result_names <- names(result) %>%
     str_extract("c[(]([^,]+)", 1) %>%
     str_replace_all("\\\"", "")
