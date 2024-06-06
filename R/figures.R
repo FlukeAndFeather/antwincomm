@@ -1,8 +1,6 @@
 #' Create a figure with climatological distribution of six most abundant
 #' predators
 #'
-#' As a side effect, saves figure to EPS in figures/
-#'
 #' @return ggplot object
 #' @export
 make_fig_top6map <- function(topsix_clim_class) {
@@ -38,4 +36,38 @@ make_fig_top6map <- function(topsix_clim_class) {
     theme(legend.position = "top",
           panel.background = element_rect(color = "grey20"),
           strip.text = element_blank())
+}
+
+#' Create a figure with distribution of sea ice by predator cluster
+#'
+#' @return ggplot object
+#' @export
+make_fig_seaiceclust <- function(stations_clust) {
+  median_coverge <- stations_clust %>%
+    drop_na(ice_coverage) %>%
+    group_by(pred_clust) %>%
+    summarize(median_ice = median(ice_coverage / 10, na.rm = TRUE))
+
+  sublabels <- tibble(
+    pred_clust = factor(levels(stations_clust$pred_clust)),
+    labels = LETTERS[1:3],
+    x = 1, y = 15
+  )
+
+  ggplot(stations_clust,
+              aes(x = ice_coverage / 10, fill = after_stat(x))) +
+    geom_histogram(bins = 20, color = "grey30") +
+    geom_vline(aes(xintercept = median_ice),
+               median_coverge,
+               color = "red", linetype = "dashed") +
+    geom_text(aes(x = x, y = y, label = labels), sublabels,
+              hjust = 1, vjust = 1,
+              fontface = "bold") +
+    scale_x_continuous(labels = scales::percent) +
+    scale_fill_distiller(palette = "Blues", guide = NULL) +
+    facet_grid(rows = vars(pred_clust)) +
+    labs(x = "Ice coverage",
+         y = "# sites") +
+    theme_classic() +
+    theme(strip.text = element_blank())
 }

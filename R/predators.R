@@ -23,6 +23,15 @@ filter_species <- function(sightings, station_thr) {
     semi_join(x = sightings, y = ., by = "species")
 }
 
+#' Assign sightings to nearest station
+#'
+#' @param sightings predator sighting data
+#' @param stations station data
+#' @param max_dist_km maximum spatial tolerance (km)
+#' @param max_days maximum temporal tolerance (days)
+#'
+#' @return predator data associated with nearest station
+#' @export
 assign_sightings <- function(sightings, stations, max_dist_km, max_days) {
   stopifnot(inherits(sightings, "sf"),
             inherits(stations, "sf"))
@@ -31,16 +40,16 @@ assign_sightings <- function(sightings, stations, max_dist_km, max_days) {
   assign_group <- function(sightings_group, sightings_key) {
     station_buffers <- stations %>%
       filter(Year == sightings_key$year) %>%
-      st_transform(ant_proj()) %>%
-      st_buffer(max_dist_km * 1000) %>%
-      transmute(
+      sf::st_transform(ant_proj()) %>%
+      sf::st_buffer(max_dist_km * 1000) %>%
+      select(
         amlr.station,
-        tow.UTC = date.tow + (start.time.UTC - as.POSIXct("1899-12-31", tz = "UTC"))
+        start.time.UTC
       )
     sightings_group %>%
-      st_transform(ant_proj()) %>%
-      st_join(station_buffers, left = FALSE) %>%
-      mutate(lag_days = abs(as.numeric(UTC_start - tow.UTC, units = "secs")) / 3600 / 24) %>%
+      sf::st_transform(ant_proj()) %>%
+      sf::st_join(station_buffers, left = FALSE) %>%
+      mutate(lag_days = abs(as.numeric(UTC_start - start.time.UTC, units = "secs")) / 3600 / 24) %>%
       filter(lag_days <= max_days)
   }
 
@@ -49,7 +58,7 @@ assign_sightings <- function(sightings, stations, max_dist_km, max_days) {
     group_by(year) %>%
     group_modify(assign_group) %>%
     ungroup() %>%
-    st_as_sf()
+    sf::st_as_sf()
 }
 
 # Normalize species counts by survey effort
@@ -57,7 +66,7 @@ normalize_counts <- function(sightings, effort) {
   sightings %>%
     as_tibble() %>%
     group_by(amlr.station, species) %>%
-    summarize(count = sum(count), .groups = "drop") %>%
+    summarize(count = sum(count_species), .groups = "drop") %>%
     right_join(select(as_tibble(effort), amlr.station, survey_nmi, survey_km),
                by = "amlr.station") %>%
     mutate(count_nmi = count / survey_nmi,

@@ -64,6 +64,6 @@ topsix_clim_class <- topsix_climatology %>%
   terra::classify(rcl = c(0, 1, 5, 10, 50))
 
 # Save to derived data
-save_obj(topsix_clim_class, "topsix_clim_class", rast = TRUE)
+save_obj(topsix_clim_class, "topsix_clim_class", type = "rast")
 
 message("Species climatologies generated")

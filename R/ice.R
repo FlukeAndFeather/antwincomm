@@ -5,8 +5,14 @@ mfv <- function(x) {
   names(x_tbl)[which.max(x_tbl)]
 }
 
-# Clean ice categories
-# Converts e.g., FY/MY to FY and collapses SLUSH and BRASH into THIN
+#' Clean ice categories
+#'
+#' Converts e.g., FY/MY to FY and collapses SLUSH and BRASH into THIN
+#'
+#' @param ice_types Character vector of ice types
+#'
+#' @return Cleaned up ice types
+#' @export
 clean_ice <- function(ice_types) {
   str_extract(ice_types, "[^/]+") %>%
     factor(levels = c("OPEN",
@@ -29,18 +35,18 @@ aggregate_ice <- function(stations, ice_raw) {
   stations2 <- stations %>%
     transmute(amlr.station,
               year_station = Year,
-              date_station = as.Date(date.tow))
+              date_station = as.Date(start.time.UTC))
 
   # Spatially join stations to raw ice observations
   ice_stations <- ice_raw %>%
     group_by(year_ice) %>%
     group_modify(function(ice_by_year, ice_keys) {
       stations_by_year <- filter(stations2, year_station == ice_keys$year_ice)
-      nearest_stations_idx <- st_nearest_feature(ice_by_year, stations_by_year)
+      nearest_stations_idx <- sf::st_nearest_feature(ice_by_year, stations_by_year)
       nearest_stations <- stations_by_year[nearest_stations_idx, ]
-      station_distance <- st_distance(ice_by_year,
-                                      nearest_stations,
-                                      by_element = TRUE)
+      station_distance <- sf::st_distance(ice_by_year,
+                                          nearest_stations,
+                                          by_element = TRUE)
       station_lag <- ice_by_year$date_ice - nearest_stations$date_station
       stations_no_sf <- select(as_tibble(nearest_stations), -geometry)
       ice_by_year %>%
@@ -51,7 +57,7 @@ aggregate_ice <- function(stations, ice_raw) {
     ungroup() %>%
     filter(station_distance <= units::as_units(15, "km"),
            abs(station_lag) <= as.difftime(3, units = "days")) %>%
-    st_as_sf(sf_column_name = "geometry")
+    sf::st_as_sf(sf_column_name = "geometry")
 
   # Aggregate ice observations by station
   ice_stations %>%
@@ -69,44 +75,60 @@ aggregate_ice <- function(stations, ice_raw) {
     select(amlr.station, ice_type, ice_intervals, ice_type_freq, ice_coverage)
 }
 
+#' Collect sea ice raster data
+#'
+#' @param seaice_dir directory with August sea ice concentration
+#'
+#' @return terra::SpatRaster with sea ice concentration data
+#' @export
 collect_seaice <- function(seaice_dir) {
   seaice <- seaice_dir %>%
     dir(full.names = TRUE) %>%
-    map(rast) %>%
-    rast()
-  set.names(seaice, as.character(2012:2016))
+    map(terra::rast) %>%
+    terra::rast()
+  terra::set.names(seaice, as.character(2012:2016))
 
-  proj_ext <- ext(-67, -50, -68, -55) %>%
-    project(from = "epsg:4326",
-            to = crs(seaice))
-  wrap(crop(seaice, proj_ext))
+  proj_ext <- terra::ext(-67, -50, -68, -55) %>%
+    terra::project(from = "epsg:4326",
+                   to = terra::crs(seaice))
+  terra::crop(seaice, proj_ext)
 }
 
+#' Create contours from seaice rasters
+#'
+#' @param seaice_rast terra::SpatRaster with sea ice concentrations
+#' @param contour_level numeric vector with desired contour levels
+#'
+#' @return terra:SpatVector of sea ice contours
+#' @export
 seaice2contour <- function(seaice_rast, contour_level) {
-  seaice_rast <- unwrap(seaice_rast)
   map(
-    seq(nlyr(seaice_rast)),
-    ~ as.contour(seaice_rast[[.x]],
-                 levels = contour_level * 1000)
+    seq(terra::nlyr(seaice_rast)),
+    ~ terra::as.contour(seaice_rast[[.x]],
+                        levels = contour_level * 1000)
   ) %>%
-    vect() %>%
+    terra::vect() %>%
     mutate(Year = 2012:2016,
-           ice_conc = contour_level) %>%
-    wrap()
+           ice_conc = contour_level)
 }
 
+#' Convert sea ice data from raster to data frame
+#'
+#' @param seaice_rast terra::SpatRaster with sea ice concentration data
+#'
+#' @return data frame
+#' @export
 seaice2df <- function(seaice_rast) {
-  seaice_rast <- unwrap(seaice_rast)
-  proj_ext <- ext(-67, -50, -68, -55) %>%
-    project(from = "epsg:4326",
-            to = crs(seaice_rast))
-  template_ext <- ext(-67, -50, -68, -55) %>%
-    project(from = "epsg:4326",
-            to = as.character(ant_proj())[[1]])
-  rast_template <- rast(crs = as.character(ant_proj())[[1]],
-                        extent = template_ext,
-                        resolution = 25e3)
-  project(seaice_rast, rast_template) %>%
+  proj_ext <- terra::ext(-67, -50, -68, -55) %>%
+    terra::project(from = "epsg:4326",
+                   to = terra::crs(seaice_rast))
+  template_ext <- terra::ext(-67, -50, -68, -55) %>%
+    terra::project(from = "epsg:4326",
+                   to = as.character(ant_proj())[[1]])
+  rast_template <- terra::rast(crs = as.character(ant_proj())[[1]],
+                               extent = template_ext,
+                               resolution = 25e3)
+  terra::project(seaice_rast, rast_template) %>%
     as.data.frame(xy = TRUE) %>%
     pivot_longer(as.character(2012:2016),
                  names_to = "Year",

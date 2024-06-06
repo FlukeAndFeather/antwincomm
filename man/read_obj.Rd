@@ -4,13 +4,13 @@
 \alias{read_obj}
 \title{Read an object from derived_data/}
 \usage{
-read_obj(obj_name, rast = FALSE)
+read_obj(obj_name, type = c("r", "rast", "vect"))
 }
 \arguments{
 \item{obj_name}{name of object}
 
-\item{rast}{whether object is a terra raster. false by default. requires
-extra steps.}
+\item{type}{whether object is a basic R object, raster, or vector. Raster and
+vector data require additional processing.}
 }
 \value{
 object read from file in analysis/data/derived_data/

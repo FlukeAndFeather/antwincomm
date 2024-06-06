@@ -215,8 +215,17 @@ There is concern that expansion of the Antarctic krill fishery into austral autu
 #| out-width: 169mm
 #| out-height: 121mm
 
-make_fig_top6map(read_obj("topsix_clim_class", rast = TRUE))
+make_fig_top6map(read_obj("topsix_clim_class", type = "rast"))
 
+```
+
+```{r}
+#| label: fig-seaice
+#| fig-cap: "Distribution of sea ice coverage among sites, by predator cluster: (A) open water, (B) marginal ice, (C) pack ice. Dashed red line: median ice coverage."
+#| out-width: 169mm
+#| out-height: 121mm
+
+make_fig_seaiceclust(read_obj("stations_clust"))
 ```
 
 # Acknowledgements

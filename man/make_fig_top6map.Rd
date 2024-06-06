@@ -11,5 +11,6 @@ make_fig_top6map(topsix_clim_class)
 ggplot object
 }
 \description{
-As a side effect, saves figure to EPS in figures/
+Create a figure with climatological distribution of six most abundant
+predators
 }

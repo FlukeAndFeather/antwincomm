@@ -1,14 +1,19 @@
+#' Read station (zooplankton) data
+#'
+#' @param zoop_path path to StationZooplanktonPhysics.csv
+#'
+#' @return data frame with station-level data
+#' @export
 read_zoop <- function(zoop_path) {
-  readxl::read_excel(zoop_path, sheet = 1) %>%
-    mutate(time.of.day = factor(time.of.day,
-                                levels = c("D", "T", "N"),
-                                labels = c("Day", "Twilight", "Night")),
-           across(c(zuml_m,
-                    starts_with("avg"),
-                    starts_with("Integ"),
-                    Net.ice.percent),
-                  parse_number)) %>%
-    select(-57) %>%
+  sun_angle <- function(t, x, y) {
+    pmap_dbl(list(t, x, y), \(.t, .x, .y) oce::sunAngle(.t, .x, .y)$altitude)
+  }
+
+  read_csv(zoop_path, show_col_types = FALSE) %>%
+    mutate(sun_angle = sun_angle(start.time.UTC, dec.longitude, dec.latitude),
+           time.of.day = cut(sun_angle,
+                             c(-Inf, -18, 0, Inf),
+                             labels = c("Night", "Twilight", "Day"))) %>%
     filter(leg == "W")
 }
 
