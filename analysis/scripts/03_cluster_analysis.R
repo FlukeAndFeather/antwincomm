@@ -30,4 +30,7 @@ stations_clust <- zoop_sf %>%
   semi_join(predators_clust, by = "amlr.station")
 
 # Save derived objects
+save_obj(sightings_mtx, "sightings_mtx")
+save_obj(sightings_dist, "sightings_dist")
 save_obj(stations_clust, "stations_clust")
+save_obj(sightings_cut, "sightings_cut")

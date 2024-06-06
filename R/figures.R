@@ -158,3 +158,80 @@ make_fig_predclustkde <- function(stations_clust) {
           strip.text = element_blank(),
           panel.background = element_rect())
 }
+
+#' Create a figure with NMDS loadings
+#' years
+#'
+#' @return ggplot object
+#' @export
+make_fig_nmds <- function(nmds_envfit, nmds_df, nmds_sightings, nmds_env) {
+  year_centroids <- vegan::scores(nmds_envfit,
+                                  display = "factors",
+                                  choices = 1:3) %>%
+    as_tibble(rownames = "envvar") %>%
+    filter(str_starts(envvar, "Year")) %>%
+    mutate(across(starts_with("NMDS"),
+                  ~ .x * vegan::ordiArrowMul(nmds_envfit)),
+           Year = substr(envvar, 5, 8))
+
+  nmds_plot <- function(axis1, axis2) {
+    ice_ordisurf <- vegan::ordisurf(
+      nmds_sightings ~ nmds_env$ice_coverage,
+      choices = c(axis1, axis2),
+      plot = FALSE
+    )
+
+    x <- paste0("NMDS", axis1)
+    y <- paste0("NMDS", axis2)
+
+    ice_df <- expand_grid(
+      axis1 = ice_ordisurf$grid$x,
+      axis2 = ice_ordisurf$grid$y,
+    ) %>%
+      cbind(as.numeric(ice_ordisurf$grid$z)) %>%
+      set_names(c(x, y, "ice_coverage")) %>%
+      mutate(ice_coverage = ice_coverage / 10) %>%
+      drop_na(ice_coverage)
+
+    ggplot(nmds_df, aes(.data[[x]], .data[[y]])) +
+      stat_contour(aes(z = .data$ice_coverage,
+                       color = after_stat(level)),
+                   ice_df) +
+      scale_color_distiller(
+        "Ice coverage",
+        palette = "Blues",
+        labels = scales::percent,
+        limits = c(0.25, 0.75),
+        breaks = seq(0.25, 0.75, by = 0.1),
+        guide = guide_colorbar(barwidth = unit(2, "in"),
+                               direction = "horizontal")
+      ) +
+      ggnewscale::new_scale_color() +
+      geom_point(aes(color = pred_clust), size = 1, alpha = 0.8) +
+      geom_point(data = year_centroids,
+                 shape = 18,
+                 size = 2.5,
+                 color = "black",
+                 alpha = 0.85) +
+      ggrepel::geom_text_repel(aes(label = Year),
+                               year_centroids) +
+      scale_color_brewer(
+        palette = "Dark2",
+        guide = guide_legend(override.aes = list(size = 2),
+                             direction = "horizontal",
+                             order = 1)
+      ) +
+      labs(color = "Predator cluster") +
+      theme_classic(base_size = 10)
+  }
+
+  map2(c(1, 1, 2), c(2, 3, 3), nmds_plot) %>%
+    reduce(patchwork:::`|.ggplot`) +
+    patchwork::plot_annotation(tag_levels = 'A') +
+    patchwork::plot_layout(guides = "collect") &
+    theme(legend.position = "bottom",
+          legend.box = "vertical",
+          legend.box.margin = margin(t = -3),
+          legend.spacing.y = unit(-5, "pt"),
+          plot.tag = element_text(face = "bold"))
+}

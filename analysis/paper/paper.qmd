@@ -242,10 +242,8 @@ make_fig_seaiceclust(read_obj("stations_clust"))
 #| out-width: 169mm
 #| out-height: 121mm
 
-make_fig_predclustannual(
-  read_obj("stations_clust"), 
-  read_obj("seaice_conc_df")
-)
+make_fig_predclustannual(read_obj("stations_clust"), 
+                         read_obj("seaice_conc_df"))
 
 ```
 
@@ -259,6 +257,20 @@ make_fig_predclustannual(
 
 make_fig_predclustkde(read_obj("stations_clust"))
 
+```
+
+```{r}
+#| label: fig-nmds
+#| fig-cap: "Distribution of sites and environmental loadings in non-metric multidimensional scaling (NMDS) ordination: (A) first and second NMDS axes, (B) first and third NMDS axes, (C) second and third NMDS axes. Black diamonds indicate centroids of survey years, and contours represent the fitted surface of sea-ice coverage. Sites are color-coded by predator cluster assignment."
+#| fig-width: 6.65
+#| fig-height: 3.94
+#| out-width: 169mm
+#| out-height: 100mm
+
+make_fig_nmds(read_obj("nmds_envfit"),
+              read_obj("nmds_df"),
+              read_obj("nmds_sightings"),
+              read_obj("nmds_env"))
 ```
 
 # Acknowledgements
