@@ -116,3 +116,45 @@ make_fig_predclustannual <- function(stations_clust, seaice_conc_df) {
           strip.text = element_blank(),
           panel.background = element_rect())
 }
+
+#' Create a figure with geographic distribution of predator clusters across
+#' years
+#'
+#' @return ggplot object
+#' @export
+make_fig_predclustkde <- function(stations_clust) {
+  map_lim <- sf::st_bbox(stations_clust) %>%
+    project_bbox() %>%
+    expand_bbox(factor = 1.2)
+
+  cluster_kde <- stations_clust %>%
+    group_by(pred_clust) %>%
+    group_map(\(rows, keys) eks::st_kde(rows)$sf %>%
+                filter(contlabel %in% c(50, 95)) %>%
+                mutate(pred_clust = keys$pred_clust)) %>%
+    reduce(sf:::rbind.sf)
+
+  sublabels <- tibble(pred_clust = factor(levels(cluster_kde$pred_clust)),
+                      x = -63, y = -60,
+                      labels = LETTERS[1:3]) %>%
+    sf::st_as_sf(crs = "EPSG:4326", coords = c("x", "y"))
+
+  ant_basemap() +
+    # Predator clusters
+    ggnewscale::new_scale_fill() +
+    geom_sf(aes(color = pred_clust,
+                linetype = contlabel),
+            cluster_kde,
+            fill = NA,
+            linewidth = 1) +
+    geom_sf_text(aes(label = labels), sublabels, fontface = "bold", vjust = 0) +
+    facet_wrap(~ pred_clust) +
+    scale_x_continuous(breaks = c(-60, -55)) +
+    scale_y_continuous(breaks = c(-63, -62, -61, -60)) +
+    scale_color_brewer("Predator cluster", palette = "Dark2") +
+    scale_linetype_manual(values = c(2, 1), guide = "none") +
+    coord_ant(map_lim) +
+    theme(legend.position = "bottom",
+          strip.text = element_blank(),
+          panel.background = element_rect())
+}

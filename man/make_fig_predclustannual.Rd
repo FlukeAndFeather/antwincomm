@@ -4,7 +4,7 @@
 \alias{make_fig_predclustannual}
 \title{Create a figure with geographic distribution of predator clusters by year}
 \usage{
-make_fig_predclustannual(stations_clust)
+make_fig_predclustannual(stations_clust, seaice_conc_df)
 }
 \value{
 ggplot object

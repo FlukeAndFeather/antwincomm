@@ -214,6 +214,8 @@ There is concern that expansion of the Antarctic krill fishery into austral autu
 ```{r}
 #| label: fig-top6map
 #| fig-cap: "Geographic distributions of the 6 most abundant species observed during the surveys, averaged across survey years: (A) Adélie penguin, (B) Antarctic fur seal, (C) Antarctic petrel, (D) crabeater seal, (E) snow petrel, (F) southern fulmar. Unlike the cluster analysis, these maps aggregate sightings from all visual surveys within the study area. The sightings associated with sites are a subset of these (i.e. sightings more than 15 km or 3 d from a sampling station are included here)."
+#| fig-width: 6.65
+#| fig-height: 4.76
 #| out-width: 169mm
 #| out-height: 121mm
 
@@ -224,6 +226,8 @@ make_fig_top6map(read_obj("topsix_clim_class", type = "rast"))
 ```{r}
 #| label: fig-seaice
 #| fig-cap: "Distribution of sea ice coverage among sites, by predator cluster: (A) open water, (B) marginal ice, (C) pack ice. Dashed red line: median ice coverage."
+#| fig-width: 6.65
+#| fig-height: 4.76
 #| out-width: 169mm
 #| out-height: 121mm
 
@@ -233,6 +237,8 @@ make_fig_seaiceclust(read_obj("stations_clust"))
 ```{r}
 #| label: fig-predclustannual
 #| fig-cap: "Geographic distribution of predator communities in each survey year (A–E: 2012–2016, respectively). Areas of extensive sea-ice coverage are indicated by blue gradient, where satellite-derived mean sea-ice coverage in the month of August in each year exceeded 65%."
+#| fig-width: 6.65
+#| fig-height: 4.76
 #| out-width: 169mm
 #| out-height: 121mm
 
@@ -240,6 +246,18 @@ make_fig_predclustannual(
   read_obj("stations_clust"), 
   read_obj("seaice_conc_df")
 )
+
+```
+
+```{r}
+#| label: fig-predclustkde
+#| fig-cap: "Geographic distribution of predator communities across years. Solid and dashed lines indicate the 50 and 95% contours of the kernel density estimate for each cluster, respectively, pooling sites from all years."
+#| fig-width: 6.65
+#| fig-height: 2.24
+#| out-width: 169mm
+#| out-height: 57mm
+
+make_fig_predclustkde(read_obj("stations_clust"))
 
 ```
 
