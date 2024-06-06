@@ -209,6 +209,8 @@ There is concern that expansion of the Antarctic krill fishery into austral autu
 
 # Figures
 
+![Overview of study area. Circles indicate the locations of the US Antarctic Marine Living Resources (AMLR) station grid. Solid and dashed gray lines represent the 1000 and 2500 m isobaths, respectively. Not all stations were sampled every year. Inset indicates the location of the study area (red shading) relative to South America and the Antarctic Peninsula (BS: Bellingshausen Sea; WS: Weddell Sea). Bathymetry from IBCSO v2 [@dorschelInternationalBathymetricChart2022]; land from Natural Earth (www.naturalearthdata.com).](images/fig-overviewmap.png){#fig-overviewmap width="116mm"}
+
 ```{r}
 #| label: fig-top6map
 #| fig-cap: "Geographic distributions of the 6 most abundant species observed during the surveys, averaged across survey years: (A) Adélie penguin, (B) Antarctic fur seal, (C) Antarctic petrel, (D) crabeater seal, (E) snow petrel, (F) southern fulmar. Unlike the cluster analysis, these maps aggregate sightings from all visual surveys within the study area. The sightings associated with sites are a subset of these (i.e. sightings more than 15 km or 3 d from a sampling station are included here)."
@@ -226,6 +228,19 @@ make_fig_top6map(read_obj("topsix_clim_class", type = "rast"))
 #| out-height: 121mm
 
 make_fig_seaiceclust(read_obj("stations_clust"))
+```
+
+```{r}
+#| label: fig-predclustannual
+#| fig-cap: "Geographic distribution of predator communities in each survey year (A–E: 2012–2016, respectively). Areas of extensive sea-ice coverage are indicated by blue gradient, where satellite-derived mean sea-ice coverage in the month of August in each year exceeded 65%."
+#| out-width: 169mm
+#| out-height: 121mm
+
+make_fig_predclustannual(
+  read_obj("stations_clust"), 
+  read_obj("seaice_conc_df")
+)
+
 ```
 
 # Acknowledgements

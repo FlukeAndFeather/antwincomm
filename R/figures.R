@@ -71,3 +71,48 @@ make_fig_seaiceclust <- function(stations_clust) {
     theme_classic() +
     theme(strip.text = element_blank())
 }
+
+#' Create a figure with geographic distribution of predator clusters by year
+#'
+#' @return ggplot object
+#' @export
+make_fig_predclustannual <- function(stations_clust, seaice_conc_df) {
+  map_lim <- sf::st_bbox(stations_clust) %>%
+    project_bbox() %>%
+    expand_bbox(factor = 1.2)
+
+  sublabels <- tibble(Year = 2012:2016,
+                      x = -63, y = -60,
+                      labels = LETTERS[1:5]) %>%
+    sf::st_as_sf(crs = "EPSG:4326", coords = c("x", "y"))
+
+  ant_basemap() +
+    # Sea ice
+    geom_tile(aes(x, y, fill = seaice_conc),
+              filter(seaice_conc_df, between(seaice_conc, 0.65, 1)),
+              alpha = 0.8) +
+    scale_fill_distiller("Ice concentration",
+                         lim = c(0.65, 1),
+                         labels = scales::percent,
+                         palette = "Blues",
+                         na.value = "transparent",
+                         guide = guide_colorbar(title.position = "top")) +
+    # Predator clusters
+    ggnewscale::new_scale_fill() +
+    geom_sf(aes(fill = pred_clust),
+            stations_clust,
+            size = 2,
+            shape = 22) +
+    facet_wrap(~ Year) +
+    # Labels
+    geom_sf_text(aes(label = labels), sublabels, fontface = "bold", vjust = 0) +
+    scale_x_continuous(breaks = c(-60, -55)) +
+    scale_y_continuous(breaks = c(-63, -62, -61, -60)) +
+    scale_fill_brewer("Predator cluster", palette = "Dark2",
+                      guide = guide_legend(override.aes = list(size = 3),
+                                           title.position = "top")) +
+    coord_ant(map_lim) +
+    theme(legend.position = "bottom",
+          strip.text = element_blank(),
+          panel.background = element_rect())
+}

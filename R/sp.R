@@ -125,13 +125,26 @@ coord_ant <- function(map_lim = NULL) {
            crs = ant_proj())
 }
 
+#' Project a bounding box
+#'
+#' @param x sf::bbox
+#'
+#' @return sf::bbox x projected from lat/lon into Antarctic projection (see
+#'   ant_proj())
+#' @export
 project_bbox <- function(x) {
   x %>%
-    st_as_sfc(crs = "EPSG:4326") %>%
-    st_transform(ant_proj()) %>%
-    st_bbox()
+    sf::st_as_sfc(crs = "EPSG:4326") %>%
+    sf::st_transform(ant_proj()) %>%
+    sf::st_bbox()
 }
 
+#' Expand a bounding box
+#'
+#' @param x sf::bbox
+#'
+#' @return sf::bbox x expanded by factor
+#' @export
 expand_bbox <- function(x, factor) {
   result <- x
   xrng <- x["xmax"] - x["xmin"]
