@@ -54,7 +54,7 @@ format:
   docx:
     reference-doc: "../templates/template.docx" # Insert path for the DOCX file
 execute:
-  echo: true
+  echo: false
   warning: false
   message: false
   comment: "#>"
@@ -143,7 +143,7 @@ During each survey, we continuously monitored and classified sea-ice conditions 
 
 ### Hydrology
 
-We measured hydrology at each survey station. Conductivity and temperature in the water column were measured using a Sea-Bird Inc. SBE-9/11+ CTD profiler (Table 1). We used Niskin sampling bottles to collect water samples for measuring chlorophyll *a* (chl *a*) and phaeopigment concentrations (Table 1). For full details, see @dietrich2021winter.
+We measured hydrology at each survey station. Conductivity and temperature in the water column were measured using a Sea-Bird Inc. SBE-9/11+ CTD profiler [@tbl-envvar]. We used Niskin sampling bottles to collect water samples for measuring chlorophyll *a* (chl *a*) and phaeopigment concentrations [@tbl-envvar]. For full details, see @dietrich2021winter.
 
 ## Statistical analysis
 
@@ -159,7 +159,7 @@ We described each predator cluster with a smaller number of indicator species. U
 
 To explore the relationship between community structure and the environment, we reduced the dimensionality of the community data using non-metric multidimensional scaling (NMDS). For this purpose, we used the same Bray-Curtis dissimilarity matrix from the cluster analysis. We determined the number of NMDS axes to retain by examining a scree plot, which plots overall stress of the fit against the number of axes, and assessed quality of fit using a Shepard diagram, which plots the dissimilarity distances in the reduced space against the original dissimilarity distances. We chose the smallest number of axes with stress \<0.2 and examined the correlation in the Shepard diagram for goodness of fit.
 
-We used linear regression to quantify the relationship between the retained NMDS axes and the environmental, biological, and temporal variables. We performed this analysis with the `envfit()` function in the 'vegan' package, which treats environmental variables as the response variables and NMDS ordination scores as the predictors. The environmental variables included physical conditions (hydrology and ice conditions), biology (macrozooplankton community), and temporal variables (Table 1). Temporal variables included time of day of the net tow, to account for diel patterns in macrozooplankton distribution, as well as year, to account for interannual variability. The regression coefficients obtained from the analysis represent the direction and magnitude of the maximal change in community structure associated with each environmental variable. We tested for significant associations between predator and macrozooplankton communities using a chi-squared test and assessed the statistical significance of individual predator–prey community associations via post hoc analysis of the Pearson residuals.
+We used linear regression to quantify the relationship between the retained NMDS axes and the environmental, biological, and temporal variables. We performed this analysis with the `envfit()` function in the 'vegan' package, which treats environmental variables as the response variables and NMDS ordination scores as the predictors. The environmental variables included physical conditions (hydrology and ice conditions), biology (macrozooplankton community), and temporal variables [@tbl-envvar]. Temporal variables included time of day of the net tow, to account for diel patterns in macrozooplankton distribution, as well as year, to account for interannual variability. The regression coefficients obtained from the analysis represent the direction and magnitude of the maximal change in community structure associated with each environmental variable. We tested for significant associations between predator and macrozooplankton communities using a chi-squared test and assessed the statistical significance of individual predator–prey community associations via post hoc analysis of the Pearson residuals.
 
 # Results
 
@@ -207,9 +207,36 @@ Species interactions play a key role in the community organization of marine pre
 
 There is concern that expansion of the Antarctic krill fishery into austral autumn and winter may impact the overwintering ecology of seabirds and marine mammals [@hinkeIdentifyingRiskConcurrent2017; @wattersLongtermObservationsAntarctica2020; @trathanEcosystemApproachManagement2022]. Potential impacts include bycatch through fishing gear interactions, entanglement, and ship strikes, and possibly depletion of key prey patches that predators are reliant upon. Given the spatial consistency of Antarctic krill concentrations in southern Bransfield Strait during winter [@reissOverwinterHabitatSelection2017; @dietrich2021winter] and the dense concentrations of pinnipeds and seabirds present within the marginal sea-ice zone, increased fishing activity within this location has potential negative consequences to the predator community. Further, as global warming exacerbates long-term reductions in winter sea-ice concentration and extent, lower sea-ice years may allow for greater seasonal expansion of the krill fishery, thereby reducing important prey resources and creating potentially more conflicts with predators that are unable to shift their distributions.
 
+# Acknowledgements
+
+We are grateful for the diligent work by the field personnel who made these surveys possible, including the captains, crew, and support personnel of the RVIB ‘Nathaniel B. Palmer’. The surveys were conducted by a partnership of NOAA Fisheries Antarctic Ecosystem Research Division and the NSF US Antarctic Program (NSF Office of Polar Programs project 2011285). We thank Dr. Jack Conroy for his contributions and feedback on matters related to zooplankton communities. J.A.S. thanks M. P. Force and A. Borker for their dedicated support during the visual surveys
+
+\newpage
+
+# Tables
+
+<!-- Note: cross-referencing a table breaks column alignment. See https://github.com/quarto-dev/quarto-cli/issues/8970 -->
+
+| Variable                   | Description and units                                                                                                                                                                                                                                                                                                 | Collection location |
+|:-----------------|:------------------------------------|:-----------------|
+| UML depth                  | Depth at which the density differed by 0.05 kg m^−3^ from the average density of the upper 10 m of the water column [@mitchell1991] \[meters\]                                                                                                                                                                        | Station             |
+| Temperature                | Average UML temperature \[°C\]                                                                                                                                                                                                                                                                                        | Station             |
+| Salinity                   | Average UML salinity \[PSU\]                                                                                                                                                                                                                                                                                          | Station             |
+| Chl *a*                    | Average integrated chl *a* to 100 m from bottles \[mg m^-2^\]                                                                                                                                                                                                                                                         | Station             |
+| Phaeopigment               | Average integrated phaeopigment to 100 m from bottles \[mg m^-2^\]                                                                                                                                                                                                                                                    | Station             |
+| Ice type                   | Factor with 4 levels: open, thin, first-year, multi-year                                                                                                                                                                                                                                                              | Transect            |
+| Ice coverage               | Percent cover                                                                                                                                                                                                                                                                                                         | Transect            |
+| Macrozooplankton community | Factor with 5 levels corresponding to the clusters identified by @dietrich2021winter: 1 (*Salpa* and *Clione*), 2a (small *Euphausia*, myctophid larvae, and amphipods), 2b (*Thysanoessa*), 3a (extremely diverse, including siphonophores, chaetognaths, copepods), and 3b (*E. superba* and *E. crystallorophias*) | Station             |
+
+: Environmental variables collected during survey. Hydrographic variables (upper mixed layer [UML] depth, temperature, salinity, chlorophyll a [chl a], and phaeopigment) were collected at sampling stations. Ice variables (type and coverage) were collected along transects and associated with the nearest station. Macrozooplankton communities were classified based on net tows collected at the sampling stations (see @dietrich2021winter). {#tbl-envvar} {tbl-colwidths="[20,60,20]"}
+
+\newpage
+
 # Figures
 
 ![Overview of study area. Circles indicate the locations of the US Antarctic Marine Living Resources (AMLR) station grid. Solid and dashed gray lines represent the 1000 and 2500 m isobaths, respectively. Not all stations were sampled every year. Inset indicates the location of the study area (red shading) relative to South America and the Antarctic Peninsula (BS: Bellingshausen Sea; WS: Weddell Sea). Bathymetry from IBCSO v2 [@dorschelInternationalBathymetricChart2022]; land from Natural Earth (www.naturalearthdata.com).](images/fig-overviewmap.png){#fig-overviewmap width="116mm"}
+
+\newpage
 
 ```{r}
 #| label: fig-top6map
@@ -223,6 +250,8 @@ make_fig_top6map(read_obj("topsix_clim_class", type = "rast"))
 
 ```
 
+\newpage
+
 ```{r}
 #| label: fig-seaice
 #| fig-cap: "Distribution of sea ice coverage among sites, by predator cluster: (A) open water, (B) marginal ice, (C) pack ice. Dashed red line: median ice coverage."
@@ -233,6 +262,8 @@ make_fig_top6map(read_obj("topsix_clim_class", type = "rast"))
 
 make_fig_seaiceclust(read_obj("stations_clust"))
 ```
+
+\newpage
 
 ```{r}
 #| label: fig-predclustannual
@@ -247,6 +278,8 @@ make_fig_predclustannual(read_obj("stations_clust"),
 
 ```
 
+\newpage
+
 ```{r}
 #| label: fig-predclustkde
 #| fig-cap: "Geographic distribution of predator communities across years. Solid and dashed lines indicate the 50 and 95% contours of the kernel density estimate for each cluster, respectively, pooling sites from all years."
@@ -258,6 +291,8 @@ make_fig_predclustannual(read_obj("stations_clust"),
 make_fig_predclustkde(read_obj("stations_clust"))
 
 ```
+
+\newpage
 
 ```{r}
 #| label: fig-nmds
@@ -272,10 +307,6 @@ make_fig_nmds(read_obj("nmds_envfit"),
               read_obj("nmds_sightings"),
               read_obj("nmds_env"))
 ```
-
-# Acknowledgements
-
-<!-- The following line inserts a page break  -->
 
 \newpage
 
