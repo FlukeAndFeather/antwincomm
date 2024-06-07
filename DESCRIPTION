@@ -47,7 +47,6 @@ Imports:
     ggrepel,
     glue,
     here,
-    here,
     knitr,
     labdsv,
     lubridate,
