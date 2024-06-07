@@ -5,7 +5,7 @@
 \title{Create a figure with NMDS loadings
 years}
 \usage{
-make_fig_nmds(nmds_envfit, nmds_df)
+make_fig_nmds(nmds_envfit, nmds_df, nmds_sightings, nmds_env)
 }
 \value{
 ggplot object

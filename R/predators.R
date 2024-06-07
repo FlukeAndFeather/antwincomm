@@ -111,3 +111,34 @@ code_to_common <- function(species_code) {
     SPSK = "South polar skua",
     WESE = "Weddell seal")[species_code]
 }
+
+#' Convert species code to scientific name
+#'
+#' @param species_code 4-letter species codes (character vector)
+#'
+#' @return Species' scientific names
+#' @export
+code_to_scientific <- function(species_code) {
+  c(ADPN = "Pygoscelis adeliae",
+    ANFU = "Fulmarus glacialoides",
+    ANPT = "Thalassoica antarctica",
+    ANSH = "Leucocarbo bransfieldensis",
+    ANTE = "Sterna vittata",
+    BLPT = "Halobaena caerulea ",
+    CAPT = "Daption capense",
+    CRSE = "Lobodon carcinophagus",
+    ELSE = "Mirounga leonina",
+    EMPN = "Aptenodytes forsteri",
+    FUSE = "Arctocephalus gazella",
+    GEPN = "Pygoscelis papua",
+    KEGU = "Larus dominicanus",
+    KIWH = "Orcinus orca",
+    LESE = "Hydrurga leptonyx",
+    MIWH = "Balaenoptera bonaerensis",
+    PFSB = "Chionis albus",
+    ROSE = "Ommatophoca rossii",
+    SBWH = "Hyperoodon planifrons",
+    SGPT = "Macronectes giganteus",
+    SNPT = "Pagodroma nivea",
+    WESE = "Leptonychotes weddellii")[species_code]
+}
