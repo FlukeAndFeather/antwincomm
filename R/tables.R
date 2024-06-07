@@ -74,3 +74,38 @@ make_indicatortbl <- function(indval) {
   # Create table
     knitr::kable()
 }
+
+#' Create predator community frequency table
+#'
+#' Note: originally I implemented this using flextable output, but there's a bug
+#' involving flextable, docx output, and table captions. See
+#' https://github.com/quarto-dev/quarto-cli/issues/9922.
+#'
+#' @param stations_clust Station-level cluster data
+#'
+#' @return knitr::kable table
+#' @export
+make_commfreqtbl <- function(stations_clust) {
+  # Add a "total" row to the table
+  add_total_row <- function(df) {
+    total_row <- tibble(Year = "Total") %>%
+      cbind(summarize(df, across(-Year, sum)))
+    rbind(df, total_row)
+  }
+
+  # Format number of clusters as number and frequency
+  format_cluster <- function(c, t) {
+    str_glue("{c}\t{round(c / t * 100, 2)}")
+  }
+
+  stations_clust %>%
+    as_tibble() %>%
+    count(Year, pred_clust) %>%
+    pivot_wider(names_from = "pred_clust", values_from = "n") %>%
+    add_total_row() %>%
+    mutate(total = `Open water` + `Marginal ice` + `Pack ice`,
+           across(c("Open water", "Marginal ice", "Pack ice"),
+                  \(c) format_cluster(c, total))) %>%
+    select(-total) %>%
+    knitr::kable()
+}
