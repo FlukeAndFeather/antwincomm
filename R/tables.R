@@ -50,3 +50,27 @@ make_predatortbl <- function(predators, stations) {
     arrange(desc(Sites)) %>%
     knitr::kable()
 }
+
+#' Create indicator species table
+#'
+#' @param indval labdsv::indval Indicator value object
+#'
+#' @return knitr::kable table
+#' @export
+make_indicatortbl <- function(indval) {
+  indval_mtx <- indval$indval
+  cluster_names <- c("Pack ice", "Open water", "Marginal ice")
+
+  # Filter to species >-0.25, format nicely
+  apply(indval_mtx, 2, \(col) {
+    tibble(
+      `Indicator species` = code_to_common(names(col)[col >= 0.25]),
+      `Indicator value` = round(col[col >= 0.25], 2)
+    )
+  }) %>%
+    set_names(cluster_names) %>%
+    bind_rows(.id = "Predator cluster") %>%
+    arrange(`Predator cluster`, desc(`Indicator value`)) %>%
+  # Create table
+    knitr::kable()
+}

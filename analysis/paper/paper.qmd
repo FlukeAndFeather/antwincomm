@@ -242,6 +242,18 @@ make_predatortbl(read_obj("predators_stations"), read_obj("zoop_sf"))
 
 \newpage
 
+Note: the repeated cells in the first column of [@tbl-indicators] must be merged manually to produce the formatting seen in the published paper.
+
+```{r}
+#| label: tbl-indicators
+#| tbl-cap: "Indicator species for each predator cluster. Indicator values are the product of relative frequency and relative abundance, ranging from 0 to 1. Only species with indicator values ≥0.25 are shown for each cluster. See Methods for details."
+
+make_indicatortbl(read_obj("sightings_indval"))
+
+```
+
+\newpage
+
 # Figures
 
 ![Overview of study area. Circles indicate the locations of the US Antarctic Marine Living Resources (AMLR) station grid. Solid and dashed gray lines represent the 1000 and 2500 m isobaths, respectively. Not all stations were sampled every year. Inset indicates the location of the study area (red shading) relative to South America and the Antarctic Peninsula (BS: Bellingshausen Sea; WS: Weddell Sea). Bathymetry from IBCSO v2 [@dorschelInternationalBathymetricChart2022]; land from Natural Earth (www.naturalearthdata.com).](images/fig-overviewmap.png){#fig-overviewmap width="116mm"}
