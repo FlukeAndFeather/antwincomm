@@ -109,3 +109,56 @@ make_commfreqtbl <- function(stations_clust) {
     select(-total) %>%
     knitr::kable()
 }
+
+#' Create cluster x environment table
+#'
+#' @param stations_clust Station-level cluster data
+#'
+#' @return knitr::kable table
+#' @export
+make_clustenvtbl <- function(stations_clust) {
+  kw <- map(c("zuml_m", "avg.temp", "avg.salinity",
+              "Integ.chla.100m", "Integ.phae.100m"),
+            \(v) {
+              kw <- kruskal.test(stations_clust[[v]], stations_clust$pred_clust)
+              tibble(Variable = v, p = kw$p.value * 5)
+            }) %>%
+    list_rbind()
+
+  var_lbls <- c(
+    zuml_m = "UML depth (m)",
+    avg.temp = "Temperature (°C)",
+    avg.salinity = "Salinity (PSU)",
+    Integ.chla.100m = "Chl a (mg m−2)",
+    Integ.phae.100m = "Phaeopigment (mg m−2)"
+  )
+
+  format_val <- function(x) {
+    formatC(signif(x, digits = 3), digits = 3, format = "fg", flag = "#")
+  }
+
+  stations_clust %>%
+    as_tibble() %>%
+    group_by(pred_clust) %>%
+    summarize(
+      across(c(zuml_m, avg.temp, avg.salinity, Integ.chla.100m,
+               Integ.phae.100m),
+             list(mean = partial(mean, na.rm = TRUE),
+                  q1 = \(x) quantile(x, 0.25, na.rm = TRUE),
+                  q3 = \(x) quantile(x, 0.75, na.rm = TRUE)),
+             .names = "{.col}={.fn}")
+    ) %>%
+    pivot_longer(-pred_clust) %>%
+    separate_wider_delim(name, "=", names = c("Variable", "fn")) %>%
+    group_by(pred_clust, Variable) %>%
+    summarize(value = paste(format_val(value), collapse = "\t"),
+              .groups = "drop") %>%
+    pivot_wider(names_from = pred_clust, values_from = value) %>%
+    left_join(kw, by = "Variable") %>%
+    mutate(Variable = ifelse(p <= 0.05,
+                             str_glue("{var_lbls[Variable]} *"),
+                             var_lbls[Variable])) %>%
+    select(-p) %>%
+    slice(c(5, 4, 3, 1, 2)) %>%
+    knitr::kable()
+}

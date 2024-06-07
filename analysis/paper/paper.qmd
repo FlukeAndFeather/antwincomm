@@ -266,6 +266,18 @@ make_commfreqtbl(read_obj("stations_clust"))
 
 \newpage
 
+Note: an additional header row with "Mean", "Q1", and "Q3" columns must be created manually to produce the formatting seen in the published paper.
+
+```{r}
+#| label: tbl-clustenv
+#| tbl-cap: "Summary of environmental conditions associated with predator clusters. See Table 1 for descriptions of environmental variables. Environmental variables that differed significantly (p < 0.05) between clusters are indicated with an asterisk (Kruskal-Wallis test with Bonferroni correction)."
+
+make_clustenvtbl(read_obj("stations_clust"))
+
+```
+
+\newpage
+
 # Figures
 
 ![Overview of study area. Circles indicate the locations of the US Antarctic Marine Living Resources (AMLR) station grid. Solid and dashed gray lines represent the 1000 and 2500 m isobaths, respectively. Not all stations were sampled every year. Inset indicates the location of the study area (red shading) relative to South America and the Antarctic Peninsula (BS: Bellingshausen Sea; WS: Weddell Sea). Bathymetry from IBCSO v2 [@dorschelInternationalBathymetricChart2022]; land from Natural Earth (www.naturalearthdata.com).](images/fig-overviewmap.png){#fig-overviewmap width="116mm"}
@@ -336,6 +348,9 @@ make_fig_predclustkde(read_obj("stations_clust"))
 #| out-width: 169mm
 #| out-height: 100mm
 
+# The NMDS figure is slightly stochastic, so setting the seed prevents minor 
+# changes each time we render the paper
+set.seed(1053)
 make_fig_nmds(read_obj("nmds_envfit"),
               read_obj("nmds_df"),
               read_obj("nmds_sightings"),
@@ -352,3 +367,4 @@ make_fig_nmds(read_obj("nmds_envfit"),
 :::
 
 \newpage
+
