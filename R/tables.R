@@ -162,3 +162,52 @@ make_clustenvtbl <- function(stations_clust) {
     slice(c(5, 4, 3, 1, 2)) %>%
     knitr::kable()
 }
+
+#' Create predator-prey contingency table
+#'
+#' @param stations_clust Station-level cluster data
+#'
+#' @return knitr::kable table
+#' @export
+make_predpreytbl <- function(stations_clust) {
+  pred_prey_chisq <- with(stations_clust,
+                          chisq.test(pred_clust,
+                                     `Winter Cluster factor`,
+                                     simulate.p.value = TRUE))
+
+  pred_prey_table <- with(stations_clust,
+                          table(pred_clust,
+                                `Winter Cluster factor`))
+  posthoc <- chisq.posthoc.test::chisq.posthoc.test(
+    pred_prey_table,
+    simulate.p.value = TRUE
+  ) %>%
+    pivot_longer(-c(Dimension, Value),
+                 names_to = "zoop_clust",
+                 values_to = "value") %>%
+    pivot_wider(names_from = "Value") %>%
+    rename("Predator cluster" = Dimension,
+           "Zooplankton cluster" = zoop_clust,
+           p = `p values`) %>%
+    select(-Residuals)
+
+  expand_grid(
+    `Predator cluster` = levels(stations_clust$pred_clust),
+    `Zooplankton cluster` = unique(stations_clust$`Winter Cluster factor`)
+  ) %>%
+    mutate(
+      observed = pred_prey_chisq$observed[cbind(`Predator cluster`,
+                                                `Zooplankton cluster`)],
+      expected = pred_prey_chisq$expected[cbind(`Predator cluster`,
+                                                `Zooplankton cluster`)]
+    ) %>%
+    left_join(posthoc, by = c("Predator cluster", "Zooplankton cluster")) %>%
+    mutate(
+      signif = ifelse(p <= 0.05, "*", ""),
+      label = str_glue("{observed}{signif}\t{round(expected, 1)}{signif}")
+    ) %>%
+    pivot_wider(id_cols = `Predator cluster`,
+                names_from = `Zooplankton cluster`,
+                values_from = label) %>%
+    knitr::kable()
+}

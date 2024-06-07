@@ -278,7 +278,19 @@ make_clustenvtbl(read_obj("stations_clust"))
 
 \newpage
 
+```{r}
+#| label: tbl-predprey
+#| tbl-cap: "Contingency table of predator and macrozooplankton clusters. Macrozooplankton cluster names (1, 2a, 2b, 3a, 3b) from @dietrich2021winter. Significant differences (p < 0.05) are indicated in bold with asterisks (post hoc analysis of the Pearson residuals)."
+
+make_predpreytbl(read_obj("stations_clust"))
+
+```
+
+\newpage
+
 # Figures
+
+<!-- Figure 1 was created using QGIS -->
 
 ![Overview of study area. Circles indicate the locations of the US Antarctic Marine Living Resources (AMLR) station grid. Solid and dashed gray lines represent the 1000 and 2500 m isobaths, respectively. Not all stations were sampled every year. Inset indicates the location of the study area (red shading) relative to South America and the Antarctic Peninsula (BS: Bellingshausen Sea; WS: Weddell Sea). Bathymetry from IBCSO v2 [@dorschelInternationalBathymetricChart2022]; land from Natural Earth (www.naturalearthdata.com).](images/fig-overviewmap.png){#fig-overviewmap width="116mm"}
 
@@ -367,4 +379,3 @@ make_fig_nmds(read_obj("nmds_envfit"),
 :::
 
 \newpage
-

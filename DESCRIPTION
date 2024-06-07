@@ -37,6 +37,7 @@ Description: The Antarctic Peninsula marine ecosystem is highly
     region.
 License: MIT + file LICENSE
 Imports:
+    chisq.posthoc.test,
     cluster,
     devtools,
     dplyr,
