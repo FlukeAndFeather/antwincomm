@@ -20,7 +20,7 @@ Title <- "Sea-ice and macrozooplankton distribution as determinants of top preda
 
 This repository contains the code for our paper:
 
-> Czapanskiy MF, Santora JA, Dietrich KS, Cimino MA, Hazen EL, Reiss CS, Veit RR (2024). _`r Title`_. Marine Ecology Progress Series <https://doi.org/xxx/xxx>
+> Czapanskiy MF, Santora JA, Dietrich KS, Cimino MA, Hazen EL, Reiss CS, Veit RR (2024). _`r Title`_. Marine Ecology Progress Series <https://doi.org/10.3354/meps14609>
 
 ### How to cite
 
@@ -39,10 +39,8 @@ The **analysis** directory contains:
     and tables in this file)
   - [:file\_folder: figures](/analysis/figures): Plots and other
     illustrations
-  - [:file\_folder:
-    supplementary-materials](/analysis/supplementary-materials):
-    Supplementary materials including notes and other documents
-    prepared and collected during the analysis.
+  - [:file\_folder: scripts](/analysis/scripts): R scripts for processing data and performing the analysis
+  - [:file\_folder: data](/analysis/data): Raw and derived data
 
 ## How to download and run locally
 
@@ -56,7 +54,9 @@ You can download the compendium as a zip from from this URL:
 - open the `.Rproj` file in RStudio
 - run `devtools::install()` to ensure you have the packages this analysis depends on (also listed in the
 [DESCRIPTION](/DESCRIPTION) file).
-- finally, open `analysis/paper/paper.Rmd` and knit to produce the `paper.docx`, or run `rmarkdown::render("analysis/paper/paper.qmd")` in the R console
+- download the raw data (see [/analysis/data/raw_data/README.md](/analysis/data/raw_data/README.md))
+- run all the data processing and analysis scripts (run [/analysis/scripts/_make_all.R](/analysis/scripts/_make_all.R))
+- finally, open `analysis/paper/paper.Rmd` and knit to produce the `paper.docx`
 
 ### Licenses
 

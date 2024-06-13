@@ -10,7 +10,7 @@ This repository contains the code for our paper:
 > Czapanskiy MF, Santora JA, Dietrich KS, Cimino MA, Hazen EL, Reiss CS,
 > Veit RR (2024). *Sea-ice and macrozooplankton distribution as
 > determinants of top predator community structure in Antarctic winter*.
-> Marine Ecology Progress Series <https://doi.org/xxx/xxx>
+> Marine Ecology Progress Series <https://doi.org/10.3354/meps14609>
 
 ### How to cite
 
@@ -19,7 +19,7 @@ Please cite this compendium as:
 > Czapanskiy MF, Santora JA, Dietrich KS, Cimino MA, Hazen EL, Reiss CS,
 > Veit RR (2024). (2024). *Compendium of R code for Sea-ice and
 > macrozooplankton distribution as determinants of top predator
-> community structure in Antarctic winter*. Accessed 30 May 2024. Online
+> community structure in Antarctic winter*. Accessed 13 Jun 2024. Online
 > at <https://doi.org/10.5281/zenodo.11397472>
 
 ## Contents
@@ -33,10 +33,9 @@ The **analysis** directory contains:
   and tables in this file)
 - [:file_folder: figures](/analysis/figures): Plots and other
   illustrations
-- [:file_folder:
-  supplementary-materials](/analysis/supplementary-materials):
-  Supplementary materials including notes and other documents prepared
-  and collected during the analysis.
+- [:file_folder: scripts](/analysis/scripts): R scripts for processing
+  data and performing the analysis
+- [:file_folder: data](/analysis/data): Raw and derived data
 
 ## How to download and run locally
 
@@ -50,9 +49,12 @@ You can download the compendium as a zip from from this URL:
 [main.zip](/archive/main.zip). After unzipping: - open the `.Rproj` file
 in RStudio - run `devtools::install()` to ensure you have the packages
 this analysis depends on (also listed in the [DESCRIPTION](/DESCRIPTION)
-file). - finally, open `analysis/paper/paper.Rmd` and knit to produce
-the `paper.docx`, or run `rmarkdown::render("analysis/paper/paper.qmd")`
-in the R console
+file). - download the raw data (see
+[/analysis/data/raw_data/README.md](/analysis/data/raw_data/README.md)) -
+run all the data processing and analysis scripts (run
+[/analysis/scripts/\_make_all.R](/analysis/scripts/_make_all.R)) -
+finally, open `analysis/paper/paper.Rmd` and knit to produce the
+`paper.docx`
 
 ### Licenses
 
