@@ -211,3 +211,35 @@ make_tbl_nmdsdetail <- function(nmds_envfit) {
   rbind(vector_tbl, factor_tbl) %>%
     knitr::kable()
 }
+
+#' Make a species climatology figure
+#'
+#' @param pred_class_df Predator climatologies, with binned densities
+#' @param keep Which species to include
+#'
+#' @return ggplot
+#' @export
+make_fig_predclim <- function(pred_class_df, keep, nrow) {
+  species_df <- filter(pred_class_df, name %in% keep)
+
+  ant_sf <- read_obj("ant_sf")
+  map_bbox <- terra::ext(-63, -54, -64, -59) %>%
+    terra::project(from = "+proj=longlat +datum=WGS84",
+                   to = as.character(ant_proj())[[1]])
+  ant_basemap() +
+    geom_raster(aes(x, y, fill = count), species_df) +
+    geom_sf(data = ant_sf) +
+    scale_fill_brewer(palette = "RdPu",
+                      na.value = NA,
+                      direction = 1,
+                      na.translate = FALSE) +
+    scale_x_continuous(breaks = seq(-64, -54, by = 4)) +
+    scale_y_continuous(breaks = seq(-64, -59, by = 2)) +
+    labs(fill = expression("Ind km"^-1)) +
+    facet_wrap(~ name, nrow = nrow) +
+    coord_sf(xlim = map_bbox[1:2],
+             ylim = map_bbox[3:4],
+             crs = ant_proj()) +
+    theme(legend.position = "top",
+          text = element_text(size = 10))
+}
