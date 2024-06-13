@@ -93,6 +93,7 @@ predators_stations <- predators_sf %>%
   assign_sightings(zoop_sf, max_dist_km = 15, max_days = 3) %>%
   normalize_counts(station_effort) %>%
   filter_species(station_thr = 0.00)
+save_obj(station_effort, "station_effort")
 save_obj(stations_ice, "stations_ice")
 save_obj(predators_stations, "predators_stations")
 

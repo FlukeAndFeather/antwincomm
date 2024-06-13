@@ -59,6 +59,14 @@ execute:
   message: false
   comment: "#>"
   fig-dpi: 600
+crossref:
+  custom:
+    - kind: float
+      key: supptbl
+      reference-prefix: Table S
+      latex-env: supptbl
+      space-before-numbering: false
+      caption-location: top
 knitr:
   opts_chunk: 
     dev: # Output figures as .png and .eps 
@@ -164,9 +172,9 @@ We used linear regression to quantify the relationship between the retained NMDS
 
 ## Visual surveys
 
-During the 5 survey years, we sighted a total of 22 species of seabirds and marine mammals ([@tbl-predators]). The most abundant species were snow petrels, Adélie penguins, and Antarctic fur seals. The most widespread species observed were snow petrels, Antarctic petrels, and southern giant petrels. The 6 most abundant species (total individuals observed in @tbl-predators) averaged across years were widely distributed across the study region, although densities varied by species ([@fig-top6map]). Distribution maps of all seabird (Fig. S1) and marine mammal species (Fig. S2) are provided in the Supplement. We observed predators in proximity (15 km, 3 d) to 245 sampling stations, ranging from 19 stations in 2012 to 68 stations in 2014. Each station was associated with 30.2 ± 10.3 km (mean ± SD) of visual survey effort (Table S1).
+During the 5 survey years, we sighted a total of 22 species of seabirds and marine mammals ([@tbl-predators]). The most abundant species were snow petrels, Adélie penguins, and Antarctic fur seals. The most widespread species observed were snow petrels, Antarctic petrels, and southern giant petrels. The 6 most abundant species (total individuals observed in @tbl-predators) averaged across years were widely distributed across the study region, although densities varied by species ([@fig-top6map]). Distribution maps of all seabird (Fig. S1) and marine mammal species (Fig. S2) are provided in the Supplement. We observed predators in proximity (15 km, 3 d) to 245 sampling stations, ranging from 19 stations in 2012 to 68 stations in 2014. Each station was associated with 30.2 ± 10.3 km (mean ± SD) of visual survey effort ([@supptbl-effortice]).
 
-With the exception of 2012, when sampling was most limited, ice conditions observed during visual surveys exhibited more interannual variability in type (multi-year ice, first-year ice, thin ice, open water) than percent coverage. In 2012, surveys were restricted to the northernmost part of the survey region, and open water was the most common type (93.3%). In the other survey years, the most common ice type was thin ice (2013, 2015, and 2016) or first-year ice (2014) (Table S1). Ice coverage was relatively consistent within ice types across years. Overall, sites categorized as open water had ice coverage of 6.4 ± 1.6%; thin ice and first-year ice sites had coverage of 55.6 ± 3.2 and 57.0 ± 3.2% (mean ± SE) (Table S1).
+With the exception of 2012, when sampling was most limited, ice conditions observed during visual surveys exhibited more interannual variability in type (multi-year ice, first-year ice, thin ice, open water) than percent coverage. In 2012, surveys were restricted to the northernmost part of the survey region, and open water was the most common type (93.3%). In the other survey years, the most common ice type was thin ice (2013, 2015, and 2016) or first-year ice (2014) ([@supptbl-effortice]). Ice coverage was relatively consistent within ice types across years. Overall, sites categorized as open water had ice coverage of 6.4 ± 1.6%; thin ice and first-year ice sites had coverage of 55.6 ± 3.2 and 57.0 ± 3.2% (mean ± SE) ([@supptbl-effortice]).
 
 ## Predator clusters
 
@@ -217,7 +225,7 @@ We are grateful for the diligent work by the field personnel who made these surv
 <!-- Note: cross-referencing a table breaks column alignment. See https://github.com/quarto-dev/quarto-cli/issues/8970 -->
 
 | Variable                   | Description and units                                                                                                                                                                                                                                                                                                 | Collection location |
-|:---------|:---------------------------------------------------|:---------|
+|:----------------|:--------------------------------------|:----------------|
 | UML depth                  | Depth at which the density differed by 0.05 kg m^−3^ from the average density of the upper 10 m of the water column [@mitchell1991] \[meters\]                                                                                                                                                                        | Station             |
 | Temperature                | Average UML temperature \[°C\]                                                                                                                                                                                                                                                                                        | Station             |
 | Salinity                   | Average UML salinity \[PSU\]                                                                                                                                                                                                                                                                                          | Station             |
@@ -368,6 +376,25 @@ make_fig_nmds(read_obj("nmds_envfit"),
               read_obj("nmds_sightings"),
               read_obj("nmds_env"))
 ```
+
+\newpage
+
+# Supplemental material
+
+## Supplemental tables
+
+Note: an additional header row with "Survey effort" and "Ice conditions" must be created manually to produce the formatting seen in the published paper.
+
+::: {#supptbl-effortice}
+```{r}
+make_tbl_effortice(read_obj("stations_ice"), 
+                   read_obj("station_effort"), 
+                   read_obj("predators_stations"))
+
+```
+
+Survey effort and ice conditions by year. Under **Survey effort**, **Stations sampled** and **Effort per station** indicate how many stations were sampled in that year and the amount of visual survey effort associated with each station (summarized as mean ± standard deviation). Under **Ice conditions**, each column describes a different ice category, indicating the number of stations and the ice coverage (summarized as mean ± standard error). Note: some visual surveys did not record ice conditions, so the total number of stations under **Ice conditions** may not equal the **Stations sampled**.
+:::
 
 \newpage
 
