@@ -65,3 +65,65 @@ make_tbl_effortice <- function(stations_ice, station_effort, predators_stations)
   cbind(effort, ice) %>%
     knitr::kable()
 }
+
+make_tbl_densfreq <- function(predators_clust, stations_clust, station_effort) {
+  # Density/frequency by cluster
+  # Effort
+  effort_by_clust <- as_tibble(stations_clust) %>%
+    left_join(station_effort, by = "amlr.station") %>%
+    select(amlr.station, pred_clust, survey_km) %>%
+    group_by(pred_clust) %>%
+    summarize(survey_km = sum(survey_km),
+              n_station = n())
+  # Species
+  species_by_clust <- predators_clust %>%
+    group_by(Species = species, pred_clust) %>%
+    summarize(count = sum(count),
+              n_present = n(),
+              .groups = "drop")
+  # Combined
+  fmt_densfreq <- function(d, f) {
+    case_when(
+      f == 0 ~ "0.000 (0.0%)",
+      f > 0 & d < 0.001 ~ sprintf("<0.001 (%0.1f%%)", f * 100),
+      TRUE ~ sprintf("%0.3f (%0.1f%%)", d, f * 100)
+    )
+  }
+  densfreq_by_clust <- species_by_clust %>%
+    complete(Species, pred_clust, fill = list(count = 0,
+                                              survey_km = 1,
+                                              n_present = 0)) %>%
+    left_join(effort_by_clust, by = "pred_clust") %>%
+    mutate(density = count / survey_km,
+           freq = n_present / n_station,
+           pred = fmt_densfreq(density, freq)) %>%
+    select(Species, pred_clust, pred) %>%
+    pivot_wider(names_from = pred_clust,
+                values_from = pred)
+
+  # Density/frequency overall
+  # Effort
+  effort_total <- summarize(effort_by_clust,
+                            survey_km = sum(survey_km),
+                            n_station = sum(n_station))
+  # Species
+  species_total <- species_by_clust %>%
+    group_by(Species) %>%
+    summarize(count = sum(count),
+              n_present = sum(n_present))
+  # Combined
+  densfreq_total <- species_total %>%
+    cbind(effort_total) %>%
+    mutate(density = count / survey_km,
+           freq = n_present / n_station,
+           `All clusters` = fmt_densfreq(density, freq)) %>%
+    arrange(desc(density)) %>%
+    select(Species, `All clusters`)
+
+  # By cluster and overall together
+  densfreq_total %>%
+    left_join(densfreq_by_clust, by = "Species") %>%
+    relocate(`All clusters`, .after = last_col()) %>%
+    mutate(Species = code_to_common(Species)) %>%
+    knitr::kable()
+}

@@ -182,7 +182,7 @@ We retained 3 predator clusters from the hierarchical analysis, which we refer t
 
 The marginal ice community had the greatest number of indicator species (6) and the highest indicator values (Antarctic fur seals: 0.84; snow petrels: 0.48). The highest indicator value in the open water cluster belonged to southern fulmars (0.42), closely followed by 4 other species of petrels. The marginal ice and open water clusters shared 3 indicator species: snow petrel, Antarctic petrel, and southern giant petrel. The pack ice cluster had only 2 indicator species: Adélie penguins (0.37) and crabeater seals (0.30).
 
-Predator densities varied among clusters (Table S2). Snow petrels and Adélie penguins had the greatest overall density across clusters (1.665 and 1.153 ind. km^–1^, respectively), though their densities were greatest in the marginal ice zone (3.116 and 4.036 ind. km^–1^, respectively). Other abundant predators in the marginal ice zone included Antarctic fur seals (2.892 ind. km^–1^), crabeater seals (0.437 ind. km^–1^), Antarctic petrels (0.258 ind. km^–1^), and kelp gulls (0.158 ind. km^–1^). Antarctic fur seals and snow petrels were ubiquitous in the marginal ice cluster (observed at 100.0 and 96.3% of sites, respectively). Despite their high densities, Adélie penguins were only observed at 42.6% of sites in the marginal ice cluster (compared to 67.9% of pack ice sites).
+Predator densities varied among clusters ([@supptbl-densfreq]). Snow petrels and Adélie penguins had the greatest overall density across clusters (1.665 and 1.153 ind. km^–1^, respectively), though their densities were greatest in the marginal ice zone (3.116 and 4.036 ind. km^–1^, respectively). Other abundant predators in the marginal ice zone included Antarctic fur seals (2.892 ind. km^–1^), crabeater seals (0.437 ind. km^–1^), Antarctic petrels (0.258 ind. km^–1^), and kelp gulls (0.158 ind. km^–1^). Antarctic fur seals and snow petrels were ubiquitous in the marginal ice cluster (observed at 100.0 and 96.3% of sites, respectively). Despite their high densities, Adélie penguins were only observed at 42.6% of sites in the marginal ice cluster (compared to 67.9% of pack ice sites).
 
 Crabeater seals and Adélie penguins were the most abundant predators in the pack ice cluster (1.380 and 0.948 ind. km^–1^), followed by snow petrels (0.463 ind. km^–1^), Antarctic petrels (0.177 ind. km^–1^), Antarctic fur seals (0.121 ind. km^–1^), and kelp gulls (0.108 ind. km^–1^). Whereas 5 species were observed at 70% or more of the marginal ice sites, only snow petrels (92.5%) were observed at 70% or more of the pack ice sites. Predator densities were lower in the open water cluster. The most abundant predators, snow petrels (1.554 ind. km^–1^) and Antarctic petrels (0.404 ind. km^–1^), were also the most prevalent (95.7 and 92.8% of sites, respectively). Antarctic fulmars (0.240 ind. km^–1^, 59.4% of sites) and blue petrels (0.125 ind. km^–1^, 32.6% of sites) were observed in greater densities and at higher frequencies in the open water cluster than other clusters. Cape petrels were observed with greater frequency in the open water cluster (47.8% of sites) than the marginal ice (20.4%) and pack ice (13.2%), but their densities were greater in the marginal ice (0.116 ind. km^–1^) than the open water (0.084 ind. km^–1^) cluster.
 
@@ -394,6 +394,19 @@ make_tbl_effortice(read_obj("stations_ice"),
 ```
 
 Survey effort and ice conditions by year. Under **Survey effort**, **Stations sampled** and **Effort per station** indicate how many stations were sampled in that year and the amount of visual survey effort associated with each station (summarized as mean ± standard deviation). Under **Ice conditions**, each column describes a different ice category, indicating the number of stations and the ice coverage (summarized as mean ± standard error). Note: some visual surveys did not record ice conditions, so the total number of stations under **Ice conditions** may not equal the **Stations sampled**.
+:::
+
+\newpage
+
+::: {#supptbl-densfreq}
+```{r}
+make_tbl_densfreq(read_obj("predators_clust"), 
+                  read_obj("stations_clust"), 
+                  read_obj("station_effort"))
+
+```
+
+Density (ind km^-1^) and frequency (% sites present) of predators within and across clusters. See @tbl-predators for scientific names. Note: we removed sites with no observed predators from the cluster analysis, so the frequencies in the **All clusters** column are greater than the frequencies in @tbl-predators (which included sites without predators).
 :::
 
 \newpage
