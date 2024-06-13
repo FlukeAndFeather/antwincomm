@@ -11,14 +11,11 @@ read_zoop <- function(zoop_path) {
 
   read_csv(zoop_path, show_col_types = FALSE) %>%
     mutate(sun_angle = sun_angle(start.time.UTC, dec.longitude, dec.latitude),
-           time.of.day = cut(sun_angle,
-                             c(-Inf, -18, 0, Inf),
-                             labels = c("Night", "Twilight", "Day"))) %>%
+           time.of.day = factor(ifelse(sun_angle > -6, "Day", "Night"))) %>%
     filter(leg == "W")
 }
 
 tod_pal <- function() {
   c(Day = "gold",
-    Twilight = "violet",
     Night = "darkblue")
 }

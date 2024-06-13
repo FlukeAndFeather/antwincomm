@@ -190,7 +190,7 @@ The open water community was observed most frequently (56.3% of sites), followed
 
 ## Environmental determinants of community structure
 
-We retained 3 NMDS axes for investigating the relationships between the environment and community structure of predators (stress = 0.135). Two variables, sampling year and ice coverage, were significantly correlated with the ordination scores (p = 0.002 and 0.013, respectively), although the effect size was small (r^2^ = 0.061 and 0.054, respectively; [@tbl-indicators]; see Table S3 for the coefficient, r^2^, and p-values of the environmental fit regression). The pack ice cluster occupied a wide range of values on NMDS axis 1, overlapping with the other 2 clusters ([@fig-nmds]). The marginal ice and open water clusters were well separated by NMDS axis 2.
+We retained 3 NMDS axes for investigating the relationships between the environment and community structure of predators (stress = 0.135). Two variables, sampling year and ice coverage, were significantly correlated with the ordination scores (p = 0.002 and 0.013, respectively), although the effect size was small (r^2^ = 0.061 and 0.054, respectively; [@tbl-indicators]; see [@supptbl-nmds] for the coefficient, r^2^, and p-values of the environmental fit regression). The pack ice cluster occupied a wide range of values on NMDS axis 1, overlapping with the other 2 clusters ([@fig-nmds]). The marginal ice and open water clusters were well separated by NMDS axis 2.
 
 The predator clusters differed in temperature, salinity, and chl *a*, but not by mixed layer depth or phaeopigment ([@tbl-clustenv]). Relative to the open water community, the pack ice community was associated with colder, more saline water with lower chl *a* concentrations. The marginal ice community occupied intermediate habitats.
 
@@ -407,6 +407,17 @@ make_tbl_densfreq(read_obj("predators_clust"),
 ```
 
 Density (ind km^-1^) and frequency (% sites present) of predators within and across clusters. See @tbl-predators for scientific names. Note: we removed sites with no observed predators from the cluster analysis, so the frequencies in the **All clusters** column are greater than the frequencies in @tbl-predators (which included sites without predators).
+:::
+
+\newpage
+
+::: {#supptbl-nmds}
+```{r}
+make_tbl_nmdsdetail(read_obj("nmds_envfit"))
+
+```
+
+Direction cosines along the reduced dimensions (NMDS axes 1-3), goodness of fit ($r^2$), and significance ($p$) of the multiple regression analysis of environmental variables with respect to non-metric multidimensional scaling ordination scores. For descriptions of environmental variables, see [@tbl-envvar]. Statistically significant variables indicated with asterisk.
 :::
 
 \newpage

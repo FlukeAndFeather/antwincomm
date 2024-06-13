@@ -66,6 +66,14 @@ make_tbl_effortice <- function(stations_ice, station_effort, predators_stations)
     knitr::kable()
 }
 
+#' Make a table summarizing density and frequency of predators by cluster
+#'
+#' @param predators_clust Predator-level cluster data
+#' @param stations_clust Station-level cluster data
+#' @param station_effort Station-level effort data
+#'
+#' @return knitr::knitr_kable
+#' @export
 make_tbl_densfreq <- function(predators_clust, stations_clust, station_effort) {
   # Density/frequency by cluster
   # Effort
@@ -125,5 +133,81 @@ make_tbl_densfreq <- function(predators_clust, stations_clust, station_effort) {
     left_join(densfreq_by_clust, by = "Species") %>%
     relocate(`All clusters`, .after = last_col()) %>%
     mutate(Species = code_to_common(Species)) %>%
+    knitr::kable()
+}
+
+#' Make a table summarizing NMDS ordinations fit to environmental data
+#'
+#' @param nmds_envfit vegan::envfit
+#'
+#' @return knitr::knitr_kable
+#' @export
+make_tbl_nmdsdetail <- function(nmds_envfit) {
+  vector_lbls <- c(
+    zuml_m = "Mixed layer depth",
+    avg.temp = "Temperature",
+    avg.salinity = "Salinity",
+    Integ.chla.100m = "Chl _a_",
+    Integ.phae.100m = "Phaeopigment",
+    ice_coverage = "Ice coverage"
+  )
+  vector_tbl <- with(nmds_envfit$vectors,
+                     cbind(arrows,
+                           `_r^2^_` = r,
+                           `_p_` = pvals)) %>%
+    as_tibble(rownames = "Variables") %>%
+    mutate(Variables = paste0(vector_lbls[Variables],
+                              ifelse(`_p_` < 0.05, "*", "")),
+           across(-Variables, \(x) sprintf("%0.3f", x)))
+
+#' Title
+#'
+#' @param varid
+#' @param var_name
+#' @param fct_names
+#'
+#' @return
+#' @export
+#'
+#' @examples
+  reformat_factor <- function(varid, var_name, fct_names) {
+    centroids <- nmds_envfit$factors$centroids %>%
+      as_tibble(rownames = "Variables") %>%
+      filter(str_starts(Variables, varid)) %>%
+      mutate(Variables = paste0("\t", fct_names),
+             across(-Variables, \(x) sprintf("%0.3f", x)))
+    p <- nmds_envfit$factors$pvals[varid]
+    r2 <- nmds_envfit$factors$r[varid]
+    factor_tbl <- tibble(
+      Variables = paste0(var_name, ifelse(p < 0.05, "*", "")),
+      `_r^2^_` = sprintf("%0.3f", r2),
+      `_p_` = sprintf("%0.3f", p)
+    ) %>%
+      bind_rows(centroids) %>%
+      relocate(starts_with("NMDS"), .after = Variables)
+    factor_tbl[is.na(factor_tbl)] <- ""
+    factor_tbl
+  }
+
+  factor_tbl <- pmap(
+    list(
+      varid = c("time.of.day",
+                "Year",
+                "zoop_clust",
+                "ice_type"),
+      var_name = c("Time of day",
+                   "Year",
+                   "Macrozooplankton cluster",
+                   "Ice type"),
+      fct_names = list(time.of.day = c("Day", "Night"),
+                       Year = as.character(2012:2016),
+                       zoop_clust = c("1", "2a", "2b", "3a", "3b"),
+                       ice_type = c("Open", "Thin", "First-year", "Multi-year"))
+    ),
+    reformat_factor
+  ) %>%
+    bind_rows()
+
+  rbind(vector_tbl, factor_tbl) %>%
     knitr::kable()
 }
